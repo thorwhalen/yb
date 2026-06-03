@@ -1,0 +1,4 @@
+yb.youtube.publish
+==================
+.. automodule:: yb.youtube.publish
+   :members:

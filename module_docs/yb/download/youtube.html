@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.download.youtube &mdash; yb 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="yb.podcast" href="../podcast.html" />
+    <link rel="prev" title="yb.download" href="../download.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.download.youtube</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DEFAULT_OUTTMPL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_OUTTMPL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DOWNLOAD_DIR_ENV"><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_DIR_ENV</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.download.youtube.DownloadResult.path"><code class="docutils literal notranslate"><span class="pre">DownloadResult.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.download.youtube.DownloadResult.info"><code class="docutils literal notranslate"><span class="pre">DownloadResult.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.download.youtube.DownloadResult.sidecars"><code class="docutils literal notranslate"><span class="pre">DownloadResult.sidecars</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.download.youtube.DownloadResult.video_id"><code class="docutils literal notranslate"><span class="pre">DownloadResult.video_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.glob_escape"><code class="docutils literal notranslate"><span class="pre">glob_escape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/publish.html">yb.youtube.publish</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.download.youtube</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/yb/download/youtube.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.download.youtube">
+<span id="yb-download-youtube"></span><h1>yb.download.youtube<a class="headerlink" href="#module-yb.download.youtube" title="Link to this heading"></a></h1>
+<p>Download YouTube videos (and their metadata) via yt-dlp.</p>
+<p>The common case is one call — <code class="docutils literal notranslate"><span class="pre">download_youtube_video(url)</span></code> — which fetches
+the best video+audio into <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code> as <code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">(video_id).mp4</span></code>. Every
+knob (destination, format, filename template, and which sidecar metadata to
+also save) is overridable, and any raw yt-dlp option can be passed through.</p>
+<p>The destination defaults to <code class="docutils literal notranslate"><span class="pre">$YB_DOWNLOAD_DIR</span></code> when set, else <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.download.youtube.DEFAULT_OUTTMPL">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_OUTTMPL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(title)s</span> <span class="pre">(%(id)s).%(ext)s'</span></span><a class="headerlink" href="#yb.download.youtube.DEFAULT_OUTTMPL" title="Link to this definition"></a></dt>
+<dd><p>human title plus the stable id, e.g. “My Talk (dQw4…).mp4”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>yt-dlp output template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.download.youtube.DOWNLOAD_DIR_ENV">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">DOWNLOAD_DIR_ENV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'YB_DOWNLOAD_DIR'</span></span><a class="headerlink" href="#yb.download.youtube.DOWNLOAD_DIR_ENV" title="Link to this definition"></a></dt>
+<dd><p>Env var that overrides the default download directory.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.download.youtube.DownloadResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">DownloadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">~pathlib.Path,</span> <span class="pre">info:</span> <span class="pre">dict[str,</span> <span class="pre">~typing.Any],</span> <span class="pre">sidecars:</span> <span class="pre">dict[str,</span> <span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#DownloadResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.DownloadResult" title="Link to this definition"></a></dt>
+<dd><p>Outcome of a download.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.download.youtube.DownloadResult.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#yb.download.youtube.DownloadResult.path" title="Link to this definition"></a></dt>
+<dd><p>The downloaded media file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.download.youtube.DownloadResult.info">
+<span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#yb.download.youtube.DownloadResult.info" title="Link to this definition"></a></dt>
+<dd><p>A trimmed metadata dict (see <code class="xref py py-data docutils literal notranslate"><span class="pre">_INFO_FIELDS</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.download.youtube.DownloadResult.sidecars">
+<span class="sig-name descname"><span class="pre">sidecars</span></span><a class="headerlink" href="#yb.download.youtube.DownloadResult.sidecars" title="Link to this definition"></a></dt>
+<dd><p>Map of extra artifacts written (<code class="docutils literal notranslate"><span class="pre">info_json</span></code>, <code class="docutils literal notranslate"><span class="pre">thumbnail</span></code>,
+<code class="docutils literal notranslate"><span class="pre">description</span></code>, <code class="docutils literal notranslate"><span class="pre">subtitles</span></code> → path(s)).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="yb.download.youtube.DownloadResult.video_id">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">video_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yb.download.youtube.DownloadResult.video_id" title="Link to this definition"></a></dt>
+<dd><p>The YouTube video id.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download.youtube.default_download_dir">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">default_download_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#default_download_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.default_download_dir" title="Link to this definition"></a></dt>
+<dd><p>Resolve the default download directory (<code class="docutils literal notranslate"><span class="pre">$YB_DOWNLOAD_DIR</span></code> or <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download.youtube.download_youtube_video">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">download_youtube_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bestvideo+bestaudio/best'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mp4'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename_template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%(title)s</span> <span class="pre">(%(id)s).%(ext)s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_info_json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_auto_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtitle_langs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('en',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.download.youtube.DownloadResult" title="yb.download.youtube.DownloadResult"><span class="pre">DownloadResult</span></a></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#download_youtube_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.download_youtube_video" title="Link to this definition"></a></dt>
+<dd><p>Download a YouTube video to <code class="docutils literal notranslate"><span class="pre">download_dir</span></code> (default <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>).</p>
+<p>Simplest use: <code class="docutils literal notranslate"><span class="pre">download_youtube_video(url)</span></code> → best quality merged to mp4,
+named <code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">(video_id).mp4</span></code> in <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – The video URL (or id).</p></li>
+<li><p><strong>download_dir</strong> – Destination directory. Defaults to
+<a class="reference internal" href="#yb.download.youtube.default_download_dir" title="yb.download.youtube.default_download_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a>.</p></li>
+<li><p><strong>fmt</strong> – yt-dlp format selector (default best video + best audio).</p></li>
+<li><p><strong>merge_to</strong> – Container to merge video+audio into (default <code class="docutils literal notranslate"><span class="pre">&quot;mp4&quot;</span></code>;
+requires ffmpeg). Set <code class="docutils literal notranslate"><span class="pre">None</span></code> to keep yt-dlp’s default.</p></li>
+<li><p><strong>filename_template</strong> – yt-dlp output template (default
+<code class="docutils literal notranslate"><span class="pre">&quot;%(title)s</span> <span class="pre">(%(id)s).%(ext)s&quot;</span></code>).</p></li>
+<li><p><strong>write_info_json</strong> – Also save the full metadata as <code class="docutils literal notranslate"><span class="pre">*.info.json</span></code>.</p></li>
+<li><p><strong>write_thumbnail</strong> – Also save the thumbnail image.</p></li>
+<li><p><strong>write_description</strong> – Also save the description as <code class="docutils literal notranslate"><span class="pre">*.description</span></code>.</p></li>
+<li><p><strong>write_subtitles</strong> – Also save uploaded subtitles for <code class="docutils literal notranslate"><span class="pre">subtitle_langs</span></code>.</p></li>
+<li><p><strong>write_auto_subtitles</strong> – Also save auto-generated subtitles.</p></li>
+<li><p><strong>subtitle_langs</strong> – Subtitle languages to fetch when subtitles are enabled.</p></li>
+<li><p><strong>quiet</strong> – Suppress yt-dlp console output.</p></li>
+<li><p><strong>extra_opts</strong> – Any additional raw yt-dlp options (merged last, so they win).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#yb.download.youtube.DownloadResult" title="yb.download.youtube.DownloadResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DownloadResult</span></code></a> with the media path, trimmed <code class="docutils literal notranslate"><span class="pre">info</span></code>, and any
+<code class="docutils literal notranslate"><span class="pre">sidecars</span></code> written.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download.youtube.glob_escape">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">glob_escape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#glob_escape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.glob_escape" title="Link to this definition"></a></dt>
+<dd><p>Escape glob metacharacters in a literal filename stem.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download.youtube.youtube_video_info">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">youtube_video_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#youtube_video_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.youtube_video_info" title="Link to this definition"></a></dt>
+<dd><p>Fetch a video’s metadata without downloading it.</p>
+<p>Returns the trimmed info dict (see <code class="xref py py-data docutils literal notranslate"><span class="pre">_INFO_FIELDS</span></code>). Useful to preview
+the title/duration/chapters before deciding to download.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../download.html" class="btn btn-neutral float-left" title="yb.download" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../podcast.html" class="btn btn-neutral float-right" title="yb.podcast" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

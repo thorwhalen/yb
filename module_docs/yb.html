@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb &mdash; yb 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="yb.content" href="yb/content.html" />
+    <link rel="prev" title="Welcome to yb’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.ContentMetadata"><code class="docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.PublicationContent"><code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.media"><code class="docutils literal notranslate"><span class="pre">PublicationContent.media</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.title"><code class="docutils literal notranslate"><span class="pre">PublicationContent.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.description"><code class="docutils literal notranslate"><span class="pre">PublicationContent.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.keywords"><code class="docutils literal notranslate"><span class="pre">PublicationContent.keywords</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.chapters"><code class="docutils literal notranslate"><span class="pre">PublicationContent.chapters</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.language"><code class="docutils literal notranslate"><span class="pre">PublicationContent.language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.audio_language"><code class="docutils literal notranslate"><span class="pre">PublicationContent.audio_language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.srt_path"><code class="docutils literal notranslate"><span class="pre">PublicationContent.srt_path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.thumbnail"><code class="docutils literal notranslate"><span class="pre">PublicationContent.thumbnail</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.duration"><code class="docutils literal notranslate"><span class="pre">PublicationContent.duration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.PublicationContent.description_with_chapters"><code class="docutils literal notranslate"><span class="pre">PublicationContent.description_with_chapters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.format_chapter_lines"><code class="docutils literal notranslate"><span class="pre">format_chapter_lines()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.generate_metadata"><code class="docutils literal notranslate"><span class="pre">generate_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.prepare_content"><code class="docutils literal notranslate"><span class="pre">prepare_content()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.prepare_podcast_episode"><code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yb/youtube/publish.html">yb.youtube.publish</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_docs/yb.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb">
+<span id="yb"></span><h1>yb<a class="headerlink" href="#module-yb" title="Link to this heading"></a></h1>
+<p>yb — streamline media publishing: prepare once, publish to YouTube or podcast.</p>
+<p>Layered by separation of concerns:</p>
+<ul>
+<li><p><strong>core (always available):</strong> <a class="reference internal" href="yb/content.html#module-yb.content" title="yb.content"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.content</span></code></a> — build a platform-neutral
+<a class="reference internal" href="yb/content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code></a> (title, description, keywords,
+chapters, captions, thumbnail) from a media file, delegating transcription,
+chapter detection, and thumbnails to the <code class="docutils literal notranslate"><span class="pre">mixing</span></code> package.</p></li>
+<li><p><strong>adapters (optional extras):</strong>
+- <a class="reference internal" href="yb/youtube.html#module-yb.youtube" title="yb.youtube"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.youtube</span></code></a> (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[youtube]'</span></code>) — upload and edit videos.
+- <a class="reference internal" href="yb/podcast.html#module-yb.podcast" title="yb.podcast"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.podcast</span></code></a> (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[podcast]'</span></code>) — show notes, chapter</p>
+<blockquote>
+<div><p>markers, cover-over-audio video, RSS episode item.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><a class="reference internal" href="yb/download.html#module-yb.download" title="yb.download"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.download</span></code></a> (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[download]'</span></code>) — fetch videos/metadata.</p></li>
+</ul>
+</li>
+</ul>
+<p>The most common callables are re-exported here for convenience; the ones that
+live in optional extras are imported lazily, so <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">yb</span></code> never fails for a
+missing extra — the error surfaces only when you actually use that feature.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">yb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">yb</span><span class="o">.</span><span class="n">download_youtube_video</span><span class="p">(</span><span class="s2">&quot;https://youtu.be/PRa9ciOe-us&quot;</span><span class="p">)</span>  <span class="c1"># needs yb[download]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">content</span> <span class="o">=</span> <span class="n">yb</span><span class="o">.</span><span class="n">prepare_content</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;English&quot;</span><span class="p">,</span> <span class="n">language_code</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yb</span><span class="o">.</span><span class="n">prepare_and_publish</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="s2">&quot;unlisted&quot;</span><span class="p">)</span>        <span class="c1"># needs yb[youtube]</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.ContentMetadata">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">ContentMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/content.html#ContentMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.ContentMetadata" title="Link to this definition"></a></dt>
+<dd><p>Platform-neutral copy: a title, a description, and keywords.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.PublicationContent">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">PublicationContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Chapter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srt_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/content.html#PublicationContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.PublicationContent" title="Link to this definition"></a></dt>
+<dd><p>Everything needed to publish a piece of media, destination-agnostic.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.media">
+<span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#yb.PublicationContent.media" title="Link to this definition"></a></dt>
+<dd><p>Path to the audio/video file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#yb.PublicationContent.title" title="Link to this definition"></a></dt>
+<dd><p>Headline/title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#yb.PublicationContent.description" title="Link to this definition"></a></dt>
+<dd><p>Long-form description / show notes body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.keywords">
+<span class="sig-name descname"><span class="pre">keywords</span></span><a class="headerlink" href="#yb.PublicationContent.keywords" title="Link to this definition"></a></dt>
+<dd><p>Topical keywords/tags.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.chapters">
+<span class="sig-name descname"><span class="pre">chapters</span></span><a class="headerlink" href="#yb.PublicationContent.chapters" title="Link to this definition"></a></dt>
+<dd><p>Ordered chapter markers (<code class="docutils literal notranslate"><span class="pre">mixing.chapters.Chapter</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[mixing.chapters.Chapter]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#yb.PublicationContent.language" title="Link to this definition"></a></dt>
+<dd><p>BCP-47 code of the metadata text (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;en&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.audio_language">
+<span class="sig-name descname"><span class="pre">audio_language</span></span><a class="headerlink" href="#yb.PublicationContent.audio_language" title="Link to this definition"></a></dt>
+<dd><p>BCP-47 code of the spoken audio (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;fr&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.srt_path">
+<span class="sig-name descname"><span class="pre">srt_path</span></span><a class="headerlink" href="#yb.PublicationContent.srt_path" title="Link to this definition"></a></dt>
+<dd><p>Path to the SRT subtitle/caption file, if any.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.thumbnail">
+<span class="sig-name descname"><span class="pre">thumbnail</span></span><a class="headerlink" href="#yb.PublicationContent.thumbnail" title="Link to this definition"></a></dt>
+<dd><p>Path to a thumbnail/cover image, if any.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.PublicationContent.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#yb.PublicationContent.duration" title="Link to this definition"></a></dt>
+<dd><p>Media duration in seconds, if known.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.PublicationContent.description_with_chapters">
+<span class="sig-name descname"><span class="pre">description_with_chapters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/yb/content.html#PublicationContent.description_with_chapters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.PublicationContent.description_with_chapters" title="Link to this definition"></a></dt>
+<dd><p>Description with a chapters block appended (if any chapters).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download_youtube_video">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">download_youtube_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bestvideo+bestaudio/best'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mp4'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename_template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%(title)s</span> <span class="pre">(%(id)s).%(ext)s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_info_json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_auto_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtitle_langs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('en',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="yb/download/youtube.html#yb.download.youtube.DownloadResult" title="yb.download.youtube.DownloadResult"><span class="pre">DownloadResult</span></a></span></span><a class="reference internal" href="../_modules/yb/download/youtube.html#download_youtube_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download_youtube_video" title="Link to this definition"></a></dt>
+<dd><p>Download a YouTube video to <code class="docutils literal notranslate"><span class="pre">download_dir</span></code> (default <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>).</p>
+<p>Simplest use: <code class="docutils literal notranslate"><span class="pre">download_youtube_video(url)</span></code> → best quality merged to mp4,
+named <code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">(video_id).mp4</span></code> in <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – The video URL (or id).</p></li>
+<li><p><strong>download_dir</strong> – Destination directory. Defaults to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">default_download_dir()</span></code>.</p></li>
+<li><p><strong>fmt</strong> – yt-dlp format selector (default best video + best audio).</p></li>
+<li><p><strong>merge_to</strong> – Container to merge video+audio into (default <code class="docutils literal notranslate"><span class="pre">&quot;mp4&quot;</span></code>;
+requires ffmpeg). Set <code class="docutils literal notranslate"><span class="pre">None</span></code> to keep yt-dlp’s default.</p></li>
+<li><p><strong>filename_template</strong> – yt-dlp output template (default
+<code class="docutils literal notranslate"><span class="pre">&quot;%(title)s</span> <span class="pre">(%(id)s).%(ext)s&quot;</span></code>).</p></li>
+<li><p><strong>write_info_json</strong> – Also save the full metadata as <code class="docutils literal notranslate"><span class="pre">*.info.json</span></code>.</p></li>
+<li><p><strong>write_thumbnail</strong> – Also save the thumbnail image.</p></li>
+<li><p><strong>write_description</strong> – Also save the description as <code class="docutils literal notranslate"><span class="pre">*.description</span></code>.</p></li>
+<li><p><strong>write_subtitles</strong> – Also save uploaded subtitles for <code class="docutils literal notranslate"><span class="pre">subtitle_langs</span></code>.</p></li>
+<li><p><strong>write_auto_subtitles</strong> – Also save auto-generated subtitles.</p></li>
+<li><p><strong>subtitle_langs</strong> – Subtitle languages to fetch when subtitles are enabled.</p></li>
+<li><p><strong>quiet</strong> – Suppress yt-dlp console output.</p></li>
+<li><p><strong>extra_opts</strong> – Any additional raw yt-dlp options (merged last, so they win).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">DownloadResult</span></code> with the media path, trimmed <code class="docutils literal notranslate"><span class="pre">info</span></code>, and any
+<code class="docutils literal notranslate"><span class="pre">sidecars</span></code> written.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.format_chapter_lines">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">format_chapter_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Chapter</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/yb/content.html#format_chapter_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.format_chapter_lines" title="Link to this definition"></a></dt>
+<dd><p>Render chapters as <code class="docutils literal notranslate"><span class="pre">M:SS</span> <span class="pre">Title</span></code> lines (the shared text convention).</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">H:MM:SS</span></code> when any chapter is at or beyond one hour. This is the
+text format both YouTube descriptions and podcast show notes accept.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.generate_metadata">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">generate_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transcript</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="yb/content.html#yb.content.ContentMetadata" title="yb.content.ContentMetadata"><span class="pre">ContentMetadata</span></a></span></span><a class="reference internal" href="../_modules/yb/content.html#generate_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.generate_metadata" title="Link to this definition"></a></dt>
+<dd><p>Generate platform-neutral title/description/keywords from a transcript.</p>
+<p>LLM-backed via <code class="docutils literal notranslate"><span class="pre">aix</span></code>. Pass a ready <a class="reference internal" href="#yb.ContentMetadata" title="yb.ContentMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a> to
+<a class="reference internal" href="#yb.prepare_content" title="yb.prepare_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">prepare_content()</span></code></a> instead if you want to skip generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ImportError</strong> – <code class="docutils literal notranslate"><span class="pre">aix</span></code> is not importable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.prepare_and_publish">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">prepare_and_publish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_language_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unlisted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/yb/youtube/publish.html#prepare_and_publish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.prepare_and_publish" title="Link to this definition"></a></dt>
+<dd><p>One call: prepare publication content from <code class="docutils literal notranslate"><span class="pre">media</span></code> and upload it.</p>
+<p>Transcribes (persisting the SRT next to the media) if needed, writes
+LLM metadata, detects chapters, renders a thumbnail, then uploads with
+captions + thumbnail + chapters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.prepare_content">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">prepare_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_language_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcript</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="yb/content.html#yb.content.ContentMetadata" title="yb.content.ContentMetadata"><span class="pre">ContentMetadata</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcribe_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapters_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="yb/content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><span class="pre">PublicationContent</span></a></span></span><a class="reference internal" href="../_modules/yb/content.html#prepare_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.prepare_content" title="Link to this definition"></a></dt>
+<dd><p>Build a <a class="reference internal" href="#yb.PublicationContent" title="yb.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code></a> for <code class="docutils literal notranslate"><span class="pre">media</span></code> (destination-agnostic).</p>
+<p>Ensures a persisted SRT next to the media (transcribing once via
+<code class="docutils literal notranslate"><span class="pre">mixing</span></code> if needed), writes LLM metadata, detects chapters (default on,
+auto-skipped for clips too short to host them), and optionally renders a
+thumbnail. Any precomputed pieces (<code class="docutils literal notranslate"><span class="pre">transcript</span></code>, <code class="docutils literal notranslate"><span class="pre">metadata</span></code>) are reused
+instead of recomputed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>media</strong> – Audio or video file.</p></li>
+<li><p><strong>language</strong> – Human-readable language to write metadata in.</p></li>
+<li><p><strong>audio_language_code</strong> (<em>language_code /</em>) – BCP-47 codes for the metadata
+text and the spoken audio.</p></li>
+<li><p><strong>brand</strong> – Product/brand name to keep verbatim in the copy.</p></li>
+<li><p><strong>extra_context</strong> – Extra guidance for the copywriter (audience, CTA…).</p></li>
+<li><p><strong>transcript</strong> – SRT text to use as-is (skips transcription).</p></li>
+<li><p><strong>with_chapters</strong> – Detect chapters (default <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p></li>
+<li><p><strong>with_thumbnail</strong> – Render a thumbnail image (default <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+<li><p><strong>thumbnail_text</strong> – Overlay text for the thumbnail (defaults to the title).</p></li>
+<li><p><strong>metadata</strong> – Precomputed <a class="reference internal" href="#yb.ContentMetadata" title="yb.ContentMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a> to reuse.</p></li>
+<li><p><strong>model</strong> – LLM model override.</p></li>
+<li><p><strong>chapters_kwargs</strong> (<em>transcribe_kwargs /</em>) – Forwarded to the mixing calls.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A populated <a class="reference internal" href="#yb.PublicationContent" title="yb.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.prepare_podcast_episode">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">prepare_podcast_episode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="yb/content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><span class="pre">PublicationContent</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cover_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_cover_video</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ken_burns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_bitrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'192k'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="yb/podcast/publish.html#yb.podcast.publish.PodcastEpisode" title="yb.podcast.publish.PodcastEpisode"><span class="pre">PodcastEpisode</span></a></span></span><a class="reference internal" href="../_modules/yb/podcast/publish.html#prepare_podcast_episode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.prepare_podcast_episode" title="Link to this definition"></a></dt>
+<dd><p>Build a podcast episode bundle from <code class="docutils literal notranslate"><span class="pre">media</span></code> into <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>media</strong> – Source audio or video.</p></li>
+<li><p><strong>output_dir</strong> – Directory to write the episode assets into.</p></li>
+<li><p><strong>content</strong> – Precomputed <a class="reference internal" href="#yb.PublicationContent" title="yb.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code></a>; built via
+<a class="reference internal" href="yb/content.html#yb.content.prepare_content" title="yb.content.prepare_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">yb.content.prepare_content()</span></code></a> when omitted.</p></li>
+<li><p><strong>audio</strong> – Explicit episode audio. When omitted, <code class="docutils literal notranslate"><span class="pre">media</span></code> is used if it is
+audio, else its audio track is extracted to MP3.</p></li>
+<li><p><strong>cover_image</strong> – Cover art (required for <code class="docutils literal notranslate"><span class="pre">make_cover_video</span></code>).</p></li>
+<li><p><strong>make_cover_video</strong> – Also render a cover-over-audio mp4 (e.g. for YouTube).</p></li>
+<li><p><strong>ken_burns</strong> – Apply a Ken Burns pan/zoom to the cover video.</p></li>
+<li><p><strong>embed_chapters</strong> – Embed ID3 chapter frames into the episode MP3.</p></li>
+<li><p><strong>extra_context</strong> (<em>language / brand /</em>) – Forwarded to <code class="docutils literal notranslate"><span class="pre">prepare_content</span></code>.</p></li>
+<li><p><strong>audio_bitrate</strong> – Bitrate for extracted MP3 audio.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">PodcastEpisode</span></code> with the asset paths.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.publish_content">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">publish_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="yb/content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><span class="pre">PublicationContent</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unlisted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attach_caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_thumb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/yb/youtube/publish.html#publish_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.publish_content" title="Link to this definition"></a></dt>
+<dd><p>Upload a prepared <a class="reference internal" href="#yb.PublicationContent" title="yb.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code></a> to YouTube.</p>
+<p>Maps the content to a YouTube snippet (chapters embedded in the
+description when present), uploads, then attaches the SRT caption track
+(language = <code class="docutils literal notranslate"><span class="pre">content.audio_language</span></code> or <code class="docutils literal notranslate"><span class="pre">content.language</span></code>) and the
+thumbnail when available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">{&quot;video_id&quot;,</span> <span class="pre">&quot;url&quot;,</span> <span class="pre">&quot;studio_url&quot;,</span> <span class="pre">&quot;privacy_status&quot;,</span> <span class="pre">&quot;captions&quot;,</span>
+<span class="pre">&quot;thumbnail&quot;}</span></code>. <code class="docutils literal notranslate"><span class="pre">privacy_status</span></code> reflects what YouTube actually set
+(an unaudited project may force <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;</span></code>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.set_chapters">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">set_chapters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Chapter</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Chapters:'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/yb/youtube/api.html#set_chapters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.set_chapters" title="Link to this definition"></a></dt>
+<dd><p>Insert/replace a chapters block in the video’s description.</p>
+<p>Strips any prior block under <code class="docutils literal notranslate"><span class="pre">header</span></code> and appends the new one. YouTube
+renders interactive chapters when the first timestamp is <code class="docutils literal notranslate"><span class="pre">0:00</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.update_video_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">update_video_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/yb/youtube/api.html#update_video_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.update_video_fields" title="Link to this definition"></a></dt>
+<dd><p>Patch selected snippet fields, preserving the rest.</p>
+<p>Fetches the current snippet, overlays the provided fields, and updates.
+<code class="docutils literal notranslate"><span class="pre">categoryId</span></code> must be present (kept from the existing snippet if not given).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.upsert_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">upsert_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="yb/youtube/captions.html#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><span class="pre">CaptionTrack</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/yb/youtube/captions.html#upsert_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.upsert_caption" title="Link to this definition"></a></dt>
+<dd><p>Insert a caption track, or update the existing same-language one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_id</strong> – Target video.</p></li>
+<li><p><strong>track</strong> – A <code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
+<li><p><strong>replace</strong> – When an uploaded track in the same language exists, update it
+(<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) rather than inserting a duplicate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The inserted/updated caption resource.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube_video_info">
+<span class="sig-prename descclassname"><span class="pre">yb.</span></span><span class="sig-name descname"><span class="pre">youtube_video_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yb/download/youtube.html#youtube_video_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube_video_info" title="Link to this definition"></a></dt>
+<dd><p>Fetch a video’s metadata without downloading it.</p>
+<p>Returns the trimmed info dict (see <code class="xref py py-data docutils literal notranslate"><span class="pre">_INFO_FIELDS</span></code>). Useful to preview
+the title/duration/chapters before deciding to download.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to yb’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yb/content.html" class="btn btn-neutral float-right" title="yb.content" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

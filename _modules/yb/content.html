@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.content &mdash; yb 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.content</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.content</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Target-agnostic publication content: prepare it once, publish anywhere.</span>
+
+<span class="sd">A :class:`PublicationContent` bundles everything a publication needs that is</span>
+<span class="sd">*not* specific to a destination — title, description, keywords, chapters,</span>
+<span class="sd">languages, and the media/transcript/thumbnail assets. Platform adapters</span>
+<span class="sd">(``yb.youtube``, ``yb.podcast``) consume it and map it to their own schema.</span>
+
+<span class="sd">The heavy lifting (transcription, chapter detection, thumbnail rendering) is</span>
+<span class="sd">delegated to the ``mixing`` package; the copywriting (title/description/</span>
+<span class="sd">keywords) is LLM-backed via ``aix`` and pluggable.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mixing.chapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chapter</span>  <span class="c1"># lightweight (no moviepy pulled)</span>
+
+<span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="ContentMetadata">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.ContentMetadata">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ContentMetadata</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Platform-neutral copy: a title, a description, and keywords.&quot;&quot;&quot;</span>
+
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">keywords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PublicationContent">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.PublicationContent">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PublicationContent</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Everything needed to publish a piece of media, destination-agnostic.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        media: Path to the audio/video file.</span>
+<span class="sd">        title: Headline/title.</span>
+<span class="sd">        description: Long-form description / show notes body.</span>
+<span class="sd">        keywords: Topical keywords/tags.</span>
+<span class="sd">        chapters: Ordered chapter markers (``mixing.chapters.Chapter``).</span>
+<span class="sd">        language: BCP-47 code of the metadata text (e.g. ``&quot;en&quot;``).</span>
+<span class="sd">        audio_language: BCP-47 code of the spoken audio (e.g. ``&quot;fr&quot;``).</span>
+<span class="sd">        srt_path: Path to the SRT subtitle/caption file, if any.</span>
+<span class="sd">        thumbnail: Path to a thumbnail/cover image, if any.</span>
+<span class="sd">        duration: Media duration in seconds, if known.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">media</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">keywords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">chapters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chapter</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">audio_language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">srt_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">thumbnail</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="PublicationContent.description_with_chapters">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.PublicationContent.description_with_chapters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">description_with_chapters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Description with a chapters block appended (if any chapters).&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">chapters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">format_chapter_lines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chapters</span><span class="p">)</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">body</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="format_chapter_lines">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.format_chapter_lines">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_chapter_lines</span><span class="p">(</span><span class="n">chapters</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Chapter</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render chapters as ``M:SS Title`` lines (the shared text convention).</span>
+
+<span class="sd">    Uses ``H:MM:SS`` when any chapter is at or beyond one hour. This is the</span>
+<span class="sd">    text format both YouTube descriptions and podcast show notes accept.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">use_hours</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">3600</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chapters</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_fmt_ts</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">use_hours</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chapters</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fmt_ts</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">use_hours</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="mi">3600</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">use_hours</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<div class="viewcode-block" id="prepare_content">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.prepare_content">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_content</span><span class="p">(</span>
+    <span class="n">media</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+    <span class="n">language_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">audio_language_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">brand</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">transcript</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">with_chapters</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">with_thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">thumbnail_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">ContentMetadata</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">transcribe_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">chapters_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PublicationContent</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a :class:`PublicationContent` for ``media`` (destination-agnostic).</span>
+
+<span class="sd">    Ensures a persisted SRT next to the media (transcribing once via</span>
+<span class="sd">    ``mixing`` if needed), writes LLM metadata, detects chapters (default on,</span>
+<span class="sd">    auto-skipped for clips too short to host them), and optionally renders a</span>
+<span class="sd">    thumbnail. Any precomputed pieces (``transcript``, ``metadata``) are reused</span>
+<span class="sd">    instead of recomputed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        media: Audio or video file.</span>
+<span class="sd">        language: Human-readable language to write metadata in.</span>
+<span class="sd">        language_code / audio_language_code: BCP-47 codes for the metadata</span>
+<span class="sd">            text and the spoken audio.</span>
+<span class="sd">        brand: Product/brand name to keep verbatim in the copy.</span>
+<span class="sd">        extra_context: Extra guidance for the copywriter (audience, CTA…).</span>
+<span class="sd">        transcript: SRT text to use as-is (skips transcription).</span>
+<span class="sd">        with_chapters: Detect chapters (default ``True``).</span>
+<span class="sd">        with_thumbnail: Render a thumbnail image (default ``False``).</span>
+<span class="sd">        thumbnail_text: Overlay text for the thumbnail (defaults to the title).</span>
+<span class="sd">        metadata: Precomputed :class:`ContentMetadata` to reuse.</span>
+<span class="sd">        model: LLM model override.</span>
+<span class="sd">        transcribe_kwargs / chapters_kwargs: Forwarded to the mixing calls.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A populated :class:`PublicationContent`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">mixing.transcript.persist</span><span class="w"> </span><span class="kn">import</span> <span class="n">srt_for_media</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">mixing.chapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_chapters</span>
+
+    <span class="n">media</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">media</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">transcript</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">srt_text</span><span class="p">,</span> <span class="n">srt_path</span> <span class="o">=</span> <span class="n">transcript</span><span class="p">,</span> <span class="n">media</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.srt&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">srt_text</span><span class="p">,</span> <span class="n">srt_path</span> <span class="o">=</span> <span class="n">srt_for_media</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">transcribe_kwargs</span> <span class="ow">or</span> <span class="p">{}))</span>
+
+    <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">generate_metadata</span><span class="p">(</span>
+            <span class="n">srt_text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">brand</span><span class="o">=</span><span class="n">brand</span><span class="p">,</span>
+            <span class="n">extra_context</span><span class="o">=</span><span class="n">extra_context</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">chapters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chapter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">with_chapters</span><span class="p">:</span>
+        <span class="n">chapters</span> <span class="o">=</span> <span class="n">detect_chapters</span><span class="p">(</span><span class="n">srt_text</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">chapters_kwargs</span> <span class="ow">or</span> <span class="p">{}))</span>
+
+    <span class="n">thumbnail</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">with_thumbnail</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">mixing.video.thumbnail</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_thumbnail</span>
+        <span class="n">thumbnail</span> <span class="o">=</span> <span class="n">make_thumbnail</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">thumbnail_text</span> <span class="ow">or</span> <span class="n">metadata</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">PublicationContent</span><span class="p">(</span>
+        <span class="n">media</span><span class="o">=</span><span class="n">media</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">keywords</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">keywords</span><span class="p">),</span>
+        <span class="n">chapters</span><span class="o">=</span><span class="n">chapters</span><span class="p">,</span>
+        <span class="n">language</span><span class="o">=</span><span class="n">language_code</span><span class="p">,</span>
+        <span class="n">audio_language</span><span class="o">=</span><span class="n">audio_language_code</span><span class="p">,</span>
+        <span class="n">srt_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">srt_path</span><span class="p">),</span>
+        <span class="n">thumbnail</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">thumbnail</span><span class="p">)</span> <span class="k">if</span> <span class="n">thumbnail</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="generate_metadata">
+<a class="viewcode-back" href="../../module_docs/yb/content.html#yb.generate_metadata">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_metadata</span><span class="p">(</span>
+    <span class="n">transcript</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+    <span class="n">brand</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContentMetadata</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate platform-neutral title/description/keywords from a transcript.</span>
+
+<span class="sd">    LLM-backed via ``aix``. Pass a ready :class:`ContentMetadata` to</span>
+<span class="sd">    :func:`prepare_content` instead if you want to skip generation.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ImportError: ``aix`` is not importable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">aix</span><span class="w"> </span><span class="kn">import</span> <span class="n">chat</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - environment dependent</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;generate_metadata needs the &#39;aix&#39; package (pip install &#39;yb[llm]&#39;), &quot;</span>
+            <span class="s2">&quot;or build ContentMetadata directly.&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="n">brand_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Brand/product (keep verbatim): </span><span class="si">{</span><span class="n">brand</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">brand</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ctx_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Extra context: </span><span class="si">{</span><span class="n">extra_context</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">extra_context</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;You are writing publication metadata in </span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s2"> for the media whose &quot;</span>
+        <span class="s2">&quot;transcript is given below.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">brand_line</span><span class="si">}{</span><span class="n">ctx_line</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Return ONLY a JSON object (no code fences) with keys:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s1">&#39;  &quot;title&quot;: compelling, &lt;= 90 characters, front-loads the benefit; no clickbait.</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;  &quot;description&quot;: 2-4 short paragraphs in &#39;</span> <span class="o">+</span> <span class="n">language</span> <span class="o">+</span> <span class="s2">&quot;, natural and &quot;</span>
+        <span class="s2">&quot;persuasive, ending with a call to action. &lt;= 1500 characters.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s1">&#39;  &quot;keywords&quot;: array of 12-15 lowercase keyword strings (no &quot;#&quot;).</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+        <span class="s2">&quot;TRANSCRIPT:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">transcript</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">_parse_json_object</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ContentMetadata</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="n">description</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="n">keywords</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;keywords&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])],</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_json_object</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^```[a-zA-Z]*\n?&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\n?```$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\{.*\}&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Metadata response was not a JSON object.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

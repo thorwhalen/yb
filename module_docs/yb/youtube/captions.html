@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.youtube.captions &mdash; yb 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="yb.youtube.metadata" href="metadata.html" />
+    <link rel="prev" title="yb.youtube.auth" href="auth.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.youtube.captions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack.path"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack.language"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack.name"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack.is_draft"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.is_draft</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.delete_caption"><code class="docutils literal notranslate"><span class="pre">delete_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.insert_caption"><code class="docutils literal notranslate"><span class="pre">insert_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.list_captions"><code class="docutils literal notranslate"><span class="pre">list_captions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.captions.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish.html">yb.youtube.publish</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.youtube.captions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/yb/youtube/captions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.youtube.captions">
+<span id="yb-youtube-captions"></span><h1>yb.youtube.captions<a class="headerlink" href="#module-yb.youtube.captions" title="Link to this heading"></a></h1>
+<p>Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.</p>
+<p>Lets you attach an SRT/VTT track at upload time <em>and</em> manage tracks on
+already-published videos — e.g. replace a hand-edited subtitle file, or add a
+track in a new language. <code class="docutils literal notranslate"><span class="pre">upsert_caption</span></code> is the convenient default: it
+updates an existing same-language track if present, else inserts a new one.</p>
+<p>Note: YouTube auto-generates ASR tracks of its own (<code class="docutils literal notranslate"><span class="pre">trackKind=&quot;asr&quot;</span></code>);
+these helpers operate on uploaded <code class="docutils literal notranslate"><span class="pre">&quot;standard&quot;</span></code> tracks and ignore ASR.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">CaptionTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#CaptionTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.CaptionTrack" title="Link to this definition"></a></dt>
+<dd><p>A caption track to attach to a video.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#yb.youtube.captions.CaptionTrack.path" title="Link to this definition"></a></dt>
+<dd><p>Path to an <code class="docutils literal notranslate"><span class="pre">.srt</span></code> (or <code class="docutils literal notranslate"><span class="pre">.vtt</span></code>) file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#yb.youtube.captions.CaptionTrack.language" title="Link to this definition"></a></dt>
+<dd><p>BCP-47 language code, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;en&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;fr&quot;</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#yb.youtube.captions.CaptionTrack.name" title="Link to this definition"></a></dt>
+<dd><p>Track name shown in the YouTube UI (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;English&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack.is_draft">
+<span class="sig-name descname"><span class="pre">is_draft</span></span><a class="headerlink" href="#yb.youtube.captions.CaptionTrack.is_draft" title="Link to this definition"></a></dt>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, uploaded but not published to viewers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.delete_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">delete_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#delete_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.delete_caption" title="Link to this definition"></a></dt>
+<dd><p>Delete a caption track (<code class="docutils literal notranslate"><span class="pre">captions.delete</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.download_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">download_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">tfmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'srt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#download_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.download_caption" title="Link to this definition"></a></dt>
+<dd><p>Download a caption track’s content (<code class="docutils literal notranslate"><span class="pre">captions.download</span></code>), default SRT.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.insert_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">insert_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#insert_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.insert_caption" title="Link to this definition"></a></dt>
+<dd><p>Insert a new caption track (<code class="docutils literal notranslate"><span class="pre">captions.insert</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.list_captions">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">list_captions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#list_captions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.list_captions" title="Link to this definition"></a></dt>
+<dd><p>List caption tracks on a video (each item’s snippet has language/name/trackKind/status).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.update_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">update_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#update_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.update_caption" title="Link to this definition"></a></dt>
+<dd><p>Replace the content of an existing caption track (<code class="docutils literal notranslate"><span class="pre">captions.update</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.captions.upsert_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">upsert_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><span class="pre">CaptionTrack</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/captions.html#upsert_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.upsert_caption" title="Link to this definition"></a></dt>
+<dd><p>Insert a caption track, or update the existing same-language one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_id</strong> – Target video.</p></li>
+<li><p><strong>track</strong> – A <a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
+<li><p><strong>replace</strong> – When an uploaded track in the same language exists, update it
+(<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) rather than inserting a duplicate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The inserted/updated caption resource.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="auth.html" class="btn btn-neutral float-left" title="yb.youtube.auth" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metadata.html" class="btn btn-neutral float-right" title="yb.youtube.metadata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

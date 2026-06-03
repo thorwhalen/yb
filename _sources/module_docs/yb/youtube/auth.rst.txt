@@ -1,0 +1,4 @@
+yb.youtube.auth
+===============
+.. automodule:: yb.youtube.auth
+   :members:

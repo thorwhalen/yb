@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.download.youtube &mdash; yb 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.download.youtube</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.download.youtube</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Download YouTube videos (and their metadata) via yt-dlp.</span>
+
+<span class="sd">The common case is one call — ``download_youtube_video(url)`` — which fetches</span>
+<span class="sd">the best video+audio into ``~/Downloads`` as ``Title (video_id).mp4``. Every</span>
+<span class="sd">knob (destination, format, filename template, and which sidecar metadata to</span>
+<span class="sd">also save) is overridable, and any raw yt-dlp option can be passed through.</span>
+
+<span class="sd">The destination defaults to ``$YB_DOWNLOAD_DIR`` when set, else ``~/Downloads``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
+
+<span class="c1">#: Env var that overrides the default download directory.</span>
+<span class="n">DOWNLOAD_DIR_ENV</span> <span class="o">=</span> <span class="s2">&quot;YB_DOWNLOAD_DIR&quot;</span>
+
+<span class="c1">#: yt-dlp output template: human title plus the stable id, e.g. &quot;My Talk (dQw4...).mp4&quot;.</span>
+<span class="n">DEFAULT_OUTTMPL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(title)s</span><span class="s2"> (</span><span class="si">%(id)s</span><span class="s2">).</span><span class="si">%(ext)s</span><span class="s2">&quot;</span>
+
+<span class="c1">#: Fields surfaced on the result&#39;s ``info`` (the rest of yt-dlp&#39;s dict is dropped).</span>
+<span class="n">_INFO_FIELDS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;uploader&quot;</span><span class="p">,</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;channel_id&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;upload_date&quot;</span><span class="p">,</span> <span class="s2">&quot;view_count&quot;</span><span class="p">,</span> <span class="s2">&quot;like_count&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="s2">&quot;chapters&quot;</span><span class="p">,</span> <span class="s2">&quot;webpage_url&quot;</span><span class="p">,</span> <span class="s2">&quot;thumbnail&quot;</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="default_download_dir">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.default_download_dir">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_download_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve the default download directory (``$YB_DOWNLOAD_DIR`` or ``~/Downloads``).&quot;&quot;&quot;</span>
+    <span class="n">override</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DOWNLOAD_DIR_ENV</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">override</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">override</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;Downloads&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="DownloadResult">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.DownloadResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DownloadResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Outcome of a download.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        path: The downloaded media file.</span>
+<span class="sd">        info: A trimmed metadata dict (see :data:`_INFO_FIELDS`).</span>
+<span class="sd">        sidecars: Map of extra artifacts written (``info_json``, ``thumbnail``,</span>
+<span class="sd">            ``description``, ``subtitles`` → path(s)).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">sidecars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">video_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The YouTube video id.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="youtube_video_info">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.youtube_video_info">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">youtube_video_info</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">extra_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch a video&#39;s metadata without downloading it.</span>
+
+<span class="sd">    Returns the trimmed info dict (see :data:`_INFO_FIELDS`). Useful to preview</span>
+<span class="sd">    the title/duration/chapters before deciding to download.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yt_dlp</span><span class="w"> </span><span class="kn">import</span> <span class="n">YoutubeDL</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;skip_download&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;noplaylist&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_opts</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_trim_info</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="download_youtube_video">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.download_youtube_video">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">download_youtube_video</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">download_dir</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bestvideo+bestaudio/best&quot;</span><span class="p">,</span>
+    <span class="n">merge_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;mp4&quot;</span><span class="p">,</span>
+    <span class="n">filename_template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_OUTTMPL</span><span class="p">,</span>
+    <span class="n">write_info_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_description</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_auto_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">subtitle_langs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">,),</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DownloadResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a YouTube video to ``download_dir`` (default ``~/Downloads``).</span>
+
+<span class="sd">    Simplest use: ``download_youtube_video(url)`` → best quality merged to mp4,</span>
+<span class="sd">    named ``Title (video_id).mp4`` in ``~/Downloads``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: The video URL (or id).</span>
+<span class="sd">        download_dir: Destination directory. Defaults to</span>
+<span class="sd">            :func:`default_download_dir`.</span>
+<span class="sd">        fmt: yt-dlp format selector (default best video + best audio).</span>
+<span class="sd">        merge_to: Container to merge video+audio into (default ``&quot;mp4&quot;``;</span>
+<span class="sd">            requires ffmpeg). Set ``None`` to keep yt-dlp&#39;s default.</span>
+<span class="sd">        filename_template: yt-dlp output template (default</span>
+<span class="sd">            ``&quot;%(title)s (%(id)s).%(ext)s&quot;``).</span>
+<span class="sd">        write_info_json: Also save the full metadata as ``*.info.json``.</span>
+<span class="sd">        write_thumbnail: Also save the thumbnail image.</span>
+<span class="sd">        write_description: Also save the description as ``*.description``.</span>
+<span class="sd">        write_subtitles: Also save uploaded subtitles for ``subtitle_langs``.</span>
+<span class="sd">        write_auto_subtitles: Also save auto-generated subtitles.</span>
+<span class="sd">        subtitle_langs: Subtitle languages to fetch when subtitles are enabled.</span>
+<span class="sd">        quiet: Suppress yt-dlp console output.</span>
+<span class="sd">        extra_opts: Any additional raw yt-dlp options (merged last, so they win).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DownloadResult` with the media path, trimmed ``info``, and any</span>
+<span class="sd">        ``sidecars`` written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yt_dlp</span><span class="w"> </span><span class="kn">import</span> <span class="n">YoutubeDL</span>
+
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">download_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">download_dir</span> <span class="k">else</span> <span class="n">default_download_dir</span><span class="p">()</span>
+    <span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">opts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="n">fmt</span><span class="p">,</span>
+        <span class="s2">&quot;outtmpl&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">/</span> <span class="n">filename_template</span><span class="p">),</span>
+        <span class="s2">&quot;noplaylist&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="n">quiet</span><span class="p">,</span>
+        <span class="s2">&quot;writeinfojson&quot;</span><span class="p">:</span> <span class="n">write_info_json</span><span class="p">,</span>
+        <span class="s2">&quot;writethumbnail&quot;</span><span class="p">:</span> <span class="n">write_thumbnail</span><span class="p">,</span>
+        <span class="s2">&quot;writedescription&quot;</span><span class="p">:</span> <span class="n">write_description</span><span class="p">,</span>
+        <span class="s2">&quot;writesubtitles&quot;</span><span class="p">:</span> <span class="n">write_subtitles</span><span class="p">,</span>
+        <span class="s2">&quot;writeautomaticsub&quot;</span><span class="p">:</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
+        <span class="s2">&quot;subtitleslangs&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">subtitle_langs</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">merge_to</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;merge_output_format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge_to</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_opts</span> <span class="ow">or</span> <span class="p">{})</span>
+
+    <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="n">_resolve_output_path</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ydl</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">merge_to</span><span class="p">)</span>
+    <span class="n">sidecars</span> <span class="o">=</span> <span class="n">_collect_sidecars</span><span class="p">(</span>
+        <span class="n">info</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+        <span class="n">info_json</span><span class="o">=</span><span class="n">write_info_json</span><span class="p">,</span> <span class="n">thumbnail</span><span class="o">=</span><span class="n">write_thumbnail</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">write_description</span><span class="p">,</span>
+        <span class="n">subtitles</span><span class="o">=</span><span class="n">write_subtitles</span> <span class="ow">or</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">DownloadResult</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">_trim_info</span><span class="p">(</span><span class="n">info</span><span class="p">),</span> <span class="n">sidecars</span><span class="o">=</span><span class="n">sidecars</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_output_path</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ydl</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">merge_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Best-effort resolution of the final media path yt-dlp produced.&quot;&quot;&quot;</span>
+    <span class="n">downloads</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requested_downloads&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">downloads</span> <span class="ow">and</span> <span class="n">downloads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filepath&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">downloads</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;filepath&quot;</span><span class="p">])</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">prepare_filename</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">merge_to</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">merge_to</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span>
+        <span class="n">merged</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">merge_to</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">merged</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">merged</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_collect_sidecars</span><span class="p">(</span>
+    <span class="n">info</span><span class="p">,</span> <span class="n">media_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">info_json</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">thumbnail</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">subtitles</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="n">stem</span> <span class="o">=</span> <span class="n">media_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">info_json</span><span class="p">:</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="n">stem</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.info.json&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cand</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;info_json&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cand</span>
+    <span class="k">if</span> <span class="n">description</span><span class="p">:</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="n">stem</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.description&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cand</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cand</span>
+    <span class="k">if</span> <span class="n">thumbnail</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.webp&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">):</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="n">stem</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cand</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;thumbnail&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cand</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="n">subtitles</span><span class="p">:</span>
+        <span class="n">subs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.srt&quot;</span><span class="p">))</span> <span class="o">+</span> \
+            <span class="nb">sorted</span><span class="p">(</span><span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.vtt&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">subs</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;subtitles&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subs</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<div class="viewcode-block" id="glob_escape">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.glob_escape">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">glob_escape</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Escape glob metacharacters in a literal filename stem.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;[[]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="s2">&quot;[]]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;[*]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;[?]&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_trim_info</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_INFO_FIELDS</span> <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
