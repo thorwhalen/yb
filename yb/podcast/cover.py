@@ -61,13 +61,34 @@ def _static_cover(audio: Path, image: Path, out: Path, *, size, fps) -> Path:
     )
     subprocess.run(
         [
-            "ffmpeg", "-y", "-loglevel", "error",
-            "-loop", "1", "-framerate", str(fps), "-i", str(image),
-            "-i", str(audio),
-            "-vf", vf, "-r", str(fps),
-            "-c:v", "libx264", "-tune", "stillimage", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-b:a", "192k",
-            "-shortest", str(out),
+            "ffmpeg",
+            "-y",
+            "-loglevel",
+            "error",
+            "-loop",
+            "1",
+            "-framerate",
+            str(fps),
+            "-i",
+            str(image),
+            "-i",
+            str(audio),
+            "-vf",
+            vf,
+            "-r",
+            str(fps),
+            "-c:v",
+            "libx264",
+            "-tune",
+            "stillimage",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "192k",
+            "-shortest",
+            str(out),
         ],
         check=True,
         capture_output=True,
@@ -80,7 +101,13 @@ def _ken_burns_cover(audio: Path, image: Path, out: Path, *, size, fps) -> Path:
     from mixing.video import ken_burns_video, replace_audio
 
     duration = _audio_duration(audio)
-    silent = ken_burns_video(str(image), duration=duration, size=size, fps=fps, saveas=str(out.with_suffix(".silent.mp4")))
+    silent = ken_burns_video(
+        str(image),
+        duration=duration,
+        size=size,
+        fps=fps,
+        saveas=str(out.with_suffix(".silent.mp4")),
+    )
     replace_audio(str(silent), str(audio), saveas=str(out), match_duration=False)
     Path(silent).unlink(missing_ok=True)
     return out
@@ -89,9 +116,16 @@ def _ken_burns_cover(audio: Path, image: Path, out: Path, *, size, fps) -> Path:
 def _audio_duration(path: PathLike) -> float:
     out = subprocess.run(
         [
-            "ffprobe", "-v", "error", "-show_entries", "format=duration",
-            "-of", "default=noprint_wrappers=1:nokey=1", str(path),
+            "ffprobe",
+            "-v",
+            "error",
+            "-show_entries",
+            "format=duration",
+            "-of",
+            "default=noprint_wrappers=1:nokey=1",
+            str(path),
         ],
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     return float(out.stdout.strip())

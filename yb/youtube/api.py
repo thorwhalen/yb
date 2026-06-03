@@ -19,7 +19,9 @@ PathLike = str | Path
 _CHAPTERS_HEADER = "Chapters:"
 
 
-def get_video(video_id: str, *, part: str = "snippet,status", service=None, **cred_kwargs) -> dict:
+def get_video(
+    video_id: str, *, part: str = "snippet,status", service=None, **cred_kwargs
+) -> dict:
     """Fetch a video resource (raises ``KeyError`` if not found/visible)."""
     service = service or _service(**cred_kwargs)
     items = service.videos().list(part=part, id=video_id).execute().get("items", [])
@@ -44,8 +46,12 @@ def upload_video(
     from googleapiclient.http import MediaFileUpload
 
     service = service or _service(**cred_kwargs)
-    media = MediaFileUpload(str(video_path), chunksize=chunksize, resumable=True, mimetype="video/*")
-    request = service.videos().insert(part=",".join(body.keys()), body=body, media_body=media)
+    media = MediaFileUpload(
+        str(video_path), chunksize=chunksize, resumable=True, mimetype="video/*"
+    )
+    request = service.videos().insert(
+        part=",".join(body.keys()), body=body, media_body=media
+    )
     response = None
     while response is None:
         status, response = request.next_chunk()
@@ -94,15 +100,23 @@ def update_video_fields(
         snippet["defaultAudioLanguage"] = default_audio_language
     # videos.update replaces the snippet wholesale → keep only writable keys.
     writable = {
-        k: snippet[k] for k in (
-            "title", "description", "tags", "categoryId",
-            "defaultLanguage", "defaultAudioLanguage",
-        ) if k in snippet
+        k: snippet[k]
+        for k in (
+            "title",
+            "description",
+            "tags",
+            "categoryId",
+            "defaultLanguage",
+            "defaultAudioLanguage",
+        )
+        if k in snippet
     }
     return update_video(video_id, writable, service=service)
 
 
-def set_thumbnail(video_id: str, image_path: PathLike, *, service=None, **cred_kwargs) -> dict:
+def set_thumbnail(
+    video_id: str, image_path: PathLike, *, service=None, **cred_kwargs
+) -> dict:
     """Set a custom thumbnail (``thumbnails.set``)."""
     from googleapiclient.http import MediaFileUpload
 
@@ -130,7 +144,9 @@ def set_chapters(
     return update_video_fields(video_id, description=new_desc, service=service)
 
 
-def _replace_chapters_block(description: str, chapters: Sequence[Chapter], header: str) -> str:
+def _replace_chapters_block(
+    description: str, chapters: Sequence[Chapter], header: str
+) -> str:
     """Return ``description`` with its chapters block replaced (or appended)."""
     # Remove an existing "<header> ... " block (header line + following ts lines).
     pattern = re.compile(

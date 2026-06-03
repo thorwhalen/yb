@@ -63,12 +63,20 @@ def publish_content(
 
     captions: list[str] = []
     cap_lang = content.audio_language or content.language
-    if attach_caption and content.srt_path and Path(content.srt_path).exists() and cap_lang:
+    if (
+        attach_caption
+        and content.srt_path
+        and Path(content.srt_path).exists()
+        and cap_lang
+    ):
         if progress:
             print(f"  attaching caption: {cap_lang}")
         upsert_caption(
-            video_id, content.srt_path, language=cap_lang,
-            name=_lang_name(cap_lang), service=service,
+            video_id,
+            content.srt_path,
+            language=cap_lang,
+            name=_lang_name(cap_lang),
+            service=service,
         )
         captions.append(cap_lang)
 
@@ -105,15 +113,23 @@ def prepare_and_publish(
     captions + thumbnail + chapters.
     """
     content = prepare_content(
-        media, language=language, language_code=language_code,
-        audio_language_code=audio_language_code, brand=brand,
-        extra_context=extra_context, with_chapters=with_chapters,
+        media,
+        language=language,
+        language_code=language_code,
+        audio_language_code=audio_language_code,
+        brand=brand,
+        extra_context=extra_context,
+        with_chapters=with_chapters,
         with_thumbnail=with_thumbnail,
     )
     return publish_content(
-        content, privacy_status=privacy_status, category_id=category_id,
-        with_chapters=with_chapters, client_secrets_file=client_secrets_file,
-        token_file=token_file, progress=progress,
+        content,
+        privacy_status=privacy_status,
+        category_id=category_id,
+        with_chapters=with_chapters,
+        client_secrets_file=client_secrets_file,
+        token_file=token_file,
+        progress=progress,
     )
 
 
@@ -168,6 +184,12 @@ def _result(video_id, privacy, captions, thumb) -> dict:
 
 def _lang_name(code: str) -> str:
     return {
-        "en": "English", "fr": "Français", "es": "Español", "de": "Deutsch",
-        "it": "Italiano", "pt": "Português", "ja": "日本語", "zh": "中文",
+        "en": "English",
+        "fr": "Français",
+        "es": "Español",
+        "de": "Deutsch",
+        "it": "Italiano",
+        "pt": "Português",
+        "ja": "日本語",
+        "zh": "中文",
     }.get(code, code)

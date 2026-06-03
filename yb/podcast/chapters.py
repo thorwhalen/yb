@@ -27,7 +27,9 @@ def psc_xml(chapters: Sequence[Chapter]) -> str:
         '<psc:chapters version="1.2" xmlns:psc="http://podlove.org/simple-chapters">',
     ]
     for c in chapters:
-        lines.append(f'  <psc:chapter start="{_psc_time(c.start)}" title="{escape(c.title)}"/>')
+        lines.append(
+            f'  <psc:chapter start="{_psc_time(c.start)}" title="{escape(c.title)}"/>'
+        )
     lines.append("</psc:chapters>")
     return "\n".join(lines) + "\n"
 
@@ -83,18 +85,22 @@ def write_id3_chapters(
     for i, (c, end) in enumerate(zip(chapters, ends)):
         eid = f"chp{i}"
         element_ids.append(eid)
-        tags.add(CHAP(
-            element_id=eid,
-            start_time=int(c.start * 1000),
-            end_time=int(end * 1000),
-            sub_frames=[TIT2(encoding=3, text=[c.title])],
-        ))
-    tags.add(CTOC(
-        element_id=toc_id,
-        flags=CTOCFlags.TOP_LEVEL | CTOCFlags.ORDERED,
-        child_element_ids=element_ids,
-        sub_frames=[TIT2(encoding=3, text=["Chapters"])],
-    ))
+        tags.add(
+            CHAP(
+                element_id=eid,
+                start_time=int(c.start * 1000),
+                end_time=int(end * 1000),
+                sub_frames=[TIT2(encoding=3, text=[c.title])],
+            )
+        )
+    tags.add(
+        CTOC(
+            element_id=toc_id,
+            flags=CTOCFlags.TOP_LEVEL | CTOCFlags.ORDERED,
+            child_element_ids=element_ids,
+            sub_frames=[TIT2(encoding=3, text=["Chapters"])],
+        )
+    )
     tags.save(str(mp3_path))
     return mp3_path
 

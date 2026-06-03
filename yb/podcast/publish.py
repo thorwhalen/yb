@@ -74,16 +74,31 @@ def prepare_podcast_episode(
 
     if content is None:
         content = prepare_content(
-            media, language=language, brand=brand, extra_context=extra_context,
+            media,
+            language=language,
+            brand=brand,
+            extra_context=extra_context,
         )
 
     # Resolve / produce the episode MP3.
     if audio is not None:
         episode_audio = _copy_into(Path(audio), out)
-    elif media.suffix.lower() in {".mp3", ".m4a", ".aac", ".wav", ".flac", ".ogg", ".opus"}:
-        episode_audio = _copy_into(media, out, to_mp3=media.suffix.lower() != ".mp3", bitrate=audio_bitrate)
+    elif media.suffix.lower() in {
+        ".mp3",
+        ".m4a",
+        ".aac",
+        ".wav",
+        ".flac",
+        ".ogg",
+        ".opus",
+    }:
+        episode_audio = _copy_into(
+            media, out, to_mp3=media.suffix.lower() != ".mp3", bitrate=audio_bitrate
+        )
     else:
-        episode_audio = _extract_audio(media, out / f"{media.stem}.mp3", bitrate=audio_bitrate)
+        episode_audio = _extract_audio(
+            media, out / f"{media.stem}.mp3", bitrate=audio_bitrate
+        )
 
     # Show notes.
     show_notes = out / f"{media.stem}.shownotes.txt"
@@ -94,7 +109,10 @@ def prepare_podcast_episode(
         chapters_psc = write_psc(content.chapters, out / f"{media.stem}.psc.xml")
         chapters_json = out / f"{media.stem}.chapters.json"
         chapters_json.write_text(
-            json.dumps([{"start": c.start, "title": c.title} for c in content.chapters], indent=2),
+            json.dumps(
+                [{"start": c.start, "title": c.title} for c in content.chapters],
+                indent=2,
+            ),
             encoding="utf-8",
         )
         if embed_chapters and episode_audio.suffix.lower() == ".mp3":
@@ -105,8 +123,11 @@ def prepare_podcast_episode(
         if not cover_image:
             raise ValueError("make_cover_video=True requires cover_image=.")
         from yb.podcast.cover import cover_video as _cover_video
+
         cover_video = _cover_video(
-            episode_audio, cover_image, ken_burns=ken_burns,
+            episode_audio,
+            cover_image,
+            ken_burns=ken_burns,
             saveas=out / f"{media.stem}.cover.mp4",
         )
 
@@ -120,7 +141,9 @@ def prepare_podcast_episode(
     )
 
 
-def _copy_into(src: Path, out_dir: Path, *, to_mp3: bool = False, bitrate: str = "192k") -> Path:
+def _copy_into(
+    src: Path, out_dir: Path, *, to_mp3: bool = False, bitrate: str = "192k"
+) -> Path:
     if to_mp3:
         return _extract_audio(src, out_dir / f"{src.stem}.mp3", bitrate=bitrate)
     dest = out_dir / src.name
@@ -133,9 +156,22 @@ def _extract_audio(src: Path, dest: Path, *, bitrate: str = "192k") -> Path:
     """Extract a podcast-quality (stereo, 44.1k) MP3 from any media file."""
     subprocess.run(
         [
-            "ffmpeg", "-y", "-loglevel", "error", "-i", str(src),
-            "-vn", "-ac", "2", "-ar", "44100", "-b:a", bitrate, str(dest),
+            "ffmpeg",
+            "-y",
+            "-loglevel",
+            "error",
+            "-i",
+            str(src),
+            "-vn",
+            "-ac",
+            "2",
+            "-ar",
+            "44100",
+            "-b:a",
+            bitrate,
+            str(dest),
         ],
-        check=True, capture_output=True,
+        check=True,
+        capture_output=True,
     )
     return dest

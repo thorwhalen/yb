@@ -25,9 +25,22 @@ DEFAULT_OUTTMPL = "%(title)s (%(id)s).%(ext)s"
 
 #: Fields surfaced on the result's ``info`` (the rest of yt-dlp's dict is dropped).
 _INFO_FIELDS = (
-    "id", "title", "uploader", "channel", "channel_id", "duration",
-    "upload_date", "view_count", "like_count", "description", "tags",
-    "categories", "chapters", "webpage_url", "thumbnail", "language",
+    "id",
+    "title",
+    "uploader",
+    "channel",
+    "channel_id",
+    "duration",
+    "upload_date",
+    "view_count",
+    "like_count",
+    "description",
+    "tags",
+    "categories",
+    "chapters",
+    "webpage_url",
+    "thumbnail",
+    "language",
 )
 
 
@@ -144,8 +157,10 @@ def download_youtube_video(
 
     path = _resolve_output_path(info, ydl, out_dir, merge_to)
     sidecars = _collect_sidecars(
-        info, path,
-        info_json=write_info_json, thumbnail=write_thumbnail,
+        info,
+        path,
+        info_json=write_info_json,
+        thumbnail=write_thumbnail,
         description=write_description,
         subtitles=write_subtitles or write_auto_subtitles,
     )
@@ -167,8 +182,13 @@ def _resolve_output_path(info, ydl, out_dir: Path, merge_to: str | None) -> Path
 
 
 def _collect_sidecars(
-    info, media_path: Path, *, info_json: bool, thumbnail: bool,
-    description: bool, subtitles: bool,
+    info,
+    media_path: Path,
+    *,
+    info_json: bool,
+    thumbnail: bool,
+    description: bool,
+    subtitles: bool,
 ) -> dict[str, Any]:
     stem = media_path.with_suffix("")
     out: dict[str, Any] = {}
@@ -187,8 +207,9 @@ def _collect_sidecars(
                 out["thumbnail"] = cand
                 break
     if subtitles:
-        subs = sorted(media_path.parent.glob(f"{glob_escape(stem.name)}.*.srt")) + \
-            sorted(media_path.parent.glob(f"{glob_escape(stem.name)}.*.vtt"))
+        subs = sorted(
+            media_path.parent.glob(f"{glob_escape(stem.name)}.*.srt")
+        ) + sorted(media_path.parent.glob(f"{glob_escape(stem.name)}.*.vtt"))
         if subs:
             out["subtitles"] = subs
     return out
@@ -196,7 +217,12 @@ def _collect_sidecars(
 
 def glob_escape(name: str) -> str:
     """Escape glob metacharacters in a literal filename stem."""
-    return name.replace("[", "[[]").replace("]", "[]]").replace("*", "[*]").replace("?", "[?]")
+    return (
+        name.replace("[", "[[]")
+        .replace("]", "[]]")
+        .replace("*", "[*]")
+        .replace("?", "[?]")
+    )
 
 
 def _trim_info(info: dict | None) -> dict[str, Any]:

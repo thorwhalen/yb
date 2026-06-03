@@ -67,7 +67,9 @@ class VideoMetadata:
         if with_chapters and content.chapters:
             block = format_chapter_lines(content.chapters)
             body = description.rstrip()
-            description = f"{body}\n\nChapters:\n{block}" if body else f"Chapters:\n{block}"
+            description = (
+                f"{body}\n\nChapters:\n{block}" if body else f"Chapters:\n{block}"
+            )
         return cls(
             title=content.title,
             description=description,
@@ -79,10 +81,13 @@ class VideoMetadata:
 
     def insert_body(self, *, privacy_status: str = "unlisted") -> dict:
         """Build the ``videos.insert`` body (snippet + status)."""
-        return {"snippet": self._snippet(), "status": {
-            "privacyStatus": privacy_status,
-            "selfDeclaredMadeForKids": False,
-        }}
+        return {
+            "snippet": self._snippet(),
+            "status": {
+                "privacyStatus": privacy_status,
+                "selfDeclaredMadeForKids": False,
+            },
+        }
 
     def update_snippet(self) -> dict:
         """Build the snippet for ``videos.update`` (categoryId is required)."""

@@ -143,8 +143,11 @@ def prepare_content(
 
     if metadata is None:
         metadata = generate_metadata(
-            srt_text, language=language, brand=brand,
-            extra_context=extra_context, model=model,
+            srt_text,
+            language=language,
+            brand=brand,
+            extra_context=extra_context,
+            model=model,
         )
 
     chapters: list[Chapter] = []
@@ -154,6 +157,7 @@ def prepare_content(
     thumbnail = None
     if with_thumbnail:
         from mixing.video.thumbnail import make_thumbnail
+
         thumbnail = make_thumbnail(media, text=thumbnail_text or metadata.title)
 
     return PublicationContent(

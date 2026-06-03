@@ -37,7 +37,12 @@ class CaptionTrack:
 def list_captions(video_id: str, *, service=None, **cred_kwargs) -> list[dict]:
     """List caption tracks on a video (each item's snippet has language/name/trackKind/status)."""
     service = service or _service(**cred_kwargs)
-    return service.captions().list(part="snippet", videoId=video_id).execute().get("items", [])
+    return (
+        service.captions()
+        .list(part="snippet", videoId=video_id)
+        .execute()
+        .get("items", [])
+    )
 
 
 def insert_caption(
@@ -54,11 +59,20 @@ def insert_caption(
     from googleapiclient.http import MediaFileUpload
 
     service = service or _service(**cred_kwargs)
-    body = {"snippet": {
-        "videoId": video_id, "language": language, "name": name, "isDraft": is_draft,
-    }}
-    media = MediaFileUpload(str(path), mimetype="application/octet-stream", resumable=False)
-    return service.captions().insert(part="snippet", body=body, media_body=media).execute()
+    body = {
+        "snippet": {
+            "videoId": video_id,
+            "language": language,
+            "name": name,
+            "isDraft": is_draft,
+        }
+    }
+    media = MediaFileUpload(
+        str(path), mimetype="application/octet-stream", resumable=False
+    )
+    return (
+        service.captions().insert(part="snippet", body=body, media_body=media).execute()
+    )
 
 
 def update_caption(
@@ -77,7 +91,9 @@ def update_caption(
     if is_draft is not None:
         body["snippet"] = {"isDraft": is_draft}
     part = "snippet" if "snippet" in body else "id"
-    media = MediaFileUpload(str(path), mimetype="application/octet-stream", resumable=False)
+    media = MediaFileUpload(
+        str(path), mimetype="application/octet-stream", resumable=False
+    )
     return service.captions().update(part=part, body=body, media_body=media).execute()
 
 
@@ -104,7 +120,12 @@ def upsert_caption(
         The inserted/updated caption resource.
     """
     if isinstance(track, CaptionTrack):
-        path, language, name, is_draft = track.path, track.language, track.name, track.is_draft
+        path, language, name, is_draft = (
+            track.path,
+            track.language,
+            track.name,
+            track.is_draft,
+        )
     else:
         path = track
         if language is None:
