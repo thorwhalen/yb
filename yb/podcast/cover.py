@@ -106,9 +106,9 @@ def _ken_burns_cover(audio: Path, image: Path, out: Path, *, size, fps) -> Path:
         duration=duration,
         size=size,
         fps=fps,
-        saveas=str(out.with_suffix(".silent.mp4")),
+        output=str(out.with_suffix(".silent.mp4")),
     )
-    replace_audio(str(silent), str(audio), saveas=str(out), match_duration=False)
+    replace_audio(str(silent), str(audio), output=str(out), match_duration=False)
     Path(silent).unlink(missing_ok=True)
     return out
 
