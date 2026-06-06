@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.content &mdash; yb 0.1.0 documentation</title>
+  <title>yb.content &mdash; yb 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/documentation_options.js?v=a58bc63e"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -248,8 +248,11 @@
 
     <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">metadata</span> <span class="o">=</span> <span class="n">generate_metadata</span><span class="p">(</span>
-            <span class="n">srt_text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">brand</span><span class="o">=</span><span class="n">brand</span><span class="p">,</span>
-            <span class="n">extra_context</span><span class="o">=</span><span class="n">extra_context</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">srt_text</span><span class="p">,</span>
+            <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span>
+            <span class="n">brand</span><span class="o">=</span><span class="n">brand</span><span class="p">,</span>
+            <span class="n">extra_context</span><span class="o">=</span><span class="n">extra_context</span><span class="p">,</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="n">chapters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chapter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -259,6 +262,7 @@
     <span class="n">thumbnail</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">with_thumbnail</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">mixing.video.thumbnail</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_thumbnail</span>
+
         <span class="n">thumbnail</span> <span class="o">=</span> <span class="n">make_thumbnail</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">thumbnail_text</span> <span class="ow">or</span> <span class="n">metadata</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">PublicationContent</span><span class="p">(</span>

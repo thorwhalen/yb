@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.download.youtube &mdash; yb 0.1.0 documentation</title>
+  <title>yb.download.youtube &mdash; yb 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -116,9 +116,22 @@
 
 <span class="c1">#: Fields surfaced on the result&#39;s ``info`` (the rest of yt-dlp&#39;s dict is dropped).</span>
 <span class="n">_INFO_FIELDS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;uploader&quot;</span><span class="p">,</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;channel_id&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;upload_date&quot;</span><span class="p">,</span> <span class="s2">&quot;view_count&quot;</span><span class="p">,</span> <span class="s2">&quot;like_count&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="s2">&quot;chapters&quot;</span><span class="p">,</span> <span class="s2">&quot;webpage_url&quot;</span><span class="p">,</span> <span class="s2">&quot;thumbnail&quot;</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uploader&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel_id&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;duration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;upload_date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;view_count&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;like_count&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;categories&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;chapters&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;webpage_url&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thumbnail&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;language&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -246,8 +259,10 @@
 
     <span class="n">path</span> <span class="o">=</span> <span class="n">_resolve_output_path</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ydl</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">merge_to</span><span class="p">)</span>
     <span class="n">sidecars</span> <span class="o">=</span> <span class="n">_collect_sidecars</span><span class="p">(</span>
-        <span class="n">info</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
-        <span class="n">info_json</span><span class="o">=</span><span class="n">write_info_json</span><span class="p">,</span> <span class="n">thumbnail</span><span class="o">=</span><span class="n">write_thumbnail</span><span class="p">,</span>
+        <span class="n">info</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">,</span>
+        <span class="n">info_json</span><span class="o">=</span><span class="n">write_info_json</span><span class="p">,</span>
+        <span class="n">thumbnail</span><span class="o">=</span><span class="n">write_thumbnail</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="n">write_description</span><span class="p">,</span>
         <span class="n">subtitles</span><span class="o">=</span><span class="n">write_subtitles</span> <span class="ow">or</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
     <span class="p">)</span>
@@ -270,8 +285,13 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_collect_sidecars</span><span class="p">(</span>
-    <span class="n">info</span><span class="p">,</span> <span class="n">media_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">info_json</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">thumbnail</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">subtitles</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">info</span><span class="p">,</span>
+    <span class="n">media_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">info_json</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">thumbnail</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">subtitles</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="n">stem</span> <span class="o">=</span> <span class="n">media_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">out</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -290,8 +310,9 @@
                 <span class="n">out</span><span class="p">[</span><span class="s2">&quot;thumbnail&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cand</span>
                 <span class="k">break</span>
     <span class="k">if</span> <span class="n">subtitles</span><span class="p">:</span>
-        <span class="n">subs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.srt&quot;</span><span class="p">))</span> <span class="o">+</span> \
-            <span class="nb">sorted</span><span class="p">(</span><span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.vtt&quot;</span><span class="p">))</span>
+        <span class="n">subs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.srt&quot;</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">media_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">glob_escape</span><span class="p">(</span><span class="n">stem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">.*.vtt&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">subs</span><span class="p">:</span>
             <span class="n">out</span><span class="p">[</span><span class="s2">&quot;subtitles&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subs</span>
     <span class="k">return</span> <span class="n">out</span>
@@ -301,7 +322,12 @@
 <a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.glob_escape">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">glob_escape</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Escape glob metacharacters in a literal filename stem.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;[[]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="s2">&quot;[]]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;[*]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;[?]&quot;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;[[]&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="s2">&quot;[]]&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;[*]&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;[?]&quot;</span><span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 
