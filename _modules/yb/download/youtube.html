@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.download.youtube &mdash; yb 0.1.1 documentation</title>
+  <title>yb.download.youtube &mdash; yb 0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/documentation_options.js?v=92734c54"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -130,8 +130,12 @@
     <span class="s2">&quot;categories&quot;</span><span class="p">,</span>
     <span class="s2">&quot;chapters&quot;</span><span class="p">,</span>
     <span class="s2">&quot;webpage_url&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;original_url&quot;</span><span class="p">,</span>
     <span class="s2">&quot;thumbnail&quot;</span><span class="p">,</span>
     <span class="s2">&quot;language&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fps&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;height&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -270,6 +274,215 @@
 
 
 
+<div class="viewcode-block" id="youtube_playlist_info">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.youtube_playlist_info">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">youtube_playlist_info</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">playlist_items</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">flat</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch a playlist&#39;s per-video metadata without downloading.</span>
+
+<span class="sd">    Returns a dict with playlist-level fields (``playlist_id``, ``playlist_title``,</span>
+<span class="sd">    ``webpage_url``, ``uploader``, ``count``) and an ``entries`` list. With</span>
+<span class="sd">    ``flat=True`` (default) extraction is fast/shallow (each entry has at least</span>
+<span class="sd">    ``id``, ``title``, ``url``); with ``flat=False`` each entry is fully resolved</span>
+<span class="sd">    and trimmed to :data:`_INFO_FIELDS` (slower, but includes duration/fps/etc.).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: The playlist URL.</span>
+<span class="sd">        playlist_items: yt-dlp ``--playlist-items`` selector, 1-based, e.g.</span>
+<span class="sd">            ``&quot;2:&quot;`` (all but the first), ``&quot;2&quot;`` (only the 2nd), ``&quot;1:5,8&quot;``.</span>
+<span class="sd">        flat: Shallow vs full per-entry extraction.</span>
+<span class="sd">        extra_opts: Additional raw yt-dlp options (merged last).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yt_dlp</span><span class="w"> </span><span class="kn">import</span> <span class="n">YoutubeDL</span>
+
+    <span class="n">opts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;skip_download&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;extract_flat&quot;</span><span class="p">:</span> <span class="s2">&quot;in_playlist&quot;</span> <span class="k">if</span> <span class="n">flat</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;ignoreerrors&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">playlist_items</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;playlist_items&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlist_items</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_opts</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">raw_entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;entries&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">info</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">flat</span><span class="p">:</span>
+        <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;webpage_url&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;webpage_url&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">raw_entries</span>
+            <span class="k">if</span> <span class="n">e</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">_trim_info</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">raw_entries</span> <span class="k">if</span> <span class="n">e</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;playlist_id&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">info</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;playlist_title&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">info</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;webpage_url&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">info</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;webpage_url&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;uploader&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">info</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;uploader&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span>
+        <span class="s2">&quot;entries&quot;</span><span class="p">:</span> <span class="n">entries</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="download_youtube_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.download_youtube_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">download_youtube_playlist</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">download_dir</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">playlist_items</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">skip_first</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">title_reject</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">download_archive</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bestvideo+bestaudio/best&quot;</span><span class="p">,</span>
+    <span class="n">merge_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;mp4&quot;</span><span class="p">,</span>
+    <span class="n">filename_template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_OUTTMPL</span><span class="p">,</span>
+    <span class="n">write_info_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">write_thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_description</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_auto_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">subtitle_langs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">,),</span>
+    <span class="n">cookies_from_browser</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extractor_args</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DownloadResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download all (or a selected subset of) a YouTube playlist&#39;s videos.</span>
+
+<span class="sd">    Simplest use: ``download_youtube_playlist(url)`` → every video downloaded best</span>
+<span class="sd">    quality merged to mp4 into ``download_dir`` (default ``~/Downloads``), each with</span>
+<span class="sd">    its ``*.info.json`` sidecar (``write_info_json`` defaults to ``True`` here, since</span>
+<span class="sd">    a playlist download is usually an archival operation).</span>
+
+<span class="sd">    Selecting a subset (yt-dlp ``--playlist-items`` is **1-based**):</span>
+
+<span class="sd">        # skip the first (&quot;PV&quot;/intro) entry, keep the rest</span>
+<span class="sd">        download_youtube_playlist(url, skip_first=True)         # -&gt; playlist_items=&quot;2:&quot;</span>
+<span class="sd">        download_youtube_playlist(url, playlist_items=&quot;2:&quot;)     # same, explicit</span>
+<span class="sd">        download_youtube_playlist(url, playlist_items=&quot;2&quot;)      # only the 2nd video</span>
+<span class="sd">        download_youtube_playlist(url, title_reject=&quot;PV&quot;)       # skip entries whose title contains &quot;PV&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: The playlist URL.</span>
+<span class="sd">        download_dir: Destination directory (default :func:`default_download_dir`).</span>
+<span class="sd">        playlist_items: yt-dlp item selector (1-based; ``&quot;2:&quot;``, ``&quot;2&quot;``, ``&quot;1:5,8&quot;``).</span>
+<span class="sd">        skip_first: Convenience for ``playlist_items=&quot;2:&quot;`` (ignored if</span>
+<span class="sd">            ``playlist_items`` is given).</span>
+<span class="sd">        title_reject: Skip entries whose (case-insensitive) title contains this</span>
+<span class="sd">            substring — more robust than a positional skip if ordering changes.</span>
+<span class="sd">        download_archive: Path to a yt-dlp archive file recording downloaded ids,</span>
+<span class="sd">            making re-runs idempotent/resumable.</span>
+<span class="sd">        fmt: yt-dlp format selector (default best video + best audio).</span>
+<span class="sd">        merge_to: Container to merge into (default ``&quot;mp4&quot;``; needs ffmpeg).</span>
+<span class="sd">        filename_template: yt-dlp output template (default</span>
+<span class="sd">            ``&quot;%(title)s (%(id)s).%(ext)s&quot;``).</span>
+<span class="sd">        write_info_json: Save each video&#39;s ``*.info.json`` (default ``True``).</span>
+<span class="sd">        write_thumbnail, write_description, write_subtitles, write_auto_subtitles,</span>
+<span class="sd">        subtitle_langs: As in :func:`download_youtube_video`.</span>
+<span class="sd">        cookies_from_browser: Browser to read cookies from for bot-detection /</span>
+<span class="sd">            age / region issues, e.g. ``&quot;safari&quot;`` or ``(&quot;chrome&quot;, &quot;Profile 1&quot;)``.</span>
+<span class="sd">        extractor_args: yt-dlp ``extractor_args`` (e.g.</span>
+<span class="sd">            ``{&quot;youtube&quot;: {&quot;player_client&quot;: [&quot;web_safari&quot;]}}``).</span>
+<span class="sd">        quiet: Suppress yt-dlp console output.</span>
+<span class="sd">        extra_opts: Any additional raw yt-dlp options (merged last, so they win).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of :class:`DownloadResult`, one per successfully-downloaded entry,</span>
+<span class="sd">        in playlist order. Entries skipped by selection/filter or that failed</span>
+<span class="sd">        (under ``ignoreerrors``) are omitted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yt_dlp</span><span class="w"> </span><span class="kn">import</span> <span class="n">YoutubeDL</span>
+
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">download_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">download_dir</span> <span class="k">else</span> <span class="n">default_download_dir</span><span class="p">()</span>
+    <span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">playlist_items</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">skip_first</span><span class="p">:</span>
+        <span class="n">playlist_items</span> <span class="o">=</span> <span class="s2">&quot;2:&quot;</span>
+
+    <span class="n">opts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="n">fmt</span><span class="p">,</span>
+        <span class="s2">&quot;outtmpl&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">/</span> <span class="n">filename_template</span><span class="p">),</span>
+        <span class="s2">&quot;noplaylist&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;ignoreerrors&quot;</span><span class="p">:</span> <span class="s2">&quot;only_download&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="n">quiet</span><span class="p">,</span>
+        <span class="s2">&quot;writeinfojson&quot;</span><span class="p">:</span> <span class="n">write_info_json</span><span class="p">,</span>
+        <span class="s2">&quot;writethumbnail&quot;</span><span class="p">:</span> <span class="n">write_thumbnail</span><span class="p">,</span>
+        <span class="s2">&quot;writedescription&quot;</span><span class="p">:</span> <span class="n">write_description</span><span class="p">,</span>
+        <span class="s2">&quot;writesubtitles&quot;</span><span class="p">:</span> <span class="n">write_subtitles</span><span class="p">,</span>
+        <span class="s2">&quot;writeautomaticsub&quot;</span><span class="p">:</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
+        <span class="s2">&quot;subtitleslangs&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">subtitle_langs</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">merge_to</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;merge_output_format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge_to</span>
+    <span class="k">if</span> <span class="n">playlist_items</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;playlist_items&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlist_items</span>
+    <span class="k">if</span> <span class="n">download_archive</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;download_archive&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">download_archive</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">cookies_from_browser</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;cookiesfrombrowser&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_coerce_cookies_from_browser</span><span class="p">(</span><span class="n">cookies_from_browser</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">extractor_args</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;extractor_args&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extractor_args</span>
+    <span class="k">if</span> <span class="n">title_reject</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;match_filter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_reject_title_filter</span><span class="p">(</span><span class="n">title_reject</span><span class="p">)</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_opts</span> <span class="ow">or</span> <span class="p">{})</span>
+
+    <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DownloadResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;entries&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">info</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">entry</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># selection/filter skipped it, or it failed under ignoreerrors</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_resolve_output_path</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">ydl</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">merge_to</span><span class="p">)</span>
+        <span class="n">sidecars</span> <span class="o">=</span> <span class="n">_collect_sidecars</span><span class="p">(</span>
+            <span class="n">entry</span><span class="p">,</span>
+            <span class="n">path</span><span class="p">,</span>
+            <span class="n">info_json</span><span class="o">=</span><span class="n">write_info_json</span><span class="p">,</span>
+            <span class="n">thumbnail</span><span class="o">=</span><span class="n">write_thumbnail</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">write_description</span><span class="p">,</span>
+            <span class="n">subtitles</span><span class="o">=</span><span class="n">write_subtitles</span> <span class="ow">or</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">DownloadResult</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">_trim_info</span><span class="p">(</span><span class="n">entry</span><span class="p">),</span> <span class="n">sidecars</span><span class="o">=</span><span class="n">sidecars</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_coerce_cookies_from_browser</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize ``cookies_from_browser`` into yt-dlp&#39;s ``cookiesfrombrowser`` tuple.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">value</span><span class="p">,)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_reject_title_filter</span><span class="p">(</span><span class="n">substring</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a yt-dlp ``match_filter`` that skips entries whose title contains ``substring``.&quot;&quot;&quot;</span>
+    <span class="n">needle</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_filter</span><span class="p">(</span><span class="n">info_dict</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">incomplete</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="p">(</span><span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">needle</span> <span class="ow">in</span> <span class="n">title</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;skipping </span><span class="si">{</span><span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="si">!r}</span><span class="s2">: title matches reject </span><span class="si">{</span><span class="n">substring</span><span class="si">!r}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">_filter</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_output_path</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ydl</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">merge_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Best-effort resolution of the final media path yt-dlp produced.&quot;&quot;&quot;</span>
     <span class="n">downloads</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requested_downloads&quot;</span><span class="p">)</span>
@@ -344,7 +557,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
