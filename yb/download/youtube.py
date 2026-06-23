@@ -39,8 +39,12 @@ _INFO_FIELDS = (
     "categories",
     "chapters",
     "webpage_url",
+    "original_url",
     "thumbnail",
     "language",
+    "fps",
+    "width",
+    "height",
 )
 
 
@@ -165,6 +169,209 @@ def download_youtube_video(
         subtitles=write_subtitles or write_auto_subtitles,
     )
     return DownloadResult(path=path, info=_trim_info(info), sidecars=sidecars)
+
+
+def youtube_playlist_info(
+    url: str,
+    *,
+    playlist_items: str | None = None,
+    flat: bool = True,
+    extra_opts: dict | None = None,
+) -> dict[str, Any]:
+    """Fetch a playlist's per-video metadata without downloading.
+
+    Returns a dict with playlist-level fields (``playlist_id``, ``playlist_title``,
+    ``webpage_url``, ``uploader``, ``count``) and an ``entries`` list. With
+    ``flat=True`` (default) extraction is fast/shallow (each entry has at least
+    ``id``, ``title``, ``url``); with ``flat=False`` each entry is fully resolved
+    and trimmed to :data:`_INFO_FIELDS` (slower, but includes duration/fps/etc.).
+
+    Args:
+        url: The playlist URL.
+        playlist_items: yt-dlp ``--playlist-items`` selector, 1-based, e.g.
+            ``"2:"`` (all but the first), ``"2"`` (only the 2nd), ``"1:5,8"``.
+        flat: Shallow vs full per-entry extraction.
+        extra_opts: Additional raw yt-dlp options (merged last).
+    """
+    from yt_dlp import YoutubeDL
+
+    opts: dict[str, Any] = {
+        "quiet": True,
+        "skip_download": True,
+        "extract_flat": "in_playlist" if flat else False,
+        "ignoreerrors": True,
+    }
+    if playlist_items:
+        opts["playlist_items"] = playlist_items
+    opts.update(extra_opts or {})
+    with YoutubeDL(opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    raw_entries = (info.get("entries") if info else None) or []
+    if flat:
+        entries = [
+            {
+                "id": e.get("id"),
+                "title": e.get("title"),
+                "webpage_url": e.get("url") or e.get("webpage_url"),
+                "duration": e.get("duration"),
+            }
+            for e in raw_entries
+            if e
+        ]
+    else:
+        entries = [_trim_info(e) for e in raw_entries if e]
+    return {
+        "playlist_id": (info or {}).get("id"),
+        "playlist_title": (info or {}).get("title"),
+        "webpage_url": (info or {}).get("webpage_url"),
+        "uploader": (info or {}).get("uploader"),
+        "count": len(entries),
+        "entries": entries,
+    }
+
+
+def download_youtube_playlist(
+    url: str,
+    *,
+    download_dir: PathLike | None = None,
+    playlist_items: str | None = None,
+    skip_first: bool = False,
+    title_reject: str | None = None,
+    download_archive: PathLike | None = None,
+    fmt: str = "bestvideo+bestaudio/best",
+    merge_to: str | None = "mp4",
+    filename_template: str = DEFAULT_OUTTMPL,
+    write_info_json: bool = True,
+    write_thumbnail: bool = False,
+    write_description: bool = False,
+    write_subtitles: bool = False,
+    write_auto_subtitles: bool = False,
+    subtitle_langs: tuple[str, ...] = ("en",),
+    cookies_from_browser: str | tuple | None = None,
+    extractor_args: dict | None = None,
+    quiet: bool = True,
+    extra_opts: dict | None = None,
+) -> list[DownloadResult]:
+    """Download all (or a selected subset of) a YouTube playlist's videos.
+
+    Simplest use: ``download_youtube_playlist(url)`` → every video downloaded best
+    quality merged to mp4 into ``download_dir`` (default ``~/Downloads``), each with
+    its ``*.info.json`` sidecar (``write_info_json`` defaults to ``True`` here, since
+    a playlist download is usually an archival operation).
+
+    Selecting a subset (yt-dlp ``--playlist-items`` is **1-based**):
+
+        # skip the first ("PV"/intro) entry, keep the rest
+        download_youtube_playlist(url, skip_first=True)         # -> playlist_items="2:"
+        download_youtube_playlist(url, playlist_items="2:")     # same, explicit
+        download_youtube_playlist(url, playlist_items="2")      # only the 2nd video
+        download_youtube_playlist(url, title_reject="PV")       # skip entries whose title contains "PV"
+
+    Args:
+        url: The playlist URL.
+        download_dir: Destination directory (default :func:`default_download_dir`).
+        playlist_items: yt-dlp item selector (1-based; ``"2:"``, ``"2"``, ``"1:5,8"``).
+        skip_first: Convenience for ``playlist_items="2:"`` (ignored if
+            ``playlist_items`` is given).
+        title_reject: Skip entries whose (case-insensitive) title contains this
+            substring — more robust than a positional skip if ordering changes.
+        download_archive: Path to a yt-dlp archive file recording downloaded ids,
+            making re-runs idempotent/resumable.
+        fmt: yt-dlp format selector (default best video + best audio).
+        merge_to: Container to merge into (default ``"mp4"``; needs ffmpeg).
+        filename_template: yt-dlp output template (default
+            ``"%(title)s (%(id)s).%(ext)s"``).
+        write_info_json: Save each video's ``*.info.json`` (default ``True``).
+        write_thumbnail, write_description, write_subtitles, write_auto_subtitles,
+        subtitle_langs: As in :func:`download_youtube_video`.
+        cookies_from_browser: Browser to read cookies from for bot-detection /
+            age / region issues, e.g. ``"safari"`` or ``("chrome", "Profile 1")``.
+        extractor_args: yt-dlp ``extractor_args`` (e.g.
+            ``{"youtube": {"player_client": ["web_safari"]}}``).
+        quiet: Suppress yt-dlp console output.
+        extra_opts: Any additional raw yt-dlp options (merged last, so they win).
+
+    Returns:
+        A list of :class:`DownloadResult`, one per successfully-downloaded entry,
+        in playlist order. Entries skipped by selection/filter or that failed
+        (under ``ignoreerrors``) are omitted.
+    """
+    from yt_dlp import YoutubeDL
+
+    out_dir = Path(download_dir) if download_dir else default_download_dir()
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if playlist_items is None and skip_first:
+        playlist_items = "2:"
+
+    opts: dict[str, Any] = {
+        "format": fmt,
+        "outtmpl": str(out_dir / filename_template),
+        "noplaylist": False,
+        "ignoreerrors": "only_download",
+        "quiet": quiet,
+        "writeinfojson": write_info_json,
+        "writethumbnail": write_thumbnail,
+        "writedescription": write_description,
+        "writesubtitles": write_subtitles,
+        "writeautomaticsub": write_auto_subtitles,
+        "subtitleslangs": list(subtitle_langs),
+    }
+    if merge_to:
+        opts["merge_output_format"] = merge_to
+    if playlist_items:
+        opts["playlist_items"] = playlist_items
+    if download_archive:
+        opts["download_archive"] = str(Path(download_archive).expanduser())
+    if cookies_from_browser:
+        opts["cookiesfrombrowser"] = _coerce_cookies_from_browser(cookies_from_browser)
+    if extractor_args:
+        opts["extractor_args"] = extractor_args
+    if title_reject:
+        opts["match_filter"] = _reject_title_filter(title_reject)
+    opts.update(extra_opts or {})
+
+    with YoutubeDL(opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+
+    results: list[DownloadResult] = []
+    for entry in (info.get("entries") if info else None) or []:
+        if not entry:
+            continue  # selection/filter skipped it, or it failed under ignoreerrors
+        path = _resolve_output_path(entry, ydl, out_dir, merge_to)
+        sidecars = _collect_sidecars(
+            entry,
+            path,
+            info_json=write_info_json,
+            thumbnail=write_thumbnail,
+            description=write_description,
+            subtitles=write_subtitles or write_auto_subtitles,
+        )
+        results.append(
+            DownloadResult(path=path, info=_trim_info(entry), sidecars=sidecars)
+        )
+    return results
+
+
+def _coerce_cookies_from_browser(value: str | tuple) -> tuple:
+    """Normalize ``cookies_from_browser`` into yt-dlp's ``cookiesfrombrowser`` tuple."""
+    if isinstance(value, str):
+        return (value,)
+    return tuple(value)
+
+
+def _reject_title_filter(substring: str):
+    """Build a yt-dlp ``match_filter`` that skips entries whose title contains ``substring``."""
+    needle = substring.lower()
+
+    def _filter(info_dict, *, incomplete=False):
+        title = (info_dict.get("title") or "").lower()
+        if needle in title:
+            return f"skipping {info_dict.get('title')!r}: title matches reject {substring!r}"
+        return None
+
+    return _filter
 
 
 def _resolve_output_path(info, ydl, out_dir: Path, merge_to: str | None) -> Path:

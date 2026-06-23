@@ -11,6 +11,8 @@ Common use:
 from yb.download.youtube import (
     download_youtube_video,
     youtube_video_info,
+    download_youtube_playlist,
+    youtube_playlist_info,
     default_download_dir,
     DownloadResult,
     DOWNLOAD_DIR_ENV,
@@ -20,6 +22,8 @@ from yb.download.youtube import (
 __all__ = [
     "download_youtube_video",
     "youtube_video_info",
+    "download_youtube_playlist",
+    "youtube_playlist_info",
     "default_download_dir",
     "DownloadResult",
     "DOWNLOAD_DIR_ENV",
