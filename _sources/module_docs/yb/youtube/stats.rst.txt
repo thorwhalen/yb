@@ -1,0 +1,4 @@
+yb.youtube.stats
+================
+.. automodule:: yb.youtube.stats
+   :members:

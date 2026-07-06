@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.youtube.stats &mdash; yb 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=360bc84d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="yb.youtube.publish" href="publish.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.youtube.stats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.DEFAULT_PARTS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PARTS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.FIELD_GROUPS"><code class="docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.render_table"><code class="docutils literal notranslate"><span class="pre">render_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.resolve_fields"><code class="docutils literal notranslate"><span class="pre">resolve_fields()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.stats.video_metadata"><code class="docutils literal notranslate"><span class="pre">video_metadata()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.youtube.stats</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/yb/youtube/stats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.youtube.stats">
+<span id="yb-youtube-stats"></span><h1>yb.youtube.stats<a class="headerlink" href="#module-yb.youtube.stats" title="Link to this heading"></a></h1>
+<p>Read live video metadata &amp; engagement numbers from the YouTube Data API v3.</p>
+<p>A read-only companion to <a class="reference internal" href="api.html#module-yb.youtube.api" title="yb.youtube.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.youtube.api</span></code></a>: fetch a flattened, typed,
+human-friendly view of a video’s <em>live</em> numbers (views, likes, dislikes,
+comments, …) together with content and status details — all in one request —
+with optional field selection, named field <strong>groups</strong> (presets like
+<code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>), and an ASCII-table rendering for quick terminal reading.</p>
+<p>Simple things simple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">video_metadata</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">)</span>
+<span class="go">{&#39;views&#39;: 666, &#39;likes&#39;: 11, &#39;dislikes&#39;: 0, &#39;comments&#39;: 0, ...}</span>
+</pre></div>
+</div>
+<p>Readable table for a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">field              value</span>
+<span class="go">-----------------  -----</span>
+<span class="go">views                666</span>
+<span class="go">likes                 11</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>Pick exact fields and order, or compare several videos at once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;views&quot;</span><span class="p">,</span> <span class="s2">&quot;likes&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">([</span><span class="s2">&quot;ID1&quot;</span><span class="p">,</span> <span class="s2">&quot;ID2&quot;</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note: <code class="docutils literal notranslate"><span class="pre">dislikes</span></code> is only returned by the API to a video’s <strong>owner</strong>; for
+other people’s videos it comes back as <code class="docutils literal notranslate"><span class="pre">None</span></code>. With no <code class="docutils literal notranslate"><span class="pre">group</span></code>/<code class="docutils literal notranslate"><span class="pre">fields</span></code> you
+get every available field (“take whatever is there”).</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.youtube.stats.DEFAULT_PARTS">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_PARTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'snippet,statistics,contentDetails,status'</span></span><a class="headerlink" href="#yb.youtube.stats.DEFAULT_PARTS" title="Link to this definition"></a></dt>
+<dd><p>Parts fetched by default — everything a single <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> call needs to
+populate the flattened fields below.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.youtube.stats.FIELD_GROUPS">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">FIELD_GROUPS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'content':</span> <span class="pre">['duration',</span> <span class="pre">'duration_seconds',</span> <span class="pre">'definition',</span> <span class="pre">'dimension',</span> <span class="pre">'has_captions',</span> <span class="pre">'has_custom_thumbnail',</span> <span class="pre">'licensed_content',</span> <span class="pre">'projection'],</span> <span class="pre">'engagement':</span> <span class="pre">['views',</span> <span class="pre">'likes',</span> <span class="pre">'dislikes',</span> <span class="pre">'comments',</span> <span class="pre">'favorites',</span> <span class="pre">'like_view_pct',</span> <span class="pre">'comment_view_pct'],</span> <span class="pre">'identity':</span> <span class="pre">['id',</span> <span class="pre">'url',</span> <span class="pre">'title',</span> <span class="pre">'channel_title',</span> <span class="pre">'channel_id',</span> <span class="pre">'category_id',</span> <span class="pre">'published_at'],</span> <span class="pre">'overview':</span> <span class="pre">['title',</span> <span class="pre">'url',</span> <span class="pre">'privacy',</span> <span class="pre">'published_at',</span> <span class="pre">'duration',</span> <span class="pre">'views',</span> <span class="pre">'likes',</span> <span class="pre">'comments'],</span> <span class="pre">'status':</span> <span class="pre">['privacy',</span> <span class="pre">'upload_status',</span> <span class="pre">'made_for_kids',</span> <span class="pre">'embeddable',</span> <span class="pre">'license',</span> <span class="pre">'public_stats_viewable']}</span></span><a class="headerlink" href="#yb.youtube.stats.FIELD_GROUPS" title="Link to this definition"></a></dt>
+<dd><p>a group name -&gt; the ordered fields it selects. <code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>
+is the headline one (the live numbers); the rest are common practical cuts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Named presets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.stats.flatten_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">flatten_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/stats.html#flatten_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.stats.flatten_video" title="Link to this definition"></a></dt>
+<dd><p>Flatten a raw <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> item into a friendly, typed, ordered dict.</p>
+<p>Pure: pass the dict returned by the API. Missing pieces (from a partial
+<code class="docutils literal notranslate"><span class="pre">part=</span></code> request, disabled stats, or an unauthorized dislike count) become
+<code class="docutils literal notranslate"><span class="pre">None</span></code> rather than raising, so callers never have to guard the shape.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.stats.render_table">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">render_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/stats.html#render_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.stats.render_table" title="Link to this definition"></a></dt>
+<dd><p>Render metadata as an ASCII table.</p>
+<p>A single flat dict renders as a two-column <code class="docutils literal notranslate"><span class="pre">field</span> <span class="pre">|</span> <span class="pre">value</span></code> table; a list
+of flat dicts renders one row per video with <code class="docutils literal notranslate"><span class="pre">fields</span></code> as columns.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.stats.resolve_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">resolve_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">available</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/stats.html#resolve_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.stats.resolve_fields" title="Link to this definition"></a></dt>
+<dd><p>Resolve the ordered field list to show.</p>
+<p>Precedence: explicit <code class="docutils literal notranslate"><span class="pre">fields</span></code> &gt; named <code class="docutils literal notranslate"><span class="pre">group</span></code> &gt; every <code class="docutils literal notranslate"><span class="pre">available</span></code>
+field. An unknown <code class="docutils literal notranslate"><span class="pre">group</span></code> raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> naming the valid options.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.stats.select_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">select_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/stats.html#select_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.stats.select_fields" title="Link to this definition"></a></dt>
+<dd><p>Return an ordered subset of <code class="docutils literal notranslate"><span class="pre">flat</span></code> per <code class="docutils literal notranslate"><span class="pre">fields</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.stats.video_metadata">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.stats.</span></span><span class="sig-name descname"><span class="pre">video_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'snippet,statistics,contentDetails,status'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/stats.html#video_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.stats.video_metadata" title="Link to this definition"></a></dt>
+<dd><p>Fetch a video’s live metadata &amp; engagement numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_id</strong> – A single video id or an iterable of ids (batched, ≤50/call).</p></li>
+<li><p><strong>group</strong> – Name of a preset field set from <a class="reference internal" href="#yb.youtube.stats.FIELD_GROUPS" title="yb.youtube.stats.FIELD_GROUPS"><code class="xref py py-data docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code></a>
+(e.g. <code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>). Ignored if <code class="docutils literal notranslate"><span class="pre">fields</span></code> is given.</p></li>
+<li><p><strong>fields</strong> – Explicit ordered field names to keep (overrides <code class="docutils literal notranslate"><span class="pre">group</span></code>).
+With neither <code class="docutils literal notranslate"><span class="pre">group</span></code> nor <code class="docutils literal notranslate"><span class="pre">fields</span></code> you get every field.</p></li>
+<li><p><strong>part</strong> – <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> parts to request (default covers all fields).</p></li>
+<li><p><strong>as_table</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a ready-to-print ASCII table string
+instead of the dict/list.</p></li>
+<li><p><strong>service</strong> – An authenticated YouTube service; else built from
+<code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">token_file=...</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A flat <code class="docutils literal notranslate"><span class="pre">dict</span></code> for one id / <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> for many — or an ASCII
+table <code class="docutils literal notranslate"><span class="pre">str</span></code> when <code class="docutils literal notranslate"><span class="pre">as_table=True</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="publish.html" class="btn btn-neutral float-left" title="yb.youtube.publish" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -18,3 +18,4 @@
    module_docs/yb/youtube/captions
    module_docs/yb/youtube/metadata
    module_docs/yb/youtube/publish
+   module_docs/yb/youtube/stats

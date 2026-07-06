@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.youtube.stats &mdash; yb 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=360bc84d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.youtube.stats</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.youtube.stats</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Read live video metadata &amp; engagement numbers from the YouTube Data API v3.</span>
+
+<span class="sd">A read-only companion to :mod:`yb.youtube.api`: fetch a flattened, typed,</span>
+<span class="sd">human-friendly view of a video&#39;s *live* numbers (views, likes, dislikes,</span>
+<span class="sd">comments, ...) together with content and status details — all in one request —</span>
+<span class="sd">with optional field selection, named field **groups** (presets like</span>
+<span class="sd">``&quot;engagement&quot;``), and an ASCII-table rendering for quick terminal reading.</span>
+
+<span class="sd">Simple things simple::</span>
+
+<span class="sd">    &gt;&gt;&gt; from yb.youtube import video_metadata                       # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; video_metadata(&quot;VIDEO_ID&quot;, group=&quot;engagement&quot;)              # doctest: +SKIP</span>
+<span class="sd">    {&#39;views&#39;: 666, &#39;likes&#39;: 11, &#39;dislikes&#39;: 0, &#39;comments&#39;: 0, ...}</span>
+
+<span class="sd">Readable table for a terminal::</span>
+
+<span class="sd">    &gt;&gt;&gt; print(video_metadata(&quot;VIDEO_ID&quot;, group=&quot;engagement&quot;, as_table=True))  # doctest: +SKIP</span>
+<span class="sd">    field              value</span>
+<span class="sd">    -----------------  -----</span>
+<span class="sd">    views                666</span>
+<span class="sd">    likes                 11</span>
+<span class="sd">    ...</span>
+
+<span class="sd">Pick exact fields and order, or compare several videos at once::</span>
+
+<span class="sd">    &gt;&gt;&gt; video_metadata(&quot;VIDEO_ID&quot;, fields=[&quot;title&quot;, &quot;views&quot;, &quot;likes&quot;])        # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; print(video_metadata([&quot;ID1&quot;, &quot;ID2&quot;], group=&quot;engagement&quot;, as_table=True))  # doctest: +SKIP</span>
+
+<span class="sd">Note: ``dislikes`` is only returned by the API to a video&#39;s **owner**; for</span>
+<span class="sd">other people&#39;s videos it comes back as ``None``. With no ``group``/``fields`` you</span>
+<span class="sd">get every available field (&quot;take whatever is there&quot;).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
+
+<span class="c1">#: Parts fetched by default — everything a single ``videos.list`` call needs to</span>
+<span class="c1">#: populate the flattened fields below.</span>
+<span class="n">DEFAULT_PARTS</span> <span class="o">=</span> <span class="s2">&quot;snippet,statistics,contentDetails,status&quot;</span>
+
+<span class="n">_ISO8601</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?&quot;</span><span class="p">)</span>
+<span class="n">_NUMISH</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^-?[\d,]+(?:\.\d+)?%?$&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Pure helpers (no I/O) — small, single-purpose, module-private.</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_to_int</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_pct</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Percentage ``num``/``den`` rounded to 3 dp, or ``None`` if not computable.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">den</span> <span class="ow">or</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_iso8601_to_seconds</span><span class="p">(</span><span class="n">duration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert an ISO-8601 duration (e.g. ``PT1M51S``) to whole seconds.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">duration</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">_ISO8601</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">days</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">days</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">hours</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">minutes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">seconds</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_hms</span><span class="p">(</span><span class="n">seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format seconds as ``H:MM:SS`` (or ``M:SS`` when under an hour).&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">seconds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">hours</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">seconds</span><span class="p">,</span> <span class="mi">3600</span><span class="p">)</span>
+    <span class="n">minutes</span><span class="p">,</span> <span class="n">secs</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">minutes</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">secs</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">hours</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">minutes</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">secs</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="n">_BOOL_STR</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;true&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="flatten_video">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/stats.html#yb.youtube.flatten_video">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">flatten_video</span><span class="p">(</span><span class="n">resource</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flatten a raw ``videos.list`` item into a friendly, typed, ordered dict.</span>
+
+<span class="sd">    Pure: pass the dict returned by the API. Missing pieces (from a partial</span>
+<span class="sd">    ``part=`` request, disabled stats, or an unauthorized dislike count) become</span>
+<span class="sd">    ``None`` rather than raising, so callers never have to guard the shape.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sn</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;snippet&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">stt</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;statistics&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">cd</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;contentDetails&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">vid</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+
+    <span class="n">views</span> <span class="o">=</span> <span class="n">_to_int</span><span class="p">(</span><span class="n">stt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;viewCount&quot;</span><span class="p">))</span>
+    <span class="n">likes</span> <span class="o">=</span> <span class="n">_to_int</span><span class="p">(</span><span class="n">stt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;likeCount&quot;</span><span class="p">))</span>
+    <span class="n">comments</span> <span class="o">=</span> <span class="n">_to_int</span><span class="p">(</span><span class="n">stt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;commentCount&quot;</span><span class="p">))</span>
+    <span class="n">dur_s</span> <span class="o">=</span> <span class="n">_iso8601_to_seconds</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">))</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># identity / basic</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">vid</span><span class="p">,</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://youtu.be/</span><span class="si">{</span><span class="n">vid</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">vid</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;channel_title&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channelTitle&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;channel_id&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channelId&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;published_at&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publishedAt&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categoryId&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;privacy&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;privacyStatus&quot;</span><span class="p">),</span>
+        <span class="c1"># engagement</span>
+        <span class="s2">&quot;views&quot;</span><span class="p">:</span> <span class="n">views</span><span class="p">,</span>
+        <span class="s2">&quot;likes&quot;</span><span class="p">:</span> <span class="n">likes</span><span class="p">,</span>
+        <span class="s2">&quot;dislikes&quot;</span><span class="p">:</span> <span class="n">_to_int</span><span class="p">(</span><span class="n">stt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dislikeCount&quot;</span><span class="p">)),</span>  <span class="c1"># owner-only</span>
+        <span class="s2">&quot;comments&quot;</span><span class="p">:</span> <span class="n">comments</span><span class="p">,</span>
+        <span class="s2">&quot;favorites&quot;</span><span class="p">:</span> <span class="n">_to_int</span><span class="p">(</span><span class="n">stt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;favoriteCount&quot;</span><span class="p">)),</span>
+        <span class="s2">&quot;like_view_pct&quot;</span><span class="p">:</span> <span class="n">_pct</span><span class="p">(</span><span class="n">likes</span><span class="p">,</span> <span class="n">views</span><span class="p">),</span>
+        <span class="s2">&quot;comment_view_pct&quot;</span><span class="p">:</span> <span class="n">_pct</span><span class="p">(</span><span class="n">comments</span><span class="p">,</span> <span class="n">views</span><span class="p">),</span>
+        <span class="c1"># content</span>
+        <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">_hms</span><span class="p">(</span><span class="n">dur_s</span><span class="p">),</span>
+        <span class="s2">&quot;duration_seconds&quot;</span><span class="p">:</span> <span class="n">dur_s</span><span class="p">,</span>
+        <span class="s2">&quot;definition&quot;</span><span class="p">:</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;definition&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dimension&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;has_captions&quot;</span><span class="p">:</span> <span class="n">_BOOL_STR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">)),</span>
+        <span class="s2">&quot;has_custom_thumbnail&quot;</span><span class="p">:</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hasCustomThumbnail&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;licensed_content&quot;</span><span class="p">:</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;licensedContent&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;projection&quot;</span><span class="p">),</span>
+        <span class="c1"># status / snippet extras</span>
+        <span class="s2">&quot;upload_status&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;uploadStatus&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;license&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;embeddable&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embeddable&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;public_stats_viewable&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicStatsViewable&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;made_for_kids&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;madeForKids&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;default_language&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;defaultLanguage&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;default_audio_language&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;defaultAudioLanguage&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;live_broadcast_content&quot;</span><span class="p">:</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;liveBroadcastContent&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
+        <span class="s2">&quot;tag_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span> <span class="k">if</span> <span class="n">tags</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<span class="c1">#: Named presets: a group name -&gt; the ordered fields it selects. ``&quot;engagement&quot;``</span>
+<span class="c1">#: is the headline one (the live numbers); the rest are common practical cuts.</span>
+<span class="n">FIELD_GROUPS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;engagement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;views&quot;</span><span class="p">,</span> <span class="s2">&quot;likes&quot;</span><span class="p">,</span> <span class="s2">&quot;dislikes&quot;</span><span class="p">,</span> <span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="s2">&quot;favorites&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;like_view_pct&quot;</span><span class="p">,</span> <span class="s2">&quot;comment_view_pct&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;overview&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;privacy&quot;</span><span class="p">,</span> <span class="s2">&quot;published_at&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;views&quot;</span><span class="p">,</span> <span class="s2">&quot;likes&quot;</span><span class="p">,</span> <span class="s2">&quot;comments&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="s2">&quot;duration_seconds&quot;</span><span class="p">,</span> <span class="s2">&quot;definition&quot;</span><span class="p">,</span> <span class="s2">&quot;dimension&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;has_captions&quot;</span><span class="p">,</span> <span class="s2">&quot;has_custom_thumbnail&quot;</span><span class="p">,</span> <span class="s2">&quot;licensed_content&quot;</span><span class="p">,</span> <span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;privacy&quot;</span><span class="p">,</span> <span class="s2">&quot;upload_status&quot;</span><span class="p">,</span> <span class="s2">&quot;made_for_kids&quot;</span><span class="p">,</span> <span class="s2">&quot;embeddable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;license&quot;</span><span class="p">,</span> <span class="s2">&quot;public_stats_viewable&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;channel_title&quot;</span><span class="p">,</span> <span class="s2">&quot;channel_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category_id&quot;</span><span class="p">,</span> <span class="s2">&quot;published_at&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="resolve_fields">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/stats.html#yb.youtube.resolve_fields">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_fields</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">available</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve the ordered field list to show.</span>
+
+<span class="sd">    Precedence: explicit ``fields`` &gt; named ``group`` &gt; every ``available``</span>
+<span class="sd">    field. An unknown ``group`` raises ``KeyError`` naming the valid options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FIELD_GROUPS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown field group </span><span class="si">{</span><span class="n">group</span><span class="si">!r}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Choose from: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">FIELD_GROUPS</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">FIELD_GROUPS</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">available</span><span class="p">)</span> <span class="k">if</span> <span class="n">available</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+
+
+<div class="viewcode-block" id="select_fields">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/stats.html#yb.youtube.select_fields">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_fields</span><span class="p">(</span>
+    <span class="n">flat</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an ordered subset of ``flat`` per ``fields``/``group``.&quot;&quot;&quot;</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">resolve_fields</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span> <span class="n">available</span><span class="o">=</span><span class="n">flat</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">flat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fmt_cell</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Human-readable cell text: thousands separators, yes/no, em-dash for None.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;—&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;yes&quot;</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="s2">&quot;no&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">,.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ascii</span><span class="p">(</span><span class="n">grid</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="o">*</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render a grid of cells as a padded, column-aligned monospace table.&quot;&quot;&quot;</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">]</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol</span><span class="p">)]</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="n">header</span> <span class="k">else</span> <span class="n">grid</span>
+    <span class="c1"># right-align columns whose body cells are all numeric-looking</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">bool</span><span class="p">(</span><span class="n">body</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">_NUMISH</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">body</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">if</span> <span class="n">right</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">fmt</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+    <span class="k">if</span> <span class="n">header</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">widths</span><span class="p">))</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fmt</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="render_table">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/stats.html#yb.youtube.render_table">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">render_table</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Mapping</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render metadata as an ASCII table.</span>
+
+<span class="sd">    A single flat dict renders as a two-column ``field | value`` table; a list</span>
+<span class="sd">    of flat dicts renders one row per video with ``fields`` as columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[(</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;field&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span> <span class="o">*</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">_fmt_cell</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">_ascii</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_union_keys</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">+</span> <span class="p">[[</span><span class="n">_fmt_cell</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_ascii</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_union_keys</span><span class="p">(</span><span class="n">dicts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Mapping</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ordered union of keys across ``dicts`` (first-seen order).&quot;&quot;&quot;</span>
+    <span class="n">seen</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dicts</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">seen</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># I/O orchestrator.</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="video_metadata">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/stats.html#yb.youtube.video_metadata">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">video_metadata</span><span class="p">(</span>
+    <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">part</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PARTS</span><span class="p">,</span>
+    <span class="n">as_table</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch a video&#39;s live metadata &amp; engagement numbers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        video_id: A single video id or an iterable of ids (batched, ≤50/call).</span>
+<span class="sd">        group: Name of a preset field set from :data:`FIELD_GROUPS`</span>
+<span class="sd">            (e.g. ``&quot;engagement&quot;``). Ignored if ``fields`` is given.</span>
+<span class="sd">        fields: Explicit ordered field names to keep (overrides ``group``).</span>
+<span class="sd">            With neither ``group`` nor ``fields`` you get every field.</span>
+<span class="sd">        part: ``videos.list`` parts to request (default covers all fields).</span>
+<span class="sd">        as_table: When ``True``, return a ready-to-print ASCII table string</span>
+<span class="sd">            instead of the dict/list.</span>
+<span class="sd">        service: An authenticated YouTube service; else built from</span>
+<span class="sd">            ``cred_kwargs`` (e.g. ``token_file=...``).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A flat ``dict`` for one id / ``list[dict]`` for many — or an ASCII</span>
+<span class="sd">        table ``str`` when ``as_table=True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">single</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">video_id</span><span class="p">]</span> <span class="k">if</span> <span class="n">single</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">video_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ids</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;video_id must be a non-empty id or iterable of ids&quot;</span><span class="p">)</span>
+
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">flats</span> <span class="o">=</span> <span class="p">[</span><span class="n">flatten_video</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_fetch</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="n">as_table</span><span class="p">:</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="n">resolve_fields</span><span class="p">(</span>
+            <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+            <span class="n">available</span><span class="o">=</span><span class="n">flats</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">flats</span> <span class="k">else</span> <span class="p">[],</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">single</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render_table</span><span class="p">(</span><span class="n">flats</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fields</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+        <span class="c1"># prepend an identifier column so rows are distinguishable</span>
+        <span class="n">id_col</span> <span class="o">=</span> <span class="s2">&quot;title&quot;</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flats</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;id&quot;</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">([</span><span class="n">id_col</span><span class="p">]</span> <span class="k">if</span> <span class="n">id_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">else</span> <span class="p">[])</span> <span class="o">+</span> <span class="n">cols</span>
+        <span class="k">return</span> <span class="n">render_table</span><span class="p">(</span><span class="n">flats</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">select_fields</span><span class="p">(</span><span class="n">flat</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span> <span class="k">for</span> <span class="n">flat</span> <span class="ow">in</span> <span class="n">flats</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">single</span> <span class="k">else</span> <span class="n">selected</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fetch</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">part</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">service</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch raw ``videos.list`` items for ``ids`` (batched by the API&#39;s 50 max).&quot;&quot;&quot;</span>
+    <span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="mi">50</span><span class="p">):</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">videos</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="k">return</span> <span class="n">items</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_service</span>
+
+    <span class="k">return</span> <span class="n">get_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
