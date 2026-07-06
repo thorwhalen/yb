@@ -94,6 +94,24 @@ set_chapters("VIDEO_ID", [Chapter(0, "Intro"), Chapter(45, "Demo")])
 set_thumbnail("VIDEO_ID", "thumb.jpg")
 ```
 
+### Read live stats & metadata
+
+```python
+from yb.youtube import video_metadata, FIELD_GROUPS
+
+video_metadata("VIDEO_ID", group="engagement")            # dict: views, likes, dislikes, comments, ...
+print(video_metadata("VIDEO_ID", group="engagement", as_table=True))  # readable ASCII table
+video_metadata("VIDEO_ID", fields=["title", "views", "likes"])        # pick & order exact fields
+print(video_metadata(["ID1", "ID2"], group="engagement", as_table=True))  # compare videos, one row each
+```
+
+One request returns a flat, typed view of a video's live numbers plus content
+and status details. With no `group`/`fields` you get every field; `fields`
+overrides `group`. Named groups (`FIELD_GROUPS`): `engagement`, `overview`,
+`content`, `status`, `identity`. `dislikes` is returned only to the video's
+**owner** (else `None`); watch-time/retention/shares live in the YouTube
+*Analytics* API, not here.
+
 ### Publish a podcast episode
 
 ```python
@@ -127,6 +145,6 @@ Point `yb` at the client JSON via `$YOUTUBE_CLIENT_SECRETS_FILE`.
 | Module | Role | Extra |
 |---|---|---|
 | `yb.content` | platform-neutral content prep (metadata, chapters, thumbnail) | core |
-| `yb.youtube` | upload + edit via YouTube Data API v3 | `youtube` |
+| `yb.youtube` | upload, edit + read stats via YouTube Data API v3 | `youtube` |
 | `yb.podcast` | show notes, ID3/PSC chapters, cover video, RSS | `podcast` |
 | `yb.download` | yt-dlp downloader | `download` |
