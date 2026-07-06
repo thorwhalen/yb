@@ -75,6 +75,26 @@ set_thumbnail("VIDEO_ID", "thumb.jpg")
 `upsert_caption` updates an existing uploaded (`standard`) track in the same
 language, else inserts one. (YouTube's own auto `asr` tracks are left alone.)
 
+## Read live stats & metadata
+
+`video_metadata` fetches a flattened, typed view of a video's live numbers
+(views, likes, dislikes, comments, ...) plus content/status details in one call:
+
+```python
+from yb.youtube import video_metadata, FIELD_GROUPS
+
+video_metadata("VIDEO_ID", group="engagement")                 # dict of the live numbers
+print(video_metadata("VIDEO_ID", group="engagement", as_table=True))  # readable ASCII table
+video_metadata("VIDEO_ID", fields=["title", "views", "likes"]) # pick/order exact fields
+print(video_metadata(["ID1", "ID2"], group="engagement", as_table=True))  # compare videos (row each)
+```
+
+- No `group`/`fields` → every available field. `fields` overrides `group`.
+- Named groups (`FIELD_GROUPS`): `engagement`, `overview`, `content`, `status`, `identity`.
+- `dislikes` is returned **only to the video's owner**; else `None`. Deeper
+  metrics (watch time, shares, retention) need the YouTube **Analytics** API +
+  the `yt-analytics.readonly` scope — not covered here.
+
 ## Notes
 
 - Multilingual: dub/translate with `mixing.dubbing` first, then publish each

@@ -35,6 +35,15 @@ from yb.youtube.api import (
     set_thumbnail,
     set_chapters,
 )
+from yb.youtube.stats import (
+    video_metadata,
+    flatten_video,
+    select_fields,
+    resolve_fields,
+    render_table,
+    FIELD_GROUPS,
+    DEFAULT_PARTS,
+)
 from yb.youtube.captions import (
     CaptionTrack,
     list_captions,
@@ -66,6 +75,13 @@ __all__ = [
     "update_video_fields",
     "set_thumbnail",
     "set_chapters",
+    "video_metadata",
+    "flatten_video",
+    "select_fields",
+    "resolve_fields",
+    "render_table",
+    "FIELD_GROUPS",
+    "DEFAULT_PARTS",
     "CaptionTrack",
     "list_captions",
     "insert_caption",
