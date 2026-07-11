@@ -1,0 +1,4 @@
+yb.youtube.playlists
+====================
+.. automodule:: yb.youtube.playlists
+   :members:

@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.config &mdash; yb 0.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="yb.content" href="content.html" />
+    <link rel="prev" title="yb" href="../yb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../yb.html">yb</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PLAYLIST_PRIVACY_STATUS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.config.DEFAULT_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PRIVACY_STATUS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.config.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.config.YbConfig.privacy_status"><code class="docutils literal notranslate"><span class="pre">YbConfig.privacy_status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.config.YbConfig.playlist"><code class="docutils literal notranslate"><span class="pre">YbConfig.playlist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.config.YbConfig.create_playlist_if_missing"><code class="docutils literal notranslate"><span class="pre">YbConfig.create_playlist_if_missing</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.config.YbConfig.playlist_privacy_status"><code class="docutils literal notranslate"><span class="pre">YbConfig.playlist_privacy_status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.config.YbConfig.from_mapping"><code class="docutils literal notranslate"><span class="pre">YbConfig.from_mapping()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.config.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.config.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.config</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/yb/config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.config">
+<span id="yb-config"></span><h1>yb.config<a class="headerlink" href="#module-yb.config" title="Link to this heading"></a></h1>
+<p>User configuration for <code class="docutils literal notranslate"><span class="pre">yb</span></code> publishing defaults.</p>
+<p>Single source of truth for the publishing defaults you don’t want to repeat on
+every call — the privacy a new upload gets, and a playlist to drop every upload
+into so you can find your videos later. The config lives next to the OAuth token
+(<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/yb/config.json</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config/yb/config.json</span></code>) so all of
+<code class="docutils literal notranslate"><span class="pre">yb</span></code>’s persistent state sits in one directory.</p>
+<p>The file is <strong>optional</strong>: with no file present the built-in defaults apply
+(<code class="docutils literal notranslate"><span class="pre">privacy_status=&quot;unlisted&quot;</span></code>, no playlist). Any subset of keys may be set;
+unspecified keys fall back to the built-in defaults, and unknown keys are
+ignored (forward-compatible).</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">~/.config/yb/config.json</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;privacy_status&quot;</span><span class="p">:</span> <span class="s2">&quot;unlisted&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;playlist&quot;</span><span class="p">:</span> <span class="s2">&quot;TW Uploads&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_playlist_if_missing&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;playlist_privacy_status&quot;</span><span class="p">:</span> <span class="s2">&quot;private&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS">
+<span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_PLAYLIST_PRIVACY_STATUS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'private'</span></span><a class="headerlink" href="#yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS" title="Link to this definition"></a></dt>
+<dd><p>Default privacy for a playlist that <code class="docutils literal notranslate"><span class="pre">yb</span></code> auto-creates. <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;</span></code> means
+only you see it — ideal for a personal “find my uploads” playlist.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.config.DEFAULT_PRIVACY_STATUS">
+<span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_PRIVACY_STATUS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unlisted'</span></span><a class="headerlink" href="#yb.config.DEFAULT_PRIVACY_STATUS" title="Link to this definition"></a></dt>
+<dd><p>Default privacy for a freshly uploaded video when neither the call nor the
+config file specifies one. <code class="docutils literal notranslate"><span class="pre">&quot;unlisted&quot;</span></code> keeps videos off your public feed
+but shareable by link until you deliberately make one <code class="docutils literal notranslate"><span class="pre">&quot;public&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.config.YbConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">YbConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unlisted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_playlist_if_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'private'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/yb/config.html#YbConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.config.YbConfig" title="Link to this definition"></a></dt>
+<dd><p>Resolved publishing defaults.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.config.YbConfig.privacy_status">
+<span class="sig-name descname"><span class="pre">privacy_status</span></span><a class="headerlink" href="#yb.config.YbConfig.privacy_status" title="Link to this definition"></a></dt>
+<dd><p>Privacy a new upload gets (<code class="docutils literal notranslate"><span class="pre">unlisted</span></code> | <code class="docutils literal notranslate"><span class="pre">private</span></code> |
+<code class="docutils literal notranslate"><span class="pre">public</span></code>) when the call doesn’t override it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.config.YbConfig.playlist">
+<span class="sig-name descname"><span class="pre">playlist</span></span><a class="headerlink" href="#yb.config.YbConfig.playlist" title="Link to this definition"></a></dt>
+<dd><p>Title of a playlist every upload is added to (<code class="docutils literal notranslate"><span class="pre">None</span></code> = none).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.config.YbConfig.create_playlist_if_missing">
+<span class="sig-name descname"><span class="pre">create_playlist_if_missing</span></span><a class="headerlink" href="#yb.config.YbConfig.create_playlist_if_missing" title="Link to this definition"></a></dt>
+<dd><p>Create <code class="docutils literal notranslate"><span class="pre">playlist</span></code> if no playlist of that
+title exists yet, rather than erroring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.config.YbConfig.playlist_privacy_status">
+<span class="sig-name descname"><span class="pre">playlist_privacy_status</span></span><a class="headerlink" href="#yb.config.YbConfig.playlist_privacy_status" title="Link to this definition"></a></dt>
+<dd><p>Privacy for an auto-created playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.config.YbConfig.from_mapping">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.config.YbConfig" title="yb.config.YbConfig"><span class="pre">YbConfig</span></a></span></span><a class="reference internal" href="../../_modules/yb/config.html#YbConfig.from_mapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.config.YbConfig.from_mapping" title="Link to this definition"></a></dt>
+<dd><p>Build a config from a mapping, ignoring unknown keys.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.config.default_config_file">
+<span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">default_config_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/yb/config.html#default_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.config.default_config_file" title="Link to this definition"></a></dt>
+<dd><p>Config file location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.config.load_config">
+<span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">overrides</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.config.YbConfig" title="yb.config.YbConfig"><span class="pre">YbConfig</span></a></span></span><a class="reference internal" href="../../_modules/yb/config.html#load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.config.load_config" title="Link to this definition"></a></dt>
+<dd><p>Load publishing defaults from <code class="docutils literal notranslate"><span class="pre">config_file</span></code> (or the default location).</p>
+<p>A missing file yields the built-in defaults. <code class="docutils literal notranslate"><span class="pre">overrides</span></code> (typically the
+explicit keyword arguments a caller passed) take precedence when not
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, so call-site arguments always win over the file.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../yb.html" class="btn btn-neutral float-left" title="yb" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="content.html" class="btn btn-neutral float-right" title="yb.content" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

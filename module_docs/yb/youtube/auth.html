@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.auth &mdash; yb 0.1.3 documentation</title>
+  <title>yb.youtube.auth &mdash; yb 0.1.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=360bc84d"></script>
+      <script src="../../../_static/documentation_options.js?v=fd825880"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -50,6 +50,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../download/youtube.html">yb.download.youtube</a></li>
@@ -63,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">yb.youtube.api</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">yb.youtube.auth</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#yb.youtube.auth.DEFAULT_SCOPES"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SCOPES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.auth.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.youtube.auth.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.youtube.auth.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.youtube.auth.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
@@ -70,6 +72,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats.html">yb.youtube.stats</a></li>
 </ul>
@@ -113,6 +116,14 @@ walks through it).</p>
 <dt class="sig sig-object py" id="yb.youtube.auth.DEFAULT_SCOPES">
 <span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_SCOPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span><a class="headerlink" href="#yb.youtube.auth.DEFAULT_SCOPES" title="Link to this definition"></a></dt>
 <dd><p>Upload + force-ssl (the latter is needed for captions.insert and thumbnails.set).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.auth.default_client_secrets_file">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">default_client_secrets_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/auth.html#default_client_secrets_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.auth.default_client_secrets_file" title="Link to this definition"></a></dt>
+<dd><p>Default OAuth client-secrets location: <code class="docutils literal notranslate"><span class="pre">&lt;config</span> <span class="pre">dir&gt;/client_secret.json</span></code>.</p>
+<p>Used when neither <code class="docutils literal notranslate"><span class="pre">client_secrets_file=</span></code> nor the env vars are set, so all
+of <code class="docutils literal notranslate"><span class="pre">yb</span></code>’s state can live in one directory next to the token.</p>
 </dd></dl>
 
 <dl class="py function">

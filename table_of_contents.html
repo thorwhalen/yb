@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; yb 0.1.3 documentation</title>
+  <title>&lt;no title&gt; &mdash; yb 0.1.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=360bc84d"></script>
+      <script src="_static/documentation_options.js?v=fd825880"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -48,6 +48,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
@@ -62,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
 </ul>
@@ -96,9 +98,13 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.ContentMetadata"><code class="docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.PublicationContent"><code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.format_chapter_lines"><code class="docutils literal notranslate"><span class="pre">format_chapter_lines()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.generate_metadata"><code class="docutils literal notranslate"><span class="pre">generate_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_content"><code class="docutils literal notranslate"><span class="pre">prepare_content()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_podcast_episode"><code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode()</span></code></a></li>
@@ -107,6 +113,14 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PLAYLIST_PRIVACY_STATUS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.DEFAULT_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PRIVACY_STATUS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a><ul>
@@ -180,15 +194,23 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube.html">yb.youtube</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.delete_caption"><code class="docutils literal notranslate"><span class="pre">delete_caption()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_video"><code class="docutils literal notranslate"><span class="pre">get_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.insert_caption"><code class="docutils literal notranslate"><span class="pre">insert_caption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.list_captions"><code class="docutils literal notranslate"><span class="pre">list_captions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.publish_video"><code class="docutils literal notranslate"><span class="pre">publish_video()</span></code></a></li>
@@ -216,6 +238,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/auth.html">yb.youtube.auth</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.DEFAULT_SCOPES"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SCOPES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
@@ -234,6 +257,16 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/metadata.html#yb.youtube.metadata.CATEGORY_SCIENCE_TECH"><code class="docutils literal notranslate"><span class="pre">CATEGORY_SCIENCE_TECH</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/metadata.html#yb.youtube.metadata.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/publish.html">yb.youtube.publish</a><ul>

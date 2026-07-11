@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.youtube.playlists &mdash; yb 0.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.youtube.playlists</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.youtube.playlists</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;YouTube playlist operations: find/create a playlist and add videos to it.</span>
+
+<span class="sd">Wraps the Data API ``playlists`` and ``playlistItems`` resources (writable with</span>
+<span class="sd">the ``youtube.force-ssl`` scope ``yb`` already requests — no extra consent). The</span>
+<span class="sd">high-level :func:`add_video_to_playlist` works from a stable human *title* like</span>
+<span class="sd">``&quot;TW Uploads&quot;``: it finds the playlist (optionally creating it), skips the add</span>
+<span class="sd">if the video is already in it, and appends otherwise — so re-publishing or</span>
+<span class="sd">re-running is idempotent.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span>
+
+<span class="n">_MAX_RESULTS</span> <span class="o">=</span> <span class="mi">50</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_service</span>
+
+    <span class="k">return</span> <span class="n">get_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="list_my_playlists">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.list_my_playlists">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_my_playlists</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return all playlists owned by the authenticated channel (paginated).&quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">service</span><span class="o">.</span><span class="n">playlists</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet,status&quot;</span><span class="p">,</span> <span class="n">mine</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">maxResults</span><span class="o">=</span><span class="n">_MAX_RESULTS</span><span class="p">,</span> <span class="n">pageToken</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nextPageToken&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="find_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.find_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the id of the caller&#39;s playlist titled ``title`` (or ``None``).</span>
+
+<span class="sd">    Matches the first playlist with an exact title; YouTube allows duplicate</span>
+<span class="sd">    titles, so prefer unique playlist names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pl</span> <span class="ow">in</span> <span class="n">list_my_playlists</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pl</span><span class="p">[</span><span class="s2">&quot;snippet&quot;</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">title</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pl</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="create_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.create_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_playlist</span><span class="p">(</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a playlist and return its id.&quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">},</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;privacyStatus&quot;</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">},</span>
+    <span class="p">}</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">playlists</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet,status&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="ensure_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.ensure_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ensure_playlist</span><span class="p">(</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">create</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the id of the playlist titled ``title``, creating it if missing.</span>
+
+<span class="sd">    Returns ``None`` only when the playlist is absent and ``create=False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pid</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pid</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">create_playlist</span><span class="p">(</span>
+        <span class="n">title</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_video_in_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.is_video_in_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_video_in_playlist</span><span class="p">(</span>
+    <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether ``video_id`` is already an item of ``playlist_id`` (paginated).&quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">service</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">list</span><span class="p">(</span>
+                <span class="n">part</span><span class="o">=</span><span class="s2">&quot;contentDetails&quot;</span><span class="p">,</span>
+                <span class="n">playlistId</span><span class="o">=</span><span class="n">playlist_id</span><span class="p">,</span>
+                <span class="n">maxResults</span><span class="o">=</span><span class="n">_MAX_RESULTS</span><span class="p">,</span>
+                <span class="n">pageToken</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="n">it</span><span class="p">[</span><span class="s2">&quot;contentDetails&quot;</span><span class="p">][</span><span class="s2">&quot;videoId&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">video_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nextPageToken&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="add_to_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.add_to_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_to_playlist</span><span class="p">(</span>
+    <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Append ``video_id`` to ``playlist_id`` (``playlistItems.insert``).&quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;playlistId&quot;</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
+            <span class="s2">&quot;resourceId&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;youtube#video&quot;</span><span class="p">,</span> <span class="s2">&quot;videoId&quot;</span><span class="p">:</span> <span class="n">video_id</span><span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="add_video_to_playlist">
+<a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.add_video_to_playlist">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_video_to_playlist</span><span class="p">(</span>
+    <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">create</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span><span class="p">,</span>
+    <span class="n">skip_if_present</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find-or-create the playlist named ``title`` and append ``video_id``.</span>
+
+<span class="sd">    Idempotent: with ``skip_if_present`` (default), a video already in the</span>
+<span class="sd">    playlist is left alone instead of duplicated.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ``{&quot;playlist_id&quot;, &quot;playlist_title&quot;, &quot;added&quot;, &quot;created&quot;}`` where ``added``</span>
+<span class="sd">        is ``False`` if the video was already present and ``created`` is ``True``</span>
+<span class="sd">        if the playlist had to be made.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: the playlist is absent and ``create=False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
+    <span class="n">existing</span> <span class="o">=</span> <span class="n">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">existing</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Playlist not found and create=False: </span><span class="si">{</span><span class="n">title</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">playlist_id</span> <span class="o">=</span> <span class="n">existing</span> <span class="ow">or</span> <span class="n">create_playlist</span><span class="p">(</span>
+        <span class="n">title</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span>
+    <span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">existing</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">skip_if_present</span> <span class="ow">and</span> <span class="n">is_video_in_playlist</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">):</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">add_to_playlist</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;playlist_id&quot;</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
+        <span class="s2">&quot;playlist_title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">&quot;added&quot;</span><span class="p">:</span> <span class="n">added</span><span class="p">,</span>
+        <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="n">created</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

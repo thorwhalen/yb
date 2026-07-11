@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.youtube.playlists &mdash; yb 0.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="yb.youtube.publish" href="publish.html" />
+    <link rel="prev" title="yb.youtube.metadata" href="metadata.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.youtube.playlists</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.youtube.playlists.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.youtube.playlists</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/yb/youtube/playlists.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.youtube.playlists">
+<span id="yb-youtube-playlists"></span><h1>yb.youtube.playlists<a class="headerlink" href="#module-yb.youtube.playlists" title="Link to this heading"></a></h1>
+<p>YouTube playlist operations: find/create a playlist and add videos to it.</p>
+<p>Wraps the Data API <code class="docutils literal notranslate"><span class="pre">playlists</span></code> and <code class="docutils literal notranslate"><span class="pre">playlistItems</span></code> resources (writable with
+the <code class="docutils literal notranslate"><span class="pre">youtube.force-ssl</span></code> scope <code class="docutils literal notranslate"><span class="pre">yb</span></code> already requests — no extra consent). The
+high-level <a class="reference internal" href="#yb.youtube.playlists.add_video_to_playlist" title="yb.youtube.playlists.add_video_to_playlist"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a> works from a stable human <em>title</em> like
+<code class="docutils literal notranslate"><span class="pre">&quot;TW</span> <span class="pre">Uploads&quot;</span></code>: it finds the playlist (optionally creating it), skips the add
+if the video is already in it, and appends otherwise — so re-publishing or
+re-running is idempotent.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.add_to_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">add_to_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#add_to_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.add_to_playlist" title="Link to this definition"></a></dt>
+<dd><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.add_video_to_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">add_video_to_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_if_present</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#add_video_to_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.add_video_to_playlist" title="Link to this definition"></a></dt>
+<dd><p>Find-or-create the playlist named <code class="docutils literal notranslate"><span class="pre">title</span></code> and append <code class="docutils literal notranslate"><span class="pre">video_id</span></code>.</p>
+<p>Idempotent: with <code class="docutils literal notranslate"><span class="pre">skip_if_present</span></code> (default), a video already in the
+playlist is left alone instead of duplicated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">{&quot;playlist_id&quot;,</span> <span class="pre">&quot;playlist_title&quot;,</span> <span class="pre">&quot;added&quot;,</span> <span class="pre">&quot;created&quot;}</span></code> where <code class="docutils literal notranslate"><span class="pre">added</span></code>
+is <code class="docutils literal notranslate"><span class="pre">False</span></code> if the video was already present and <code class="docutils literal notranslate"><span class="pre">created</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>
+if the playlist had to be made.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.create_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">create_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#create_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.create_playlist" title="Link to this definition"></a></dt>
+<dd><p>Create a playlist and return its id.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.ensure_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">ensure_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#ensure_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.ensure_playlist" title="Link to this definition"></a></dt>
+<dd><p>Return the id of the playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code>, creating it if missing.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> only when the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.find_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">find_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#find_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.find_playlist" title="Link to this definition"></a></dt>
+<dd><p>Return the id of the caller’s playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code> (or <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+<p>Matches the first playlist with an exact title; YouTube allows duplicate
+titles, so prefer unique playlist names.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.is_video_in_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">is_video_in_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#is_video_in_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.is_video_in_playlist" title="Link to this definition"></a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">video_id</span></code> is already an item of <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (paginated).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.playlists.list_my_playlists">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.playlists.</span></span><span class="sig-name descname"><span class="pre">list_my_playlists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/youtube/playlists.html#list_my_playlists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.playlists.list_my_playlists" title="Link to this definition"></a></dt>
+<dd><p>Return all playlists owned by the authenticated channel (paginated).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="metadata.html" class="btn btn-neutral float-left" title="yb.youtube.metadata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="publish.html" class="btn btn-neutral float-right" title="yb.youtube.publish" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -3,6 +3,7 @@
    :caption: Contents:
 
    module_docs/yb
+   module_docs/yb/config
    module_docs/yb/content
    module_docs/yb/download
    module_docs/yb/download/youtube
@@ -17,5 +18,6 @@
    module_docs/yb/youtube/auth
    module_docs/yb/youtube/captions
    module_docs/yb/youtube/metadata
+   module_docs/yb/youtube/playlists
    module_docs/yb/youtube/publish
    module_docs/yb/youtube/stats
