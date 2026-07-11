@@ -15,6 +15,37 @@ description: >
 Turn a finished video into a YouTube publication, or edit one already up.
 Requires `yb[youtube]` and a configured OAuth client (see **yb-setup**).
 
+## Defaults: privacy & playlist (config)
+
+Publishing defaults live in `~/.config/yb/config.json` (next to the OAuth token)
+— the single source of truth, so you don't pass them on every call:
+
+```json
+{
+  "privacy_status": "unlisted",
+  "playlist": "TW Uploads",
+  "create_playlist_if_missing": true,
+  "playlist_privacy_status": "private"
+}
+```
+
+- **Privacy** defaults to `unlisted` (off the public feed, shareable by link).
+- **Playlist**: every upload is added to the named playlist (created if missing,
+  as a `private` playlist) so you can find your videos. Adding is idempotent.
+- The file is optional — with none, you get `unlisted` and no playlist.
+
+Call-site arguments override the file: `privacy_status="public"` makes one video
+public; `playlist=None` skips the playlist for one call; `playlist="Other"`
+targets a different one. The result dict gains a `playlist` key:
+`{"playlist_id", "playlist_title", "added", "created"}` (or `None`).
+
+Add an *already-published* video to a playlist:
+
+```python
+from yb.youtube import add_video_to_playlist
+add_video_to_playlist("VIDEO_ID", "TW Uploads")  # find-or-create, idempotent
+```
+
 ## Reuse-and-persist rule
 
 The transcript SRT lives next to the media (`<basename>.srt`) and is **reused if
@@ -74,6 +105,26 @@ set_thumbnail("VIDEO_ID", "thumb.jpg")
 
 `upsert_caption` updates an existing uploaded (`standard`) track in the same
 language, else inserts one. (YouTube's own auto `asr` tracks are left alone.)
+
+## Read live stats & metadata
+
+`video_metadata` fetches a flattened, typed view of a video's live numbers
+(views, likes, dislikes, comments, ...) plus content/status details in one call:
+
+```python
+from yb.youtube import video_metadata, FIELD_GROUPS
+
+video_metadata("VIDEO_ID", group="engagement")                 # dict of the live numbers
+print(video_metadata("VIDEO_ID", group="engagement", as_table=True))  # readable ASCII table
+video_metadata("VIDEO_ID", fields=["title", "views", "likes"]) # pick/order exact fields
+print(video_metadata(["ID1", "ID2"], group="engagement", as_table=True))  # compare videos (row each)
+```
+
+- No `group`/`fields` → every available field. `fields` overrides `group`.
+- Named groups (`FIELD_GROUPS`): `engagement`, `overview`, `content`, `status`, `identity`.
+- `dislikes` is returned **only to the video's owner**; else `None`. Deeper
+  metrics (watch time, shares, retention) need the YouTube **Analytics** API +
+  the `yt-analytics.readonly` scope — not covered here.
 
 ## Notes
 

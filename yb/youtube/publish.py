@@ -14,23 +14,50 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Sequence
 
+from yb.config import YbConfig, load_config
 from yb.content import PublicationContent, prepare_content
 from yb.youtube.auth import get_service
 from yb.youtube.metadata import VideoMetadata, CATEGORY_SCIENCE_TECH
 from yb.youtube.api import upload_video, set_thumbnail
 from yb.youtube.captions import CaptionTrack, upsert_caption
+from yb.youtube.playlists import add_video_to_playlist
 
 PathLike = str | Path
+
+#: Sentinel marking "argument not given — fall back to the config default".
+#: Distinguishes an unset playlist (use config) from an explicit ``None``
+#: (publish without adding to any playlist).
+_USE_CONFIG = object()
+
+
+def _maybe_add_to_playlist(
+    video_id: str, playlist, cfg: YbConfig, *, service, progress: bool
+) -> dict | None:
+    """Add ``video_id`` to ``playlist`` (a title, or the config default)."""
+    title = cfg.playlist if playlist is _USE_CONFIG else playlist
+    if not title:
+        return None
+    if progress:
+        print(f"  adding to playlist: {title!r}")
+    return add_video_to_playlist(
+        video_id,
+        title,
+        create=cfg.create_playlist_if_missing,
+        privacy_status=cfg.playlist_privacy_status,
+        service=service,
+    )
 
 
 def publish_content(
     content: PublicationContent,
     *,
-    privacy_status: str = "unlisted",
+    privacy_status: str | None = None,
+    playlist=_USE_CONFIG,
     category_id: str = CATEGORY_SCIENCE_TECH,
     with_chapters: bool = True,
     attach_caption: bool = True,
     set_thumb: bool = True,
+    config: YbConfig | None = None,
     client_secrets_file: PathLike | None = None,
     token_file: PathLike | None = None,
     progress: bool = True,
@@ -39,15 +66,25 @@ def publish_content(
     """Upload a prepared :class:`PublicationContent` to YouTube.
 
     Maps the content to a YouTube snippet (chapters embedded in the
-    description when present), uploads, then attaches the SRT caption track
+    description when present), uploads, attaches the SRT caption track
     (language = ``content.audio_language`` or ``content.language``) and the
-    thumbnail when available.
+    thumbnail when available, and adds the video to the configured playlist.
+
+    ``privacy_status`` and ``playlist`` default to your ``yb`` config (see
+    :mod:`yb.config`): unset means "use the config value", so privacy falls back
+    to ``unlisted`` and the video joins your configured playlist. Pass
+    ``playlist=None`` to skip the playlist for one call, or ``playlist="Name"``
+    to override the target.
 
     Returns:
         ``{"video_id", "url", "studio_url", "privacy_status", "captions",
-        "thumbnail"}``. ``privacy_status`` reflects what YouTube actually set
-        (an unaudited project may force ``"private"``).
+        "thumbnail", "playlist"}``. ``privacy_status`` reflects what YouTube
+        actually set (an unaudited project may force ``"private"``); ``playlist``
+        is the :func:`~yb.youtube.playlists.add_video_to_playlist` result or
+        ``None``.
     """
+    cfg = config or load_config(privacy_status=privacy_status)
+    privacy_status = cfg.privacy_status
     service = service or get_service(
         client_secrets_file=client_secrets_file, token_file=token_file
     )
@@ -87,7 +124,10 @@ def publish_content(
         set_thumbnail(video_id, content.thumbnail, service=service)
         thumb_set = True
 
-    return _result(video_id, actual_privacy, captions, thumb_set)
+    playlist_result = _maybe_add_to_playlist(
+        video_id, playlist, cfg, service=service, progress=progress
+    )
+    return _result(video_id, actual_privacy, captions, thumb_set, playlist_result)
 
 
 def prepare_and_publish(
@@ -100,8 +140,10 @@ def prepare_and_publish(
     extra_context: str | None = None,
     with_chapters: bool = True,
     with_thumbnail: bool = True,
-    privacy_status: str = "unlisted",
+    privacy_status: str | None = None,
+    playlist=_USE_CONFIG,
     category_id: str = CATEGORY_SCIENCE_TECH,
+    config: YbConfig | None = None,
     client_secrets_file: PathLike | None = None,
     token_file: PathLike | None = None,
     progress: bool = True,
@@ -110,7 +152,9 @@ def prepare_and_publish(
 
     Transcribes (persisting the SRT next to the media) if needed, writes
     LLM metadata, detects chapters, renders a thumbnail, then uploads with
-    captions + thumbnail + chapters.
+    captions + thumbnail + chapters and adds the video to the configured
+    playlist. ``privacy_status`` and ``playlist`` default to your ``yb`` config
+    (see :func:`publish_content`).
     """
     content = prepare_content(
         media,
@@ -125,8 +169,10 @@ def prepare_and_publish(
     return publish_content(
         content,
         privacy_status=privacy_status,
+        playlist=playlist,
         category_id=category_id,
         with_chapters=with_chapters,
+        config=config,
         client_secrets_file=client_secrets_file,
         token_file=token_file,
         progress=progress,
@@ -137,15 +183,23 @@ def publish_video(
     video_path: PathLike,
     metadata: VideoMetadata,
     *,
-    privacy_status: str = "unlisted",
+    privacy_status: str | None = None,
+    playlist=_USE_CONFIG,
     captions: Sequence[CaptionTrack] | None = None,
     thumbnail: PathLike | None = None,
+    config: YbConfig | None = None,
     client_secrets_file: PathLike | None = None,
     token_file: PathLike | None = None,
     progress: bool = True,
     service=None,
 ) -> dict:
-    """Lower-level upload: explicit :class:`VideoMetadata` + caption tracks."""
+    """Lower-level upload: explicit :class:`VideoMetadata` + caption tracks.
+
+    ``privacy_status`` and ``playlist`` default to your ``yb`` config (see
+    :func:`publish_content`).
+    """
+    cfg = config or load_config(privacy_status=privacy_status)
+    privacy_status = cfg.privacy_status
     service = service or get_service(
         client_secrets_file=client_secrets_file, token_file=token_file
     )
@@ -168,10 +222,13 @@ def publish_video(
         set_thumbnail(video_id, thumbnail, service=service)
         thumb_set = True
 
-    return _result(video_id, actual_privacy, attached, thumb_set)
+    playlist_result = _maybe_add_to_playlist(
+        video_id, playlist, cfg, service=service, progress=progress
+    )
+    return _result(video_id, actual_privacy, attached, thumb_set, playlist_result)
 
 
-def _result(video_id, privacy, captions, thumb) -> dict:
+def _result(video_id, privacy, captions, thumb, playlist=None) -> dict:
     return {
         "video_id": video_id,
         "url": f"https://youtu.be/{video_id}",
@@ -179,6 +236,7 @@ def _result(video_id, privacy, captions, thumb) -> dict:
         "privacy_status": privacy,
         "captions": captions,
         "thumbnail": thumb,
+        "playlist": playlist,
     }
 
 

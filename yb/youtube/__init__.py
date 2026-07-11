@@ -19,6 +19,16 @@ from yb.youtube.auth import (
     get_credentials,
     get_service,
     default_token_file,
+    default_client_secrets_file,
+)
+from yb.youtube.playlists import (
+    list_my_playlists,
+    find_playlist,
+    create_playlist,
+    ensure_playlist,
+    is_video_in_playlist,
+    add_to_playlist,
+    add_video_to_playlist,
 )
 from yb.youtube.metadata import (
     VideoMetadata,
@@ -34,6 +44,15 @@ from yb.youtube.api import (
     update_video_fields,
     set_thumbnail,
     set_chapters,
+)
+from yb.youtube.stats import (
+    video_metadata,
+    flatten_video,
+    select_fields,
+    resolve_fields,
+    render_table,
+    FIELD_GROUPS,
+    DEFAULT_PARTS,
 )
 from yb.youtube.captions import (
     CaptionTrack,
@@ -55,6 +74,14 @@ __all__ = [
     "get_credentials",
     "get_service",
     "default_token_file",
+    "default_client_secrets_file",
+    "list_my_playlists",
+    "find_playlist",
+    "create_playlist",
+    "ensure_playlist",
+    "is_video_in_playlist",
+    "add_to_playlist",
+    "add_video_to_playlist",
     "VideoMetadata",
     "CATEGORY_SCIENCE_TECH",
     "CATEGORY_EDUCATION",
@@ -66,6 +93,13 @@ __all__ = [
     "update_video_fields",
     "set_thumbnail",
     "set_chapters",
+    "video_metadata",
+    "flatten_video",
+    "select_fields",
+    "resolve_fields",
+    "render_table",
+    "FIELD_GROUPS",
+    "DEFAULT_PARTS",
     "CaptionTrack",
     "list_captions",
     "insert_caption",

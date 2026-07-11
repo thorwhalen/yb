@@ -28,11 +28,25 @@ DEFAULT_SCOPES = [
 _CLIENT_SECRETS_ENV = ("YOUTUBE_CLIENT_SECRETS_FILE", "GOOGLE_CLIENT_SECRETS_FILE")
 
 
-def default_token_file() -> Path:
-    """Cached OAuth token location (``$XDG_CONFIG_HOME`` or ``~/.config``)."""
+def _config_dir() -> Path:
+    """``yb`` config directory (``$XDG_CONFIG_HOME`` or ``~/.config``)/``yb``."""
     base = os.environ.get("XDG_CONFIG_HOME")
     root = Path(base).expanduser() if base else Path.home() / ".config"
-    return root / "yb" / "youtube_token.json"
+    return root / "yb"
+
+
+def default_token_file() -> Path:
+    """Cached OAuth token location (``$XDG_CONFIG_HOME`` or ``~/.config``)."""
+    return _config_dir() / "youtube_token.json"
+
+
+def default_client_secrets_file() -> Path:
+    """Default OAuth client-secrets location: ``<config dir>/client_secret.json``.
+
+    Used when neither ``client_secrets_file=`` nor the env vars are set, so all
+    of ``yb``'s state can live in one directory next to the token.
+    """
+    return _config_dir() / "client_secret.json"
 
 
 def _resolve_client_secrets(client_secrets_file: PathLike | None) -> Path:
@@ -42,9 +56,13 @@ def _resolve_client_secrets(client_secrets_file: PathLike | None) -> Path:
         val = os.environ.get(env)
         if val:
             return Path(val).expanduser()
+    default = default_client_secrets_file()
+    if default.exists():
+        return default
     raise RuntimeError(
-        "No OAuth client secrets. Pass client_secrets_file= or set one of "
-        f"{', '.join(_CLIENT_SECRETS_ENV)}. See the yb-setup skill."
+        "No OAuth client secrets. Pass client_secrets_file=, set one of "
+        f"{', '.join(_CLIENT_SECRETS_ENV)}, or place the JSON at {default}. "
+        "See the yb-setup skill."
     )
 
 
@@ -63,6 +81,7 @@ def get_credentials(
     """
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
+    from google.auth.exceptions import RefreshError
     from google_auth_oauthlib.flow import InstalledAppFlow
 
     token_path = Path(token_file) if token_file else default_token_file()
@@ -73,9 +92,18 @@ def get_credentials(
 
     if creds and creds.valid:
         return creds
+
+    refreshed = False
     if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-    else:
+        try:
+            creds.refresh(Request())
+            refreshed = True
+        except RefreshError:
+            # Token revoked/expired beyond refresh (e.g. an OAuth app in
+            # "Testing" mode rotates refresh tokens out after 7 days). Fall back
+            # to a fresh interactive consent rather than propagating the error.
+            creds = None
+    if not refreshed:
         secrets = _resolve_client_secrets(client_secrets_file)
         flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
         creds = flow.run_local_server(port=0) if open_browser else flow.run_console()

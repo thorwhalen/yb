@@ -23,6 +23,7 @@ Examples:
     >>> yb.prepare_and_publish(r.path, privacy_status="unlisted")        # needs yb[youtube]
 """
 
+from yb.config import YbConfig, load_config, default_config_file
 from yb.content import (
     PublicationContent,
     ContentMetadata,
@@ -41,6 +42,7 @@ _LAZY = {
     "update_video_fields": "yb.youtube",
     "upsert_caption": "yb.youtube",
     "set_chapters": "yb.youtube",
+    "add_video_to_playlist": "yb.youtube",
     "prepare_podcast_episode": "yb.podcast",
 }
 
@@ -50,6 +52,9 @@ __all__ = [
     "prepare_content",
     "generate_metadata",
     "format_chapter_lines",
+    "YbConfig",
+    "load_config",
+    "default_config_file",
     *_LAZY.keys(),
 ]
 
