@@ -148,24 +148,50 @@ def flatten_video(resource: Mapping) -> dict:
 #: is the headline one (the live numbers); the rest are common practical cuts.
 FIELD_GROUPS: dict[str, list[str]] = {
     "engagement": [
-        "views", "likes", "dislikes", "comments", "favorites",
-        "like_view_pct", "comment_view_pct",
+        "views",
+        "likes",
+        "dislikes",
+        "comments",
+        "favorites",
+        "like_view_pct",
+        "comment_view_pct",
     ],
     "overview": [
-        "title", "url", "privacy", "published_at", "duration",
-        "views", "likes", "comments",
+        "title",
+        "url",
+        "privacy",
+        "published_at",
+        "duration",
+        "views",
+        "likes",
+        "comments",
     ],
     "content": [
-        "duration", "duration_seconds", "definition", "dimension",
-        "has_captions", "has_custom_thumbnail", "licensed_content", "projection",
+        "duration",
+        "duration_seconds",
+        "definition",
+        "dimension",
+        "has_captions",
+        "has_custom_thumbnail",
+        "licensed_content",
+        "projection",
     ],
     "status": [
-        "privacy", "upload_status", "made_for_kids", "embeddable",
-        "license", "public_stats_viewable",
+        "privacy",
+        "upload_status",
+        "made_for_kids",
+        "embeddable",
+        "license",
+        "public_stats_viewable",
     ],
     "identity": [
-        "id", "url", "title", "channel_title", "channel_id",
-        "category_id", "published_at",
+        "id",
+        "url",
+        "title",
+        "channel_title",
+        "channel_id",
+        "category_id",
+        "published_at",
     ],
 }
 
@@ -227,8 +253,7 @@ def _ascii(grid: Sequence[Sequence[str]], *, header: bool = True) -> str:
     body = grid[1:] if header else grid
     # right-align columns whose body cells are all numeric-looking
     right = [
-        bool(body) and all(_NUMISH.match(row[i]) for row in body)
-        for i in range(ncol)
+        bool(body) and all(_NUMISH.match(row[i]) for row in body) for i in range(ncol)
     ]
 
     def fmt(row):
@@ -256,9 +281,7 @@ def render_table(
     of flat dicts renders one row per video with ``fields`` as columns.
     """
     if isinstance(data, Mapping):
-        items = (
-            data.items() if fields is None else [(f, data.get(f)) for f in fields]
-        )
+        items = data.items() if fields is None else [(f, data.get(f)) for f in fields]
         rows = [("field", "value"), *((k, _fmt_cell(v)) for k, v in items)]
         return _ascii(rows)
     rows = list(data)
@@ -317,7 +340,8 @@ def video_metadata(
 
     if as_table:
         cols = resolve_fields(
-            group=group, fields=fields,
+            group=group,
+            fields=fields,
             available=flats[0].keys() if flats else [],
         )
         if single:
@@ -335,7 +359,7 @@ def _fetch(ids: Sequence[str], *, part: str, service) -> list[dict]:
     """Fetch raw ``videos.list`` items for ``ids`` (batched by the API's 50 max)."""
     items: list[dict] = []
     for start in range(0, len(ids), 50):
-        chunk = ids[start:start + 50]
+        chunk = ids[start : start + 50]
         resp = service.videos().list(part=part, id=",".join(chunk)).execute()
         items.extend(resp.get("items", []))
     return items
