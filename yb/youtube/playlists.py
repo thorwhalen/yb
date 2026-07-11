@@ -29,7 +29,12 @@ def list_my_playlists(*, service=None, **cred_kwargs) -> list[dict]:
     while True:
         resp = (
             service.playlists()
-            .list(part="snippet,status", mine=True, maxResults=_MAX_RESULTS, pageToken=token)
+            .list(
+                part="snippet,status",
+                mine=True,
+                maxResults=_MAX_RESULTS,
+                pageToken=token,
+            )
             .execute()
         )
         out.extend(resp.get("items", []))
