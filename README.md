@@ -112,6 +112,54 @@ overrides `group`. Named groups (`FIELD_GROUPS`): `engagement`, `overview`,
 **owner** (else `None`); watch-time/retention/shares live in the YouTube
 *Analytics* API, not here.
 
+### Publish a song as a music video
+
+You have a song and its cover; YouTube wants a video. `yb.music` renders one and
+publishes it through the same machinery as everything else.
+
+```python
+from yb.music import prepare_music_video, publish_music
+
+# Simplest: the cover on a 16:9 canvas, held for the song's length.
+mv = prepare_music_video("song.wav", image="cover.png")
+mv.video, mv.thumbnail            # -> song.mp4, song.thumb.jpg
+
+# Or render and upload in one call.
+publish_music("song.wav", image="cover.png", privacy_status="unlisted")
+
+# An album: one visual template, one loudness target, one playlist.
+publish_music(["01.wav", "02.wav", "03.wav"],
+              images={"01.wav": "01.png", "02.wav": "02.png"},
+              visual="ken_burns", playlist="My Album")
+```
+
+Pick the **visual** with `visual=`: `"still"` (default when there's an image),
+`"ken_burns"` (a slow pan/zoom), or an audio-reactive one — `"cqt"` (pitch-aligned
+bars, the most musical), `"bars"`, `"spectrum"`, `"waves"`, `"scope"`. All the
+reactive ones are pure ffmpeg, so they cost no extra dependency. You can also
+pass **your own callable** (see `yb.render.visuals.register_visual`).
+
+What you get for free, because it's what makes a set of songs feel like a
+release:
+
+- **16:9, never pillarboxed.** Square or portrait art is composed onto a 1080p
+  canvas filled with a blurred, darkened copy of itself — not black bars.
+- **Loudness-normalized** to −14 LUFS (EBU R128, two-pass), so an album plays at
+  one level. `normalize=False` to opt out.
+- **A thumbnail** derived from the same composition (1280×720, under YouTube's
+  2 MiB limit), used as the video's thumbnail by default.
+- **Music category**, and a video exactly as long as the song.
+
+Rendering needs only **ffmpeg**. Check what you made before you ship it:
+
+```python
+from yb.render import verify_video, report
+print(report(verify_video("song.mp4", audio="song.wav", thumbnail="song.thumb.jpg")))
+```
+
+See the **`music2video`** skill for the visualizer menu and the full quality
+checklist.
+
 ### Publish a podcast episode
 
 ```python
@@ -145,6 +193,8 @@ Point `yb` at the client JSON via `$YOUTUBE_CLIENT_SECRETS_FILE`.
 | Module | Role | Extra |
 |---|---|---|
 | `yb.content` | platform-neutral content prep (metadata, chapters, thumbnail) | core |
+| `yb.render` | audio → video: canvas, visual strategies, loudness, verification | core (ffmpeg) |
+| `yb.music` | songs → music videos, published as an album | core (+`youtube` to upload) |
 | `yb.youtube` | upload, edit + read stats via YouTube Data API v3 | `youtube` |
 | `yb.podcast` | show notes, ID3/PSC chapters, cover video, RSS | `podcast` |
 | `yb.download` | yt-dlp downloader | `download` |
