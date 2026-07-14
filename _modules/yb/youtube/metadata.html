@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.metadata &mdash; yb 0.1.4 documentation</title>
+  <title>yb.youtube.metadata &mdash; yb 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../../_static/documentation_options.js?v=59fadc99"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -51,12 +51,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music/publish.html">yb.music.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/video.html">yb.render.video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/visuals.html">yb.render.visuals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
@@ -113,6 +121,7 @@
 <span class="n">CATEGORY_EDUCATION</span> <span class="o">=</span> <span class="s2">&quot;27&quot;</span>
 <span class="n">CATEGORY_PEOPLE_BLOGS</span> <span class="o">=</span> <span class="s2">&quot;22&quot;</span>
 <span class="n">CATEGORY_ENTERTAINMENT</span> <span class="o">=</span> <span class="s2">&quot;24&quot;</span>
+<span class="n">CATEGORY_MUSIC</span> <span class="o">=</span> <span class="s2">&quot;10&quot;</span>
 
 <span class="n">_TITLE_MAX</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">_DESC_MAX</span> <span class="o">=</span> <span class="mi">5000</span>
@@ -132,6 +141,11 @@
 <span class="sd">        category_id: YouTube category id (default Science &amp; Technology).</span>
 <span class="sd">        default_language: BCP-47 language of the metadata text.</span>
 <span class="sd">        default_audio_language: BCP-47 language of the audio.</span>
+<span class="sd">        contains_synthetic_media: Declare that the video contains realistic</span>
+<span class="sd">            altered or synthetic content. YouTube&#39;s disclosure rule turns on</span>
+<span class="sd">            *realism*, not on whether AI was involved: it applies when a viewer</span>
+<span class="sd">            could mistake the content for a real person, place, or event —</span>
+<span class="sd">            not to stylised artwork or a visualizer. Left unset when ``None``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
@@ -140,6 +154,7 @@
     <span class="n">category_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">CATEGORY_SCIENCE_TECH</span>
     <span class="n">default_language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">default_audio_language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">contains_synthetic_media</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="n">_TITLE_MAX</span><span class="p">]</span>
@@ -182,13 +197,13 @@
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/metadata.html#yb.youtube.VideoMetadata.insert_body">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">insert_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;unlisted&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the ``videos.insert`` body (snippet + status).&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snippet</span><span class="p">(),</span>
-            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;privacyStatus&quot;</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">,</span>
-                <span class="s2">&quot;selfDeclaredMadeForKids&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="p">},</span>
-        <span class="p">}</span></div>
+        <span class="n">status</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;privacyStatus&quot;</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">,</span>
+            <span class="s2">&quot;selfDeclaredMadeForKids&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_synthetic_media</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">status</span><span class="p">[</span><span class="s2">&quot;containsSyntheticMedia&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_synthetic_media</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snippet</span><span class="p">(),</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="VideoMetadata.update_snippet">

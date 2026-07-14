@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.music.publish &mdash; yb 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=59fadc99"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music/publish.html">yb.music.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/video.html">yb.render.video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/visuals.html">yb.render.visuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.music.publish</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.music.publish</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Prepare and publish songs as YouTube music videos.</span>
+
+<span class="sd">The publication-facing facade over :mod:`yb.render`: a song (and usually a</span>
+<span class="sd">cover) becomes a video, a thumbnail, and a</span>
+<span class="sd">:class:`~yb.content.PublicationContent` — which the existing</span>
+<span class="sd">:mod:`yb.youtube` machinery uploads exactly as it uploads anything else.</span>
+
+<span class="sd">Simple things simple::</span>
+
+<span class="sd">    &gt;&gt;&gt; from yb.music import prepare_music_video, publish_music</span>
+<span class="sd">    &gt;&gt;&gt; mv = prepare_music_video(&quot;song.wav&quot;, image=&quot;cover.png&quot;)     # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; publish_music(&quot;song.wav&quot;, image=&quot;cover.png&quot;,                # doctest: +SKIP</span>
+<span class="sd">    ...               privacy_status=&quot;unlisted&quot;)</span>
+
+<span class="sd">An album stays a set: one visual template, one loudness target, one playlist::</span>
+
+<span class="sd">    &gt;&gt;&gt; publish_music([&quot;01.wav&quot;, &quot;02.wav&quot;], images={&quot;01.wav&quot;: &quot;01.png&quot;},  # doctest: +SKIP</span>
+<span class="sd">    ...               visual=&quot;ken_burns&quot;, playlist=&quot;My Album&quot;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.content</span><span class="w"> </span><span class="kn">import</span> <span class="n">PublicationContent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_SIZE</span><span class="p">,</span>
+    <span class="n">THUMBNAIL_SIZE</span><span class="p">,</span>
+    <span class="n">CoverLayout</span><span class="p">,</span>
+    <span class="n">TitleStyle</span><span class="p">,</span>
+    <span class="n">thumbnail_image</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Loudness</span><span class="p">,</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.video</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_FPS</span><span class="p">,</span> <span class="n">RenderResult</span><span class="p">,</span> <span class="n">render_audio_video</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.visuals</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visual</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY_MUSIC</span>
+
+<span class="n">_AUDIO_SUFFIXES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;.wav&quot;</span><span class="p">,</span> <span class="s2">&quot;.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;.flac&quot;</span><span class="p">,</span> <span class="s2">&quot;.m4a&quot;</span><span class="p">,</span> <span class="s2">&quot;.aac&quot;</span><span class="p">,</span> <span class="s2">&quot;.ogg&quot;</span><span class="p">,</span> <span class="s2">&quot;.opus&quot;</span><span class="p">,</span> <span class="s2">&quot;.aiff&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="MusicVideo">
+<a class="viewcode-back" href="../../../module_docs/yb/music/publish.html#yb.MusicVideo">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MusicVideo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A song, rendered and ready to publish.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        audio: The source song.</span>
+<span class="sd">        video: The rendered mp4.</span>
+<span class="sd">        thumbnail: The 16:9 thumbnail derived from the cover, if there was one.</span>
+<span class="sd">        content: The platform-neutral content bundle (title, description,</span>
+<span class="sd">            keywords, thumbnail) that any ``yb`` adapter can publish.</span>
+<span class="sd">        render: What the renderer did — duration, visual, loudness measurement.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">audio</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">video</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">thumbnail</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">content</span><span class="p">:</span> <span class="n">PublicationContent</span>
+    <span class="n">render</span><span class="p">:</span> <span class="n">RenderResult</span></div>
+
+
+
+<div class="viewcode-block" id="prepare_music_video">
+<a class="viewcode-back" href="../../../module_docs/yb/music/publish.html#yb.prepare_music_video">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_music_video</span><span class="p">(</span>
+    <span class="n">audio</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">visual</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Visual</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">artist</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">keywords</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">loudness</span><span class="p">:</span> <span class="n">Loudness</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">burn_title</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_SIZE</span><span class="p">,</span>
+    <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_FPS</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">CoverLayout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="p">:</span> <span class="n">TitleStyle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">thumbnail_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">THUMBNAIL_SIZE</span><span class="p">,</span>
+    <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MusicVideo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Turn a song into a publishable music video (no upload).</span>
+
+<span class="sd">    The title falls back to the audio file&#39;s tags, then to a tidied filename,</span>
+<span class="sd">    so the one-argument call already produces something sensible. A cover image</span>
+<span class="sd">    becomes both the picture and — by default — the thumbnail.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        audio: The song. Prefer the lossless master (``.wav``) when you have it.</span>
+<span class="sd">        image: Cover art.</span>
+<span class="sd">        visual: Visual strategy: a name, ``&quot;auto&quot;``, or a callable</span>
+<span class="sd">            (see :mod:`yb.render.visuals`).</span>
+<span class="sd">        title: Video title (default: from tags, else the filename).</span>
+<span class="sd">        artist: Artist name; when given, the title becomes ``&quot;Artist - Title&quot;``.</span>
+<span class="sd">        description: Video description.</span>
+<span class="sd">        keywords: Tags for the upload.</span>
+<span class="sd">        output_dir: Where the video and thumbnail go (default: next to ``audio``).</span>
+<span class="sd">        normalize: Loudness-normalize to a consistent target (default ``True`` —</span>
+<span class="sd">            this is what makes a set of songs play back at one level).</span>
+<span class="sd">        loudness: Override the loudness target.</span>
+<span class="sd">        thumbnail: Derive a 16:9 thumbnail from the cover.</span>
+<span class="sd">        burn_title: Also draw the title into the video frame.</span>
+<span class="sd">        size / fps / layout / title_style / options: Passed to the renderer.</span>
+<span class="sd">        thumbnail_size: Thumbnail size (YouTube wants &gt;= 1280x720).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`MusicVideo`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">audio</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">if</span> <span class="n">image</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">output_dir</span> <span class="k">else</span> <span class="n">audio</span><span class="o">.</span><span class="n">parent</span>
+    <span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">song_title</span> <span class="o">=</span> <span class="n">title</span> <span class="ow">or</span> <span class="n">_title_from</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+    <span class="n">video_title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">artist</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">song_title</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">artist</span> <span class="k">else</span> <span class="n">song_title</span>
+
+    <span class="n">render</span> <span class="o">=</span> <span class="n">render_audio_video</span><span class="p">(</span>
+        <span class="n">audio</span><span class="p">,</span>
+        <span class="n">image</span><span class="p">,</span>
+        <span class="n">visual</span><span class="o">=</span><span class="n">visual</span><span class="p">,</span>
+        <span class="n">saveas</span><span class="o">=</span><span class="n">out_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">audio</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.mp4&quot;</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">song_title</span> <span class="k">if</span> <span class="n">burn_title</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">title_style</span><span class="o">=</span><span class="n">title_style</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="n">loudness</span><span class="o">=</span><span class="n">loudness</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">thumb</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">thumbnail</span> <span class="ow">and</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">thumb</span> <span class="o">=</span> <span class="n">thumbnail_image</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">,</span>
+            <span class="n">saveas</span><span class="o">=</span><span class="n">out_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">audio</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.thumb.jpg&quot;</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">thumbnail_size</span><span class="p">,</span>
+            <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">PublicationContent</span><span class="p">(</span>
+        <span class="n">media</span><span class="o">=</span><span class="n">render</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">video_title</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">keywords</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">keywords</span><span class="p">),</span>
+        <span class="n">thumbnail</span><span class="o">=</span><span class="n">thumb</span><span class="p">,</span>
+        <span class="n">duration</span><span class="o">=</span><span class="n">render</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">MusicVideo</span><span class="p">(</span>
+        <span class="n">audio</span><span class="o">=</span><span class="n">audio</span><span class="p">,</span>
+        <span class="n">video</span><span class="o">=</span><span class="n">render</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+        <span class="n">thumbnail</span><span class="o">=</span><span class="n">thumb</span><span class="p">,</span>
+        <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+        <span class="n">render</span><span class="o">=</span><span class="n">render</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="prepare_music_videos">
+<a class="viewcode-back" href="../../../module_docs/yb/music/publish.html#yb.prepare_music_videos">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_music_videos</span><span class="p">(</span>
+    <span class="n">songs</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">images</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MusicVideo</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare several songs as one coherent set (same template, same loudness).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        songs: One song, a list of songs, or a directory of audio files.</span>
+<span class="sd">        images: One cover for all of them, or a per-song mapping keyed by the</span>
+<span class="sd">            song path (or by its filename, or by its stem — whichever you find</span>
+<span class="sd">            more convenient).</span>
+<span class="sd">        **kwargs: Everything :func:`prepare_music_video` accepts; applied</span>
+<span class="sd">            identically to every song, which is what makes the set read as a</span>
+<span class="sd">            deliberate collection.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        One :class:`MusicVideo` per song, in order.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">_as_song_list</span><span class="p">(</span><span class="n">songs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">prepare_music_video</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">_image_for</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">images</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">paths</span>
+    <span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="publish_music">
+<a class="viewcode-back" href="../../../module_docs/yb/music/publish.html#yb.publish_music">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">publish_music</span><span class="p">(</span>
+    <span class="n">songs</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">images</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">playlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">category_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">CATEGORY_MUSIC</span><span class="p">,</span>
+    <span class="n">prepared</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">MusicVideo</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render ``songs`` as music videos and upload them to YouTube.</span>
+
+<span class="sd">    Reuses :func:`yb.youtube.publish_content` unchanged — the music path only</span>
+<span class="sd">    prepares better assets for it. Videos are published under YouTube&#39;s *Music*</span>
+<span class="sd">    category, and (when ``playlist`` is given) collected into one playlist, so</span>
+<span class="sd">    an album arrives as an album.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        songs: One song, a list of songs, or a directory of audio files.</span>
+<span class="sd">        images: A cover for all songs, or a per-song mapping.</span>
+<span class="sd">        image: A single cover (a friendlier alias for the one-song case).</span>
+<span class="sd">        privacy_status: ``&quot;unlisted&quot;`` (the ``yb`` default), ``&quot;private&quot;``, or</span>
+<span class="sd">            ``&quot;public&quot;``.</span>
+<span class="sd">        playlist: Playlist title to collect the set into. ``None`` (the default</span>
+<span class="sd">            here) publishes without touching a playlist.</span>
+<span class="sd">        category_id: YouTube category (default: Music).</span>
+<span class="sd">        prepared: Already-prepared :class:`MusicVideo` objects — skips rendering</span>
+<span class="sd">            (useful to review the videos before they go up).</span>
+<span class="sd">        progress: Print upload progress.</span>
+<span class="sd">        service: An authenticated YouTube service to reuse across the batch.</span>
+<span class="sd">        **kwargs: Forwarded to :func:`prepare_music_video`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        One :func:`yb.youtube.publish_content` result dict per song.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube.publish</span><span class="w"> </span><span class="kn">import</span> <span class="n">publish_content</span>
+
+    <span class="n">videos</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">list</span><span class="p">(</span><span class="n">prepared</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prepared</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">prepare_music_videos</span><span class="p">(</span>
+            <span class="n">songs</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="n">images</span> <span class="k">if</span> <span class="n">images</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">music_video</span> <span class="ow">in</span> <span class="n">videos</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Publishing </span><span class="si">{</span><span class="n">music_video</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">title</span><span class="si">!r}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">publish_content</span><span class="p">(</span>
+                <span class="n">music_video</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+                <span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">,</span>
+                <span class="n">playlist</span><span class="o">=</span><span class="n">playlist</span><span class="p">,</span>
+                <span class="n">category_id</span><span class="o">=</span><span class="n">category_id</span><span class="p">,</span>
+                <span class="n">with_chapters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">attach_caption</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+                <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_as_song_list</span><span class="p">(</span><span class="n">songs</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a song, a directory of songs, or a list of songs into a list.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">songs</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">songs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">_AUDIO_SUFFIXES</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">songs</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_image_for</span><span class="p">(</span>
+    <span class="n">song</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">images</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The cover for ``song``: a shared one, or its entry in a per-song mapping.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">images</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">song</span><span class="p">),</span> <span class="n">song</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">song</span><span class="o">.</span><span class="n">stem</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_title_from</span><span class="p">(</span><span class="n">audio</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The song&#39;s title: from its tags when readable, else from its filename.&quot;&quot;&quot;</span>
+    <span class="n">tagged</span> <span class="o">=</span> <span class="n">_tag</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tagged</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tagged</span>
+    <span class="c1"># &quot;01 - time_to_go home.wav&quot; -&gt; &quot;Time To Go Home&quot;</span>
+    <span class="n">stem</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\d+\s*[-_. ]\s*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">audio</span><span class="o">.</span><span class="n">stem</span><span class="p">)</span>
+    <span class="n">stem</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[_-]+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">stem</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">stem</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">if</span> <span class="n">stem</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">stem</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">else</span> <span class="n">stem</span> <span class="ow">or</span> <span class="n">audio</span><span class="o">.</span><span class="n">stem</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_tag</span><span class="p">(</span><span class="n">audio</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read one tag from ``audio``, or ``None`` (mutagen is optional).&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">mutagen</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span> <span class="k">as</span> <span class="n">MutagenFile</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">MutagenFile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">audio</span><span class="p">),</span> <span class="n">easy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">tags</span> <span class="ow">and</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># an unreadable/absent tag is not an error worth raising</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

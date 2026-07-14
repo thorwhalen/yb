@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.render.visuals &mdash; yb 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=59fadc99"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="yb.youtube" href="../youtube.html" />
+    <link rel="prev" title="yb.render.video" href="video.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music/publish.html">yb.music.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">yb.render.video</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.render.visuals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.REACTIVE_COVER_FRACTION"><code class="docutils literal notranslate"><span class="pre">REACTIVE_COVER_FRACTION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.Visual"><code class="docutils literal notranslate"><span class="pre">Visual</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.VisualContext"><code class="docutils literal notranslate"><span class="pre">VisualContext</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.audio"><code class="docutils literal notranslate"><span class="pre">VisualContext.audio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.image"><code class="docutils literal notranslate"><span class="pre">VisualContext.image</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.duration"><code class="docutils literal notranslate"><span class="pre">VisualContext.duration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.size"><code class="docutils literal notranslate"><span class="pre">VisualContext.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.fps"><code class="docutils literal notranslate"><span class="pre">VisualContext.fps</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.layout"><code class="docutils literal notranslate"><span class="pre">VisualContext.layout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.title"><code class="docutils literal notranslate"><span class="pre">VisualContext.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.title_style"><code class="docutils literal notranslate"><span class="pre">VisualContext.title_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.workdir"><code class="docutils literal notranslate"><span class="pre">VisualContext.workdir</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.options"><code class="docutils literal notranslate"><span class="pre">VisualContext.options</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualContext.require_image"><code class="docutils literal notranslate"><span class="pre">VisualContext.require_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.VisualPlan"><code class="docutils literal notranslate"><span class="pre">VisualPlan</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.inputs"><code class="docutils literal notranslate"><span class="pre">VisualPlan.inputs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.filters"><code class="docutils literal notranslate"><span class="pre">VisualPlan.filters</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.video"><code class="docutils literal notranslate"><span class="pre">VisualPlan.video</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.uses_audio"><code class="docutils literal notranslate"><span class="pre">VisualPlan.uses_audio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.has_cover"><code class="docutils literal notranslate"><span class="pre">VisualPlan.has_cover</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.has_title"><code class="docutils literal notranslate"><span class="pre">VisualPlan.has_title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.render.visuals.VisualPlan.still"><code class="docutils literal notranslate"><span class="pre">VisualPlan.still</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.bars_visual"><code class="docutils literal notranslate"><span class="pre">bars_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.cqt_visual"><code class="docutils literal notranslate"><span class="pre">cqt_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.ken_burns_visual"><code class="docutils literal notranslate"><span class="pre">ken_burns_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.list_visuals"><code class="docutils literal notranslate"><span class="pre">list_visuals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.register_visual"><code class="docutils literal notranslate"><span class="pre">register_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.resolve_visual"><code class="docutils literal notranslate"><span class="pre">resolve_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.scope_visual"><code class="docutils literal notranslate"><span class="pre">scope_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.spectrum_visual"><code class="docutils literal notranslate"><span class="pre">spectrum_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.still_visual"><code class="docutils literal notranslate"><span class="pre">still_visual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.render.visuals.waves_visual"><code class="docutils literal notranslate"><span class="pre">waves_visual()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.render.visuals</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/yb/render/visuals.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.render.visuals">
+<span id="yb-render-visuals"></span><h1>yb.render.visuals<a class="headerlink" href="#module-yb.render.visuals" title="Link to this heading"></a></h1>
+<p>Visual strategies: how the <em>picture</em> of an audio-driven video is produced.</p>
+<p>A strategy is a function from a <a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualContext</span></code></a> (the audio, the optional
+cover, the duration, the canvas) to a <a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualPlan</span></code></a> (the ffmpeg inputs
+and filter chains that yield one video stream). <a class="reference internal" href="video.html#module-yb.render.video" title="yb.render.video"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.render.video</span></code></a> owns the
+muxing, encoding, and loudness; a strategy only says what the frames look like.</p>
+<p>That split is what keeps this open-closed: the built-ins are registered by name
+(<code class="docutils literal notranslate"><span class="pre">&quot;still&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ken_burns&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cqt&quot;</span></code>, …), and anything else you can express
+as a callable — a librosa/matplotlib animation, a projectM render, a shader —
+plugs in through the same seam, either by returning a <a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualPlan</span></code></a> or by
+returning the path of a silent video it rendered itself.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">list_visuals</span><span class="p">())</span>
+<span class="go">[&#39;bars&#39;, &#39;cqt&#39;, &#39;ken_burns&#39;, &#39;scope&#39;, &#39;spectrum&#39;, &#39;still&#39;, &#39;waves&#39;]</span>
+</pre></div>
+</div>
+<p>Conventions a strategy must honour:</p>
+<ul class="simple">
+<li><p><strong>ffmpeg input 0 is always the audio.</strong> Inputs a plan adds are numbered from
+1, in the order they appear in <a class="reference internal" href="#yb.render.visuals.VisualPlan.inputs" title="yb.render.visuals.VisualPlan.inputs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VisualPlan.inputs</span></code></a>.</p></li>
+<li><p>To react to the audio, set <code class="docutils literal notranslate"><span class="pre">uses_audio=True</span></code> and consume the <code class="docutils literal notranslate"><span class="pre">[aviz]</span></code>
+label — a dedicated copy of the audio, split off so the output track stays
+untouched.</p></li>
+<li><p>Emit exactly one video stream, labelled <a class="reference internal" href="#yb.render.visuals.VisualPlan.video" title="yb.render.visuals.VisualPlan.video"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VisualPlan.video</span></code></a>.</p></li>
+</ul>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.render.visuals.REACTIVE_COVER_FRACTION">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">REACTIVE_COVER_FRACTION</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.55</span></span><a class="headerlink" href="#yb.render.visuals.REACTIVE_COVER_FRACTION" title="Link to this definition"></a></dt>
+<dd><p>The cover card is smaller over a reactive background than on a still, so the
+visualization stays visible around it.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.render.visuals.Visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">Visual</span></span><a class="headerlink" href="#yb.render.visuals.Visual" title="Link to this definition"></a></dt>
+<dd><p>context in, plan out. Returning a path to an already-rendered
+silent video is also accepted (see <a class="reference internal" href="#yb.render.visuals.resolve_visual" title="yb.render.visuals.resolve_visual"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_visual()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A strategy</p>
+</dd>
+</dl>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualContext</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">VisualPlan</span> <span class="pre">|</span> <span class="pre">Path</span> <span class="pre">|</span> <span class="pre">str</span></code>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">VisualContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">audio:</span> <span class="pre">~pathlib.Path,</span> <span class="pre">image:</span> <span class="pre">~pathlib.Path</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">duration:</span> <span class="pre">float,</span> <span class="pre">size:</span> <span class="pre">tuple[int,</span> <span class="pre">int],</span> <span class="pre">fps:</span> <span class="pre">int,</span> <span class="pre">layout:</span> <span class="pre">~yb.render.canvas.CoverLayout</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">title:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">title_style:</span> <span class="pre">~yb.render.canvas.TitleStyle</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">workdir:</span> <span class="pre">~pathlib.Path</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">options:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#VisualContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.VisualContext" title="Link to this definition"></a></dt>
+<dd><p>Everything a visual strategy needs to know about the render.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.audio">
+<span class="sig-name descname"><span class="pre">audio</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.audio" title="Link to this definition"></a></dt>
+<dd><p>The audio file (ffmpeg input 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.image">
+<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.image" title="Link to this definition"></a></dt>
+<dd><p>The cover art, if the caller supplied one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.duration" title="Link to this definition"></a></dt>
+<dd><p>Audio duration in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.size" title="Link to this definition"></a></dt>
+<dd><p>Canvas size (width, height).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.fps">
+<span class="sig-name descname"><span class="pre">fps</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.fps" title="Link to this definition"></a></dt>
+<dd><p>Output frame rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.layout">
+<span class="sig-name descname"><span class="pre">layout</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.layout" title="Link to this definition"></a></dt>
+<dd><p>How the cover sits on the canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="canvas.html#yb.render.canvas.CoverLayout" title="yb.render.canvas.CoverLayout">yb.render.canvas.CoverLayout</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.title" title="Link to this definition"></a></dt>
+<dd><p>Title to burn in, if any.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.title_style">
+<span class="sig-name descname"><span class="pre">title_style</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.title_style" title="Link to this definition"></a></dt>
+<dd><p>How to draw that title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="canvas.html#yb.render.canvas.TitleStyle" title="yb.render.canvas.TitleStyle">yb.render.canvas.TitleStyle</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.workdir">
+<span class="sig-name descname"><span class="pre">workdir</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.workdir" title="Link to this definition"></a></dt>
+<dd><p>A directory the strategy may write intermediate files into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.options">
+<span class="sig-name descname"><span class="pre">options</span></span><a class="headerlink" href="#yb.render.visuals.VisualContext.options" title="Link to this definition"></a></dt>
+<dd><p>Strategy-specific knobs, passed straight through by the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualContext.require_image">
+<span class="sig-name descname"><span class="pre">require_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#VisualContext.require_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.VisualContext.require_image" title="Link to this definition"></a></dt>
+<dd><p>The cover image, or a <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code> naming what to do instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">VisualPlan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">video</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'vbg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uses_audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_cover</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">still</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#VisualPlan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.VisualPlan" title="Link to this definition"></a></dt>
+<dd><p>The ffmpeg fragments that render one strategy’s video stream.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.inputs" title="Link to this definition"></a></dt>
+<dd><p>Extra ffmpeg input argument groups (each ends with <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">PATH</span></code>),
+numbered from input 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.filters">
+<span class="sig-name descname"><span class="pre">filters</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.filters" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">filter_complex</span></code> chains, joined with <code class="docutils literal notranslate"><span class="pre">;</span></code> by the renderer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.video">
+<span class="sig-name descname"><span class="pre">video</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.video" title="Link to this definition"></a></dt>
+<dd><p>Label of the video stream the chains emit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.uses_audio">
+<span class="sig-name descname"><span class="pre">uses_audio</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.uses_audio" title="Link to this definition"></a></dt>
+<dd><p>The plan consumes the <code class="docutils literal notranslate"><span class="pre">[aviz]</span></code> audio copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.has_cover">
+<span class="sig-name descname"><span class="pre">has_cover</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.has_cover" title="Link to this definition"></a></dt>
+<dd><p>The plan already placed the cover; the renderer must not
+overlay it again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.has_title">
+<span class="sig-name descname"><span class="pre">has_title</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.has_title" title="Link to this definition"></a></dt>
+<dd><p>The plan already burnt in the title; the renderer must not
+draw it again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.render.visuals.VisualPlan.still">
+<span class="sig-name descname"><span class="pre">still</span></span><a class="headerlink" href="#yb.render.visuals.VisualPlan.still" title="Link to this definition"></a></dt>
+<dd><p>When set, the video <em>is</em> this static image — the renderer takes a
+much cheaper path (encode one short segment, then loop it) and
+ignores <code class="docutils literal notranslate"><span class="pre">inputs</span></code>/<code class="docutils literal notranslate"><span class="pre">filters</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.bars_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">bars_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#bars_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.bars_visual" title="Link to this definition"></a></dt>
+<dd><p>Frequency bars (the classic EQ look), via ffmpeg’s <code class="docutils literal notranslate"><span class="pre">showfreqs</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.cqt_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">cqt_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#cqt_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.cqt_visual" title="Link to this definition"></a></dt>
+<dd><p>Constant-Q transform bars — pitch-aligned, the most <em>musical</em> reactive look.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.ken_burns_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">ken_burns_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#ken_burns_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.ken_burns_visual" title="Link to this definition"></a></dt>
+<dd><p>A slow pan/zoom across the cover, lasting exactly as long as the song.</p>
+<p>Renders through the <code class="docutils literal notranslate"><span class="pre">burns</span></code> package (via <code class="docutils literal notranslate"><span class="pre">mixing.video</span></code>). By default it
+pans across the <em>composed canvas</em> rather than the raw cover, so a square or
+portrait image still fills a 16:9 frame instead of being letterboxed by the
+pan.</p>
+<p>Frames are rendered in Python (Pillow), so this is by far the slowest
+visual — budget several times the song’s duration. The ffmpeg-native
+visuals are an order of magnitude faster.</p>
+<dl class="simple">
+<dt>Options:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;canvas&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code> — what to pan across.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.list_visuals">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">list_visuals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#list_visuals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.list_visuals" title="Link to this definition"></a></dt>
+<dd><p>The names of every registered visual strategy.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.register_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">register_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#register_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.register_visual" title="Link to this definition"></a></dt>
+<dd><p>Register a visual strategy under <code class="docutils literal notranslate"><span class="pre">name</span></code> (the open-closed seam).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">_black</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;color=c=black:s=</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">[vbg]&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;black&quot;</span> <span class="ow">in</span> <span class="n">list_visuals</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">_VISUALS</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>  <span class="c1"># (keep the registry tidy for the next doctest)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.resolve_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">resolve_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#resolve_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.resolve_visual" title="Link to this definition"></a></dt>
+<dd><p>Turn <code class="docutils literal notranslate"><span class="pre">visual</span></code> (a name, or any callable) into a <a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualPlan</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> picks the cheapest strategy that suits the inputs: a still cover
+when there is an image, an audio-reactive CQT when there is not.</p>
+<p>A callable may return a <a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisualPlan</span></code></a>, or the path of a silent video
+it rendered itself — the latter is the escape hatch for backends that do not
+express themselves as an ffmpeg filtergraph (librosa/matplotlib, projectM,
+a headless-browser capture…).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – <code class="docutils literal notranslate"><span class="pre">visual</span></code> names a strategy that is not registered.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.scope_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">scope_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#scope_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.scope_visual" title="Link to this definition"></a></dt>
+<dd><p>The stereo Lissajous figure, via ffmpeg’s <code class="docutils literal notranslate"><span class="pre">avectorscope</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.spectrum_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">spectrum_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#spectrum_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.spectrum_visual" title="Link to this definition"></a></dt>
+<dd><p>A scrolling spectrogram, via ffmpeg’s <code class="docutils literal notranslate"><span class="pre">showspectrum</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.still_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">still_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#still_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.still_visual" title="Link to this definition"></a></dt>
+<dd><p>The cover, composed on a 16:9 canvas, held for the whole song.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.render.visuals.waves_visual">
+<span class="sig-prename descclassname"><span class="pre">yb.render.visuals.</span></span><span class="sig-name descname"><span class="pre">waves_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yb.render.visuals.VisualContext" title="yb.render.visuals.VisualContext"><span class="pre">VisualContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.render.visuals.VisualPlan" title="yb.render.visuals.VisualPlan"><span class="pre">VisualPlan</span></a></span></span><a class="reference internal" href="../../../_modules/yb/render/visuals.html#waves_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.render.visuals.waves_visual" title="Link to this definition"></a></dt>
+<dd><p>The waveform, via ffmpeg’s <code class="docutils literal notranslate"><span class="pre">showwaves</span></code>.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="video.html" class="btn btn-neutral float-left" title="yb.render.video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../youtube.html" class="btn btn-neutral float-right" title="yb.youtube" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

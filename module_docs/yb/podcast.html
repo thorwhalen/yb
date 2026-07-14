@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.podcast &mdash; yb 0.1.4 documentation</title>
+  <title>yb.podcast &mdash; yb 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../_static/documentation_options.js?v=59fadc99"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="yb.podcast.chapters" href="podcast/chapters.html" />
-    <link rel="prev" title="yb.download.youtube" href="download/youtube.html" /> 
+    <link rel="prev" title="yb.music.publish" href="music/publish.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music/publish.html">yb.music.publish</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">yb.podcast</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#yb.podcast.EpisodeFeedItem"><code class="docutils literal notranslate"><span class="pre">EpisodeFeedItem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.podcast.PodcastChannel"><code class="docutils literal notranslate"><span class="pre">PodcastChannel</span></code></a></li>
@@ -72,6 +74,12 @@
 <li class="toctree-l1"><a class="reference internal" href="podcast/feed.html">yb.podcast.feed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/publish.html">yb.podcast.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/video.html">yb.render.video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/visuals.html">yb.render.visuals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube.html">yb.youtube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube/api.html">yb.youtube.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube/auth.html">yb.youtube.auth</a></li>
@@ -147,22 +155,32 @@ platform-neutral <a class="reference internal" href="content.html#yb.content.Pub
 
 <dl class="py function">
 <dt class="sig sig-object py" id="yb.podcast.cover_video">
-<span class="sig-prename descclassname"><span class="pre">yb.podcast.</span></span><span class="sig-name descname"><span class="pre">cover_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ken_burns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1920,</span> <span class="pre">1080)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">24</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/yb/podcast/cover.html#cover_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.podcast.cover_video" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">yb.podcast.</span></span><span class="sig-name descname"><span class="pre">cover_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ken_burns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1920,</span> <span class="pre">1080)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="render/canvas.html#yb.render.canvas.CoverLayout" title="yb.render.canvas.CoverLayout"><span class="pre">CoverLayout</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/yb/podcast/cover.html#cover_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.podcast.cover_video" title="Link to this definition"></a></dt>
 <dd><p>Render a video of <code class="docutils literal notranslate"><span class="pre">image</span></code> held over <code class="docutils literal notranslate"><span class="pre">audio</span></code>.</p>
+<p>The cover is composed onto a 16:9 canvas — filled with a blurred, darkened
+copy of itself rather than black bars — so square or portrait art still
+looks deliberate at 1080p.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>audio</strong> – The episode audio file.</p></li>
 <li><p><strong>image</strong> – Cover image to display.</p></li>
 <li><p><strong>saveas</strong> – Output path (defaults to <code class="docutils literal notranslate"><span class="pre">&lt;audio-stem&gt;.cover.mp4</span></code>).</p></li>
-<li><p><strong>ken_burns</strong> – Apply a slow pan/zoom (via <code class="docutils literal notranslate"><span class="pre">mixing</span></code>) instead of a static
-image. Falls back to static if Ken Burns rendering is unavailable.</p></li>
+<li><p><strong>ken_burns</strong> – Apply a slow pan/zoom (rendered by <code class="docutils literal notranslate"><span class="pre">burns</span></code>) instead of a
+static image. Much slower than the static path.</p></li>
 <li><p><strong>size</strong> – Output resolution (width, height).</p></li>
 <li><p><strong>fps</strong> – Output frame rate.</p></li>
+<li><p><strong>layout</strong> – How the cover sits on the canvas.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Path to the rendered mp4.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ImportError</strong> – <code class="docutils literal notranslate"><span class="pre">ken_burns=True</span></code> but the <code class="docutils literal notranslate"><span class="pre">burns</span></code> renderer is absent.</p></li>
+<li><p><a class="reference internal" href="render.html#yb.render.FfmpegError" title="yb.render.FfmpegError"><strong>FfmpegError</strong></a> – ffmpeg is missing, or the render failed.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -241,7 +259,7 @@ Inferred from the file when omitted.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="download/youtube.html" class="btn btn-neutral float-left" title="yb.download.youtube" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="music/publish.html" class="btn btn-neutral float-left" title="yb.music.publish" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="podcast/chapters.html" class="btn btn-neutral float-right" title="yb.podcast.chapters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

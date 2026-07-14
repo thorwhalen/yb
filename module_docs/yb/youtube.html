@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube &mdash; yb 0.1.4 documentation</title>
+  <title>yb.youtube &mdash; yb 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=fd825880"></script>
+      <script src="../../_static/documentation_options.js?v=59fadc99"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="yb.youtube.api" href="youtube/api.html" />
-    <link rel="prev" title="yb.podcast.shownotes" href="podcast/shownotes.html" /> 
+    <link rel="prev" title="yb.render.visuals" href="render/visuals.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,12 +54,20 @@
 <li class="toctree-l1"><a class="reference internal" href="content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music/publish.html">yb.music.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast.html">yb.podcast</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/chapters.html">yb.podcast.chapters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/cover.html">yb.podcast.cover</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/feed.html">yb.podcast.feed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/publish.html">yb.podcast.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/video.html">yb.render.video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render/visuals.html">yb.render.visuals</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">yb.youtube</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#yb.youtube.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.CaptionTrack.path"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.path</span></code></a></li>
@@ -75,6 +83,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.category_id"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.category_id</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.default_language"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.default_language</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.default_audio_language"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.default_audio_language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.contains_synthetic_media"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.contains_synthetic_media</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.from_content"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.from_content()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.insert_body"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.insert_body()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#yb.youtube.VideoMetadata.update_snippet"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.update_snippet()</span></code></a></li>
@@ -217,7 +226,7 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 
 <dl class="py class">
 <dt class="sig sig-object py" id="yb.youtube.VideoMetadata">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">VideoMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/yb/youtube/metadata.html#VideoMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">VideoMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains_synthetic_media</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/yb/youtube/metadata.html#VideoMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata" title="Link to this definition"></a></dt>
 <dd><p>YouTube-specific video metadata.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="yb.youtube.VideoMetadata.title">
@@ -281,6 +290,21 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.contains_synthetic_media">
+<span class="sig-name descname"><span class="pre">contains_synthetic_media</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.contains_synthetic_media" title="Link to this definition"></a></dt>
+<dd><p>Declare that the video contains realistic
+altered or synthetic content. YouTube’s disclosure rule turns on
+<em>realism</em>, not on whether AI was involved: it applies when a viewer
+could mistake the content for a real person, place, or event —
+not to stylised artwork or a visualizer. Left unset when <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -589,7 +613,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="podcast/shownotes.html" class="btn btn-neutral float-left" title="yb.podcast.shownotes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="render/visuals.html" class="btn btn-neutral float-left" title="yb.render.visuals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="youtube/api.html" class="btn btn-neutral float-right" title="yb.youtube.api" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

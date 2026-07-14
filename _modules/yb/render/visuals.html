@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.render.visuals &mdash; yb 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=59fadc99"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/music/publish.html">yb.music.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render.html">yb.render</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/canvas.html">yb.render.canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/ffmpeg.html">yb.render.ffmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/verify.html">yb.render.verify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/video.html">yb.render.video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/visuals.html">yb.render.visuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.render.visuals</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.render.visuals</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Visual strategies: how the *picture* of an audio-driven video is produced.</span>
+
+<span class="sd">A strategy is a function from a :class:`VisualContext` (the audio, the optional</span>
+<span class="sd">cover, the duration, the canvas) to a :class:`VisualPlan` (the ffmpeg inputs</span>
+<span class="sd">and filter chains that yield one video stream). :mod:`yb.render.video` owns the</span>
+<span class="sd">muxing, encoding, and loudness; a strategy only says what the frames look like.</span>
+
+<span class="sd">That split is what keeps this open-closed: the built-ins are registered by name</span>
+<span class="sd">(``&quot;still&quot;``, ``&quot;ken_burns&quot;``, ``&quot;cqt&quot;``, ...), and anything else you can express</span>
+<span class="sd">as a callable — a librosa/matplotlib animation, a projectM render, a shader —</span>
+<span class="sd">plugs in through the same seam, either by returning a :class:`VisualPlan` or by</span>
+<span class="sd">returning the path of a silent video it rendered itself.</span>
+
+<span class="sd">    &gt;&gt;&gt; sorted(list_visuals())  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [&#39;bars&#39;, &#39;cqt&#39;, &#39;ken_burns&#39;, &#39;scope&#39;, &#39;spectrum&#39;, &#39;still&#39;, &#39;waves&#39;]</span>
+
+<span class="sd">Conventions a strategy must honour:</span>
+
+<span class="sd">- **ffmpeg input 0 is always the audio.** Inputs a plan adds are numbered from</span>
+<span class="sd">  1, in the order they appear in :attr:`VisualPlan.inputs`.</span>
+<span class="sd">- To react to the audio, set ``uses_audio=True`` and consume the ``[aviz]``</span>
+<span class="sd">  label — a dedicated copy of the audio, split off so the output track stays</span>
+<span class="sd">  untouched.</span>
+<span class="sd">- Emit exactly one video stream, labelled :attr:`VisualPlan.video`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">replace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CoverLayout</span><span class="p">,</span>
+    <span class="n">TitleStyle</span><span class="p">,</span>
+    <span class="n">background_chain</span><span class="p">,</span>
+    <span class="n">canvas_image</span><span class="p">,</span>
+    <span class="n">cover_chain</span><span class="p">,</span>
+    <span class="n">overlay_chain</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">require_filter</span>
+
+<span class="c1">#: The cover card is smaller over a reactive background than on a still, so the</span>
+<span class="c1">#: visualization stays visible around it.</span>
+<span class="n">REACTIVE_COVER_FRACTION</span> <span class="o">=</span> <span class="mf">0.55</span>
+
+
+<div class="viewcode-block" id="VisualContext">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.VisualContext">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VisualContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Everything a visual strategy needs to know about the render.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        audio: The audio file (ffmpeg input 0).</span>
+<span class="sd">        image: The cover art, if the caller supplied one.</span>
+<span class="sd">        duration: Audio duration in seconds.</span>
+<span class="sd">        size: Canvas size (width, height).</span>
+<span class="sd">        fps: Output frame rate.</span>
+<span class="sd">        layout: How the cover sits on the canvas.</span>
+<span class="sd">        title: Title to burn in, if any.</span>
+<span class="sd">        title_style: How to draw that title.</span>
+<span class="sd">        workdir: A directory the strategy may write intermediate files into.</span>
+<span class="sd">        options: Strategy-specific knobs, passed straight through by the caller.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">audio</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">CoverLayout</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">CoverLayout</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">title_style</span><span class="p">:</span> <span class="n">TitleStyle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">workdir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Path</span><span class="p">)</span>
+    <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VisualContext.require_image">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.VisualContext.require_image">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">require_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visual</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The cover image, or a :class:`ValueError` naming what to do instead.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">visual</span><span class="si">!r}</span><span class="s2"> visual needs an image. Pass image=..., or pick an &quot;</span>
+                <span class="s2">&quot;audio-reactive visual that works without one &quot;</span>
+                <span class="s2">&quot;(e.g. visual=&#39;cqt&#39;).&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="VisualPlan">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.VisualPlan">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The ffmpeg fragments that render one strategy&#39;s video stream.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        inputs: Extra ffmpeg input argument groups (each ends with ``-i PATH``),</span>
+<span class="sd">            numbered from input 1.</span>
+<span class="sd">        filters: ``filter_complex`` chains, joined with ``;`` by the renderer.</span>
+<span class="sd">        video: Label of the video stream the chains emit.</span>
+<span class="sd">        uses_audio: The plan consumes the ``[aviz]`` audio copy.</span>
+<span class="sd">        has_cover: The plan already placed the cover; the renderer must not</span>
+<span class="sd">            overlay it again.</span>
+<span class="sd">        has_title: The plan already burnt in the title; the renderer must not</span>
+<span class="sd">            draw it again.</span>
+<span class="sd">        still: When set, the video *is* this static image — the renderer takes a</span>
+<span class="sd">            much cheaper path (encode one short segment, then loop it) and</span>
+<span class="sd">            ignores ``inputs``/``filters``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">inputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">video</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;vbg&quot;</span>
+    <span class="n">uses_audio</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_cover</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_title</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">still</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<span class="c1">#: A strategy: context in, plan out. Returning a path to an already-rendered</span>
+<span class="c1">#: silent video is also accepted (see :func:`resolve_visual`).</span>
+<span class="n">Visual</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">VisualContext</span><span class="p">],</span> <span class="s2">&quot;VisualPlan | Path | str&quot;</span><span class="p">]</span>
+
+<span class="n">_VISUALS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Visual</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="register_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.register_visual">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">register_visual</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Visual</span><span class="p">],</span> <span class="n">Visual</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Register a visual strategy under ``name`` (the open-closed seam).</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; @register_visual(&quot;black&quot;)</span>
+<span class="sd">        ... def _black(ctx):</span>
+<span class="sd">        ...     w, h = ctx.size</span>
+<span class="sd">        ...     return VisualPlan(filters=[f&quot;color=c=black:s={w}x{h}[vbg]&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; &quot;black&quot; in list_visuals()</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; _ = _VISUALS.pop(&quot;black&quot;)  # (keep the registry tidy for the next doctest)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorate</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="n">Visual</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Visual</span><span class="p">:</span>
+        <span class="n">_VISUALS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fn</span>
+        <span class="k">return</span> <span class="n">fn</span>
+
+    <span class="k">return</span> <span class="n">decorate</span></div>
+
+
+
+<div class="viewcode-block" id="list_visuals">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.list_visuals">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_visuals</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The names of every registered visual strategy.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_VISUALS</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="resolve_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.resolve_visual">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_visual</span><span class="p">(</span><span class="n">visual</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Visual</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Turn ``visual`` (a name, or any callable) into a :class:`VisualPlan`.</span>
+
+<span class="sd">    ``&quot;auto&quot;`` picks the cheapest strategy that suits the inputs: a still cover</span>
+<span class="sd">    when there is an image, an audio-reactive CQT when there is not.</span>
+
+<span class="sd">    A callable may return a :class:`VisualPlan`, or the path of a silent video</span>
+<span class="sd">    it rendered itself — the latter is the escape hatch for backends that do not</span>
+<span class="sd">    express themselves as an ffmpeg filtergraph (librosa/matplotlib, projectM,</span>
+<span class="sd">    a headless-browser capture...).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: ``visual`` names a strategy that is not registered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visual</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">visual</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;still&quot;</span> <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">image</span> <span class="k">else</span> <span class="s2">&quot;cqt&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_VISUALS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown visual </span><span class="si">{</span><span class="n">visual</span><span class="si">!r}</span><span class="s2">. Registered: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">list_visuals</span><span class="p">())</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="s2">&quot;You can also pass a callable, or register your own with &quot;</span>
+                <span class="s2">&quot;@register_visual.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">_VISUALS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">visual</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plan</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>  <span class="c1"># a pre-rendered silent video</span>
+        <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">plan</span><span class="p">)]],</span>
+            <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;[1:v]setsar=1[vbg]&quot;</span><span class="p">],</span>
+            <span class="n">video</span><span class="o">=</span><span class="s2">&quot;vbg&quot;</span><span class="p">,</span>
+            <span class="n">has_cover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">plan</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Built-in strategies</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="still_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.still_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;still&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">still_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The cover, composed on a 16:9 canvas, held for the whole song.&quot;&quot;&quot;</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">require_image</span><span class="p">(</span><span class="s2">&quot;still&quot;</span><span class="p">)</span>
+    <span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas_image</span><span class="p">(</span>
+        <span class="n">image</span><span class="p">,</span>
+        <span class="n">saveas</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;canvas.png&quot;</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">title_style</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">title_style</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span><span class="n">still</span><span class="o">=</span><span class="n">canvas</span><span class="p">,</span> <span class="n">has_cover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">has_title</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ken_burns_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.ken_burns_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;ken_burns&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ken_burns_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A slow pan/zoom across the cover, lasting exactly as long as the song.</span>
+
+<span class="sd">    Renders through the ``burns`` package (via ``mixing.video``). By default it</span>
+<span class="sd">    pans across the *composed canvas* rather than the raw cover, so a square or</span>
+<span class="sd">    portrait image still fills a 16:9 frame instead of being letterboxed by the</span>
+<span class="sd">    pan.</span>
+
+<span class="sd">    Frames are rendered in Python (Pillow), so this is by far the slowest</span>
+<span class="sd">    visual — budget several times the song&#39;s duration. The ffmpeg-native</span>
+<span class="sd">    visuals are an order of magnitude faster.</span>
+
+<span class="sd">    Options:</span>
+<span class="sd">        ``source``: ``&quot;canvas&quot;`` (default) or ``&quot;image&quot;`` — what to pan across.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">require_image</span><span class="p">(</span><span class="s2">&quot;ken_burns&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">mixing.video</span><span class="w"> </span><span class="kn">import</span> <span class="n">ken_burns_video</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - environment dependent</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;The &#39;ken_burns&#39; visual renders through &#39;burns&#39; (normally installed &quot;</span>
+            <span class="s2">&quot;with &#39;mixing&#39;), which is not importable. Reinstall with &quot;</span>
+            <span class="s2">&quot;&#39;pip install burns moviepy&#39;, or use visual=&#39;still&#39; for a pan-free &quot;</span>
+            <span class="s2">&quot;cover video, which needs nothing beyond ffmpeg.&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;canvas&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;canvas&quot;</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">canvas_image</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">,</span>
+            <span class="n">saveas</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;canvas.png&quot;</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">layout</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">title_style</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">title_style</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">image</span>
+
+    <span class="n">silent</span> <span class="o">=</span> <span class="n">ken_burns_video</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">source</span><span class="p">),</span>
+        <span class="n">duration</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+        <span class="n">fps</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span>
+        <span class="n">output_size</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;ken_burns.mp4&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span>
+        <span class="n">inputs</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">silent</span><span class="p">)]],</span>
+        <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;[1:v]setsar=1[vbg]&quot;</span><span class="p">],</span>
+        <span class="n">video</span><span class="o">=</span><span class="s2">&quot;vbg&quot;</span><span class="p">,</span>
+        <span class="n">has_cover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">has_title</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;canvas&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;canvas&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">,</span> <span class="n">viz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compose an audio-reactive filter over the cover, with the cover centred.</span>
+
+<span class="sd">    With a cover image: the blurred cover fills the frame, the visualization is</span>
+<span class="sd">    screened over it, and the sharp cover sits centred on top — a &quot;now playing&quot;</span>
+<span class="sd">    card. Without one: the visualization alone.</span>
+
+<span class="sd">    Options:</span>
+<span class="sd">        ``blurred_background``: put the visualization over the blurred cover</span>
+<span class="sd">            (default ``True``).</span>
+<span class="sd">        ``blend``: ffmpeg blend mode for that (default ``&quot;screen&quot;``).</span>
+<span class="sd">        ``cover_fraction``: size of the centred cover card, as a fraction of</span>
+<span class="sd">            canvas height (default :data:`REACTIVE_COVER_FRACTION`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">require_filter</span><span class="p">(</span><span class="n">filter_name</span><span class="p">,</span> <span class="n">needed_for</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;the </span><span class="si">{</span><span class="n">filter_name</span><span class="si">!r}</span><span class="s2"> visual&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span>
+            <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;[aviz]</span><span class="si">{</span><span class="n">viz</span><span class="si">}</span><span class="s2">[vbg]&quot;</span><span class="p">],</span> <span class="n">video</span><span class="o">=</span><span class="s2">&quot;vbg&quot;</span><span class="p">,</span> <span class="n">uses_audio</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">has_cover</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">replace</span><span class="p">(</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">cover_fraction</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cover_fraction&quot;</span><span class="p">,</span> <span class="n">REACTIVE_COVER_FRACTION</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">over_cover</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;blurred_background&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">blend</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;blend&quot;</span><span class="p">,</span> <span class="s2">&quot;screen&quot;</span><span class="p">)</span>
+
+    <span class="n">filters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;[1:v]split=2[_bgsrc][_fgsrc]&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[aviz]</span><span class="si">{</span><span class="n">viz</span><span class="si">}</span><span class="s2">[_viz]&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">over_cover</span><span class="p">:</span>
+        <span class="n">filters</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">background_chain</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;_bgsrc&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;_bg&quot;</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;[_bg][_viz]blend=all_mode=</span><span class="si">{</span><span class="n">blend</span><span class="si">}</span><span class="s2">:shortest=1[_bgviz]&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filters</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;[_bgsrc]nullsink&quot;</span><span class="p">,</span> <span class="s2">&quot;[_viz]null[_bgviz]&quot;</span><span class="p">]</span>
+    <span class="n">filters</span> <span class="o">+=</span> <span class="p">[</span>
+        <span class="n">cover_chain</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;_fgsrc&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;_fg&quot;</span><span class="p">),</span>
+        <span class="n">overlay_chain</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;_bgviz&quot;</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="s2">&quot;_fg&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;vbg&quot;</span><span class="p">,</span> <span class="n">shortest</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">VisualPlan</span><span class="p">(</span>
+        <span class="n">inputs</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;-loop&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;-framerate&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="p">),</span> <span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">image</span><span class="p">)]],</span>
+        <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+        <span class="n">video</span><span class="o">=</span><span class="s2">&quot;vbg&quot;</span><span class="p">,</span>
+        <span class="n">uses_audio</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">has_cover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="cqt_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.cqt_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;cqt&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cqt_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Constant-Q transform bars — pitch-aligned, the most *musical* reactive look.&quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;showcqt=s=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">:r=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="si">}</span><span class="s2">:count=6:gamma=3:bar_g=2&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;:cscheme=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cscheme&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0.1|0.3|0.9|0.1|0.4|0.95&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:axis=0&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">viz</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="s2">&quot;showcqt&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="bars_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.bars_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;bars&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bars_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Frequency bars (the classic EQ look), via ffmpeg&#39;s ``showfreqs``.&quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;showfreqs=s=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">:rate=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="si">}</span><span class="s2">:mode=bar:ascale=log&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;:fscale=log:win_size=2048:colors=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;white&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">viz</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="s2">&quot;showfreqs&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="spectrum_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.spectrum_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;spectrum&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spectrum_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A scrolling spectrogram, via ffmpeg&#39;s ``showspectrum``.&quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;showspectrum=s=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">:slide=scroll:mode=combined&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;:color=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;intensity&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:scale=log:fps=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">viz</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="s2">&quot;showspectrum&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="waves_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.waves_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;waves&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">waves_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The waveform, via ffmpeg&#39;s ``showwaves``.&quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;showwaves=s=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">:rate=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;:mode=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cline&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:colors=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;white&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">viz</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="s2">&quot;showwaves&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="scope_visual">
+<a class="viewcode-back" href="../../../module_docs/yb/render/visuals.html#yb.scope_visual">[docs]</a>
+<span class="nd">@register_visual</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">scope_visual</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">VisualContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VisualPlan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The stereo Lissajous figure, via ffmpeg&#39;s ``avectorscope``.&quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;avectorscope=s=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">:rate=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">fps</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;:draw=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;draw&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:zoom=</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;zoom&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_reactive_plan</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">viz</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="s2">&quot;avectorscope&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

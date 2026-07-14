@@ -7,12 +7,20 @@
    module_docs/yb/content
    module_docs/yb/download
    module_docs/yb/download/youtube
+   module_docs/yb/music
+   module_docs/yb/music/publish
    module_docs/yb/podcast
    module_docs/yb/podcast/chapters
    module_docs/yb/podcast/cover
    module_docs/yb/podcast/feed
    module_docs/yb/podcast/publish
    module_docs/yb/podcast/shownotes
+   module_docs/yb/render
+   module_docs/yb/render/canvas
+   module_docs/yb/render/ffmpeg
+   module_docs/yb/render/verify
+   module_docs/yb/render/video
+   module_docs/yb/render/visuals
    module_docs/yb/youtube
    module_docs/yb/youtube/api
    module_docs/yb/youtube/auth
