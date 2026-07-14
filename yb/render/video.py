@@ -144,8 +144,10 @@ def render_audio_video(
         ValueError: ``size`` has an odd dimension — H.264 at yuv420p (the only
             pixel format every player decodes) cannot encode one.
     """
-    require_ffmpeg()
+    # Arguments first, environment second: a caller who passed an odd size has a
+    # bug worth reporting whether or not ffmpeg happens to be installed.
     _check_even(size)
+    require_ffmpeg()
     audio = Path(audio)
     out = Path(saveas) if saveas else audio.with_suffix(".mp4")
     out.parent.mkdir(parents=True, exist_ok=True)
