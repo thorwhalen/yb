@@ -6,8 +6,13 @@ Layered by separation of concerns:
   :class:`~yb.content.PublicationContent` (title, description, keywords,
   chapters, captions, thumbnail) from a media file, delegating transcription,
   chapter detection, and thumbnails to the ``mixing`` package.
+- **rendering (needs only ffmpeg):** :mod:`yb.render` — turn audio into a video
+  a platform will accept (a cover on a 16:9 canvas, a Ken Burns pan, or an
+  audio-reactive visualizer), plus the matching thumbnail.
 - **adapters (optional extras):**
   - :mod:`yb.youtube` (``pip install 'yb[youtube]'``) — upload and edit videos.
+  - :mod:`yb.music` — publish songs as music videos (renders, then uploads
+    through :mod:`yb.youtube`).
   - :mod:`yb.podcast` (``pip install 'yb[podcast]'``) — show notes, chapter
     markers, cover-over-audio video, RSS episode item.
   - :mod:`yb.download` (``pip install 'yb[download]'``) — fetch videos/metadata.
@@ -44,6 +49,12 @@ _LAZY = {
     "set_chapters": "yb.youtube",
     "add_video_to_playlist": "yb.youtube",
     "prepare_podcast_episode": "yb.podcast",
+    "render_audio_video": "yb.render",
+    "list_visuals": "yb.render",
+    "register_visual": "yb.render",
+    "prepare_music_video": "yb.music",
+    "prepare_music_videos": "yb.music",
+    "publish_music": "yb.music",
 }
 
 __all__ = [

@@ -36,6 +36,7 @@ from yb.youtube.metadata import (
     CATEGORY_EDUCATION,
     CATEGORY_PEOPLE_BLOGS,
     CATEGORY_ENTERTAINMENT,
+    CATEGORY_MUSIC,
 )
 from yb.youtube.api import (
     get_video,
@@ -87,6 +88,7 @@ __all__ = [
     "CATEGORY_EDUCATION",
     "CATEGORY_PEOPLE_BLOGS",
     "CATEGORY_ENTERTAINMENT",
+    "CATEGORY_MUSIC",
     "get_video",
     "upload_video",
     "update_video",
