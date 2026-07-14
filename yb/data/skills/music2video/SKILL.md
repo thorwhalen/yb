@@ -109,6 +109,14 @@ These are defaults, not decoration. Change them only with a reason.
   divisible by 2".
 - **Pin the reactive filter's frame rate** (`showcqt=...:r=24` *and* an `fps` filter
   before encode) or you get rates like 30.62 fps.
+- **ffmpeg writes an edit list (`elst`) by default**, to declare AAC priming delay
+  — and YouTube's spec says *"No Edit Lists (or the video might not get processed
+  correctly)"*. `-movflags +faststart` does **not** remove it; `-use_editlist 0
+  -movflags +faststart+negative_cts_offsets` does. `verify_video` checks for this.
+- **`-b:a 384k` does not deliver 384 kbps** with ffmpeg's native AAC encoder — it
+  saturates around 336 kbps regardless. Harmless (YouTube re-encodes), but do not
+  believe the number. `libfdk_aac` would actually hit it.
+- **`-keyint_min` is silently ignored** — x264 clamps it to `keyint/2+1`.
 
 **YouTube traps:**
 
@@ -123,8 +131,9 @@ These are defaults, not decoration. Change them only with a reason.
 - **Content ID may claim your own video.** If the song is distributed through
   DistroKid/TuneCore/CD Baby with Content ID on, whitelist your channel *before*
   uploading, or your own release will claim your upload.
-- **`videos.insert` costs 1600 quota units** against a default 10,000/day — about
-  **6 uploads a day**. Plan album releases around that.
+- **Upload quota is ~100 videos/day.** Since December 2025 `videos.insert` costs
+  1 unit and draws on its **own** bucket (default 100 calls/day), not the shared
+  10,000-unit pool. Older advice ("1600 units, ~6 uploads/day") is out of date.
 - **AI disclosure** is `status.containsSyntheticMedia` (set it via
   `VideoMetadata(contains_synthetic_media=True)`). The trigger is *realism*, not
   "was AI involved": it applies to content a viewer could mistake for a real

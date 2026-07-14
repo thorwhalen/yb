@@ -259,8 +259,7 @@ def _render_still(
             *_audio_encode_args(audio_bitrate),
             "-t",
             f"{ctx.duration:.3f}",
-            "-movflags",
-            "+faststart",
+            *_container_args(),
             str(out),
         ]
     )
@@ -333,8 +332,7 @@ def _render_filtergraph(
             "-t",
             f"{ctx.duration:.3f}",
             "-shortest",
-            "-movflags",
-            "+faststart",
+            *_container_args(),
             str(out),
         ]
     )
@@ -348,6 +346,24 @@ def _as_label(stream: str) -> str:
 def _gop_frames(fps: int, gop_seconds: float) -> int:
     """Keyframe interval in frames (at least one)."""
     return max(1, int(round(fps * gop_seconds)))
+
+
+def _container_args() -> list[str]:
+    """Mux the mp4 the way YouTube asks for it.
+
+    ``+faststart`` puts the moov atom first. The other two are the fix for a
+    requirement that is easy to miss: YouTube's spec says *"No Edit Lists (or the
+    video might not get processed correctly)"*, and ffmpeg writes an ``elst`` box
+    by default (to signal AAC encoder priming delay). ``+faststart`` alone does
+    not remove it — ``-use_editlist 0`` does, and ``+negative_cts_offsets``
+    carries the B-frame timing that the edit list would otherwise have expressed.
+    """
+    return [
+        "-use_editlist",
+        "0",
+        "-movflags",
+        "+faststart+negative_cts_offsets",
+    ]
 
 
 def _video_encode_args(*, crf: int, preset: str, fps: int, gop: int) -> list[str]:
@@ -367,8 +383,7 @@ def _video_encode_args(*, crf: int, preset: str, fps: int, gop: int) -> list[str
         str(fps),
         "-g",
         str(gop),
-        "-keyint_min",
-        str(gop),
+        # No -keyint_min: x264 clamps it to keyint/2+1 and silently ignores it.
         "-sc_threshold",
         "0",  # closed GOP: no scene-cut keyframes
         "-bf",

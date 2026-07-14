@@ -40,6 +40,10 @@ DURATION_TOLERANCE = 0.5
 #: AAC moves it slightly, so demanding an exact hit would fail every time.
 LOUDNESS_TOLERANCE = 1.5
 
+#: How much of the file's head to scan for the ``moov`` atom's boxes. With
+#: ``+faststart`` the moov comes first, so this is generous.
+_MOOV_SCAN_BYTES = 1 << 20
+
 
 @dataclass(frozen=True)
 class Check:
@@ -145,6 +149,7 @@ def verify_video(
             "audio", channels == 2 and str(rate) == "48000", f"{channels}ch @ {rate} Hz"
         )
     )
+    checks.append(_verify_no_edit_lists(video))
 
     if audio is not None:
         song, rendered = media_duration(audio), media_duration(video)
@@ -174,6 +179,26 @@ def verify_video(
         checks.append(_verify_thumbnail(Path(thumbnail)))
 
     return checks
+
+
+def _verify_no_edit_lists(video: Path) -> Check:
+    """YouTube: "No Edit Lists (or the video might not get processed correctly)".
+
+    ffmpeg writes an ``elst`` box by default, to declare the AAC encoder's priming
+    delay — and ``-movflags +faststart`` does not remove it. The boxes live in the
+    ``moov`` atom, which faststart has already moved to the front of the file, so
+    scanning the head is enough to find them.
+    """
+    head = video.open("rb").read(_MOOV_SCAN_BYTES)
+    count = head.count(b"elst")
+    return Check(
+        "edit lists",
+        count == 0,
+        "none"
+        if count == 0
+        else f"{count} elst box(es) — YouTube may fail to process this; "
+        "render with -use_editlist 0",
+    )
 
 
 def _verify_thumbnail(thumbnail: Path) -> Check:

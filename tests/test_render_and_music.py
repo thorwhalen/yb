@@ -322,6 +322,25 @@ def test_still_render_is_16_9_yuv420p_and_as_long_as_the_song(song_and_cover, tm
 
 
 @needs_ffmpeg
+def test_the_render_carries_no_edit_lists(song_and_cover, tmp_path):
+    # YouTube: "No Edit Lists (or the video might not get processed correctly)".
+    # ffmpeg writes one by default and +faststart does not remove it.
+    from yb.render import render_audio_video, verify_video
+
+    audio, image = song_and_cover
+    for visual in ("still", "cqt"):  # the loop-copy path and the filtergraph path
+        result = render_audio_video(
+            audio, image, visual=visual, saveas=tmp_path / f"{visual}.mp4",
+            size=(320, 180), fps=10,
+        )
+        assert result.path.read_bytes().count(b"elst") == 0, visual
+        edit_lists = next(
+            c for c in verify_video(result.path) if c.name == "edit lists"
+        )
+        assert edit_lists.ok, f"{visual}: {edit_lists.detail}"
+
+
+@needs_ffmpeg
 def test_a_reactive_render_reacts_to_the_audio_without_an_image(song_and_cover, tmp_path):
     from yb.render import render_audio_video
 
