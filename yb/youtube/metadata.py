@@ -37,6 +37,11 @@ class VideoMetadata:
         category_id: YouTube category id (default Science & Technology).
         default_language: BCP-47 language of the metadata text.
         default_audio_language: BCP-47 language of the audio.
+        contains_synthetic_media: Declare that the video contains realistic
+            altered or synthetic content. YouTube's disclosure rule turns on
+            *realism*, not on whether AI was involved: it applies when a viewer
+            could mistake the content for a real person, place, or event —
+            not to stylised artwork or a visualizer. Left unset when ``None``.
     """
 
     title: str
@@ -45,6 +50,7 @@ class VideoMetadata:
     category_id: str = CATEGORY_SCIENCE_TECH
     default_language: str | None = None
     default_audio_language: str | None = None
+    contains_synthetic_media: bool | None = None
 
     def __post_init__(self):
         self.title = self.title.strip()[:_TITLE_MAX]
@@ -82,13 +88,13 @@ class VideoMetadata:
 
     def insert_body(self, *, privacy_status: str = "unlisted") -> dict:
         """Build the ``videos.insert`` body (snippet + status)."""
-        return {
-            "snippet": self._snippet(),
-            "status": {
-                "privacyStatus": privacy_status,
-                "selfDeclaredMadeForKids": False,
-            },
+        status: dict = {
+            "privacyStatus": privacy_status,
+            "selfDeclaredMadeForKids": False,
         }
+        if self.contains_synthetic_media is not None:
+            status["containsSyntheticMedia"] = self.contains_synthetic_media
+        return {"snippet": self._snippet(), "status": status}
 
     def update_snippet(self) -> dict:
         """Build the snippet for ``videos.update`` (categoryId is required)."""

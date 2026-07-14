@@ -87,7 +87,9 @@ def require_ffmpeg(*tools: str) -> None:
         )
 
 
-def run_ffmpeg(args: list[str], *, overwrite: bool = True) -> subprocess.CompletedProcess:
+def run_ffmpeg(
+    args: list[str], *, overwrite: bool = True
+) -> subprocess.CompletedProcess:
     """Run ``ffmpeg`` with ``args``, raising a readable error on failure.
 
     Args:
@@ -111,8 +113,7 @@ def run_ffmpeg(args: list[str], *, overwrite: bool = True) -> subprocess.Complet
     if proc.returncode != 0:
         tail = "\n".join((proc.stderr or "").strip().splitlines()[-15:])
         raise FfmpegError(
-            f"ffmpeg exited {proc.returncode}.\n\n{tail}\n\n"
-            f"command: {shlex.join(cmd)}"
+            f"ffmpeg exited {proc.returncode}.\n\n{tail}\n\ncommand: {shlex.join(cmd)}"
         )
     return proc
 

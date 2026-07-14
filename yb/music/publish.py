@@ -224,8 +224,12 @@ def publish_music(
     """
     from yb.youtube.publish import publish_content
 
-    videos = list(prepared) if prepared is not None else prepare_music_videos(
-        songs, images=images if images is not None else image, **kwargs
+    videos = (
+        list(prepared)
+        if prepared is not None
+        else prepare_music_videos(
+            songs, images=images if images is not None else image, **kwargs
+        )
     )
 
     results = []

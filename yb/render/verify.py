@@ -126,7 +126,9 @@ def verify_video(
             "aspect ratio",
             abs(ratio - 16 / 9) < 0.02,
             f"{width}x{height}"
-            + ("" if abs(ratio - 16 / 9) < 0.02 else " — not 16:9, YouTube will bar it"),
+            + (
+                "" if abs(ratio - 16 / 9) < 0.02 else " — not 16:9, YouTube will bar it"
+            ),
         )
     )
     checks.append(
@@ -139,7 +141,9 @@ def verify_video(
 
     channels, rate = astream.get("channels"), astream.get("sample_rate")
     checks.append(
-        Check("audio", channels == 2 and str(rate) == "48000", f"{channels}ch @ {rate} Hz")
+        Check(
+            "audio", channels == 2 and str(rate) == "48000", f"{channels}ch @ {rate} Hz"
+        )
     )
 
     if audio is not None:
@@ -186,11 +190,16 @@ def _verify_thumbnail(thumbnail: Path) -> Check:
     size_bytes = thumbnail.stat().st_size
     problems = []
     if (width, height) < THUMBNAIL_SIZE:
-        problems.append(f"below {THUMBNAIL_SIZE[0]}x{THUMBNAIL_SIZE[1]}")
+        # 640 wide is YouTube's hard floor; 1280x720 is the recommended size and
+        # the bar worth holding your own output to.
+        problems.append(
+            f"below the recommended {THUMBNAIL_SIZE[0]}x{THUMBNAIL_SIZE[1]}"
+        )
     if abs(width / height - 16 / 9) > 0.02:
         problems.append("not 16:9")
     if size_bytes > THUMBNAIL_MAX_BYTES:
-        problems.append(f"over {THUMBNAIL_MAX_BYTES // 1024 // 1024} MiB")
+        # thumbnails.set caps at 2 MB — 25x stricter than the web UI's 50 MB.
+        problems.append(f"over the {THUMBNAIL_MAX_BYTES // 1024 // 1024} MiB API limit")
     detail = f"{width}x{height}, {size_bytes / 1024:.0f} KB"
     return Check(
         "thumbnail",

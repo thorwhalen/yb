@@ -208,6 +208,40 @@ def test_a_still_without_an_image_says_what_to_do_instead(tmp_path):
 
 
 # --------------------------------------------------------------------------
+# encoder guards
+# --------------------------------------------------------------------------
+
+
+def test_an_odd_canvas_is_rejected_before_ffmpeg_fails_cryptically(tmp_path):
+    # Album art is routinely an odd square (1401x1401); H.264 at yuv420p cannot
+    # encode odd dimensions, and libx264's own error names neither the cause nor
+    # the fix.
+    from yb.render.video import render_audio_video
+
+    with pytest.raises(ValueError, match=r"odd dimension.*size=\(1400, 1400\)"):
+        render_audio_video(tmp_path / "song.wav", size=(1401, 1401))
+
+
+def test_the_encode_is_what_youtube_asks_for():
+    from yb.render.video import _audio_encode_args, _gop_frames, _video_encode_args
+
+    video = _video_encode_args(crf=18, preset="medium", fps=24, gop=48)
+    assert "-pix_fmt" in video and video[video.index("-pix_fmt") + 1] == "yuv420p"
+    assert video[video.index("-profile:v") + 1] == "high"
+    assert video[video.index("-bf") + 1] == "2"
+    assert video[video.index("-sc_threshold") + 1] == "0"  # closed GOP
+
+    audio = _audio_encode_args("384k")
+    # Pinned: loudnorm leaks its internal 192 kHz into the output otherwise.
+    assert audio[audio.index("-ar") + 1] == "48000"
+    assert audio[audio.index("-c:a") + 1] == "aac"
+
+    assert _gop_frames(24, 2.0) == 48
+    assert _gop_frames(24, 0.5) == 12  # YouTube's literal recommendation
+    assert _gop_frames(24, 0.0) == 1  # never zero
+
+
+# --------------------------------------------------------------------------
 # yb.music helpers
 # --------------------------------------------------------------------------
 
@@ -328,5 +362,5 @@ def test_prepare_music_video_bundles_video_thumbnail_and_content(song_and_cover,
     assert music_video.content.media == music_video.video
     assert music_video.content.thumbnail == music_video.thumbnail
     thumb = _video_stream(music_video.thumbnail)
-    assert (thumb["width"], thumb["height"]) == (1280, 720)  # YouTube's minimum
-    assert music_video.thumbnail.stat().st_size <= 2 * 1024 * 1024  # YouTube's cap
+    assert (thumb["width"], thumb["height"]) == (1280, 720)  # YouTube's recommended
+    assert music_video.thumbnail.stat().st_size <= 2 * 1024 * 1024  # thumbnails.set cap

@@ -44,7 +44,17 @@ DEFAULT_PRESET = "medium"
 
 #: YouTube's recommended audio for stereo uploads.
 DEFAULT_AUDIO_BITRATE = "384k"
+
+#: Pinned deliberately: ``loudnorm`` upsamples to 192 kHz internally for true-peak
+#: detection, and leaks that rate into the output unless the rate is fixed here.
 AUDIO_SAMPLE_RATE = 48000
+
+#: Seconds between keyframes. YouTube nominally asks for a GOP of half the frame
+#: rate (a keyframe every 0.5 s); for the static and near-static pictures this
+#: module produces, that multiplies the intra-frames — and the upload size — for
+#: no gain, since YouTube re-encodes anyway. Two seconds is the usual compromise.
+#: Pass ``gop_seconds=0.5`` for strict compliance.
+DEFAULT_GOP_SECONDS = 2.0
 
 #: Length of the single segment the still fast-path encodes before looping it.
 _STILL_SEGMENT_SECONDS = 2.0
@@ -96,6 +106,7 @@ def render_audio_video(
     crf: int = DEFAULT_CRF,
     preset: str = DEFAULT_PRESET,
     audio_bitrate: str = DEFAULT_AUDIO_BITRATE,
+    gop_seconds: float = DEFAULT_GOP_SECONDS,
     options: dict | None = None,
     workdir: PathLike | None = None,
 ) -> RenderResult:
@@ -122,14 +133,19 @@ def render_audio_video(
         normalize: Loudness-normalize the audio (two-pass EBU R128).
         loudness: The loudness target; a YouTube-appropriate default is used
             when omitted.
-        crf / preset / audio_bitrate: Encoder knobs.
+        crf / preset / audio_bitrate / gop_seconds: Encoder knobs.
         options: Strategy-specific options, passed to the visual.
         workdir: Where intermediates go (a temporary directory by default).
 
     Returns:
         A :class:`RenderResult`.
+
+    Raises:
+        ValueError: ``size`` has an odd dimension — H.264 at yuv420p (the only
+            pixel format every player decodes) cannot encode one.
     """
     require_ffmpeg()
+    _check_even(size)
     audio = Path(audio)
     out = Path(saveas) if saveas else audio.with_suffix(".mp4")
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -154,12 +170,13 @@ def render_audio_video(
         if normalize:
             loud = measure_loudness(audio, loudness or Loudness())
 
+        encode = dict(
+            crf=crf, preset=preset, audio_bitrate=audio_bitrate, gop_seconds=gop_seconds
+        )
         if plan.still is not None:
-            _render_still(plan.still, ctx, out, loud=loud, crf=crf, preset=preset,
-                          audio_bitrate=audio_bitrate)
+            _render_still(plan.still, ctx, out, loud=loud, **encode)
         else:
-            _render_filtergraph(plan, ctx, out, loud=loud, crf=crf, preset=preset,
-                                audio_bitrate=audio_bitrate)
+            _render_filtergraph(plan, ctx, out, loud=loud, **encode)
 
         canvas = plan.still if plan.still and plan.still.exists() else None
         if canvas and workdir is None:
@@ -170,7 +187,9 @@ def render_audio_video(
         duration=media_duration(out),
         size=size,
         fps=fps,
-        visual=visual if isinstance(visual, str) else getattr(visual, "__name__", "custom"),
+        visual=visual
+        if isinstance(visual, str)
+        else getattr(visual, "__name__", "custom"),
         loudness=loud,
         canvas=canvas,
     )
@@ -185,6 +204,7 @@ def _render_still(
     crf: int,
     preset: str,
     audio_bitrate: str,
+    gop_seconds: float,
 ) -> None:
     """Encode one short segment of the static canvas, then loop it, copying.
 
@@ -200,32 +220,47 @@ def _render_still(
     """
     segment_seconds = min(_STILL_SEGMENT_SECONDS, ctx.duration)
     segment = ctx.workdir / "segment.mp4"
-    gop = max(1, int(round(ctx.fps * segment_seconds)))
+    # The segment must start on a keyframe and be a whole number of GOPs, or the
+    # copies would not concatenate cleanly.
+    gop = _gop_frames(ctx.fps, gop_seconds)
     run_ffmpeg(
         [
-            "-loop", "1",
-            "-framerate", str(ctx.fps),
-            "-i", str(canvas),
-            "-t", f"{segment_seconds:.3f}",
+            "-loop",
+            "1",
+            "-framerate",
+            str(ctx.fps),
+            "-i",
+            str(canvas),
+            "-t",
+            f"{segment_seconds:.3f}",
             "-an",
             *_video_encode_args(crf=crf, preset=preset, fps=ctx.fps, gop=gop),
-            "-tune", "stillimage",
+            "-tune",
+            "stillimage",
             str(segment),
         ]
     )
     loops = math.ceil(ctx.duration / segment_seconds)
     run_ffmpeg(
         [
-            "-stream_loop", str(loops),
-            "-i", str(segment),
-            "-i", str(ctx.audio),
+            "-stream_loop",
+            str(loops),
+            "-i",
+            str(segment),
+            "-i",
+            str(ctx.audio),
             *(["-af", loud.filter_spec()] if loud else []),
-            "-map", "0:v",
-            "-map", "1:a",
-            "-c:v", "copy",
+            "-map",
+            "0:v",
+            "-map",
+            "1:a",
+            "-c:v",
+            "copy",
             *_audio_encode_args(audio_bitrate),
-            "-t", f"{ctx.duration:.3f}",
-            "-movflags", "+faststart",
+            "-t",
+            f"{ctx.duration:.3f}",
+            "-movflags",
+            "+faststart",
             str(out),
         ]
     )
@@ -240,6 +275,7 @@ def _render_filtergraph(
     crf: int,
     preset: str,
     audio_bitrate: str,
+    gop_seconds: float,
 ) -> None:
     """The general path: build one filter_complex, encode video and audio."""
     inputs: list[str] = ["-i", str(ctx.audio)]
@@ -275,18 +311,30 @@ def _render_filtergraph(
         chains.append(f"{_as_label(audio_label)}{loud.filter_spec()}[aout]")
         audio_label = "[aout]"
 
-    gop = ctx.fps * 2
     run_ffmpeg(
         [
             *inputs,
-            "-filter_complex", ";".join(chains),
-            "-map", "[vout]",
-            "-map", audio_label,
-            *_video_encode_args(crf=crf, preset=preset, fps=ctx.fps, gop=gop),
+            "-filter_complex",
+            ";".join(chains),
+            "-map",
+            "[vout]",
+            "-map",
+            audio_label,
+            *_video_encode_args(
+                crf=crf,
+                preset=preset,
+                fps=ctx.fps,
+                gop=_gop_frames(ctx.fps, gop_seconds),
+            ),
             *_audio_encode_args(audio_bitrate),
-            "-t", f"{ctx.duration:.3f}",
+            # -t bounds the render; -shortest ends it with the audio. Note we do
+            # NOT pass `-fflags +shortest`: the widely copied incantation cuts
+            # tens of milliseconds off the end of the song.
+            "-t",
+            f"{ctx.duration:.3f}",
             "-shortest",
-            "-movflags", "+faststart",
+            "-movflags",
+            "+faststart",
             str(out),
         ]
     )
@@ -297,28 +345,65 @@ def _as_label(stream: str) -> str:
     return stream if stream.startswith("[") else f"[{stream}]"
 
 
+def _gop_frames(fps: int, gop_seconds: float) -> int:
+    """Keyframe interval in frames (at least one)."""
+    return max(1, int(round(fps * gop_seconds)))
+
+
 def _video_encode_args(*, crf: int, preset: str, fps: int, gop: int) -> list[str]:
-    """H.264 the way YouTube wants it: high profile, yuv420p, closed 2s GOP."""
+    """H.264 as YouTube asks for it: High profile, yuv420p, closed GOP, 2 B-frames."""
     return [
-        "-c:v", "libx264",
-        "-preset", preset,
-        "-crf", str(crf),
-        "-profile:v", "high",
-        "-pix_fmt", "yuv420p",
-        "-r", str(fps),
-        "-g", str(gop),
-        "-keyint_min", str(gop),
-        "-sc_threshold", "0",
+        "-c:v",
+        "libx264",
+        "-preset",
+        preset,
+        "-crf",
+        str(crf),
+        "-profile:v",
+        "high",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        str(fps),
+        "-g",
+        str(gop),
+        "-keyint_min",
+        str(gop),
+        "-sc_threshold",
+        "0",  # closed GOP: no scene-cut keyframes
+        "-bf",
+        "2",
     ]
 
 
 def _audio_encode_args(bitrate: str) -> list[str]:
+    """AAC-LC, 48 kHz, stereo. The sample rate is pinned on purpose — see above."""
     return [
-        "-c:a", "aac",
-        "-b:a", bitrate,
-        "-ar", str(AUDIO_SAMPLE_RATE),
-        "-ac", "2",
+        "-c:a",
+        "aac",
+        "-b:a",
+        bitrate,
+        "-ar",
+        str(AUDIO_SAMPLE_RATE),
+        "-ac",
+        "2",
     ]
+
+
+def _check_even(size: tuple[int, int]) -> None:
+    """H.264 at yuv420p cannot encode odd dimensions — fail before ffmpeg does.
+
+    Cover art is routinely an odd square (1401x1401, 999x999); a canvas sized
+    from it inherits the problem, and libx264's own error ("width not divisible
+    by 2") is a long way from the cause.
+    """
+    width, height = size
+    if width % 2 or height % 2:
+        even = (width - width % 2, height - height % 2)
+        raise ValueError(
+            f"size={size} has an odd dimension; H.264 at yuv420p needs even ones "
+            f"(the pixel format every player can decode). Use size={even}."
+        )
 
 
 class _work_dir:
