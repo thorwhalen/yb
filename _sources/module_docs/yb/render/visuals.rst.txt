@@ -1,4 +1,0 @@
-yb.render.visuals
-=================
-.. automodule:: yb.render.visuals
-   :members:

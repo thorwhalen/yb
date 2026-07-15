@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.podcast.cover &mdash; yb 0.1.5 documentation</title>
+  <title>yb.podcast.cover &mdash; yb 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=59fadc99"></script>
+      <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,12 +59,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render.html">yb.render</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/canvas.html">yb.render.canvas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/ffmpeg.html">yb.render.ffmpeg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/verify.html">yb.render.verify</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/video.html">yb.render.video</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/render/visuals.html">yb.render.visuals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube.html">yb.youtube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
@@ -106,19 +100,31 @@
 <span class="sd">cover image, held for the episode&#39;s duration, muxed with the audio — optionally</span>
 <span class="sd">with a slow Ken Burns pan/zoom.</span>
 
-<span class="sd">This is a thin adapter over :mod:`yb.render`, which owns the rendering for both</span>
-<span class="sd">podcasts and music. Reach for :func:`yb.render.render_audio_video` directly when</span>
-<span class="sd">you want a visual other than a held cover, a burnt-in title, or loudness</span>
-<span class="sd">normalization.</span>
+<span class="sd">This is a thin adapter over :mod:`muvid.visualize`, which owns the audio→video</span>
+<span class="sd">rendering. Reach for :func:`muvid.visualize.render_audio_video` directly when you</span>
+<span class="sd">want a visual other than a held cover, a burnt-in title, or loudness</span>
+<span class="sd">normalization. Needs ``pip install &#39;yb[music]&#39;`` (pulls ``muvid``).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_SIZE</span><span class="p">,</span> <span class="n">CoverLayout</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">yb.render.video</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_FPS</span><span class="p">,</span> <span class="n">render_audio_video</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>  <span class="c1"># annotations only; the real import is lazy (see _render)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">muvid.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoverLayout</span><span class="p">,</span> <span class="n">PathLike</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_render</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Import muvid.visualize lazily, so ``import yb.podcast`` works without it.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">muvid.visualize</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">viz</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - environment dependent</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;yb.podcast.cover needs the &#39;muvid&#39; package for rendering &quot;</span>
+            <span class="s2">&quot;(pip install &#39;yb[music]&#39;).&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+    <span class="k">return</span> <span class="n">viz</span>
 
 
 <div class="viewcode-block" id="cover_video">
@@ -129,8 +135,8 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">saveas</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ken_burns</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_SIZE</span><span class="p">,</span>
-    <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_FPS</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">layout</span><span class="p">:</span> <span class="n">CoverLayout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render a video of ``image`` held over ``audio``.</span>
@@ -145,26 +151,28 @@
 <span class="sd">        saveas: Output path (defaults to ``&lt;audio-stem&gt;.cover.mp4``).</span>
 <span class="sd">        ken_burns: Apply a slow pan/zoom (rendered by ``burns``) instead of a</span>
 <span class="sd">            static image. Much slower than the static path.</span>
-<span class="sd">        size: Output resolution (width, height).</span>
-<span class="sd">        fps: Output frame rate.</span>
+<span class="sd">        size: Output resolution (width, height); defaults to 1080p.</span>
+<span class="sd">        fps: Output frame rate; defaults to muvid&#39;s default.</span>
 <span class="sd">        layout: How the cover sits on the canvas.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Path to the rendered mp4.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ImportError: ``ken_burns=True`` but the ``burns`` renderer is absent.</span>
+<span class="sd">        ImportError: the ``muvid`` package is not installed (``pip install</span>
+<span class="sd">            &#39;yb[music]&#39;``).</span>
 <span class="sd">        FfmpegError: ffmpeg is missing, or the render failed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">_render</span><span class="p">()</span>
     <span class="n">audio</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">saveas</span><span class="p">)</span> <span class="k">if</span> <span class="n">saveas</span> <span class="k">else</span> <span class="n">audio</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.cover.mp4&quot;</span><span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">render_audio_video</span><span class="p">(</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">render_audio_video</span><span class="p">(</span>
         <span class="n">audio</span><span class="p">,</span>
         <span class="n">image</span><span class="p">,</span>
         <span class="n">visual</span><span class="o">=</span><span class="s2">&quot;ken_burns&quot;</span> <span class="k">if</span> <span class="n">ken_burns</span> <span class="k">else</span> <span class="s2">&quot;still&quot;</span><span class="p">,</span>
         <span class="n">saveas</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
-        <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
-        <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">size</span> <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">viz</span><span class="o">.</span><span class="n">DEFAULT_SIZE</span><span class="p">,</span>
+        <span class="n">fps</span><span class="o">=</span><span class="n">fps</span> <span class="k">if</span> <span class="n">fps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">viz</span><span class="o">.</span><span class="n">DEFAULT_FPS</span><span class="p">,</span>
         <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">path</span></div>

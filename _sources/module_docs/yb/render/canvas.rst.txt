@@ -1,4 +1,0 @@
-yb.render.canvas
-================
-.. automodule:: yb.render.canvas
-   :members:

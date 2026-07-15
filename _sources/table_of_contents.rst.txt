@@ -15,12 +15,6 @@
    module_docs/yb/podcast/feed
    module_docs/yb/podcast/publish
    module_docs/yb/podcast/shownotes
-   module_docs/yb/render
-   module_docs/yb/render/canvas
-   module_docs/yb/render/ffmpeg
-   module_docs/yb/render/verify
-   module_docs/yb/render/video
-   module_docs/yb/render/visuals
    module_docs/yb/youtube
    module_docs/yb/youtube/api
    module_docs/yb/youtube/auth

@@ -1,4 +1,0 @@
-yb.render.verify
-================
-.. automodule:: yb.render.verify
-   :members:

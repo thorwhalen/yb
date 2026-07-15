@@ -1,4 +1,0 @@
-yb.render
-=========
-.. automodule:: yb.render
-   :members:

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.music &mdash; yb 0.1.5 documentation</title>
+  <title>yb.music &mdash; yb 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=59fadc99"></script>
+      <script src="../../_static/documentation_options.js?v=6e0256f3"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -54,20 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download.html">yb.download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download/youtube.html">yb.download.youtube</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.music</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#yb.music.MusicVideo"><code class="docutils literal notranslate"><span class="pre">MusicVideo</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#yb.music.MusicVideo.audio"><code class="docutils literal notranslate"><span class="pre">MusicVideo.audio</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yb.music.MusicVideo.video"><code class="docutils literal notranslate"><span class="pre">MusicVideo.video</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yb.music.MusicVideo.thumbnail"><code class="docutils literal notranslate"><span class="pre">MusicVideo.thumbnail</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yb.music.MusicVideo.content"><code class="docutils literal notranslate"><span class="pre">MusicVideo.content</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yb.music.MusicVideo.render"><code class="docutils literal notranslate"><span class="pre">MusicVideo.render</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#yb.music.prepare_music_video"><code class="docutils literal notranslate"><span class="pre">prepare_music_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#yb.music.prepare_music_videos"><code class="docutils literal notranslate"><span class="pre">prepare_music_videos()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#yb.music.publish_music"><code class="docutils literal notranslate"><span class="pre">publish_music()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music/publish.html">yb.music.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast.html">yb.podcast</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/chapters.html">yb.podcast.chapters</a></li>
@@ -75,12 +62,6 @@
 <li class="toctree-l1"><a class="reference internal" href="podcast/feed.html">yb.podcast.feed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/publish.html">yb.podcast.publish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podcast/shownotes.html">yb.podcast.shownotes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render.html">yb.render</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render/canvas.html">yb.render.canvas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render/ffmpeg.html">yb.render.ffmpeg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render/verify.html">yb.render.verify</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render/video.html">yb.render.video</a></li>
-<li class="toctree-l1"><a class="reference internal" href="render/visuals.html">yb.render.visuals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube.html">yb.youtube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube/api.html">yb.youtube.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="youtube/auth.html">yb.youtube.auth</a></li>
@@ -115,176 +96,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-yb.music">
-<span id="yb-music"></span><h1>yb.music<a class="headerlink" href="#module-yb.music" title="Link to this heading"></a></h1>
-<p>Publish songs to YouTube as music videos.</p>
-<p>You have a song and (usually) its cover art; YouTube wants a video. This module
-closes that gap and hands off to the publishing machinery <code class="docutils literal notranslate"><span class="pre">yb</span></code> already has:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.music</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_music_video</span><span class="p">,</span> <span class="n">publish_music</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span> <span class="o">=</span> <span class="n">prepare_music_video</span><span class="p">(</span><span class="s2">&quot;song.wav&quot;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;cover.png&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span><span class="o">.</span><span class="n">video</span><span class="p">,</span> <span class="n">mv</span><span class="o">.</span><span class="n">thumbnail</span>
-<span class="go">(PosixPath(&#39;song.mp4&#39;), PosixPath(&#39;song.thumb.jpg&#39;))</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">publish_music</span><span class="p">(</span><span class="s2">&quot;song.wav&quot;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;cover.png&quot;</span><span class="p">,</span>
-<span class="gp">... </span>              <span class="n">privacy_status</span><span class="o">=</span><span class="s2">&quot;unlisted&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The picture is chosen by a <em>visual strategy</em> — a still cover on a 16:9 canvas
-(the default), a Ken Burns pan, or an audio-reactive visualizer — and any
-callable of your own plugs into the same seam. See <a class="reference internal" href="render/visuals.html#module-yb.render.visuals" title="yb.render.visuals"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.render.visuals</span></code></a>.</p>
-<p>Rendering needs only <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> on the PATH; uploading needs <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
-<span class="pre">'yb[youtube]'</span></code>.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="yb.music.MusicVideo">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.music.</span></span><span class="sig-name descname"><span class="pre">MusicVideo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">video</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><span class="pre">PublicationContent</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">render</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="render/video.html#yb.render.video.RenderResult" title="yb.render.video.RenderResult"><span class="pre">RenderResult</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/yb/music/publish.html#MusicVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.music.MusicVideo" title="Link to this definition"></a></dt>
-<dd><p>A song, rendered and ready to publish.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="yb.music.MusicVideo.audio">
-<span class="sig-name descname"><span class="pre">audio</span></span><a class="headerlink" href="#yb.music.MusicVideo.audio" title="Link to this definition"></a></dt>
-<dd><p>The source song.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pathlib.Path</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="yb.music.MusicVideo.video">
-<span class="sig-name descname"><span class="pre">video</span></span><a class="headerlink" href="#yb.music.MusicVideo.video" title="Link to this definition"></a></dt>
-<dd><p>The rendered mp4.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pathlib.Path</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="yb.music.MusicVideo.thumbnail">
-<span class="sig-name descname"><span class="pre">thumbnail</span></span><a class="headerlink" href="#yb.music.MusicVideo.thumbnail" title="Link to this definition"></a></dt>
-<dd><p>The 16:9 thumbnail derived from the cover, if there was one.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pathlib.Path | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="yb.music.MusicVideo.content">
-<span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#yb.music.MusicVideo.content" title="Link to this definition"></a></dt>
-<dd><p>The platform-neutral content bundle (title, description,
-keywords, thumbnail) that any <code class="docutils literal notranslate"><span class="pre">yb</span></code> adapter can publish.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="content.html#yb.content.PublicationContent" title="yb.content.PublicationContent">yb.content.PublicationContent</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="yb.music.MusicVideo.render">
-<span class="sig-name descname"><span class="pre">render</span></span><a class="headerlink" href="#yb.music.MusicVideo.render" title="Link to this definition"></a></dt>
-<dd><p>What the renderer did — duration, visual, loudness measurement.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="render/video.html#yb.render.video.RenderResult" title="yb.render.video.RenderResult">yb.render.video.RenderResult</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="yb.music.prepare_music_video">
-<span class="sig-prename descclassname"><span class="pre">yb.music.</span></span><span class="sig-name descname"><span class="pre">prepare_music_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PathLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PathLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">visual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="render/visuals.html#yb.render.visuals.Visual" title="yb.render.visuals.Visual"><span class="pre">Visual</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PathLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loudness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="render.html#yb.render.Loudness" title="yb.render.Loudness"><span class="pre">Loudness</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">burn_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1920,</span> <span class="pre">1080)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="render.html#yb.render.CoverLayout" title="yb.render.CoverLayout"><span class="pre">CoverLayout</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="render.html#yb.render.TitleStyle" title="yb.render.TitleStyle"><span class="pre">TitleStyle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1280,</span> <span class="pre">720)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.music.MusicVideo" title="yb.music.MusicVideo"><span class="pre">MusicVideo</span></a></span></span><a class="reference internal" href="../../_modules/yb/music/publish.html#prepare_music_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.music.prepare_music_video" title="Link to this definition"></a></dt>
-<dd><p>Turn a song into a publishable music video (no upload).</p>
-<p>The title falls back to the audio file’s tags, then to a tidied filename,
-so the one-argument call already produces something sensible. A cover image
-becomes both the picture and — by default — the thumbnail.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>audio</strong> – The song. Prefer the lossless master (<code class="docutils literal notranslate"><span class="pre">.wav</span></code>) when you have it.</p></li>
-<li><p><strong>image</strong> – Cover art.</p></li>
-<li><p><strong>visual</strong> – Visual strategy: a name, <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>, or a callable
-(see <a class="reference internal" href="render/visuals.html#module-yb.render.visuals" title="yb.render.visuals"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.render.visuals</span></code></a>).</p></li>
-<li><p><strong>title</strong> – Video title (default: from tags, else the filename).</p></li>
-<li><p><strong>artist</strong> – Artist name; when given, the title becomes <code class="docutils literal notranslate"><span class="pre">&quot;Artist</span> <span class="pre">-</span> <span class="pre">Title&quot;</span></code>.</p></li>
-<li><p><strong>description</strong> – Video description.</p></li>
-<li><p><strong>keywords</strong> – Tags for the upload.</p></li>
-<li><p><strong>output_dir</strong> – Where the video and thumbnail go (default: next to <code class="docutils literal notranslate"><span class="pre">audio</span></code>).</p></li>
-<li><p><strong>normalize</strong> – Loudness-normalize to a consistent target (default <code class="docutils literal notranslate"><span class="pre">True</span></code> —
-this is what makes a set of songs play back at one level).</p></li>
-<li><p><strong>loudness</strong> – Override the loudness target.</p></li>
-<li><p><strong>thumbnail</strong> – Derive a 16:9 thumbnail from the cover.</p></li>
-<li><p><strong>burn_title</strong> – Also draw the title into the video frame.</p></li>
-<li><p><strong>options</strong> (<em>size / fps / layout / title_style /</em>) – Passed to the renderer.</p></li>
-<li><p><strong>thumbnail_size</strong> – Thumbnail size (YouTube wants &gt;= 1280x720).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference internal" href="#yb.music.MusicVideo" title="yb.music.MusicVideo"><code class="xref py py-class docutils literal notranslate"><span class="pre">MusicVideo</span></code></a>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="yb.music.prepare_music_videos">
-<span class="sig-prename descclassname"><span class="pre">yb.music.</span></span><span class="sig-name descname"><span class="pre">prepare_music_videos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">songs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="music/publish.html#yb.music.publish.MusicVideo" title="yb.music.publish.MusicVideo"><span class="pre">MusicVideo</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/yb/music/publish.html#prepare_music_videos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.music.prepare_music_videos" title="Link to this definition"></a></dt>
-<dd><p>Prepare several songs as one coherent set (same template, same loudness).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>songs</strong> – One song, a list of songs, or a directory of audio files.</p></li>
-<li><p><strong>images</strong> – One cover for all of them, or a per-song mapping keyed by the
-song path (or by its filename, or by its stem — whichever you find
-more convenient).</p></li>
-<li><p><strong>**kwargs</strong> – Everything <a class="reference internal" href="#yb.music.prepare_music_video" title="yb.music.prepare_music_video"><code class="xref py py-func docutils literal notranslate"><span class="pre">prepare_music_video()</span></code></a> accepts; applied
-identically to every song, which is what makes the set read as a
-deliberate collection.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>One <a class="reference internal" href="#yb.music.MusicVideo" title="yb.music.MusicVideo"><code class="xref py py-class docutils literal notranslate"><span class="pre">MusicVideo</span></code></a> per song, in order.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="yb.music.publish_music">
-<span class="sig-prename descclassname"><span class="pre">yb.music.</span></span><span class="sig-name descname"><span class="pre">publish_music</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">songs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'10'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepared</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="music/publish.html#yb.music.publish.MusicVideo" title="yb.music.publish.MusicVideo"><span class="pre">MusicVideo</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/yb/music/publish.html#publish_music"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.music.publish_music" title="Link to this definition"></a></dt>
-<dd><p>Render <code class="docutils literal notranslate"><span class="pre">songs</span></code> as music videos and upload them to YouTube.</p>
-<p>Reuses <a class="reference internal" href="youtube.html#yb.youtube.publish_content" title="yb.youtube.publish_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">yb.youtube.publish_content()</span></code></a> unchanged — the music path only
-prepares better assets for it. Videos are published under YouTube’s <em>Music</em>
-category, and (when <code class="docutils literal notranslate"><span class="pre">playlist</span></code> is given) collected into one playlist, so
-an album arrives as an album.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>songs</strong> – One song, a list of songs, or a directory of audio files.</p></li>
-<li><p><strong>images</strong> – A cover for all songs, or a per-song mapping.</p></li>
-<li><p><strong>image</strong> – A single cover (a friendlier alias for the one-song case).</p></li>
-<li><p><strong>privacy_status</strong> – <code class="docutils literal notranslate"><span class="pre">&quot;unlisted&quot;</span></code> (the <code class="docutils literal notranslate"><span class="pre">yb</span></code> default), <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;</span></code>, or
-<code class="docutils literal notranslate"><span class="pre">&quot;public&quot;</span></code>.</p></li>
-<li><p><strong>playlist</strong> – Playlist title to collect the set into. <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default
-here) publishes without touching a playlist.</p></li>
-<li><p><strong>category_id</strong> – YouTube category (default: Music).</p></li>
-<li><p><strong>prepared</strong> – Already-prepared <a class="reference internal" href="#yb.music.MusicVideo" title="yb.music.MusicVideo"><code class="xref py py-class docutils literal notranslate"><span class="pre">MusicVideo</span></code></a> objects — skips rendering
-(useful to review the videos before they go up).</p></li>
-<li><p><strong>progress</strong> – Print upload progress.</p></li>
-<li><p><strong>service</strong> – An authenticated YouTube service to reuse across the batch.</p></li>
-<li><p><strong>**kwargs</strong> – Forwarded to <a class="reference internal" href="#yb.music.prepare_music_video" title="yb.music.prepare_music_video"><code class="xref py py-func docutils literal notranslate"><span class="pre">prepare_music_video()</span></code></a>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>One <a class="reference internal" href="youtube.html#yb.youtube.publish_content" title="yb.youtube.publish_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">yb.youtube.publish_content()</span></code></a> result dict per song.</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="yb-music">
+<h1>yb.music<a class="headerlink" href="#yb-music" title="Link to this heading"></a></h1>
 </section>
 
 
