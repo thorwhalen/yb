@@ -29,7 +29,9 @@ def test_psc_escapes_titles():
 
 
 def test_show_notes_includes_chapters():
-    c = PublicationContent(media="e.mp3", title="Ep 1", description="Body.", chapters=CHAPTERS)
+    c = PublicationContent(
+        media="e.mp3", title="Ep 1", description="Body.", chapters=CHAPTERS
+    )
     notes = format_show_notes(c)
     assert notes.startswith("Ep 1")
     assert "Body." in notes
@@ -41,7 +43,9 @@ def test_replace_chapters_block_appends_then_replaces():
     once = _set(desc, CHAPTERS)
     assert once.endswith("0:00 Intro\n0:30 How it works\n1:15 Wrap up")
     # replacing should not duplicate the block
-    twice = _set(once, [Chapter(0, "New intro"), Chapter(40, "New mid"), Chapter(75, "New end")])
+    twice = _set(
+        once, [Chapter(0, "New intro"), Chapter(40, "New mid"), Chapter(75, "New end")]
+    )
     assert twice.count("Chapters:") == 1
     assert "New intro" in twice and "How it works" not in twice
     assert twice.startswith("Great episode about X.")

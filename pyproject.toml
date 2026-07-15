@@ -25,6 +25,8 @@ Documentation = "https://thorwhalen.github.io/yb"
 [project.optional-dependencies]
 # `yb.youtube` — upload/edit via the official YouTube Data API v3.
 youtube = ["google-api-python-client", "google-auth-oauthlib", "google-auth"]
+# `yb.music` / `yb.podcast.cover` — audio→video rendering (needs ffmpeg on PATH).
+music = ["muvid>=0.0.7"]
 # `yb.download` — fetch videos/metadata from YouTube (and other sites).
 download = ["yt-dlp"]
 # `yb.podcast` — ID3 chapter frames + RSS episode feeds.
@@ -33,9 +35,9 @@ podcast = ["mutagen", "feedgen"]
 llm = ["aix"]
 all = [
     "google-api-python-client", "google-auth-oauthlib", "google-auth",
-    "yt-dlp", "mutagen", "feedgen", "aix",
+    "muvid>=0.0.7", "yt-dlp", "mutagen", "feedgen", "aix",
 ]
-dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.1.0"]
+dev = ["muvid>=0.0.7", "pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.1.0"]
 docs = ["sphinx>=6.0", "sphinx-rtd-theme>=1.0"]
 
 [tool.ruff]
@@ -69,18 +71,9 @@ minversion = "6.0"
 testpaths = ["tests"]
 doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
 
-# ffmpeg is a hard system requirement for yb's media work (yb.render, yb.podcast).
-# Declaring it here makes CI install it, so the render tests actually run rather
-# than silently skipping.
-[tool.wads.ops.ffmpeg]
-description = "Multimedia framework for video/audio processing"
-url = "https://ffmpeg.org/"
-check.linux = "which ffmpeg"
-check.macos = "which ffmpeg"
-check.windows = "which ffmpeg"
-install.linux = ["sudo apt-get update", "sudo apt-get install -y ffmpeg"]
-install.macos = "brew install ffmpeg"
-install.windows = "choco install ffmpeg -y --no-progress"
+# No ffmpeg system dep here: the audio→video rendering (which needs ffmpeg) moved
+# to muvid, and muvid declares it. yb's own CI tests need no ffmpeg — the music
+# tests skip cleanly when the `music` extra (muvid) isn't installed.
 
 [tool.wads.ci]
 project_name = ""

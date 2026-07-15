@@ -30,9 +30,7 @@ def test_config_builtin_defaults_when_no_file(tmp_path):
 def test_config_reads_file_and_ignores_unknown_keys(tmp_path):
     path = tmp_path / "config.json"
     path.write_text(
-        json.dumps(
-            {"privacy_status": "private", "playlist": "TW Uploads", "bogus": 1}
-        )
+        json.dumps({"privacy_status": "private", "playlist": "TW Uploads", "bogus": 1})
     )
     cfg = load_config(path)
     assert cfg.privacy_status == "private"

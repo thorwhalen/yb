@@ -12,28 +12,40 @@ description: >
 
 # music2video
 
-You have audio; YouTube needs a video. `yb.render` builds the asset, `yb.music`
-publishes it through the same path as everything else in `yb`.
+You have audio; YouTube needs a video. **`muvid.visualize`** builds the asset
+(canvas, visuals, loudness, encode, verify); **`yb.music`** is the publish-facing
+facade that renders through it and uploads via `yb.youtube`.
 
-Needs **ffmpeg** on the PATH (nothing else). Uploading needs `yb[youtube]`.
+Needs `pip install 'yb[music]'` (pulls `muvid`) + **ffmpeg** on the PATH.
+Uploading also needs `yb[youtube]`. Rendering-only? Use `muvid.visualize`
+directly (see the **`muvid-visualize`** skill in the `muvid` repo).
 
 ## Do it
 
 ```python
-from yb.music import prepare_music_video, publish_music
+from yb.music import prepare_music_video, publish_music, prepare_folder, publish_folder
 
 mv = prepare_music_video("song.wav", image="cover.png")   # render only
 mv.video, mv.thumbnail, mv.content.title
 
 publish_music("song.wav", image="cover.png", privacy_status="unlisted")
-
-publish_music(["01.wav", "02.wav"], images={"01.wav": "01.png"},
-              visual="cqt", playlist="My Album")          # an album, one template
 ```
 
-`prepare_music_video` gives you the assets to inspect; `publish_music` renders
-*and* uploads. Pass `prepared=[...]` to `publish_music` to upload videos you
-already rendered and checked.
+**A folder → an album** (the main workflow). Drop `(song.wav, song.jpeg)` pairs
+in a folder — **filename = title**, covers match by stem — and each song renders
+with the next visual in a rotation (`waves → cqt → spectrum → bars → scope` by
+default), a consistent teal accent, one loudness target:
+
+```python
+publish_folder("~/album", limit=1)                     # test the FIRST song, unlisted
+publish_folder("~/album", playlist="My Album")         # then the whole set
+prepare_folder("~/album", limit=1)                     # render only, no upload, to review
+publish_folder("~/album", cycle=["cqt"], privacy_status="unlisted")  # one look for all
+```
+
+`prepare_*` renders for inspection; `publish_*` renders *and* uploads (pass
+`prepared=[...]` to upload already-reviewed videos). **Always `limit=1` first** —
+render/publish one song, eyeball it, then do the rest.
 
 ## Choose a visual
 
@@ -50,18 +62,20 @@ callable. Timings are ×realtime on a 2-core box — divide by your core count.
 | `scope` | Stereo Lissajous | 1.7× | Only interesting on wide-stereo material. |
 | `ken_burns` | Slow pan/zoom over the cover | **6.5×** | Frames render in Python (Pillow) — by far the slowest. Pans the *composed canvas* by default, so portrait art still fills 16:9 (`options={"source": "image"}` to pan the raw art). |
 
-Reactive visuals composite automatically: blurred cover fills the frame, the
-visualization is screened over it, the sharp cover sits centred on top. Tune with
-`options={"cover_fraction": 0.7, "blurred_background": False, "blend": "screen"}`.
+Reactive visuals composite automatically: a **muted, dark** blurred cover fills
+the frame, the visualization (a consistent **teal** accent) is screened over it,
+the sharp cover sits centred on top. Tune with `options={"cover_fraction": 0.7,
+"cover_alpha": 0.7, "tint": "colorchannelmixer=...", "bg_saturation": 0.3}`.
 
-**Keep one visual across a set** — a playlist of mixed looks reads as accidental.
+`publish_folder` **rotates** the visual across a set (so it varies yet coheres);
+for a single-visual set pass `visual=` / `cycle=["cqt"]`.
 
 ## Verify before publishing
 
 Rendering can succeed and still be wrong. Check it — do not eyeball it:
 
 ```python
-from yb.render import verify_video, report, failures
+from muvid.visualize import verify_video, report, failures
 
 checks = verify_video("song.mp4", audio="song.wav", thumbnail="song.thumb.jpg",
                       check_loudness=True)     # check_loudness decodes the track
@@ -90,11 +104,11 @@ These are defaults, not decoration. Change them only with a reason.
 
 ## Gotchas
 
-**ffmpeg traps** (all reproduced on ffmpeg 6.1.1 — `yb` already handles each):
+**ffmpeg traps** (all reproduced on ffmpeg 6.1.1 — `muvid.visualize` already handles each):
 
 - **`-shortest` does not bound an infinitely looping stream.** `-stream_loop -1
   -i seg.mp4 ... -shortest` runs forever and *fills the disk* (this cost us 16 GB).
-  `yb` uses a finite loop count **and** a hard `-t`. If you hand-roll ffmpeg, do
+  `muvid` uses a finite loop count **and** a hard `-t`. If you hand-roll ffmpeg, do
   the same.
 - **`-fflags +shortest` truncates the end of your song** (~59 ms measured). It is
   widely copy-pasted advice. Do not use it on music.
@@ -105,7 +119,7 @@ These are defaults, not decoration. Change them only with a reason.
 - **Single-pass loudnorm compresses your master.** Only the two-pass form (measure,
   then apply with `measured_*`) applies a *linear* gain.
 - **`yuv420p` cannot encode odd dimensions** — and album art is routinely an odd
-  square (1401×1401). `yb` raises a clear error; raw libx264 says "width not
+  square (1401×1401). `muvid` raises a clear error; raw libx264 says "width not
   divisible by 2".
 - **Pin the reactive filter's frame rate** (`showcqt=...:r=24` *and* an `fps` filter
   before encode) or you get rates like 30.62 fps.
@@ -125,7 +139,7 @@ These are defaults, not decoration. Change them only with a reason.
   the auto-generated art+audio videos, are distributor/DDEX-only; you cannot make
   one yourself.)
 - **`thumbnails.set` caps at 2 MB** — 25× stricter than the web UI's 50 MB, and it
-  rejects GIF. `yb` steps JPEG quality down until it fits.
+  rejects GIF. `muvid` steps JPEG quality down until it fits.
 - **YouTube only turns loud audio *down*, never quiet audio up.** A track mastered
   10 LU below target just plays quiet forever.
 - **Content ID may claim your own video.** If the song is distributed through
@@ -145,10 +159,11 @@ These are defaults, not decoration. Change them only with a reason.
 
 A visual is a callable from a `VisualContext` to a `VisualPlan` — ffmpeg input
 groups plus filter chains producing one video stream. Input 0 is always the
-audio; set `uses_audio=True` and consume `[aviz]` to react to it.
+audio; set `uses_audio=True` and consume `[aviz]` to react to it. It lives in
+`muvid.visualize` (rendering is muvid's job); pass the callable as `visual=`.
 
 ```python
-from yb.render import register_visual, VisualPlan
+from muvid.visualize import register_visual, VisualPlan
 
 @register_visual("pulse")
 def pulse(ctx):
@@ -157,9 +172,9 @@ def pulse(ctx):
                       video="vbg", uses_audio=True)
 ```
 
-The escape hatch: **return a path instead of a plan** and `yb` muxes your silent
-video with the audio. That is how a non-ffmpeg backend plugs in — numpy/Pillow
-frames piped to ffmpeg, a moderngl/EGL shader, a projectM render.
+The escape hatch: **return a path instead of a plan** and the renderer muxes your
+silent video with the audio. That is how a non-ffmpeg backend plugs in —
+numpy/Pillow frames piped to ffmpeg, a moderngl/EGL shader, a projectM render.
 
 If asked for something richer than the built-ins, the ranked options are:
 **numpy frames piped to ffmpeg** (light, fully headless, most control) or

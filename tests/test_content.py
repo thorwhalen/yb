@@ -10,8 +10,12 @@ from yb.youtube.metadata import VideoMetadata, _cap_tags
 
 def _content(**kw):
     base = dict(
-        media="x.mp4", title="T", description="D",
-        keywords=["a", "b"], language="en", audio_language="en",
+        media="x.mp4",
+        title="T",
+        description="D",
+        keywords=["a", "b"],
+        language="en",
+        audio_language="en",
         chapters=[Chapter(0, "Intro"), Chapter(20, "Middle"), Chapter(45, "End")],
     )
     base.update(kw)

@@ -114,33 +114,45 @@ overrides `group`. Named groups (`FIELD_GROUPS`): `engagement`, `overview`,
 
 ### Publish a song as a music video
 
-You have a song and its cover; YouTube wants a video. `yb.music` renders one and
-publishes it through the same machinery as everything else.
+You have a song and its cover; YouTube wants a video. `yb.music` renders one
+(through [`muvid.visualize`](https://github.com/thorwhalen/muvid)) and publishes
+it through the same machinery as everything else. Needs `pip install 'yb[music]'`
+(pulls `muvid`, which needs `ffmpeg`); uploading also needs `yb[youtube]`.
 
 ```python
-from yb.music import prepare_music_video, publish_music
+from yb.music import prepare_music_video, publish_music, publish_folder
 
 # Simplest: the cover on a 16:9 canvas, held for the song's length.
 mv = prepare_music_video("song.wav", image="cover.png")
 mv.video, mv.thumbnail            # -> song.mp4, song.thumb.jpg
 
-# Or render and upload in one call.
+# Render and upload in one call.
 publish_music("song.wav", image="cover.png", privacy_status="unlisted")
-
-# An album: one visual template, one loudness target, one playlist.
-publish_music(["01.wav", "02.wav", "03.wav"],
-              images={"01.wav": "01.png", "02.wav": "02.png"},
-              visual="ken_burns", playlist="My Album")
 ```
 
-Pick the **visual** with `visual=`: `"still"` (default when there's an image),
-`"ken_burns"` (a slow pan/zoom), or an audio-reactive one — `"cqt"` (pitch-aligned
-bars, the most musical), `"bars"`, `"spectrum"`, `"waves"`, `"scope"`. All the
-reactive ones are pure ffmpeg, so they cost no extra dependency. You can also
-pass **your own callable** (see `yb.render.visuals.register_visual`).
+**A whole folder → an album.** Drop `(song.wav, song.jpeg)` pairs in a folder —
+the **filename is the title**, covers match by name — and publish them all, each
+song rendered with the next visual in a rotation:
 
-What you get for free, because it's what makes a set of songs feel like a
-release:
+```python
+# Test the first song (unlisted) before committing the set…
+publish_folder("~/album", limit=1)
+# …then do the rest, collected into one playlist.
+publish_folder("~/album", playlist="My Album")
+```
+
+By default the rotation is `waves → cqt → spectrum → bars → scope` (override with
+`cycle=`), so a set varies method to method yet reads as one release — reinforced
+by a consistent **teal** accent and one loudness target across every video.
+`prepare_folder(...)` renders without uploading, for review first.
+
+Pick a single **visual** with `visual=`: `"still"` (default when there's an
+image), `"ken_burns"` (a slow pan/zoom), or an audio-reactive one — `"cqt"`
+(pitch-aligned bars, the most musical), `"bars"`, `"spectrum"`, `"waves"`,
+`"scope"`. All the reactive ones are pure ffmpeg. You can also pass **your own
+callable** (see `muvid.visualize.register_visual`).
+
+What you get for free, because it's what makes a set of songs feel like a release:
 
 - **16:9, never pillarboxed.** Square or portrait art is composed onto a 1080p
   canvas filled with a blurred, darkened copy of itself — not black bars.
@@ -150,10 +162,10 @@ release:
   2 MiB limit), used as the video's thumbnail by default.
 - **Music category**, and a video exactly as long as the song.
 
-Rendering needs only **ffmpeg**. Check what you made before you ship it:
+Check what you made before you ship it:
 
 ```python
-from yb.render import verify_video, report
+from muvid.visualize import verify_video, report
 print(report(verify_video("song.mp4", audio="song.wav", thumbnail="song.thumb.jpg")))
 ```
 
@@ -193,8 +205,12 @@ Point `yb` at the client JSON via `$YOUTUBE_CLIENT_SECRETS_FILE`.
 | Module | Role | Extra |
 |---|---|---|
 | `yb.content` | platform-neutral content prep (metadata, chapters, thumbnail) | core |
-| `yb.render` | audio → video: canvas, visual strategies, loudness, verification | core (ffmpeg) |
-| `yb.music` | songs → music videos, published as an album | core (+`youtube` to upload) |
+| `yb.music` | songs → music videos, published as an album | `music` (+`youtube` to upload) |
 | `yb.youtube` | upload, edit + read stats via YouTube Data API v3 | `youtube` |
-| `yb.podcast` | show notes, ID3/PSC chapters, cover video, RSS | `podcast` |
+| `yb.podcast` | show notes, ID3/PSC chapters, cover video, RSS | `podcast` (+`music` for cover video) |
 | `yb.download` | yt-dlp downloader | `download` |
+
+The audio→video rendering itself lives in
+[`muvid.visualize`](https://github.com/thorwhalen/muvid) (canvas, visual
+strategies, loudness, verification); `yb.music` is the publish-facing facade over
+it, and the `music` extra pulls `muvid`.

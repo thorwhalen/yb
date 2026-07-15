@@ -1,9 +1,12 @@
 """Prepare and publish songs as YouTube music videos.
 
-The publication-facing facade over :mod:`yb.render`: a song (and usually a
-cover) becomes a video, a thumbnail, and a
-:class:`~yb.content.PublicationContent` — which the existing
-:mod:`yb.youtube` machinery uploads exactly as it uploads anything else.
+The publication-facing facade over :mod:`muvid.visualize` (the audio→video
+renderer): a song (and usually a cover) becomes a video, a thumbnail, and a
+:class:`~yb.content.PublicationContent` — which the existing :mod:`yb.youtube`
+machinery uploads exactly as it uploads anything else.
+
+Needs ``pip install 'yb[music]'`` (which pulls ``muvid``); uploading additionally
+needs ``yb[youtube]``.
 
 Simple things simple::
 
@@ -26,19 +29,39 @@ from pathlib import Path
 from typing import Mapping, Sequence
 
 from yb.content import PublicationContent
-from yb.render.canvas import (
-    DEFAULT_SIZE,
-    THUMBNAIL_SIZE,
-    CoverLayout,
-    TitleStyle,
-    thumbnail_image,
-)
-from yb.render.ffmpeg import Loudness, PathLike
-from yb.render.video import DEFAULT_FPS, RenderResult, render_audio_video
-from yb.render.visuals import Visual
+
+try:
+    from muvid.visualize import (
+        DEFAULT_FPS,
+        DEFAULT_SIZE,
+        THUMBNAIL_SIZE,
+        CoverLayout,
+        Loudness,
+        PathLike,
+        RenderResult,
+        TitleStyle,
+        render_audio_video,
+        thumbnail_image,
+    )
+    from muvid.visualize.visuals import Visual
+except ImportError as e:  # pragma: no cover - environment dependent
+    raise ImportError(
+        "yb.music needs the 'muvid' package for audio→video rendering "
+        "(pip install 'yb[music]')."
+    ) from e
+
 from yb.youtube.metadata import CATEGORY_MUSIC
 
-_AUDIO_SUFFIXES = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".aiff"}
+#: The visual template rotated across an album so its videos vary yet cohere —
+#: the order :func:`publish_folder` cycles through by default.
+DEFAULT_VISUAL_CYCLE = ("waves", "cqt", "spectrum", "bars", "scope")
+
+# Preference order for de-duplicating same-stem files: the first suffix wins,
+# so a lossless master beats a distribution copy, and PNG beats a JPEG.
+_AUDIO_PREFERENCE = [".wav", ".flac", ".aiff", ".m4a", ".aac", ".ogg", ".opus", ".mp3"]
+_IMAGE_PREFERENCE = [".png", ".webp", ".tiff", ".jpeg", ".jpg", ".bmp"]
+_AUDIO_SUFFIXES = set(_AUDIO_PREFERENCE)
+_IMAGE_SUFFIXES = set(_IMAGE_PREFERENCE)
 
 
 @dataclass
@@ -92,7 +115,7 @@ def prepare_music_video(
         audio: The song. Prefer the lossless master (``.wav``) when you have it.
         image: Cover art.
         visual: Visual strategy: a name, ``"auto"``, or a callable
-            (see :mod:`yb.render.visuals`).
+            (see :mod:`muvid.visualize.visuals`).
         title: Video title (default: from tags, else the filename).
         artist: Artist name; when given, the title becomes ``"Artist - Title"``.
         description: Video description.
@@ -251,14 +274,247 @@ def publish_music(
     return results
 
 
+@dataclass
+class FolderItem:
+    """One song's plan within a folder: what to render, and how.
+
+    Attributes:
+        audio: The song file.
+        image: The cover with the same filename stem, if there is one.
+        title: The song title — the audio file's stem.
+        visual: The visual assigned to this song by the rotation.
+    """
+
+    audio: Path
+    image: Path | None
+    title: str
+    visual: str
+
+
+def pair_folder(
+    folder: PathLike, *, cycle: Sequence[str] = DEFAULT_VISUAL_CYCLE
+) -> list[FolderItem]:
+    """Plan an album from a folder of ``(song, cover)`` pairs.
+
+    Each audio file is paired with an image of the **same filename stem** (so
+    ``Blue Moon.wav`` ↔ ``Blue Moon.jpeg``), the stem is the song title, and
+    visuals are handed out by cycling through ``cycle`` in sorted-stem order — so
+    a set varies method to method yet stays a coherent release.
+
+    One song per stem: a lossless master kept next to a distribution copy
+    (``Blue Moon.wav`` *and* ``Blue Moon.mp3``) is the *same* song, so the better
+    format is picked (WAV/FLAC over MP3) and only one video is made — never two
+    videos writing the same ``Blue Moon.mp4``. Hidden files (``._Blue Moon.wav``
+    macOS sidecars, dotfiles) and subdirectories are skipped.
+
+    Args:
+        folder: Directory holding the audio files and their covers.
+        cycle: Visual names to rotate through (defaults to
+            :data:`DEFAULT_VISUAL_CYCLE`).
+
+    Returns:
+        One :class:`FolderItem` per song, in sorted order. Inspect it before
+        publishing, or hand it straight to :func:`publish_folder`.
+    """
+    folder = Path(folder)
+    entries = [
+        p for p in folder.iterdir() if p.is_file() and not p.name.startswith(".")
+    ]
+    songs_by_stem = _best_by_stem(entries, _AUDIO_SUFFIXES, _AUDIO_PREFERENCE)
+    images = _best_by_stem(entries, _IMAGE_SUFFIXES, _IMAGE_PREFERENCE)
+    songs = [songs_by_stem[stem] for stem in sorted(songs_by_stem)]
+    cycle = list(cycle) or list(DEFAULT_VISUAL_CYCLE)
+    return [
+        FolderItem(
+            audio=song,
+            image=images.get(song.stem),
+            title=_title_from(song),
+            visual=cycle[i % len(cycle)],
+        )
+        for i, song in enumerate(songs)
+    ]
+
+
+def prepare_folder(
+    folder: PathLike,
+    *,
+    cycle: Sequence[str] = DEFAULT_VISUAL_CYCLE,
+    limit: int | None = None,
+    output_dir: PathLike | None = None,
+    **kwargs,
+) -> list[MusicVideo]:
+    """Render every ``(song, cover)`` pair in ``folder`` — no upload.
+
+    The way to *test the first song before committing the whole album*: call
+    with ``limit=1``, review the one video, then :func:`publish_folder` the set.
+
+    Args:
+        folder: Directory of songs and covers (see :func:`pair_folder`).
+        cycle: Visual rotation.
+        limit: Render only the first ``limit`` songs.
+        output_dir: Where the videos/thumbnails go (default: alongside each song).
+        **kwargs: Forwarded to :func:`prepare_music_video` (e.g. ``normalize``,
+            ``size``, ``fps``, ``options``).
+
+    Returns:
+        One :class:`MusicVideo` per rendered song.
+    """
+    items = pair_folder(folder, cycle=cycle)
+    if limit is not None:
+        items = items[:limit]
+    return [
+        prepare_music_video(
+            item.audio,
+            item.image,
+            title=item.title,
+            visual=item.visual,
+            output_dir=output_dir,
+            **kwargs,
+        )
+        for item in items
+    ]
+
+
+def publish_folder(
+    folder: PathLike,
+    *,
+    cycle: Sequence[str] = DEFAULT_VISUAL_CYCLE,
+    limit: int | None = None,
+    privacy_status: str | None = "unlisted",
+    playlist=None,
+    prepared: Sequence[MusicVideo] | None = None,
+    progress: bool = True,
+    **kwargs,
+) -> list[dict]:
+    """Render every ``(song, cover)`` pair in ``folder`` and upload the album.
+
+    Filename stem = title; covers match by stem; visuals rotate through ``cycle``
+    (:data:`DEFAULT_VISUAL_CYCLE` — waves, cqt, spectrum, bars, scope); the teal
+    accent and loudness normalization come from the renderer's defaults. One
+    authenticated YouTube service is reused across the whole batch.
+
+    Test-first workflow: ``publish_folder(folder, limit=1)`` publishes the first
+    song (unlisted) to eyeball on YouTube; once happy, ``publish_folder(folder)``
+    does the set.
+
+    Args:
+        folder: Directory of songs and covers.
+        cycle: Visual rotation.
+        limit: Publish only the first ``limit`` songs.
+        privacy_status: ``"unlisted"`` (default), ``"private"``, or ``"public"``.
+        playlist: Playlist title to collect the album into (``None`` = none).
+        prepared: Already-rendered :class:`MusicVideo` objects to upload as-is
+            (skip rendering — e.g. the return of :func:`prepare_folder`).
+        progress: Print progress.
+        **kwargs: Forwarded to :func:`prepare_music_video`.
+
+    Returns:
+        One dict per song: the :func:`yb.youtube.publish_content` result plus
+        ``"title"``, ``"visual"``, and ``"ok"``. An upload that fails does **not**
+        abort the batch — its dict has ``ok=False`` and an ``"error"``, and the
+        songs already uploaded keep their results (so a re-run can target only
+        the failures via ``prepared=`` rather than re-uploading the whole set).
+    """
+    from yb.youtube.auth import get_service
+    from yb.youtube.publish import publish_content
+
+    if prepared is not None:
+        videos = list(prepared)
+        if limit is not None:
+            videos = videos[:limit]
+        visuals = [mv.render.visual for mv in videos]
+    else:
+        items = pair_folder(folder, cycle=cycle)
+        if limit is not None:
+            items = items[:limit]
+        videos, visuals = [], []
+        for item in items:
+            if progress:
+                print(f"Rendering {item.title!r} as {item.visual}...")
+            videos.append(
+                prepare_music_video(
+                    item.audio,
+                    item.image,
+                    title=item.title,
+                    visual=item.visual,
+                    **kwargs,
+                )
+            )
+            visuals.append(item.visual)
+
+    service = get_service()  # authenticate once, reuse across the album
+    results = []
+    for music_video, visual in zip(videos, visuals):
+        title = music_video.content.title
+        if progress:
+            print(f"Publishing {title!r}...")
+        try:
+            result = publish_content(
+                music_video.content,
+                privacy_status=privacy_status,
+                playlist=playlist,
+                category_id=CATEGORY_MUSIC,
+                with_chapters=False,
+                attach_caption=False,
+                progress=progress,
+                service=service,
+            )
+            results.append({**result, "title": title, "visual": visual, "ok": True})
+        except Exception as e:  # one bad upload must not discard the batch's successes
+            if progress:
+                print(f"  FAILED: {e}")
+            results.append(
+                {
+                    "title": title,
+                    "visual": visual,
+                    "ok": False,
+                    "error": str(e),
+                    "video_id": None,
+                    "url": None,
+                }
+            )
+    return results
+
+
+def _rank(path: Path, preference: list[str]) -> int:
+    """Position of ``path``'s suffix in ``preference`` (missing = last)."""
+    suffix = path.suffix.lower()
+    return preference.index(suffix) if suffix in preference else len(preference)
+
+
+def _best_by_stem(
+    entries: Sequence[Path], suffixes: set[str], preference: list[str]
+) -> dict[str, Path]:
+    """Map each stem to its single best-format file among ``entries``.
+
+    Two files sharing a stem (``song.wav`` and ``song.mp3``) are the same item;
+    the one earliest in ``preference`` wins, so nothing collides downstream.
+    """
+    best: dict[str, Path] = {}
+    for path in entries:
+        if path.suffix.lower() not in suffixes:
+            continue
+        current = best.get(path.stem)
+        if current is None or _rank(path, preference) < _rank(current, preference):
+            best[path.stem] = path
+    return best
+
+
 def _as_song_list(songs: PathLike | Sequence[PathLike]) -> list[Path]:
     """Normalize a song, a directory of songs, or a list of songs into a list."""
     if isinstance(songs, (str, Path)):
         path = Path(songs)
         if path.is_dir():
-            return sorted(
-                p for p in path.iterdir() if p.suffix.lower() in _AUDIO_SUFFIXES
+            best = _best_by_stem(
+                [
+                    p
+                    for p in path.iterdir()
+                    if p.is_file() and not p.name.startswith(".")
+                ],
+                _AUDIO_SUFFIXES,
+                _AUDIO_PREFERENCE,
             )
+            return [best[stem] for stem in sorted(best)]
         return [path]
     return [Path(s) for s in songs]
 
