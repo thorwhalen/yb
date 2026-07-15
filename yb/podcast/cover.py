@@ -4,19 +4,29 @@ Useful for publishing an audio episode where a video is expected (YouTube): the
 cover image, held for the episode's duration, muxed with the audio — optionally
 with a slow Ken Burns pan/zoom.
 
-This is a thin adapter over :mod:`yb.render`, which owns the rendering for both
-podcasts and music. Reach for :func:`yb.render.render_audio_video` directly when
-you want a visual other than a held cover, a burnt-in title, or loudness
-normalization.
+This is a thin adapter over :mod:`muvid.visualize`, which owns the audio→video
+rendering. Reach for :func:`muvid.visualize.render_audio_video` directly when you
+want a visual other than a held cover, a burnt-in title, or loudness
+normalization. Needs ``pip install 'yb[music]'`` (pulls ``muvid``).
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from yb.render.canvas import DEFAULT_SIZE, CoverLayout
-from yb.render.ffmpeg import PathLike
-from yb.render.video import DEFAULT_FPS, render_audio_video
+try:
+    from muvid.visualize import (
+        DEFAULT_FPS,
+        DEFAULT_SIZE,
+        CoverLayout,
+        PathLike,
+        render_audio_video,
+    )
+except ImportError as e:  # pragma: no cover - environment dependent
+    raise ImportError(
+        "yb.podcast.cover needs the 'muvid' package for rendering "
+        "(pip install 'yb[music]')."
+    ) from e
 
 
 def cover_video(

@@ -136,7 +136,9 @@ def test_render_single_two_column():
 
 def test_render_multi_row_per_video():
     a = flatten_video(_resource("id_a", snippet={"title": "A"}))
-    b = flatten_video(_resource("id_b", snippet={"title": "B"}, statistics={"viewCount": "9"}))
+    b = flatten_video(
+        _resource("id_b", snippet={"title": "B"}, statistics={"viewCount": "9"})
+    )
     table = render_table([a, b], fields=["title", "views"])
     assert "title" in table.splitlines()[0]
     assert "A" in table and "B" in table

@@ -25,6 +25,8 @@ Documentation = "https://thorwhalen.github.io/yb"
 [project.optional-dependencies]
 # `yb.youtube` — upload/edit via the official YouTube Data API v3.
 youtube = ["google-api-python-client", "google-auth-oauthlib", "google-auth"]
+# `yb.music` / `yb.podcast.cover` — audio→video rendering (needs ffmpeg on PATH).
+music = ["muvid"]
 # `yb.download` — fetch videos/metadata from YouTube (and other sites).
 download = ["yt-dlp"]
 # `yb.podcast` — ID3 chapter frames + RSS episode feeds.
@@ -33,9 +35,9 @@ podcast = ["mutagen", "feedgen"]
 llm = ["aix"]
 all = [
     "google-api-python-client", "google-auth-oauthlib", "google-auth",
-    "yt-dlp", "mutagen", "feedgen", "aix",
+    "muvid", "yt-dlp", "mutagen", "feedgen", "aix",
 ]
-dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.1.0"]
+dev = ["muvid", "pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.1.0"]
 docs = ["sphinx>=6.0", "sphinx-rtd-theme>=1.0"]
 
 [tool.ruff]
