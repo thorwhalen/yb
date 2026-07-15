@@ -12,7 +12,11 @@ import subprocess
 
 import pytest
 
-from yb.music.publish import (
+# yb.music imports muvid.visualize; skip the whole module (don't error at
+# collection) when the 'music' extra isn't installed.
+pytest.importorskip("muvid.visualize", reason="needs pip install 'yb[music]'")
+
+from yb.music.publish import (  # noqa: E402
     DEFAULT_VISUAL_CYCLE,
     FolderItem,
     _as_song_list,
@@ -101,6 +105,27 @@ def test_pair_folder_honours_a_custom_cycle(tmp_path):
     assert [item.visual for item in plan] == ["cqt", "waves", "cqt"]
 
 
+def test_pair_folder_treats_same_stem_files_as_one_song_preferring_lossless(tmp_path):
+    # A lossless master next to a distribution copy is ONE song, not two videos
+    # writing the same "Blue Moon.mp4".
+    (tmp_path / "Blue Moon.wav").touch()
+    (tmp_path / "Blue Moon.mp3").touch()
+    (tmp_path / "Red Sun.mp3").touch()
+    plan = pair_folder(tmp_path)
+    assert [item.title for item in plan] == ["Blue Moon", "Red Sun"]
+    assert plan[0].audio.suffix == ".wav"  # the master won
+    assert len({item.audio.with_suffix(".mp4") for item in plan}) == 2  # no collision
+
+
+def test_pair_folder_skips_hidden_and_sidecar_files(tmp_path):
+    (tmp_path / "Song.wav").touch()
+    (tmp_path / "._Song.wav").touch()  # macOS AppleDouble sidecar — suffix is .wav
+    (tmp_path / ".hidden.wav").touch()
+    (tmp_path / "sub").mkdir()
+    plan = pair_folder(tmp_path)
+    assert [item.audio.name for item in plan] == ["Song.wav"]
+
+
 def test_folder_item_is_a_plain_record(tmp_path):
     item = FolderItem(audio=tmp_path / "x.wav", image=None, title="X", visual="cqt")
     assert (item.title, item.visual, item.image) == ("X", "cqt", None)
@@ -108,6 +133,64 @@ def test_folder_item_is_a_plain_record(tmp_path):
 
 def test_the_default_cycle_is_the_five_reactive_visuals():
     assert DEFAULT_VISUAL_CYCLE == ("waves", "cqt", "spectrum", "bars", "scope")
+
+
+def _fake_prepared(titles):
+    """Minimal MusicVideo stand-ins for publish_folder(prepared=...) tests."""
+    from types import SimpleNamespace
+
+    from yb.content import PublicationContent
+    from yb.music.publish import MusicVideo
+
+    return [
+        MusicVideo(
+            audio=None,
+            video=None,
+            thumbnail=None,
+            content=PublicationContent(media="x.mp4", title=t),
+            render=SimpleNamespace(visual="cqt", duration=1.0),
+        )
+        for t in titles
+    ]
+
+
+def test_publish_folder_keeps_successes_when_one_upload_fails(monkeypatch):
+    import yb.youtube.auth as auth
+    import yb.youtube.publish as ytpub
+    from yb.music import publish_folder
+
+    monkeypatch.setattr(auth, "get_service", lambda *a, **k: object())
+
+    def fake_publish_content(content, **kwargs):
+        if content.title == "Two":
+            raise RuntimeError("simulated 503")
+        return {"video_id": f"id-{content.title}", "url": f"http://y/{content.title}"}
+
+    monkeypatch.setattr(ytpub, "publish_content", fake_publish_content)
+
+    results = publish_folder(
+        None, prepared=_fake_prepared(["One", "Two", "Three"]), progress=False
+    )
+    assert [r["title"] for r in results] == ["One", "Two", "Three"]
+    assert [r["ok"] for r in results] == [True, False, True]  # batch not aborted
+    assert results[0]["video_id"] == "id-One"  # success preserved
+    assert results[2]["video_id"] == "id-Three"  # after the failure
+    assert "simulated 503" in results[1]["error"]
+
+
+def test_publish_folder_limit_applies_to_prepared(monkeypatch):
+    import yb.youtube.auth as auth
+    import yb.youtube.publish as ytpub
+    from yb.music import publish_folder
+
+    monkeypatch.setattr(auth, "get_service", lambda *a, **k: object())
+    monkeypatch.setattr(
+        ytpub, "publish_content", lambda content, **k: {"video_id": content.title}
+    )
+    results = publish_folder(
+        None, prepared=_fake_prepared(["One", "Two", "Three"]), limit=1, progress=False
+    )
+    assert [r["title"] for r in results] == ["One"]
 
 
 # --------------------------------------------------------------------------

@@ -56,8 +56,12 @@ from yb.youtube.metadata import CATEGORY_MUSIC
 #: the order :func:`publish_folder` cycles through by default.
 DEFAULT_VISUAL_CYCLE = ("waves", "cqt", "spectrum", "bars", "scope")
 
-_AUDIO_SUFFIXES = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".aiff"}
-_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tiff"}
+# Preference order for de-duplicating same-stem files: the first suffix wins,
+# so a lossless master beats a distribution copy, and PNG beats a JPEG.
+_AUDIO_PREFERENCE = [".wav", ".flac", ".aiff", ".m4a", ".aac", ".ogg", ".opus", ".mp3"]
+_IMAGE_PREFERENCE = [".png", ".webp", ".tiff", ".jpeg", ".jpg", ".bmp"]
+_AUDIO_SUFFIXES = set(_AUDIO_PREFERENCE)
+_IMAGE_SUFFIXES = set(_IMAGE_PREFERENCE)
 
 
 @dataclass
@@ -294,8 +298,14 @@ def pair_folder(
 
     Each audio file is paired with an image of the **same filename stem** (so
     ``Blue Moon.wav`` ↔ ``Blue Moon.jpeg``), the stem is the song title, and
-    visuals are handed out by cycling through ``cycle`` in sorted-filename order
-    — so a set varies method to method yet stays a coherent release.
+    visuals are handed out by cycling through ``cycle`` in sorted-stem order — so
+    a set varies method to method yet stays a coherent release.
+
+    One song per stem: a lossless master kept next to a distribution copy
+    (``Blue Moon.wav`` *and* ``Blue Moon.mp3``) is the *same* song, so the better
+    format is picked (WAV/FLAC over MP3) and only one video is made — never two
+    videos writing the same ``Blue Moon.mp4``. Hidden files (``._Blue Moon.wav``
+    macOS sidecars, dotfiles) and subdirectories are skipped.
 
     Args:
         folder: Directory holding the audio files and their covers.
@@ -307,12 +317,12 @@ def pair_folder(
         publishing, or hand it straight to :func:`publish_folder`.
     """
     folder = Path(folder)
-    songs = sorted(p for p in folder.iterdir() if p.suffix.lower() in _AUDIO_SUFFIXES)
-    images = {
-        p.stem: p
-        for p in sorted(folder.iterdir())
-        if p.suffix.lower() in _IMAGE_SUFFIXES
-    }
+    entries = [
+        p for p in folder.iterdir() if p.is_file() and not p.name.startswith(".")
+    ]
+    songs_by_stem = _best_by_stem(entries, _AUDIO_SUFFIXES, _AUDIO_PREFERENCE)
+    images = _best_by_stem(entries, _IMAGE_SUFFIXES, _IMAGE_PREFERENCE)
+    songs = [songs_by_stem[stem] for stem in sorted(songs_by_stem)]
     cycle = list(cycle) or list(DEFAULT_VISUAL_CYCLE)
     return [
         FolderItem(
@@ -399,14 +409,19 @@ def publish_folder(
         **kwargs: Forwarded to :func:`prepare_music_video`.
 
     Returns:
-        One :func:`yb.youtube.publish_content` result dict per song, each with an
-        added ``"title"`` and ``"visual"`` for at-a-glance review.
+        One dict per song: the :func:`yb.youtube.publish_content` result plus
+        ``"title"``, ``"visual"``, and ``"ok"``. An upload that fails does **not**
+        abort the batch — its dict has ``ok=False`` and an ``"error"``, and the
+        songs already uploaded keep their results (so a re-run can target only
+        the failures via ``prepared=`` rather than re-uploading the whole set).
     """
     from yb.youtube.auth import get_service
     from yb.youtube.publish import publish_content
 
     if prepared is not None:
         videos = list(prepared)
+        if limit is not None:
+            videos = videos[:limit]
         visuals = [mv.render.visual for mv in videos]
     else:
         items = pair_folder(folder, cycle=cycle)
@@ -430,20 +445,59 @@ def publish_folder(
     service = get_service()  # authenticate once, reuse across the album
     results = []
     for music_video, visual in zip(videos, visuals):
+        title = music_video.content.title
         if progress:
-            print(f"Publishing {music_video.content.title!r}...")
-        result = publish_content(
-            music_video.content,
-            privacy_status=privacy_status,
-            playlist=playlist,
-            category_id=CATEGORY_MUSIC,
-            with_chapters=False,
-            attach_caption=False,
-            progress=progress,
-            service=service,
-        )
-        results.append({**result, "title": music_video.content.title, "visual": visual})
+            print(f"Publishing {title!r}...")
+        try:
+            result = publish_content(
+                music_video.content,
+                privacy_status=privacy_status,
+                playlist=playlist,
+                category_id=CATEGORY_MUSIC,
+                with_chapters=False,
+                attach_caption=False,
+                progress=progress,
+                service=service,
+            )
+            results.append({**result, "title": title, "visual": visual, "ok": True})
+        except Exception as e:  # one bad upload must not discard the batch's successes
+            if progress:
+                print(f"  FAILED: {e}")
+            results.append(
+                {
+                    "title": title,
+                    "visual": visual,
+                    "ok": False,
+                    "error": str(e),
+                    "video_id": None,
+                    "url": None,
+                }
+            )
     return results
+
+
+def _rank(path: Path, preference: list[str]) -> int:
+    """Position of ``path``'s suffix in ``preference`` (missing = last)."""
+    suffix = path.suffix.lower()
+    return preference.index(suffix) if suffix in preference else len(preference)
+
+
+def _best_by_stem(
+    entries: Sequence[Path], suffixes: set[str], preference: list[str]
+) -> dict[str, Path]:
+    """Map each stem to its single best-format file among ``entries``.
+
+    Two files sharing a stem (``song.wav`` and ``song.mp3``) are the same item;
+    the one earliest in ``preference`` wins, so nothing collides downstream.
+    """
+    best: dict[str, Path] = {}
+    for path in entries:
+        if path.suffix.lower() not in suffixes:
+            continue
+        current = best.get(path.stem)
+        if current is None or _rank(path, preference) < _rank(current, preference):
+            best[path.stem] = path
+    return best
 
 
 def _as_song_list(songs: PathLike | Sequence[PathLike]) -> list[Path]:
@@ -451,9 +505,16 @@ def _as_song_list(songs: PathLike | Sequence[PathLike]) -> list[Path]:
     if isinstance(songs, (str, Path)):
         path = Path(songs)
         if path.is_dir():
-            return sorted(
-                p for p in path.iterdir() if p.suffix.lower() in _AUDIO_SUFFIXES
+            best = _best_by_stem(
+                [
+                    p
+                    for p in path.iterdir()
+                    if p.is_file() and not p.name.startswith(".")
+                ],
+                _AUDIO_SUFFIXES,
+                _AUDIO_PREFERENCE,
             )
+            return [best[stem] for stem in sorted(best)]
         return [path]
     return [Path(s) for s in songs]
 
