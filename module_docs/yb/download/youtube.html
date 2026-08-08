@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.download.youtube &mdash; yb 0.1.6 documentation</title>
+  <title>yb.download.youtube &mdash; yb 0.1.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -50,10 +50,12 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio_convert.html">yb.audio_convert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../download.html">yb.download</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">yb.download.youtube</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DEFAULT_AUDIO_FMT"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUDIO_FMT</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DEFAULT_OUTTMPL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_OUTTMPL</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DOWNLOAD_DIR_ENV"><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_DIR_ENV</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a><ul>
@@ -63,7 +65,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#yb.download.youtube.DownloadResult.video_id"><code class="docutils literal notranslate"><span class="pre">DownloadResult.video_id</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.OnConvertError"><code class="docutils literal notranslate"><span class="pre">OnConvertError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.download_youtube_playlist"><code class="docutils literal notranslate"><span class="pre">download_youtube_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#yb.download.youtube.glob_escape"><code class="docutils literal notranslate"><span class="pre">glob_escape()</span></code></a></li>
@@ -121,6 +125,12 @@ the best video+audio into <code class="docutils literal notranslate"><span class
 knob (destination, format, filename template, and which sidecar metadata to
 also save) is overridable, and any raw yt-dlp option can be passed through.</p>
 <p>The destination defaults to <code class="docutils literal notranslate"><span class="pre">$YB_DOWNLOAD_DIR</span></code> when set, else <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.download.youtube.DEFAULT_AUDIO_FMT">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_AUDIO_FMT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bestaudio/best'</span></span><a class="headerlink" href="#yb.download.youtube.DEFAULT_AUDIO_FMT" title="Link to this definition"></a></dt>
+<dd><p>yt-dlp format selector for the best audio-only stream.</p>
+</dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="yb.download.youtube.DEFAULT_OUTTMPL">
 <span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_OUTTMPL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(title)s</span> <span class="pre">(%(id)s).%(ext)s'</span></span><a class="headerlink" href="#yb.download.youtube.DEFAULT_OUTTMPL" title="Link to this definition"></a></dt>
@@ -184,10 +194,74 @@ also save) is overridable, and any raw yt-dlp option can be passed through.</p>
 
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.download.youtube.OnConvertError">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">OnConvertError</span></span><a class="headerlink" href="#yb.download.youtube.OnConvertError" title="Link to this definition"></a></dt>
+<dd><p>What <a class="reference internal" href="#yb.download.youtube.download_youtube_audio" title="yb.download.youtube.download_youtube_audio"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a> does when a format conversion fails.</p>
+<p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘raise’, ‘warn’]</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="yb.download.youtube.default_download_dir">
 <span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">default_download_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#default_download_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.default_download_dir" title="Link to this definition"></a></dt>
 <dd><p>Resolve the default download directory (<code class="docutils literal notranslate"><span class="pre">$YB_DOWNLOAD_DIR</span></code> or <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.download.youtube.download_youtube_audio">
+<span class="sig-prename descclassname"><span class="pre">yb.download.youtube.</span></span><span class="sig-name descname"><span class="pre">download_youtube_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'raise'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'warn'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'raise'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bestaudio/best'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename_template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%(title)s</span> <span class="pre">(%(id)s).%(ext)s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_info_json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_thumbnail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_auto_subtitles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtitle_langs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('en',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yb.download.youtube.DownloadResult" title="yb.download.youtube.DownloadResult"><span class="pre">DownloadResult</span></a></span></span><a class="reference internal" href="../../../_modules/yb/download/youtube.html#download_youtube_audio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.download.youtube.download_youtube_audio" title="Link to this definition"></a></dt>
+<dd><p>Download only a video’s audio (no video stream).</p>
+<p>Simplest use: <code class="docutils literal notranslate"><span class="pre">download_youtube_audio(url)</span></code> → the best audio stream, kept
+in whatever format the source offers (YouTube’s is usually Opus in a
+<code class="docutils literal notranslate"><span class="pre">.webm</span></code> container), named <code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">(video_id).webm</span></code> in <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">audio_format</span></code> to get a specific format instead:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – The video URL (or id).</p></li>
+<li><p><strong>download_dir</strong> – Destination directory. Defaults to
+<a class="reference internal" href="#yb.download.youtube.default_download_dir" title="yb.download.youtube.default_download_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a>.</p></li>
+<li><p><strong>audio_format</strong> – Target format as an extension (<code class="docutils literal notranslate"><span class="pre">&quot;mp3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;.wav&quot;</span></code>, …).
+The default <code class="docutils literal notranslate"><span class="pre">None</span></code> means <strong>no conversion</strong> — keep the downloaded
+bytes exactly as they came, which needs no ffmpeg and avoids
+re-encoding a lossy stream into another lossy format.</p></li>
+<li><p><strong>bitrate</strong> – Bitrate for lossy targets (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;320k&quot;</span></code>). Ignored when
+<code class="docutils literal notranslate"><span class="pre">audio_format</span></code> is lossless or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>keep_original</strong> – When converting, also keep the originally downloaded
+file (by default it is removed once converted).</p></li>
+<li><p><strong>on_error</strong> – What to do when conversion fails (ffmpeg missing or erroring).
+<code class="docutils literal notranslate"><span class="pre">&quot;raise&quot;</span></code> (default) propagates
+<a class="reference internal" href="../audio_convert.html#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a>; <code class="docutils literal notranslate"><span class="pre">&quot;warn&quot;</span></code> emits a
+warning and returns the unconverted download. Either way the
+downloaded audio is left on disk — a failed conversion never costs
+you the download.</p></li>
+<li><p><strong>fmt</strong> – yt-dlp format selector (default best audio-only stream).</p></li>
+<li><p><strong>filename_template</strong> – yt-dlp output template (default
+<code class="docutils literal notranslate"><span class="pre">&quot;%(title)s</span> <span class="pre">(%(id)s).%(ext)s&quot;</span></code>).</p></li>
+<li><p><strong>write_info_json</strong> – Also save the full metadata as <code class="docutils literal notranslate"><span class="pre">*.info.json</span></code>.</p></li>
+<li><p><strong>write_thumbnail</strong> – Also save the thumbnail image.</p></li>
+<li><p><strong>write_description</strong> – Also save the description as <code class="docutils literal notranslate"><span class="pre">*.description</span></code>.</p></li>
+<li><p><strong>write_subtitles</strong> – Also save uploaded subtitles for <code class="docutils literal notranslate"><span class="pre">subtitle_langs</span></code>.</p></li>
+<li><p><strong>write_auto_subtitles</strong> – Also save auto-generated subtitles.</p></li>
+<li><p><strong>subtitle_langs</strong> – Subtitle languages to fetch when subtitles are enabled.</p></li>
+<li><p><strong>quiet</strong> – Suppress yt-dlp console output.</p></li>
+<li><p><strong>extra_opts</strong> – Any additional raw yt-dlp options (merged last, so they win).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#yb.download.youtube.DownloadResult" title="yb.download.youtube.DownloadResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DownloadResult</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">path</span></code> is the audio file — converted
+when <code class="docutils literal notranslate"><span class="pre">audio_format</span></code> was given and conversion succeeded.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If <code class="docutils literal notranslate"><span class="pre">on_error</span></code> is not <code class="docutils literal notranslate"><span class="pre">&quot;raise&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;warn&quot;</span></code>.</p></li>
+<li><p><a class="reference internal" href="../audio_convert.html#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><strong>AudioConversionError</strong></a> – If conversion fails and <code class="docutils literal notranslate"><span class="pre">on_error=&quot;raise&quot;</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

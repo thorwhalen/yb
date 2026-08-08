@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; yb 0.1.6 documentation</title>
+  <title>Index &mdash; yb 0.1.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=6e0256f3"></script>
+      <script src="_static/documentation_options.js?v=ca7ad2ea"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -47,6 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/audio_convert.html">yb.audio_convert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a></li>
@@ -108,6 +109,7 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -143,6 +145,8 @@
         <li><a href="module_docs/yb.html#yb.PublicationContent.audio_language">(yb.PublicationContent attribute)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/yb/audio_convert.html#yb.audio_convert.AudioConversionError">AudioConversionError</a>, <a href="module_docs/yb/download.html#yb.download.AudioConversionError">[1]</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -195,6 +199,12 @@
         <li><a href="module_docs/yb/content.html#yb.content.ContentMetadata">(class in yb.content)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/yb/audio_convert.html#yb.audio_convert.convert_audio">convert_audio() (in module yb.audio_convert)</a>
+
+      <ul>
+        <li><a href="module_docs/yb/download.html#yb.download.convert_audio">(in module yb.download)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/yb/podcast.html#yb.podcast.cover_video">cover_video() (in module yb.podcast)</a>
 
       <ul>
@@ -219,6 +229,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_AUDIO_FMT">DEFAULT_AUDIO_FMT (in module yb.download.youtube)</a>
+</li>
       <li><a href="module_docs/yb/youtube/metadata.html#yb.youtube.metadata.VideoMetadata.default_audio_language">default_audio_language (yb.youtube.metadata.VideoMetadata attribute)</a>
 
       <ul>
@@ -249,6 +261,8 @@
         <li><a href="module_docs/yb/youtube.html#yb.youtube.VideoMetadata.default_language">(yb.youtube.VideoMetadata attribute)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/yb/audio_convert.html#yb.audio_convert.DEFAULT_LOSSY_BITRATE">DEFAULT_LOSSY_BITRATE (in module yb.audio_convert)</a>
+</li>
       <li><a href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_OUTTMPL">DEFAULT_OUTTMPL (in module yb.download.youtube)</a>
 </li>
       <li><a href="module_docs/yb/youtube/stats.html#yb.youtube.stats.DEFAULT_PARTS">DEFAULT_PARTS (in module yb.youtube.stats)</a>
@@ -297,6 +311,14 @@
       </ul></li>
       <li><a href="module_docs/yb/download/youtube.html#yb.download.youtube.DOWNLOAD_DIR_ENV">DOWNLOAD_DIR_ENV (in module yb.download.youtube)</a>
 </li>
+      <li><a href="module_docs/yb.html#yb.download_youtube_audio">download_youtube_audio() (in module yb)</a>
+
+      <ul>
+        <li><a href="module_docs/yb/download.html#yb.download.download_youtube_audio">(in module yb.download)</a>
+</li>
+        <li><a href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_audio">(in module yb.download.youtube)</a>
+</li>
+      </ul></li>
       <li><a href="module_docs/yb/download.html#yb.download.download_youtube_playlist">download_youtube_playlist() (in module yb.download)</a>
 
       <ul>
@@ -509,6 +531,8 @@
         <li><a href="module_docs/yb/config.html#yb.config.load_config">(in module yb.config)</a>
 </li>
       </ul></li>
+      <li><a href="module_docs/yb/audio_convert.html#yb.audio_convert.LOSSLESS_FORMATS">LOSSLESS_FORMATS (in module yb.audio_convert)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -526,6 +550,8 @@
 
       <ul>
         <li><a href="module_docs/yb.html#module-yb">yb</a>
+</li>
+        <li><a href="module_docs/yb/audio_convert.html#module-yb.audio_convert">yb.audio_convert</a>
 </li>
         <li><a href="module_docs/yb/config.html#module-yb.config">yb.config</a>
 </li>
@@ -576,6 +602,18 @@
         <li><a href="module_docs/yb/youtube.html#yb.youtube.CaptionTrack.name">(yb.youtube.CaptionTrack attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/yb/audio_convert.html#yb.audio_convert.normalize_format">normalize_format() (in module yb.audio_convert)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="module_docs/yb/download/youtube.html#yb.download.youtube.OnConvertError">OnConvertError (in module yb.download.youtube)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -867,6 +905,13 @@
 
       <ul>
         <li><a href="module_docs/yb.html#module-yb">module</a>
+</li>
+      </ul></li>
+      <li>
+    yb.audio_convert
+
+      <ul>
+        <li><a href="module_docs/yb/audio_convert.html#module-yb.audio_convert">module</a>
 </li>
       </ul></li>
       <li>

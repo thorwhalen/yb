@@ -3,6 +3,7 @@
    :caption: Contents:
 
    module_docs/yb
+   module_docs/yb/audio_convert
    module_docs/yb/config
    module_docs/yb/content
    module_docs/yb/download

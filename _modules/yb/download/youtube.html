@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.download.youtube &mdash; yb 0.1.6 documentation</title>
+  <title>yb.download.youtube &mdash; yb 0.1.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -47,6 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/audio_convert.html">yb.audio_convert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/yb/download.html">yb.download</a></li>
@@ -107,17 +108,26 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
+
+<span class="c1">#: What :func:`download_youtube_audio` does when a format conversion fails.</span>
+<span class="n">OnConvertError</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;raise&quot;</span><span class="p">,</span> <span class="s2">&quot;warn&quot;</span><span class="p">]</span>
+
+<span class="n">_ON_CONVERT_ERROR_CHOICES</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">&quot;raise&quot;</span><span class="p">,</span> <span class="s2">&quot;warn&quot;</span><span class="p">})</span>
 
 <span class="c1">#: Env var that overrides the default download directory.</span>
 <span class="n">DOWNLOAD_DIR_ENV</span> <span class="o">=</span> <span class="s2">&quot;YB_DOWNLOAD_DIR&quot;</span>
 
 <span class="c1">#: yt-dlp output template: human title plus the stable id, e.g. &quot;My Talk (dQw4...).mp4&quot;.</span>
 <span class="n">DEFAULT_OUTTMPL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(title)s</span><span class="s2"> (</span><span class="si">%(id)s</span><span class="s2">).</span><span class="si">%(ext)s</span><span class="s2">&quot;</span>
+
+<span class="c1">#: yt-dlp format selector for the best audio-only stream.</span>
+<span class="n">DEFAULT_AUDIO_FMT</span> <span class="o">=</span> <span class="s2">&quot;bestaudio/best&quot;</span>
 
 <span class="c1">#: Fields surfaced on the result&#39;s ``info`` (the rest of yt-dlp&#39;s dict is dropped).</span>
 <span class="n">_INFO_FIELDS</span> <span class="o">=</span> <span class="p">(</span>
@@ -276,6 +286,121 @@
         <span class="n">subtitles</span><span class="o">=</span><span class="n">write_subtitles</span> <span class="ow">or</span> <span class="n">write_auto_subtitles</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">DownloadResult</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">_trim_info</span><span class="p">(</span><span class="n">info</span><span class="p">),</span> <span class="n">sidecars</span><span class="o">=</span><span class="n">sidecars</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="download_youtube_audio">
+<a class="viewcode-back" href="../../../module_docs/yb/download/youtube.html#yb.download_youtube_audio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">download_youtube_audio</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">download_dir</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">audio_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">keep_original</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">on_error</span><span class="p">:</span> <span class="n">OnConvertError</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_AUDIO_FMT</span><span class="p">,</span>
+    <span class="n">filename_template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_OUTTMPL</span><span class="p">,</span>
+    <span class="n">write_info_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_thumbnail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_description</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_auto_subtitles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">subtitle_langs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">,),</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DownloadResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download only a video&#39;s audio (no video stream).</span>
+
+<span class="sd">    Simplest use: ``download_youtube_audio(url)`` → the best audio stream, kept</span>
+<span class="sd">    in whatever format the source offers (YouTube&#39;s is usually Opus in a</span>
+<span class="sd">    ``.webm`` container), named ``Title (video_id).webm`` in ``~/Downloads``.</span>
+
+<span class="sd">    Pass ``audio_format`` to get a specific format instead:</span>
+
+<span class="sd">        &gt;&gt;&gt; download_youtube_audio(url, audio_format=&quot;mp3&quot;)  # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: The video URL (or id).</span>
+<span class="sd">        download_dir: Destination directory. Defaults to</span>
+<span class="sd">            :func:`default_download_dir`.</span>
+<span class="sd">        audio_format: Target format as an extension (``&quot;mp3&quot;``, ``&quot;.wav&quot;``, ...).</span>
+<span class="sd">            The default ``None`` means **no conversion** — keep the downloaded</span>
+<span class="sd">            bytes exactly as they came, which needs no ffmpeg and avoids</span>
+<span class="sd">            re-encoding a lossy stream into another lossy format.</span>
+<span class="sd">        bitrate: Bitrate for lossy targets (e.g. ``&quot;320k&quot;``). Ignored when</span>
+<span class="sd">            ``audio_format`` is lossless or ``None``.</span>
+<span class="sd">        keep_original: When converting, also keep the originally downloaded</span>
+<span class="sd">            file (by default it is removed once converted).</span>
+<span class="sd">        on_error: What to do when conversion fails (ffmpeg missing or erroring).</span>
+<span class="sd">            ``&quot;raise&quot;`` (default) propagates</span>
+<span class="sd">            :class:`~yb.audio_convert.AudioConversionError`; ``&quot;warn&quot;`` emits a</span>
+<span class="sd">            warning and returns the unconverted download. Either way the</span>
+<span class="sd">            downloaded audio is left on disk — a failed conversion never costs</span>
+<span class="sd">            you the download.</span>
+<span class="sd">        fmt: yt-dlp format selector (default best audio-only stream).</span>
+<span class="sd">        filename_template: yt-dlp output template (default</span>
+<span class="sd">            ``&quot;%(title)s (%(id)s).%(ext)s&quot;``).</span>
+<span class="sd">        write_info_json: Also save the full metadata as ``*.info.json``.</span>
+<span class="sd">        write_thumbnail: Also save the thumbnail image.</span>
+<span class="sd">        write_description: Also save the description as ``*.description``.</span>
+<span class="sd">        write_subtitles: Also save uploaded subtitles for ``subtitle_langs``.</span>
+<span class="sd">        write_auto_subtitles: Also save auto-generated subtitles.</span>
+<span class="sd">        subtitle_langs: Subtitle languages to fetch when subtitles are enabled.</span>
+<span class="sd">        quiet: Suppress yt-dlp console output.</span>
+<span class="sd">        extra_opts: Any additional raw yt-dlp options (merged last, so they win).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DownloadResult` whose ``path`` is the audio file — converted</span>
+<span class="sd">        when ``audio_format`` was given and conversion succeeded.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If ``on_error`` is not ``&quot;raise&quot;`` or ``&quot;warn&quot;``.</span>
+<span class="sd">        AudioConversionError: If conversion fails and ``on_error=&quot;raise&quot;``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">on_error</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_ON_CONVERT_ERROR_CHOICES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;on_error must be one of </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_ON_CONVERT_ERROR_CHOICES</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="n">on_error</span><span class="si">!r}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">download_youtube_video</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">download_dir</span><span class="o">=</span><span class="n">download_dir</span><span class="p">,</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span>
+        <span class="n">merge_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># keep the audio stream&#39;s own container</span>
+        <span class="n">filename_template</span><span class="o">=</span><span class="n">filename_template</span><span class="p">,</span>
+        <span class="n">write_info_json</span><span class="o">=</span><span class="n">write_info_json</span><span class="p">,</span>
+        <span class="n">write_thumbnail</span><span class="o">=</span><span class="n">write_thumbnail</span><span class="p">,</span>
+        <span class="n">write_description</span><span class="o">=</span><span class="n">write_description</span><span class="p">,</span>
+        <span class="n">write_subtitles</span><span class="o">=</span><span class="n">write_subtitles</span><span class="p">,</span>
+        <span class="n">write_auto_subtitles</span><span class="o">=</span><span class="n">write_auto_subtitles</span><span class="p">,</span>
+        <span class="n">subtitle_langs</span><span class="o">=</span><span class="n">subtitle_langs</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span>
+        <span class="n">extra_opts</span><span class="o">=</span><span class="n">extra_opts</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">audio_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yb.audio_convert</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioConversionError</span><span class="p">,</span> <span class="n">convert_audio</span>
+
+    <span class="n">original</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">path</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="n">convert_audio</span><span class="p">(</span><span class="n">original</span><span class="p">,</span> <span class="n">audio_format</span><span class="p">,</span> <span class="n">bitrate</span><span class="o">=</span><span class="n">bitrate</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">AudioConversionError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">on_error</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not convert to </span><span class="si">{</span><span class="n">audio_format</span><span class="si">!r}</span><span class="s2">; keeping the downloaded &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;file as is: </span><span class="si">{</span><span class="n">original</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">if</span> <span class="n">converted</span> <span class="o">!=</span> <span class="n">original</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">keep_original</span><span class="p">:</span>
+        <span class="n">original</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">converted</span>
+    <span class="k">return</span> <span class="n">result</span></div>
 
 
 

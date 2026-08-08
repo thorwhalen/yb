@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.audio_convert &mdash; yb 0.1.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="yb.config" href="config.html" />
+    <link rel="prev" title="yb" href="../yb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../yb.html">yb</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">yb.audio_convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yb.audio_convert.AudioConversionError"><code class="docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.audio_convert.DEFAULT_LOSSY_BITRATE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOSSY_BITRATE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.audio_convert.LOSSLESS_FORMATS"><code class="docutils literal notranslate"><span class="pre">LOSSLESS_FORMATS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.audio_convert.convert_audio"><code class="docutils literal notranslate"><span class="pre">convert_audio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yb.audio_convert.normalize_format"><code class="docutils literal notranslate"><span class="pre">normalize_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music/publish.html">yb.music.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">yb.audio_convert</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/yb/audio_convert.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-yb.audio_convert">
+<span id="yb-audio-convert"></span><h1>yb.audio_convert<a class="headerlink" href="#module-yb.audio_convert" title="Link to this heading"></a></h1>
+<p>Convert audio files between formats with ffmpeg.</p>
+<p>Audio arrives in whatever format the source offers — YouTube’s best audio is
+typically Opus in a <code class="docutils literal notranslate"><span class="pre">.webm</span></code> container — which is usually fine to keep as is.
+Publishing paths, though, often want something specific: <code class="docutils literal notranslate"><span class="pre">.mp3</span></code> for podcast
+players, <code class="docutils literal notranslate"><span class="pre">.wav</span></code> for editing. <a class="reference internal" href="#yb.audio_convert.convert_audio" title="yb.audio_convert.convert_audio"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_audio()</span></code></a> is the one-call bridge:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.audio_convert</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_audio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">&quot;talk.webm&quot;</span><span class="p">,</span> <span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
+<span class="go">PosixPath(&#39;talk.mp3&#39;)</span>
+</pre></div>
+</div>
+<p>Conversion is a <strong>no-op when the source is already in the target format</strong>, so it
+is safe to call unconditionally:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">&quot;talk.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
+<span class="go">PosixPath(&#39;talk.mp3&#39;)</span>
+</pre></div>
+</div>
+<p>Requires <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>; without it <a class="reference internal" href="#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a> is
+raised (see also the <code class="docutils literal notranslate"><span class="pre">on_error=&quot;warn&quot;</span></code> escape hatch in
+<a class="reference internal" href="download.html#yb.download.download_youtube_audio" title="yb.download.download_youtube_audio"><code class="xref py py-func docutils literal notranslate"><span class="pre">yb.download.download_youtube_audio()</span></code></a>).</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="yb.audio_convert.AudioConversionError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">AudioConversionError</span></span><a class="reference internal" href="../../_modules/yb/audio_convert.html#AudioConversionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.audio_convert.AudioConversionError" title="Link to this definition"></a></dt>
+<dd><p>Raised when audio could not be converted to the requested format.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.audio_convert.DEFAULT_LOSSY_BITRATE">
+<span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_LOSSY_BITRATE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'192k'</span></span><a class="headerlink" href="#yb.audio_convert.DEFAULT_LOSSY_BITRATE" title="Link to this definition"></a></dt>
+<dd><p>Bitrate applied to lossy targets when the caller doesn’t specify one.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.audio_convert.LOSSLESS_FORMATS">
+<span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">LOSSLESS_FORMATS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'aif',</span> <span class="pre">'aiff',</span> <span class="pre">'alac',</span> <span class="pre">'flac',</span> <span class="pre">'wav'})</span></span><a class="headerlink" href="#yb.audio_convert.LOSSLESS_FORMATS" title="Link to this definition"></a></dt>
+<dd><p>Formats that store samples losslessly — a target bitrate is meaningless there.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.audio_convert.convert_audio">
+<span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">convert_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_ffmpeg_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../../_modules/yb/audio_convert.html#convert_audio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.audio_convert.convert_audio" title="Link to this definition"></a></dt>
+<dd><p>Convert <code class="docutils literal notranslate"><span class="pre">src</span></code> to <code class="docutils literal notranslate"><span class="pre">audio_format</span></code>, returning the resulting path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> – The audio file to convert.</p></li>
+<li><p><strong>audio_format</strong> – Target format as an extension (<code class="docutils literal notranslate"><span class="pre">&quot;mp3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;.wav&quot;</span></code>, …).</p></li>
+<li><p><strong>output</strong> – Destination path. Defaults to <code class="docutils literal notranslate"><span class="pre">src</span></code> with the new extension.</p></li>
+<li><p><strong>bitrate</strong> – Target bitrate for lossy formats (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;320k&quot;</span></code>). Defaults to
+<a class="reference internal" href="#yb.audio_convert.DEFAULT_LOSSY_BITRATE" title="yb.audio_convert.DEFAULT_LOSSY_BITRATE"><code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_LOSSY_BITRATE</span></code></a>; ignored for <a class="reference internal" href="#yb.audio_convert.LOSSLESS_FORMATS" title="yb.audio_convert.LOSSLESS_FORMATS"><code class="xref py py-data docutils literal notranslate"><span class="pre">LOSSLESS_FORMATS</span></code></a>.</p></li>
+<li><p><strong>overwrite</strong> – Overwrite <code class="docutils literal notranslate"><span class="pre">output</span></code> if it already exists.</p></li>
+<li><p><strong>extra_ffmpeg_args</strong> – Raw ffmpeg arguments, appended last so they win.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted file’s path — or <code class="docutils literal notranslate"><span class="pre">src</span></code> unchanged when it is already in
+the target format (no pointless re-encode, no generation loss).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If <code class="docutils literal notranslate"><span class="pre">src</span></code> does not exist.</p></li>
+<li><p><a class="reference internal" href="#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><strong>AudioConversionError</strong></a> – If ffmpeg is missing, or the conversion fails.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.audio_convert.normalize_format">
+<span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">normalize_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/yb/audio_convert.html#normalize_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.audio_convert.normalize_format" title="Link to this definition"></a></dt>
+<dd><p>Normalize a format spec to a bare lowercase extension.</p>
+<p>Accepts it with or without the leading dot, in any case:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot;mp3&quot;</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot;.MP3&quot;</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot; .Wav &quot;</span><span class="p">)</span>
+<span class="go">(&#39;mp3&#39;, &#39;mp3&#39;, &#39;wav&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../yb.html" class="btn btn-neutral float-left" title="yb" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="config.html" class="btn btn-neutral float-right" title="yb.config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

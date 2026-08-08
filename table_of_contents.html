@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; yb 0.1.6 documentation</title>
+  <title>&lt;no title&gt; &mdash; yb 0.1.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=6e0256f3"></script>
+      <script src="_static/documentation_options.js?v=ca7ad2ea"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -48,6 +48,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/audio_convert.html">yb.audio_convert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a></li>
@@ -103,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.format_chapter_lines"><code class="docutils literal notranslate"><span class="pre">format_chapter_lines()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.generate_metadata"><code class="docutils literal notranslate"><span class="pre">generate_metadata()</span></code></a></li>
@@ -115,6 +117,14 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/audio_convert.html">yb.audio_convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.AudioConversionError"><code class="docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.DEFAULT_LOSSY_BITRATE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOSSY_BITRATE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.LOSSLESS_FORMATS"><code class="docutils literal notranslate"><span class="pre">LOSSLESS_FORMATS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.convert_audio"><code class="docutils literal notranslate"><span class="pre">convert_audio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.normalize_format"><code class="docutils literal notranslate"><span class="pre">normalize_format()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a><ul>
@@ -134,8 +144,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.AudioConversionError"><code class="docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.convert_audio"><code class="docutils literal notranslate"><span class="pre">convert_audio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_playlist"><code class="docutils literal notranslate"><span class="pre">download_youtube_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.youtube_playlist_info"><code class="docutils literal notranslate"><span class="pre">youtube_playlist_info()</span></code></a></li>
@@ -143,10 +156,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download/youtube.html">yb.download.youtube</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_AUDIO_FMT"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUDIO_FMT</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_OUTTMPL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_OUTTMPL</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DOWNLOAD_DIR_ENV"><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_DIR_ENV</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.OnConvertError"><code class="docutils literal notranslate"><span class="pre">OnConvertError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_playlist"><code class="docutils literal notranslate"><span class="pre">download_youtube_playlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.glob_escape"><code class="docutils literal notranslate"><span class="pre">glob_escape()</span></code></a></li>

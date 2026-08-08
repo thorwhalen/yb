@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yb.audio_convert &mdash; yb 0.1.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            yb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb.html">yb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/audio_convert.html">yb.audio_convert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/config.html">yb.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/content.html">yb.content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/download.html">yb.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/music.html">yb.music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/music/publish.html">yb.music.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast.html">yb.podcast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube.html">yb.youtube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">yb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">yb.audio_convert</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for yb.audio_convert</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Convert audio files between formats with ffmpeg.</span>
+
+<span class="sd">Audio arrives in whatever format the source offers — YouTube&#39;s best audio is</span>
+<span class="sd">typically Opus in a ``.webm`` container — which is usually fine to keep as is.</span>
+<span class="sd">Publishing paths, though, often want something specific: ``.mp3`` for podcast</span>
+<span class="sd">players, ``.wav`` for editing. :func:`convert_audio` is the one-call bridge:</span>
+
+<span class="sd">    &gt;&gt;&gt; from yb.audio_convert import convert_audio</span>
+<span class="sd">    &gt;&gt;&gt; convert_audio(&quot;talk.webm&quot;, &quot;mp3&quot;)  # doctest: +SKIP</span>
+<span class="sd">    PosixPath(&#39;talk.mp3&#39;)</span>
+
+<span class="sd">Conversion is a **no-op when the source is already in the target format**, so it</span>
+<span class="sd">is safe to call unconditionally:</span>
+
+<span class="sd">    &gt;&gt;&gt; convert_audio(&quot;talk.mp3&quot;, &quot;mp3&quot;)  # doctest: +SKIP</span>
+<span class="sd">    PosixPath(&#39;talk.mp3&#39;)</span>
+
+<span class="sd">Requires ``ffmpeg`` on ``PATH``; without it :class:`AudioConversionError` is</span>
+<span class="sd">raised (see also the ``on_error=&quot;warn&quot;`` escape hatch in</span>
+<span class="sd">:func:`yb.download.download_youtube_audio`).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mixing.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_ffmpeg</span>
+
+<span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
+
+<span class="c1">#: Formats that store samples losslessly — a target bitrate is meaningless there.</span>
+<span class="n">LOSSLESS_FORMATS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">&quot;wav&quot;</span><span class="p">,</span> <span class="s2">&quot;flac&quot;</span><span class="p">,</span> <span class="s2">&quot;aiff&quot;</span><span class="p">,</span> <span class="s2">&quot;aif&quot;</span><span class="p">,</span> <span class="s2">&quot;alac&quot;</span><span class="p">})</span>
+
+<span class="c1">#: Bitrate applied to lossy targets when the caller doesn&#39;t specify one.</span>
+<span class="n">DEFAULT_LOSSY_BITRATE</span> <span class="o">=</span> <span class="s2">&quot;192k&quot;</span>
+
+<span class="c1">#: How many trailing lines of ffmpeg&#39;s stderr to quote when it fails.</span>
+<span class="n">_ERROR_TAIL_LINES</span> <span class="o">=</span> <span class="mi">8</span>
+
+
+<div class="viewcode-block" id="AudioConversionError">
+<a class="viewcode-back" href="../../module_docs/yb/download.html#yb.audio_convert.AudioConversionError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AudioConversionError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when audio could not be converted to the requested format.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="normalize_format">
+<a class="viewcode-back" href="../../module_docs/yb/audio_convert.html#yb.audio_convert.normalize_format">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_format</span><span class="p">(</span><span class="n">audio_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a format spec to a bare lowercase extension.</span>
+
+<span class="sd">    Accepts it with or without the leading dot, in any case:</span>
+
+<span class="sd">    &gt;&gt;&gt; normalize_format(&quot;mp3&quot;), normalize_format(&quot;.MP3&quot;), normalize_format(&quot; .Wav &quot;)</span>
+<span class="sd">    (&#39;mp3&#39;, &#39;mp3&#39;, &#39;wav&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">audio_format</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="convert_audio">
+<a class="viewcode-back" href="../../module_docs/yb/download.html#yb.audio_convert.convert_audio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_audio</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">audio_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_ffmpeg_args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert ``src`` to ``audio_format``, returning the resulting path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        src: The audio file to convert.</span>
+<span class="sd">        audio_format: Target format as an extension (``&quot;mp3&quot;``, ``&quot;.wav&quot;``, ...).</span>
+<span class="sd">        output: Destination path. Defaults to ``src`` with the new extension.</span>
+<span class="sd">        bitrate: Target bitrate for lossy formats (e.g. ``&quot;320k&quot;``). Defaults to</span>
+<span class="sd">            :data:`DEFAULT_LOSSY_BITRATE`; ignored for :data:`LOSSLESS_FORMATS`.</span>
+<span class="sd">        overwrite: Overwrite ``output`` if it already exists.</span>
+<span class="sd">        extra_ffmpeg_args: Raw ffmpeg arguments, appended last so they win.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The converted file&#39;s path — or ``src`` unchanged when it is already in</span>
+<span class="sd">        the target format (no pointless re-encode, no generation loss).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If ``src`` does not exist.</span>
+<span class="sd">        AudioConversionError: If ffmpeg is missing, or the conversion fails.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">src</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such audio file: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">normalize_format</span><span class="p">(</span><span class="n">audio_format</span><span class="p">)</span>
+    <span class="c1"># Already in the target format: converting would only lose quality.</span>
+    <span class="k">if</span> <span class="n">normalize_format</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">suffix</span><span class="p">)</span> <span class="o">==</span> <span class="n">fmt</span> <span class="ow">and</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">src</span>
+
+    <span class="n">out_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">if</span> <span class="n">output</span> <span class="k">else</span> <span class="n">src</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Refusing to overwrite existing file: </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> (pass overwrite=True)&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_ffmpeg</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;ffmpeg is required to convert </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> but was not found &quot;</span>
+            <span class="s2">&quot;on PATH. Install it (macOS: `brew install ffmpeg`, Ubuntu: &quot;</span>
+            <span class="s2">&quot;`apt install ffmpeg`), or skip conversion to keep the original file.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ffmpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;-y&quot;</span> <span class="k">if</span> <span class="n">overwrite</span> <span class="k">else</span> <span class="s2">&quot;-n&quot;</span><span class="p">,</span> <span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="s2">&quot;-vn&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">fmt</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LOSSLESS_FORMATS</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-b:a&quot;</span><span class="p">,</span> <span class="n">bitrate</span> <span class="ow">or</span> <span class="n">DEFAULT_LOSSY_BITRATE</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="o">*</span><span class="n">extra_ffmpeg_args</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">)]</span>
+
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">out_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="n">detail</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="n">_ERROR_TAIL_LINES</span><span class="p">:])</span>
+        <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;ffmpeg failed to convert </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> (exit </span><span class="si">{</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">).</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;The original file is untouched at: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_path</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
