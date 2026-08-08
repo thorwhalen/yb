@@ -46,17 +46,38 @@ one — the error only surfaces when you actually call that feature. You also ne
 ### Download
 
 ```python
-from yb.download import download_youtube_video, youtube_video_info
+from yb.download import download_youtube_video, download_youtube_audio, youtube_video_info
 
 youtube_video_info(url)                       # metadata only, no download
 download_youtube_video(url)                   # best quality -> ~/Downloads/"Title (id).mp4"
 download_youtube_video(url, download_dir="~/clips", write_info_json=True,
                        write_subtitles=True, subtitle_langs=("en", "fr"))
+
+download_youtube_audio(url)                   # audio only, source format -> "Title (id).webm"
+download_youtube_audio(url, audio_format="mp3")           # ...converted (needs ffmpeg)
+download_youtube_audio(url, audio_format="mp3", bitrate="320k")
 ```
 
 The destination defaults to `$YB_DOWNLOAD_DIR` (else `~/Downloads`). Every knob
 — format, filename template, which sidecar metadata to also save — is
 overridable, and any raw yt-dlp option can be passed via `extra_opts=`.
+
+**Audio format.** `download_youtube_audio` keeps whatever the source offers by
+default (YouTube's best audio is normally Opus in a `.webm` container). That
+default needs no ffmpeg and avoids re-encoding one lossy format into another.
+Pass `audio_format=` when you need a specific one — it's a no-op if the download
+already is that format, so it's safe to pass unconditionally. If conversion
+can't happen (no ffmpeg) it raises, and **the download is always left on disk**;
+pass `on_error="warn"` to fall back to the unconverted file instead.
+
+The same conversion is available standalone for files you already have:
+
+```python
+from yb.audio_convert import convert_audio
+
+convert_audio("talk.webm", "mp3")             # -> talk.mp3
+convert_audio("talk.webm", "wav")             # lossless: bitrate not applied
+```
 
 ### Publish to YouTube
 
@@ -208,7 +229,8 @@ Point `yb` at the client JSON via `$YOUTUBE_CLIENT_SECRETS_FILE`.
 | `yb.music` | songs → music videos, published as an album | `music` (+`youtube` to upload) |
 | `yb.youtube` | upload, edit + read stats via YouTube Data API v3 | `youtube` |
 | `yb.podcast` | show notes, ID3/PSC chapters, cover video, RSS | `podcast` (+`music` for cover video) |
-| `yb.download` | yt-dlp downloader | `download` |
+| `yb.download` | yt-dlp downloader (video, audio-only, playlists, metadata) | `download` |
+| `yb.audio_convert` | audio format conversion via ffmpeg | core (needs `ffmpeg`) |
 
 The audio→video rendering itself lives in
 [`muvid.visualize`](https://github.com/thorwhalen/muvid) (canvas, visual

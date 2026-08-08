@@ -42,6 +42,7 @@ from yb.content import (
 # extra (yt-dlp / google libs / mutagen) doesn't break ``import yb``.
 _LAZY = {
     "download_youtube_video": "yb.download",
+    "download_youtube_audio": "yb.download",
     "youtube_video_info": "yb.download",
     "prepare_and_publish": "yb.youtube",
     "publish_content": "yb.youtube",
