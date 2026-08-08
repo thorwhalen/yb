@@ -25,7 +25,7 @@ directly (see the **`muvid-visualize`** skill in the `muvid` repo).
 ```python
 from yb.music import prepare_music_video, publish_music, prepare_folder, publish_folder
 
-mv = prepare_music_video("song.wav", image="cover.png")   # render only
+mv = prepare_music_video("song.wav", image="cover.png")  # render only
 mv.video, mv.thumbnail, mv.content.title
 
 publish_music("song.wav", image="cover.png", privacy_status="unlisted")
@@ -37,9 +37,9 @@ with the next visual in a rotation (`waves → cqt → spectrum → bars → sco
 default), a consistent teal accent, one loudness target:
 
 ```python
-publish_folder("~/album", limit=1)                     # test the FIRST song, unlisted
-publish_folder("~/album", playlist="My Album")         # then the whole set
-prepare_folder("~/album", limit=1)                     # render only, no upload, to review
+publish_folder("~/album", limit=1)  # test the FIRST song, unlisted
+publish_folder("~/album", playlist="My Album")  # then the whole set
+prepare_folder("~/album", limit=1)  # render only, no upload, to review
 publish_folder("~/album", cycle=["cqt"], privacy_status="unlisted")  # one look for all
 ```
 
@@ -77,8 +77,9 @@ Rendering can succeed and still be wrong. Check it — do not eyeball it:
 ```python
 from muvid.visualize import verify_video, report, failures
 
-checks = verify_video("song.mp4", audio="song.wav", thumbnail="song.thumb.jpg",
-                      check_loudness=True)     # check_loudness decodes the track
+checks = verify_video(
+    "song.mp4", audio="song.wav", thumbnail="song.thumb.jpg", check_loudness=True
+)  # check_loudness decodes the track
 print(report(checks))
 assert not failures(checks)
 ```
@@ -165,11 +166,13 @@ audio; set `uses_audio=True` and consume `[aviz]` to react to it. It lives in
 ```python
 from muvid.visualize import register_visual, VisualPlan
 
+
 @register_visual("pulse")
 def pulse(ctx):
     w, h = ctx.size
-    return VisualPlan(filters=[f"[aviz]showvolume=w={w}:h={h}[vbg]"],
-                      video="vbg", uses_audio=True)
+    return VisualPlan(
+        filters=[f"[aviz]showvolume=w={w}:h={h}[vbg]"], video="vbg", uses_audio=True
+    )
 ```
 
 The escape hatch: **return a path instead of a plan** and the renderer muxes your

@@ -43,6 +43,7 @@ Add an *already-published* video to a playlist:
 
 ```python
 from yb.youtube import add_video_to_playlist
+
 add_video_to_playlist("VIDEO_ID", "TW Uploads")  # find-or-create, idempotent
 ```
 
@@ -61,10 +62,10 @@ from yb.youtube import prepare_and_publish
 
 result = prepare_and_publish(
     "promo.fr.mp4",
-    language="French",            # language to WRITE metadata in
-    language_code="fr",           # metadata language (defaultLanguage)
-    audio_language_code="fr",     # spoken language (defaultAudioLanguage) — also the caption language
-    brand="Inoocq",               # keep verbatim in copy
+    language="French",  # language to WRITE metadata in
+    language_code="fr",  # metadata language (defaultLanguage)
+    audio_language_code="fr",  # spoken language (defaultAudioLanguage) — also the caption language
+    brand="Inoocq",  # keep verbatim in copy
     privacy_status="unlisted",
 )
 print(result["url"], result["privacy_status"])
@@ -97,9 +98,13 @@ expected, not a bug. Pass `with_chapters=False` to skip them.
 from yb.youtube import update_video_fields, upsert_caption, set_chapters, set_thumbnail
 from mixing.chapters import Chapter
 
-update_video_fields("VIDEO_ID", title="New title", description="...", tags=["a","b"])
-upsert_caption("VIDEO_ID", "subs.fr.srt", language="fr", name="Français")  # replaces same-language track
-set_chapters("VIDEO_ID", [Chapter(0,"Intro"), Chapter(45,"Demo"), Chapter(120,"Pricing")])
+update_video_fields("VIDEO_ID", title="New title", description="...", tags=["a", "b"])
+upsert_caption(
+    "VIDEO_ID", "subs.fr.srt", language="fr", name="Français"
+)  # replaces same-language track
+set_chapters(
+    "VIDEO_ID", [Chapter(0, "Intro"), Chapter(45, "Demo"), Chapter(120, "Pricing")]
+)
 set_thumbnail("VIDEO_ID", "thumb.jpg")
 ```
 
@@ -114,10 +119,16 @@ language, else inserts one. (YouTube's own auto `asr` tracks are left alone.)
 ```python
 from yb.youtube import video_metadata, FIELD_GROUPS
 
-video_metadata("VIDEO_ID", group="engagement")                 # dict of the live numbers
-print(video_metadata("VIDEO_ID", group="engagement", as_table=True))  # readable ASCII table
-video_metadata("VIDEO_ID", fields=["title", "views", "likes"]) # pick/order exact fields
-print(video_metadata(["ID1", "ID2"], group="engagement", as_table=True))  # compare videos (row each)
+video_metadata("VIDEO_ID", group="engagement")  # dict of the live numbers
+print(
+    video_metadata("VIDEO_ID", group="engagement", as_table=True)
+)  # readable ASCII table
+video_metadata(
+    "VIDEO_ID", fields=["title", "views", "likes"]
+)  # pick/order exact fields
+print(
+    video_metadata(["ID1", "ID2"], group="engagement", as_table=True)
+)  # compare videos (row each)
 ```
 
 - No `group`/`fields` → every available field. `fields` overrides `group`.

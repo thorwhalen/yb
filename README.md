@@ -12,8 +12,13 @@ r = yb.download_youtube_video("https://youtu.be/PRa9ciOe-us")
 
 # One call: transcribe, write title/description/keywords, detect chapters,
 # render a thumbnail, and upload to YouTube (unlisted) with captions.
-yb.prepare_and_publish(r.path, language="English", language_code="en",
-                       audio_language_code="en", privacy_status="unlisted")
+yb.prepare_and_publish(
+    r.path,
+    language="English",
+    language_code="en",
+    audio_language_code="en",
+    privacy_status="unlisted",
+)
 ```
 
 ## Why
@@ -46,15 +51,24 @@ one — the error only surfaces when you actually call that feature. You also ne
 ### Download
 
 ```python
-from yb.download import download_youtube_video, download_youtube_audio, youtube_video_info
+from yb.download import (
+    download_youtube_video,
+    download_youtube_audio,
+    youtube_video_info,
+)
 
-youtube_video_info(url)                       # metadata only, no download
-download_youtube_video(url)                   # best quality -> ~/Downloads/"Title (id).mp4"
-download_youtube_video(url, download_dir="~/clips", write_info_json=True,
-                       write_subtitles=True, subtitle_langs=("en", "fr"))
+youtube_video_info(url)  # metadata only, no download
+download_youtube_video(url)  # best quality -> ~/Downloads/"Title (id).mp4"
+download_youtube_video(
+    url,
+    download_dir="~/clips",
+    write_info_json=True,
+    write_subtitles=True,
+    subtitle_langs=("en", "fr"),
+)
 
-download_youtube_audio(url)                   # audio only, source format -> "Title (id).webm"
-download_youtube_audio(url, audio_format="mp3")           # ...converted (needs ffmpeg)
+download_youtube_audio(url)  # audio only, source format -> "Title (id).webm"
+download_youtube_audio(url, audio_format="mp3")  # ...converted (needs ffmpeg)
 download_youtube_audio(url, audio_format="mp3", bitrate="320k")
 ```
 
@@ -75,8 +89,8 @@ The same conversion is available standalone for files you already have:
 ```python
 from yb.audio_convert import convert_audio
 
-convert_audio("talk.webm", "mp3")             # -> talk.mp3
-convert_audio("talk.webm", "wav")             # lossless: bitrate not applied
+convert_audio("talk.webm", "mp3")  # -> talk.mp3
+convert_audio("talk.webm", "wav")  # lossless: bitrate not applied
 ```
 
 ### Publish to YouTube
@@ -85,17 +99,30 @@ convert_audio("talk.webm", "wav")             # lossless: bitrate not applied
 from yb.youtube import prepare_and_publish, VideoMetadata, publish_video, CaptionTrack
 
 # High level: prepare assets from the media file, then upload.
-result = prepare_and_publish("promo.fr.mp4", language="French",
-                             language_code="fr", audio_language_code="fr",
-                             privacy_status="unlisted")
+result = prepare_and_publish(
+    "promo.fr.mp4",
+    language="French",
+    language_code="fr",
+    audio_language_code="fr",
+    privacy_status="unlisted",
+)
 print(result["url"])
 
 # Lower level: you supply the metadata and captions.
-meta = VideoMetadata(title="...", description="...", tags=[...],
-                     default_language="en", default_audio_language="en")
-publish_video("promo.en.mp4", meta, privacy_status="unlisted",
-              captions=[CaptionTrack("promo.en.srt", "en", "English")],
-              thumbnail="thumb.jpg")
+meta = VideoMetadata(
+    title="...",
+    description="...",
+    tags=[...],
+    default_language="en",
+    default_audio_language="en",
+)
+publish_video(
+    "promo.en.mp4",
+    meta,
+    privacy_status="unlisted",
+    captions=[CaptionTrack("promo.en.srt", "en", "English")],
+    thumbnail="thumb.jpg",
+)
 ```
 
 **Chapters** are on by default: when the media is long enough to host them
@@ -110,7 +137,9 @@ from yb.youtube import update_video_fields, upsert_caption, set_chapters, set_th
 from mixing.chapters import Chapter
 
 update_video_fields("VIDEO_ID", title="New title", tags=["a", "b"])
-upsert_caption("VIDEO_ID", "subs.fr.srt", language="fr", name="Français")  # replaces same-lang track
+upsert_caption(
+    "VIDEO_ID", "subs.fr.srt", language="fr", name="Français"
+)  # replaces same-lang track
 set_chapters("VIDEO_ID", [Chapter(0, "Intro"), Chapter(45, "Demo")])
 set_thumbnail("VIDEO_ID", "thumb.jpg")
 ```
@@ -120,10 +149,18 @@ set_thumbnail("VIDEO_ID", "thumb.jpg")
 ```python
 from yb.youtube import video_metadata, FIELD_GROUPS
 
-video_metadata("VIDEO_ID", group="engagement")            # dict: views, likes, dislikes, comments, ...
-print(video_metadata("VIDEO_ID", group="engagement", as_table=True))  # readable ASCII table
-video_metadata("VIDEO_ID", fields=["title", "views", "likes"])        # pick & order exact fields
-print(video_metadata(["ID1", "ID2"], group="engagement", as_table=True))  # compare videos, one row each
+video_metadata(
+    "VIDEO_ID", group="engagement"
+)  # dict: views, likes, dislikes, comments, ...
+print(
+    video_metadata("VIDEO_ID", group="engagement", as_table=True)
+)  # readable ASCII table
+video_metadata(
+    "VIDEO_ID", fields=["title", "views", "likes"]
+)  # pick & order exact fields
+print(
+    video_metadata(["ID1", "ID2"], group="engagement", as_table=True)
+)  # compare videos, one row each
 ```
 
 One request returns a flat, typed view of a video's live numbers plus content
@@ -145,7 +182,7 @@ from yb.music import prepare_music_video, publish_music, publish_folder
 
 # Simplest: the cover on a 16:9 canvas, held for the song's length.
 mv = prepare_music_video("song.wav", image="cover.png")
-mv.video, mv.thumbnail            # -> song.mp4, song.thumb.jpg
+mv.video, mv.thumbnail  # -> song.mp4, song.thumb.jpg
 
 # Render and upload in one call.
 publish_music("song.wav", image="cover.png", privacy_status="unlisted")
@@ -187,6 +224,7 @@ Check what you made before you ship it:
 
 ```python
 from muvid.visualize import verify_video, report
+
 print(report(verify_video("song.mp4", audio="song.wav", thumbnail="song.thumb.jpg")))
 ```
 
@@ -196,10 +234,16 @@ checklist.
 ### Publish a podcast episode
 
 ```python
-from yb.podcast import prepare_podcast_episode, PodcastChannel, EpisodeFeedItem, build_feed
+from yb.podcast import (
+    prepare_podcast_episode,
+    PodcastChannel,
+    EpisodeFeedItem,
+    build_feed,
+)
 
-ep = prepare_podcast_episode("episode.mp3", "out/",
-                             cover_image="cover.jpg", make_cover_video=True)
+ep = prepare_podcast_episode(
+    "episode.mp3", "out/", cover_image="cover.jpg", make_cover_video=True
+)
 # -> out/episode.mp3 (with ID3 chapters), .shownotes.txt, .psc.xml,
 #    .chapters.json, and .cover.mp4
 

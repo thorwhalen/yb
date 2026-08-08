@@ -22,7 +22,7 @@ Destination defaults to `$YB_DOWNLOAD_DIR`, else `~/Downloads`, named
 ```python
 from yb.download import download_youtube_audio
 
-r = download_youtube_audio(url)                      # source format (usually .webm/Opus)
+r = download_youtube_audio(url)  # source format (usually .webm/Opus)
 r = download_youtube_audio(url, audio_format="mp3")  # converted (needs ffmpeg)
 print(r.path, r.video_id)
 ```
@@ -43,10 +43,15 @@ that format, so passing it unconditionally is safe.
 ```python
 from yb.download import download_youtube_video, youtube_video_info
 
-youtube_video_info(url)         # metadata only — title/duration/chapters, no download
-download_youtube_video(url)     # best video+audio, merged to mp4
-download_youtube_video(url, download_dir="~/clips", write_info_json=True,
-                       write_subtitles=True, subtitle_langs=("en", "fr"))
+youtube_video_info(url)  # metadata only — title/duration/chapters, no download
+download_youtube_video(url)  # best video+audio, merged to mp4
+download_youtube_video(
+    url,
+    download_dir="~/clips",
+    write_info_json=True,
+    write_subtitles=True,
+    subtitle_langs=("en", "fr"),
+)
 ```
 
 Sidecars (`write_info_json`, `write_thumbnail`, `write_description`,
@@ -59,8 +64,8 @@ reported in `result.sidecars`. Playlists: `youtube_playlist_info` /
 ```python
 from yb.audio_convert import convert_audio
 
-convert_audio("talk.webm", "mp3", bitrate="320k")   # -> talk.mp3
-convert_audio("talk.webm", "wav")                   # lossless: no bitrate applied
+convert_audio("talk.webm", "mp3", bitrate="320k")  # -> talk.mp3
+convert_audio("talk.webm", "wav")  # lossless: no bitrate applied
 ```
 
 Returns the source unchanged if it's already in the target format. Raises

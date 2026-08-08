@@ -65,11 +65,12 @@ export YOUTUBE_CLIENT_SECRETS_FILE="$HOME/.config/youtube/client_secret.json"   
 
 ```python
 from yb.youtube import get_service
-svc = get_service()          # first run opens a browser; click through the
-                             # "unverified app" warning (your own project) and
-                             # grant the YouTube permissions. Token is cached.
+
+svc = get_service()  # first run opens a browser; click through the
+# "unverified app" warning (your own project) and
+# grant the YouTube permissions. Token is cached.
 me = svc.channels().list(part="snippet", mine=True).execute()
-print(me["items"][0]["snippet"]["title"])   # your channel name => success
+print(me["items"][0]["snippet"]["title"])  # your channel name => success
 ```
 
 If running headless, the consent prints a URL — open it in a browser on the same

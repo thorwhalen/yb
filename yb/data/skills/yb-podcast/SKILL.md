@@ -22,11 +22,11 @@ Burns video).
 from yb.podcast import prepare_podcast_episode
 
 ep = prepare_podcast_episode(
-    "episode.mp3",            # audio, or a video (its audio is extracted)
+    "episode.mp3",  # audio, or a video (its audio is extracted)
     "out/",
     cover_image="cover.jpg",
-    make_cover_video=True,    # also render out/episode.cover.mp4 (e.g. for YouTube)
-    ken_burns=True,           # slow pan/zoom instead of a static image
+    make_cover_video=True,  # also render out/episode.cover.mp4 (e.g. for YouTube)
+    ken_burns=True,  # slow pan/zoom instead of a static image
     language="English",
 )
 # ep.audio (MP3 with ID3 chapters), ep.show_notes, ep.chapters_psc,
@@ -44,15 +44,24 @@ with the file), a **PSC XML sidecar**, and a **JSON** list. Show notes are
 from datetime import datetime, timezone
 from yb.podcast import PodcastChannel, EpisodeFeedItem, build_feed
 
-channel = PodcastChannel(title="My Show", link="https://show.example",
-                         description="...", author="Me", email="me@example.com",
-                         image_url="https://show.example/cover.jpg",
-                         categories=["Technology"])
-item = EpisodeFeedItem(title=ep.content.title, description=open(ep.show_notes).read(),
-                       audio_url="https://host.example/episode.mp3",
-                       audio_length_bytes=ep.audio.stat().st_size,
-                       pubdate=datetime(2026, 6, 3, tzinfo=timezone.utc),
-                       duration_seconds=..., image_url="https://show.example/cover.jpg")
+channel = PodcastChannel(
+    title="My Show",
+    link="https://show.example",
+    description="...",
+    author="Me",
+    email="me@example.com",
+    image_url="https://show.example/cover.jpg",
+    categories=["Technology"],
+)
+item = EpisodeFeedItem(
+    title=ep.content.title,
+    description=open(ep.show_notes).read(),
+    audio_url="https://host.example/episode.mp3",
+    audio_length_bytes=ep.audio.stat().st_size,
+    pubdate=datetime(2026, 6, 3, tzinfo=timezone.utc),
+    duration_seconds=...,
+    image_url="https://show.example/cover.jpg",
+)
 rss = build_feed(channel, [item])
 ```
 
