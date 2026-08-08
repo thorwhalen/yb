@@ -11,17 +11,26 @@ The destination defaults to ``$YB_DOWNLOAD_DIR`` when set, else ``~/Downloads``.
 from __future__ import annotations
 
 import os
+import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 PathLike = str | Path
+
+#: What :func:`download_youtube_audio` does when a format conversion fails.
+OnConvertError = Literal["raise", "warn"]
+
+_ON_CONVERT_ERROR_CHOICES = frozenset({"raise", "warn"})
 
 #: Env var that overrides the default download directory.
 DOWNLOAD_DIR_ENV = "YB_DOWNLOAD_DIR"
 
 #: yt-dlp output template: human title plus the stable id, e.g. "My Talk (dQw4...).mp4".
 DEFAULT_OUTTMPL = "%(title)s (%(id)s).%(ext)s"
+
+#: yt-dlp format selector for the best audio-only stream.
+DEFAULT_AUDIO_FMT = "bestaudio/best"
 
 #: Fields surfaced on the result's ``info`` (the rest of yt-dlp's dict is dropped).
 _INFO_FIELDS = (
@@ -169,6 +178,118 @@ def download_youtube_video(
         subtitles=write_subtitles or write_auto_subtitles,
     )
     return DownloadResult(path=path, info=_trim_info(info), sidecars=sidecars)
+
+
+def download_youtube_audio(
+    url: str,
+    *,
+    download_dir: PathLike | None = None,
+    audio_format: str | None = None,
+    bitrate: str | None = None,
+    keep_original: bool = False,
+    on_error: OnConvertError = "raise",
+    fmt: str = DEFAULT_AUDIO_FMT,
+    filename_template: str = DEFAULT_OUTTMPL,
+    write_info_json: bool = False,
+    write_thumbnail: bool = False,
+    write_description: bool = False,
+    write_subtitles: bool = False,
+    write_auto_subtitles: bool = False,
+    subtitle_langs: tuple[str, ...] = ("en",),
+    quiet: bool = True,
+    extra_opts: dict | None = None,
+) -> DownloadResult:
+    """Download only a video's audio (no video stream).
+
+    Simplest use: ``download_youtube_audio(url)`` → the best audio stream, kept
+    in whatever format the source offers (YouTube's is usually Opus in a
+    ``.webm`` container), named ``Title (video_id).webm`` in ``~/Downloads``.
+
+    Pass ``audio_format`` to get a specific format instead:
+
+        >>> download_youtube_audio(url, audio_format="mp3")  # doctest: +SKIP
+
+    Args:
+        url: The video URL (or id).
+        download_dir: Destination directory. Defaults to
+            :func:`default_download_dir`.
+        audio_format: Target format as an extension (``"mp3"``, ``".wav"``, ...).
+            The default ``None`` means **no conversion** — keep the downloaded
+            bytes exactly as they came, which needs no ffmpeg and avoids
+            re-encoding a lossy stream into another lossy format.
+        bitrate: Bitrate for lossy targets (e.g. ``"320k"``). Ignored when
+            ``audio_format`` is lossless or ``None``.
+        keep_original: When converting, also keep the originally downloaded
+            file (by default it is removed once converted).
+        on_error: What to do when conversion fails (ffmpeg missing or erroring).
+            ``"raise"`` (default) propagates
+            :class:`~yb.audio_convert.AudioConversionError`; ``"warn"`` emits a
+            warning and returns the unconverted download. Either way the
+            downloaded audio is left on disk — a failed conversion never costs
+            you the download.
+        fmt: yt-dlp format selector (default best audio-only stream).
+        filename_template: yt-dlp output template (default
+            ``"%(title)s (%(id)s).%(ext)s"``).
+        write_info_json: Also save the full metadata as ``*.info.json``.
+        write_thumbnail: Also save the thumbnail image.
+        write_description: Also save the description as ``*.description``.
+        write_subtitles: Also save uploaded subtitles for ``subtitle_langs``.
+        write_auto_subtitles: Also save auto-generated subtitles.
+        subtitle_langs: Subtitle languages to fetch when subtitles are enabled.
+        quiet: Suppress yt-dlp console output.
+        extra_opts: Any additional raw yt-dlp options (merged last, so they win).
+
+    Returns:
+        A :class:`DownloadResult` whose ``path`` is the audio file — converted
+        when ``audio_format`` was given and conversion succeeded.
+
+    Raises:
+        ValueError: If ``on_error`` is not ``"raise"`` or ``"warn"``.
+        AudioConversionError: If conversion fails and ``on_error="raise"``.
+    """
+    if on_error not in _ON_CONVERT_ERROR_CHOICES:
+        raise ValueError(
+            f"on_error must be one of {sorted(_ON_CONVERT_ERROR_CHOICES)}, "
+            f"got {on_error!r}"
+        )
+
+    result = download_youtube_video(
+        url,
+        download_dir=download_dir,
+        fmt=fmt,
+        merge_to=None,  # keep the audio stream's own container
+        filename_template=filename_template,
+        write_info_json=write_info_json,
+        write_thumbnail=write_thumbnail,
+        write_description=write_description,
+        write_subtitles=write_subtitles,
+        write_auto_subtitles=write_auto_subtitles,
+        subtitle_langs=subtitle_langs,
+        quiet=quiet,
+        extra_opts=extra_opts,
+    )
+    if audio_format is None:
+        return result
+
+    from yb.audio_convert import AudioConversionError, convert_audio
+
+    original = result.path
+    try:
+        converted = convert_audio(original, audio_format, bitrate=bitrate)
+    except AudioConversionError:
+        if on_error == "raise":
+            raise
+        warnings.warn(
+            f"Could not convert to {audio_format!r}; keeping the downloaded "
+            f"file as is: {original}",
+            stacklevel=2,
+        )
+        return result
+
+    if converted != original and not keep_original:
+        original.unlink(missing_ok=True)
+    result.path = converted
+    return result
 
 
 def youtube_playlist_info(
