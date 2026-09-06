@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.podcast &mdash; yb 0.1.7 documentation</title>
+  <title>yb.podcast &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -115,7 +115,7 @@
 <p>Optionally installed (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[podcast]'</span></code>). Consumes the same
 platform-neutral <a class="reference internal" href="content.html#yb.content.PublicationContent" title="yb.content.PublicationContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">yb.content.PublicationContent</span></code></a> as the YouTube adapter.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.podcast</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_podcast_episode</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span> <span class="o">=</span> <span class="n">prepare_podcast_episode</span><span class="p">(</span><span class="s2">&quot;episode.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;out/&quot;</span><span class="p">,</span> <span class="n">cover_image</span><span class="o">=</span><span class="s2">&quot;cover.jpg&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span> <span class="o">=</span> <span class="n">prepare_podcast_episode</span><span class="p">(</span><span class="s2">"episode.mp3"</span><span class="p">,</span> <span class="s2">"out/"</span><span class="p">,</span> <span class="n">cover_image</span><span class="o">=</span><span class="s2">"cover.jpg"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">show_notes</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">chapters_psc</span><span class="p">)</span>
 </pre></div>
 </div>

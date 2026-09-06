@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.audio_convert &mdash; yb 0.1.7 documentation</title>
+  <title>yb.audio_convert &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -112,14 +112,14 @@ typically Opus in a <code class="docutils literal notranslate"><span class="pre"
 Publishing paths, though, often want something specific: <code class="docutils literal notranslate"><span class="pre">.mp3</span></code> for podcast
 players, <code class="docutils literal notranslate"><span class="pre">.wav</span></code> for editing. <a class="reference internal" href="#yb.audio_convert.convert_audio" title="yb.audio_convert.convert_audio"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_audio()</span></code></a> is the one-call bridge:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.audio_convert</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_audio</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">&quot;talk.webm&quot;</span><span class="p">,</span> <span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
-<span class="go">PosixPath(&#39;talk.mp3&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">"talk.webm"</span><span class="p">,</span> <span class="s2">"mp3"</span><span class="p">)</span>
+<span class="go">PosixPath('talk.mp3')</span>
 </pre></div>
 </div>
 <p>Conversion is a <strong>no-op when the source is already in the target format</strong>, so it
 is safe to call unconditionally:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">&quot;talk.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
-<span class="go">PosixPath(&#39;talk.mp3&#39;)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert_audio</span><span class="p">(</span><span class="s2">"talk.mp3"</span><span class="p">,</span> <span class="s2">"mp3"</span><span class="p">)</span>
+<span class="go">PosixPath('talk.mp3')</span>
 </pre></div>
 </div>
 <p>Requires <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>; without it <a class="reference internal" href="#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a> is
@@ -177,8 +177,8 @@ the target format (no pointless re-encode, no generation loss).</p>
 <span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">normalize_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/yb/audio_convert.html#normalize_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.audio_convert.normalize_format" title="Link to this definition"></a></dt>
 <dd><p>Normalize a format spec to a bare lowercase extension.</p>
 <p>Accepts it with or without the leading dot, in any case:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot;mp3&quot;</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot;.MP3&quot;</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">&quot; .Wav &quot;</span><span class="p">)</span>
-<span class="go">(&#39;mp3&#39;, &#39;mp3&#39;, &#39;wav&#39;)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_format</span><span class="p">(</span><span class="s2">"mp3"</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">".MP3"</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">" .Wav "</span><span class="p">)</span>
+<span class="go">('mp3', 'mp3', 'wav')</span>
 </pre></div>
 </div>
 </dd></dl>

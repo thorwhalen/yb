@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.captions &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.captions &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,16 +95,16 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.youtube.captions</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.</span>
+<span></span><span class="sd">"""Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.</span>
 
 <span class="sd">Lets you attach an SRT/VTT track at upload time *and* manage tracks on</span>
 <span class="sd">already-published videos — e.g. replace a hand-edited subtitle file, or add a</span>
 <span class="sd">track in a new language. ``upsert_caption`` is the convenient default: it</span>
 <span class="sd">updates an existing same-language track if present, else inserts a new one.</span>
 
-<span class="sd">Note: YouTube auto-generates ASR tracks of its own (``trackKind=&quot;asr&quot;``);</span>
-<span class="sd">these helpers operate on uploaded ``&quot;standard&quot;`` tracks and ignore ASR.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Note: YouTube auto-generates ASR tracks of its own (``trackKind="asr"``);</span>
+<span class="sd">these helpers operate on uploaded ``"standard"`` tracks and ignore ASR.</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -118,18 +118,18 @@
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/captions.html#yb.CaptionTrack">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">CaptionTrack</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A caption track to attach to a video.</span>
+<span class="w">    </span><span class="sd">"""A caption track to attach to a video.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        path: Path to an ``.srt`` (or ``.vtt``) file.</span>
-<span class="sd">        language: BCP-47 language code, e.g. ``&quot;en&quot;`` or ``&quot;fr&quot;``.</span>
-<span class="sd">        name: Track name shown in the YouTube UI (e.g. ``&quot;English&quot;``).</span>
+<span class="sd">        language: BCP-47 language code, e.g. ``"en"`` or ``"fr"``.</span>
+<span class="sd">        name: Track name shown in the YouTube UI (e.g. ``"English"``).</span>
 <span class="sd">        is_draft: When ``True``, uploaded but not published to viewers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">path</span><span class="p">:</span> <span class="n">PathLike</span>
     <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">is_draft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
@@ -137,13 +137,13 @@
 <div class="viewcode-block" id="list_captions">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/captions.html#yb.list_captions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_captions</span><span class="p">(</span><span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List caption tracks on a video (each item&#39;s snippet has language/name/trackKind/status).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""List caption tracks on a video (each item's snippet has language/name/trackKind/status)."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">videoId</span><span class="o">=</span><span class="n">video_id</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">"snippet"</span><span class="p">,</span> <span class="n">videoId</span><span class="o">=</span><span class="n">video_id</span><span class="p">)</span>
         <span class="o">.</span><span class="n">execute</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="p">[])</span>
     <span class="p">)</span></div>
 
 
@@ -155,28 +155,28 @@
     <span class="n">path</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">language</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">is_draft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Insert a new caption track (``captions.insert``).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Insert a new caption track (``captions.insert``)."""</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">googleapiclient.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">MediaFileUpload</span>
 
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;videoId&quot;</span><span class="p">:</span> <span class="n">video_id</span><span class="p">,</span>
-            <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="n">language</span><span class="p">,</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-            <span class="s2">&quot;isDraft&quot;</span><span class="p">:</span> <span class="n">is_draft</span><span class="p">,</span>
+        <span class="s2">"snippet"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"videoId"</span><span class="p">:</span> <span class="n">video_id</span><span class="p">,</span>
+            <span class="s2">"language"</span><span class="p">:</span> <span class="n">language</span><span class="p">,</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">"isDraft"</span><span class="p">:</span> <span class="n">is_draft</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="n">media</span> <span class="o">=</span> <span class="n">MediaFileUpload</span><span class="p">(</span>
-        <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span> <span class="n">resumable</span><span class="o">=</span><span class="kc">False</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">"application/octet-stream"</span><span class="p">,</span> <span class="n">resumable</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span>
-        <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">media_body</span><span class="o">=</span><span class="n">media</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">"snippet"</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">media_body</span><span class="o">=</span><span class="n">media</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
     <span class="p">)</span></div>
 
 
@@ -191,16 +191,16 @@
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace the content of an existing caption track (``captions.update``).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Replace the content of an existing caption track (``captions.update``)."""</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">googleapiclient.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">MediaFileUpload</span>
 
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
-    <span class="n">body</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">caption_id</span><span class="p">}</span>
+    <span class="n">body</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">caption_id</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">is_draft</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">body</span><span class="p">[</span><span class="s2">&quot;snippet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;isDraft&quot;</span><span class="p">:</span> <span class="n">is_draft</span><span class="p">}</span>
-    <span class="n">part</span> <span class="o">=</span> <span class="s2">&quot;snippet&quot;</span> <span class="k">if</span> <span class="s2">&quot;snippet&quot;</span> <span class="ow">in</span> <span class="n">body</span> <span class="k">else</span> <span class="s2">&quot;id&quot;</span>
+        <span class="n">body</span><span class="p">[</span><span class="s2">"snippet"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"isDraft"</span><span class="p">:</span> <span class="n">is_draft</span><span class="p">}</span>
+    <span class="n">part</span> <span class="o">=</span> <span class="s2">"snippet"</span> <span class="k">if</span> <span class="s2">"snippet"</span> <span class="ow">in</span> <span class="n">body</span> <span class="k">else</span> <span class="s2">"id"</span>
     <span class="n">media</span> <span class="o">=</span> <span class="n">MediaFileUpload</span><span class="p">(</span>
-        <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span> <span class="n">resumable</span><span class="o">=</span><span class="kc">False</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">"application/octet-stream"</span><span class="p">,</span> <span class="n">resumable</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">media_body</span><span class="o">=</span><span class="n">media</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 
@@ -210,16 +210,16 @@
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/captions.html#yb.upsert_caption">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">upsert_caption</span><span class="p">(</span>
     <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;CaptionTrack | PathLike&quot;</span><span class="p">,</span>
+    <span class="n">track</span><span class="p">:</span> <span class="s2">"CaptionTrack | PathLike"</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">is_draft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Insert a caption track, or update the existing same-language one.</span>
+<span class="w">    </span><span class="sd">"""Insert a caption track, or update the existing same-language one.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        video_id: Target video.</span>
@@ -229,7 +229,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The inserted/updated caption resource.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">CaptionTrack</span><span class="p">):</span>
         <span class="n">path</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">is_draft</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">track</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
@@ -240,14 +240,14 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">track</span>
         <span class="k">if</span> <span class="n">language</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;language is required when track is a path.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"language is required when track is a path."</span><span class="p">)</span>
 
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">replace</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_captions</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">):</span>
-            <span class="n">sn</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;snippet&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;trackKind&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;standard&quot;</span> <span class="ow">and</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">language</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">update_caption</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">path</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
+            <span class="n">sn</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">"snippet"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"trackKind"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"standard"</span> <span class="ow">and</span> <span class="n">sn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"language"</span><span class="p">)</span> <span class="o">==</span> <span class="n">language</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">update_caption</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span> <span class="n">path</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">insert_caption</span><span class="p">(</span>
         <span class="n">video_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">is_draft</span><span class="o">=</span><span class="n">is_draft</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span>
     <span class="p">)</span></div>
@@ -257,9 +257,9 @@
 <div class="viewcode-block" id="download_caption">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/captions.html#yb.download_caption">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">download_caption</span><span class="p">(</span>
-    <span class="n">caption_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tfmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;srt&quot;</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
+    <span class="n">caption_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tfmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"srt"</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a caption track&#39;s content (``captions.download``), default SRT.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Download a caption track's content (``captions.download``), default SRT."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">caption_id</span><span class="p">,</span> <span class="n">tfmt</span><span class="o">=</span><span class="n">tfmt</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 
@@ -268,7 +268,7 @@
 <div class="viewcode-block" id="delete_caption">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/captions.html#yb.delete_caption">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete_caption</span><span class="p">(</span><span class="n">caption_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete a caption track (``captions.delete``).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Delete a caption track (``captions.delete``)."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">service</span><span class="o">.</span><span class="n">captions</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">caption_id</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 

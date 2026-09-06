@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.publish &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.publish &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,7 +95,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.youtube.publish</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;High-level YouTube publishing: prepare → upload → captions → thumbnail.</span>
+<span></span><span class="sd">"""High-level YouTube publishing: prepare → upload → captions → thumbnail.</span>
 
 <span class="sd">Two entry points:</span>
 <span class="sd">    - :func:`publish_content` — given a prepared</span>
@@ -104,7 +104,7 @@
 <span class="sd">    - :func:`prepare_and_publish` — the one-call path: transcribe/derive</span>
 <span class="sd">      metadata/detect chapters (via :func:`yb.content.prepare_content`) and</span>
 <span class="sd">      upload, all from a media path.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -121,7 +121,7 @@
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
 
-<span class="c1">#: Sentinel marking &quot;argument not given — fall back to the config default&quot;.</span>
+<span class="c1">#: Sentinel marking "argument not given — fall back to the config default".</span>
 <span class="c1">#: Distinguishes an unset playlist (use config) from an explicit ``None``</span>
 <span class="c1">#: (publish without adding to any playlist).</span>
 <span class="n">_USE_CONFIG</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
@@ -130,12 +130,12 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_maybe_add_to_playlist</span><span class="p">(</span>
     <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">playlist</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">YbConfig</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add ``video_id`` to ``playlist`` (a title, or the config default).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Add ``video_id`` to ``playlist`` (a title, or the config default)."""</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">playlist</span> <span class="k">if</span> <span class="n">playlist</span> <span class="ow">is</span> <span class="n">_USE_CONFIG</span> <span class="k">else</span> <span class="n">playlist</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  adding to playlist: </span><span class="si">{</span><span class="n">title</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  adding to playlist: </span><span class="si">{</span><span class="n">title</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">add_video_to_playlist</span><span class="p">(</span>
         <span class="n">video_id</span><span class="p">,</span>
         <span class="n">title</span><span class="p">,</span>
@@ -161,8 +161,9 @@
     <span class="n">token_file</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Upload a prepared :class:`PublicationContent` to YouTube.</span>
+<span class="w">    </span><span class="sd">"""Upload a prepared :class:`PublicationContent` to YouTube.</span>
 
 <span class="sd">    Maps the content to a YouTube snippet (chapters embedded in the</span>
 <span class="sd">    description when present), uploads, attaches the SRT caption track</span>
@@ -170,32 +171,35 @@
 <span class="sd">    thumbnail when available, and adds the video to the configured playlist.</span>
 
 <span class="sd">    ``privacy_status`` and ``playlist`` default to your ``yb`` config (see</span>
-<span class="sd">    :mod:`yb.config`): unset means &quot;use the config value&quot;, so privacy falls back</span>
+<span class="sd">    :mod:`yb.config`): unset means "use the config value", so privacy falls back</span>
 <span class="sd">    to ``unlisted`` and the video joins your configured playlist. Pass</span>
-<span class="sd">    ``playlist=None`` to skip the playlist for one call, or ``playlist=&quot;Name&quot;``</span>
+<span class="sd">    ``playlist=None`` to skip the playlist for one call, or ``playlist="Name"``</span>
 <span class="sd">    to override the target.</span>
 
+<span class="sd">    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.</span>
+<span class="sd">    ``open_browser=False, port=8080`` for headless consent).</span>
+
 <span class="sd">    Returns:</span>
-<span class="sd">        ``{&quot;video_id&quot;, &quot;url&quot;, &quot;studio_url&quot;, &quot;privacy_status&quot;, &quot;captions&quot;,</span>
-<span class="sd">        &quot;thumbnail&quot;, &quot;playlist&quot;}``. ``privacy_status`` reflects what YouTube</span>
-<span class="sd">        actually set (an unaudited project may force ``&quot;private&quot;``); ``playlist``</span>
+<span class="sd">        ``{"video_id", "url", "studio_url", "privacy_status", "captions",</span>
+<span class="sd">        "thumbnail", "playlist"}``. ``privacy_status`` reflects what YouTube</span>
+<span class="sd">        actually set (an unaudited project may force ``"private"``); ``playlist``</span>
 <span class="sd">        is the :func:`~yb.youtube.playlists.add_video_to_playlist` result or</span>
 <span class="sd">        ``None``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">load_config</span><span class="p">(</span><span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">)</span>
     <span class="n">privacy_status</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">privacy_status</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">get_service</span><span class="p">(</span>
-        <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">token_file</span><span class="o">=</span><span class="n">token_file</span>
+        <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">token_file</span><span class="o">=</span><span class="n">token_file</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
     <span class="p">)</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">VideoMetadata</span><span class="o">.</span><span class="n">from_content</span><span class="p">(</span>
         <span class="n">content</span><span class="p">,</span> <span class="n">category_id</span><span class="o">=</span><span class="n">category_id</span><span class="p">,</span> <span class="n">with_chapters</span><span class="o">=</span><span class="n">with_chapters</span>
     <span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">insert_body</span><span class="p">(</span><span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploading </span><span class="si">{</span><span class="n">content</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> as </span><span class="si">{</span><span class="n">privacy_status</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Uploading </span><span class="si">{</span><span class="n">content</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> as </span><span class="si">{</span><span class="n">privacy_status</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">upload_video</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">media</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
-    <span class="n">video_id</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
-    <span class="n">actual_privacy</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;privacyStatus&quot;</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">)</span>
+    <span class="n">video_id</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
+    <span class="n">actual_privacy</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"privacyStatus"</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">)</span>
 
     <span class="n">captions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cap_lang</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">audio_language</span> <span class="ow">or</span> <span class="n">content</span><span class="o">.</span><span class="n">language</span>
@@ -206,7 +210,7 @@
         <span class="ow">and</span> <span class="n">cap_lang</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  attaching caption: </span><span class="si">{</span><span class="n">cap_lang</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  attaching caption: </span><span class="si">{</span><span class="n">cap_lang</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">upsert_caption</span><span class="p">(</span>
             <span class="n">video_id</span><span class="p">,</span>
             <span class="n">content</span><span class="o">.</span><span class="n">srt_path</span><span class="p">,</span>
@@ -219,7 +223,7 @@
     <span class="n">thumb_set</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">set_thumb</span> <span class="ow">and</span> <span class="n">content</span><span class="o">.</span><span class="n">thumbnail</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  setting thumbnail&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"  setting thumbnail"</span><span class="p">)</span>
         <span class="n">set_thumbnail</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">content</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
         <span class="n">thumb_set</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -235,7 +239,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">prepare_and_publish</span><span class="p">(</span>
     <span class="n">media</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"English"</span><span class="p">,</span>
     <span class="n">language_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">audio_language_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">brand</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -249,15 +253,19 @@
     <span class="n">client_secrets_file</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">token_file</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;One call: prepare publication content from ``media`` and upload it.</span>
+<span class="w">    </span><span class="sd">"""One call: prepare publication content from ``media`` and upload it.</span>
 
 <span class="sd">    Transcribes (persisting the SRT next to the media) if needed, writes</span>
 <span class="sd">    LLM metadata, detects chapters, renders a thumbnail, then uploads with</span>
 <span class="sd">    captions + thumbnail + chapters and adds the video to the configured</span>
 <span class="sd">    playlist. ``privacy_status`` and ``playlist`` default to your ``yb`` config</span>
 <span class="sd">    (see :func:`publish_content`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="sd">    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.</span>
+<span class="sd">    ``open_browser=False, port=8080`` for headless consent).</span>
+<span class="sd">    """</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">prepare_content</span><span class="p">(</span>
         <span class="n">media</span><span class="p">,</span>
         <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span>
@@ -278,6 +286,7 @@
         <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span>
         <span class="n">token_file</span><span class="o">=</span><span class="n">token_file</span><span class="p">,</span>
         <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -297,28 +306,32 @@
     <span class="n">token_file</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lower-level upload: explicit :class:`VideoMetadata` + caption tracks.</span>
+<span class="w">    </span><span class="sd">"""Lower-level upload: explicit :class:`VideoMetadata` + caption tracks.</span>
 
 <span class="sd">    ``privacy_status`` and ``playlist`` default to your ``yb`` config (see</span>
 <span class="sd">    :func:`publish_content`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="sd">    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.</span>
+<span class="sd">    ``open_browser=False, port=8080`` for headless consent).</span>
+<span class="sd">    """</span>
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">load_config</span><span class="p">(</span><span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">)</span>
     <span class="n">privacy_status</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">privacy_status</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">get_service</span><span class="p">(</span>
-        <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">token_file</span><span class="o">=</span><span class="n">token_file</span>
+        <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">token_file</span><span class="o">=</span><span class="n">token_file</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
     <span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">insert_body</span><span class="p">(</span><span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploading </span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> as </span><span class="si">{</span><span class="n">privacy_status</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Uploading </span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> as </span><span class="si">{</span><span class="n">privacy_status</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">upload_video</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
-    <span class="n">video_id</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
-    <span class="n">actual_privacy</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;privacyStatus&quot;</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">)</span>
+    <span class="n">video_id</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
+    <span class="n">actual_privacy</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"privacyStatus"</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">)</span>
 
     <span class="n">attached</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">captions</span> <span class="ow">or</span> <span class="p">[]:</span>
         <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  attaching caption: </span><span class="si">{</span><span class="n">cap</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">cap</span><span class="o">.</span><span class="n">language</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  attaching caption: </span><span class="si">{</span><span class="n">cap</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">cap</span><span class="o">.</span><span class="n">language</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">upsert_caption</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">cap</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
         <span class="n">attached</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cap</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
 
@@ -336,26 +349,26 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_result</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">privacy</span><span class="p">,</span> <span class="n">captions</span><span class="p">,</span> <span class="n">thumb</span><span class="p">,</span> <span class="n">playlist</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;video_id&quot;</span><span class="p">:</span> <span class="n">video_id</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://youtu.be/</span><span class="si">{</span><span class="n">video_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;studio_url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://studio.youtube.com/video/</span><span class="si">{</span><span class="n">video_id</span><span class="si">}</span><span class="s2">/edit&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;privacy_status&quot;</span><span class="p">:</span> <span class="n">privacy</span><span class="p">,</span>
-        <span class="s2">&quot;captions&quot;</span><span class="p">:</span> <span class="n">captions</span><span class="p">,</span>
-        <span class="s2">&quot;thumbnail&quot;</span><span class="p">:</span> <span class="n">thumb</span><span class="p">,</span>
-        <span class="s2">&quot;playlist&quot;</span><span class="p">:</span> <span class="n">playlist</span><span class="p">,</span>
+        <span class="s2">"video_id"</span><span class="p">:</span> <span class="n">video_id</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"https://youtu.be/</span><span class="si">{</span><span class="n">video_id</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"studio_url"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"https://studio.youtube.com/video/</span><span class="si">{</span><span class="n">video_id</span><span class="si">}</span><span class="s2">/edit"</span><span class="p">,</span>
+        <span class="s2">"privacy_status"</span><span class="p">:</span> <span class="n">privacy</span><span class="p">,</span>
+        <span class="s2">"captions"</span><span class="p">:</span> <span class="n">captions</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="p">:</span> <span class="n">thumb</span><span class="p">,</span>
+        <span class="s2">"playlist"</span><span class="p">:</span> <span class="n">playlist</span><span class="p">,</span>
     <span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_lang_name</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;Français&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;es&quot;</span><span class="p">:</span> <span class="s2">&quot;Español&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;de&quot;</span><span class="p">:</span> <span class="s2">&quot;Deutsch&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;it&quot;</span><span class="p">:</span> <span class="s2">&quot;Italiano&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="s2">&quot;Português&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ja&quot;</span><span class="p">:</span> <span class="s2">&quot;日本語&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;zh&quot;</span><span class="p">:</span> <span class="s2">&quot;中文&quot;</span><span class="p">,</span>
+        <span class="s2">"en"</span><span class="p">:</span> <span class="s2">"English"</span><span class="p">,</span>
+        <span class="s2">"fr"</span><span class="p">:</span> <span class="s2">"Français"</span><span class="p">,</span>
+        <span class="s2">"es"</span><span class="p">:</span> <span class="s2">"Español"</span><span class="p">,</span>
+        <span class="s2">"de"</span><span class="p">:</span> <span class="s2">"Deutsch"</span><span class="p">,</span>
+        <span class="s2">"it"</span><span class="p">:</span> <span class="s2">"Italiano"</span><span class="p">,</span>
+        <span class="s2">"pt"</span><span class="p">:</span> <span class="s2">"Português"</span><span class="p">,</span>
+        <span class="s2">"ja"</span><span class="p">:</span> <span class="s2">"日本語"</span><span class="p">,</span>
+        <span class="s2">"zh"</span><span class="p">:</span> <span class="s2">"中文"</span><span class="p">,</span>
     <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
 </pre></div>
 

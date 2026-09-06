@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.download &mdash; yb 0.1.7 documentation</title>
+  <title>yb.download &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -120,7 +120,7 @@
 <p>A separate, optionally-installed module (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[download]'</span></code>).
 Common use:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.download</span><span class="w"> </span><span class="kn">import</span> <span class="n">download_youtube_video</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">download_youtube_video</span><span class="p">(</span><span class="s2">&quot;https://youtu.be/PRa9ciOe-us&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">download_youtube_video</span><span class="p">(</span><span class="s2">"https://youtu.be/PRa9ciOe-us"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">video_id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -128,7 +128,7 @@ Common use:</p>
 <a class="reference internal" href="#yb.download.download_youtube_audio" title="yb.download.download_youtube_audio"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a>, which keeps the source format by default and
 converts only when you ask it to (conversion needs ffmpeg):</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.download</span><span class="w"> </span><span class="kn">import</span> <span class="n">download_youtube_audio</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span> <span class="o">=</span> <span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span> <span class="o">=</span> <span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">"mp3"</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py exception">
@@ -226,7 +226,7 @@ the target format (no pointless re-encode, no generation loss).</p>
 in whatever format the source offers (YouTube’s is usually Opus in a
 <code class="docutils literal notranslate"><span class="pre">.webm</span></code> container), named <code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">(video_id).webm</span></code> in <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>.</p>
 <p>Pass <code class="docutils literal notranslate"><span class="pre">audio_format</span></code> to get a specific format instead:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">&quot;mp3&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">"mp3"</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

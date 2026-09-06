@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.auth &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.auth &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,18 +95,18 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.youtube.auth</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;OAuth 2.0 plumbing for the YouTube Data API v3.</span>
+<span></span><span class="sd">"""OAuth 2.0 plumbing for the YouTube Data API v3.</span>
 
 <span class="sd">Runs the installed-app consent flow once (browser), caches the token, and</span>
 <span class="sd">refreshes it silently thereafter. Needs only ``google-api-python-client`` +</span>
-<span class="sd">``google-auth-oauthlib`` (``pip install &#39;yb[youtube]&#39;``) and an OAuth client of</span>
+<span class="sd">``google-auth-oauthlib`` (``pip install 'yb[youtube]'``) and an OAuth client of</span>
 <span class="sd">type *Desktop app* — point ``client_secrets_file`` at its JSON or set</span>
 <span class="sd">``$YOUTUBE_CLIENT_SECRETS_FILE`` / ``$GOOGLE_CLIENT_SECRETS_FILE``.</span>
 
 <span class="sd">No ``gcloud`` required: creating the project / enabling the API / making the</span>
 <span class="sd">OAuth client is all doable in the Google Cloud console (the ``yb-setup`` skill</span>
 <span class="sd">walks through it).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -118,37 +118,37 @@
 
 <span class="c1">#: Upload + force-ssl (the latter is needed for captions.insert and thumbnails.set).</span>
 <span class="n">DEFAULT_SCOPES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;https://www.googleapis.com/auth/youtube.upload&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;https://www.googleapis.com/auth/youtube.force-ssl&quot;</span><span class="p">,</span>
+    <span class="s2">"https://www.googleapis.com/auth/youtube.upload"</span><span class="p">,</span>
+    <span class="s2">"https://www.googleapis.com/auth/youtube.force-ssl"</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">_CLIENT_SECRETS_ENV</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;YOUTUBE_CLIENT_SECRETS_FILE&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGLE_CLIENT_SECRETS_FILE&quot;</span><span class="p">)</span>
+<span class="n">_CLIENT_SECRETS_ENV</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"YOUTUBE_CLIENT_SECRETS_FILE"</span><span class="p">,</span> <span class="s2">"GOOGLE_CLIENT_SECRETS_FILE"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_config_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;``yb`` config directory (``$XDG_CONFIG_HOME`` or ``~/.config``)/``yb``.&quot;&quot;&quot;</span>
-    <span class="n">base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;XDG_CONFIG_HOME&quot;</span><span class="p">)</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span> <span class="k">if</span> <span class="n">base</span> <span class="k">else</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;.config&quot;</span>
-    <span class="k">return</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;yb&quot;</span>
+<span class="w">    </span><span class="sd">"""``yb`` config directory (``$XDG_CONFIG_HOME`` or ``~/.config``)/``yb``."""</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"XDG_CONFIG_HOME"</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span> <span class="k">if</span> <span class="n">base</span> <span class="k">else</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">".config"</span>
+    <span class="k">return</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"yb"</span>
 
 
 <div class="viewcode-block" id="default_token_file">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/auth.html#yb.youtube.default_token_file">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">default_token_file</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cached OAuth token location (``$XDG_CONFIG_HOME`` or ``~/.config``).&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_config_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;youtube_token.json&quot;</span></div>
+<span class="w">    </span><span class="sd">"""Cached OAuth token location (``$XDG_CONFIG_HOME`` or ``~/.config``)."""</span>
+    <span class="k">return</span> <span class="n">_config_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">"youtube_token.json"</span></div>
 
 
 
 <div class="viewcode-block" id="default_client_secrets_file">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/auth.html#yb.youtube.default_client_secrets_file">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">default_client_secrets_file</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Default OAuth client-secrets location: ``&lt;config dir&gt;/client_secret.json``.</span>
+<span class="w">    </span><span class="sd">"""Default OAuth client-secrets location: ``&lt;config dir&gt;/client_secret.json``.</span>
 
 <span class="sd">    Used when neither ``client_secrets_file=`` nor the env vars are set, so all</span>
-<span class="sd">    of ``yb``&#39;s state can live in one directory next to the token.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_config_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;client_secret.json&quot;</span></div>
+<span class="sd">    of ``yb``'s state can live in one directory next to the token.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">_config_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">"client_secret.json"</span></div>
 
 
 
@@ -163,9 +163,9 @@
     <span class="k">if</span> <span class="n">default</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">default</span>
     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-        <span class="s2">&quot;No OAuth client secrets. Pass client_secrets_file=, set one of &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_CLIENT_SECRETS_ENV</span><span class="p">)</span><span class="si">}</span><span class="s2">, or place the JSON at </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s2">. &quot;</span>
-        <span class="s2">&quot;See the yb-setup skill.&quot;</span>
+        <span class="s2">"No OAuth client secrets. Pass client_secrets_file=, set one of "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_CLIENT_SECRETS_ENV</span><span class="p">)</span><span class="si">}</span><span class="s2">, or place the JSON at </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s2">. "</span>
+        <span class="s2">"See the yb-setup skill."</span>
     <span class="p">)</span>
 
 
@@ -177,13 +177,36 @@
     <span class="n">token_file</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scopes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_SCOPES</span><span class="p">,</span>
     <span class="n">open_browser</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return OAuth user credentials, running the consent flow if needed.</span>
+<span class="w">    </span><span class="sd">"""Return OAuth user credentials, running the consent flow if needed.</span>
 
-<span class="sd">    First use opens a browser for consent (or prints a URL when</span>
-<span class="sd">    ``open_browser=False``) and caches the token to ``token_file`` so later</span>
-<span class="sd">    calls are non-interactive. Expired tokens are refreshed automatically.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    First use runs the installed-app consent flow and caches the token to</span>
+<span class="sd">    ``token_file`` so later calls are non-interactive. Expired tokens are</span>
+<span class="sd">    refreshed automatically.</span>
+
+<span class="sd">    Consent always goes through a temporary local web server on ``port`` (``0``</span>
+<span class="sd">    picks a free one), because Google retired the copy-paste "out-of-band" flow</span>
+<span class="sd">    in 2022. ``open_browser=False`` only stops the browser from being launched:</span>
+<span class="sd">    the authorization URL is printed instead, and the redirect must still reach</span>
+<span class="sd">    that local server.</span>
+
+<span class="sd">    Headless recipe: pass ``open_browser=False`` plus a fixed ``port=``, and</span>
+<span class="sd">    forward that port from the machine holding the browser</span>
+<span class="sd">    (``ssh -L &lt;port&gt;:localhost:&lt;port&gt; &lt;host&gt;``). Nothing needs registering in</span>
+<span class="sd">    the Cloud console — the *Desktop app* client this module requires accepts</span>
+<span class="sd">    any ``localhost`` port, which is also why the ``port=0`` default works.</span>
+
+<span class="sd">    The call blocks until the redirect arrives. ``timeout_seconds`` bounds that</span>
+<span class="sd">    wait, raising the flow's ``WSGITimeoutError`` instead of hanging forever</span>
+<span class="sd">    (``None``, the default, is the library's "wait indefinitely").</span>
+
+<span class="sd">    These keywords ride ``**cred_kwargs`` through :func:`get_service` and the</span>
+<span class="sd">    publishing helpers. The few entry points that take none (notably</span>
+<span class="sd">    :func:`yb.music.publish.publish_folder`) still work headlessly: call this</span>
+<span class="sd">    once to mint the token, after which nothing prompts again.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.oauth2.credentials</span><span class="w"> </span><span class="kn">import</span> <span class="n">Credentials</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.auth.transport.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.auth.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RefreshError</span>
@@ -205,13 +228,15 @@
             <span class="n">refreshed</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="n">RefreshError</span><span class="p">:</span>
             <span class="c1"># Token revoked/expired beyond refresh (e.g. an OAuth app in</span>
-            <span class="c1"># &quot;Testing&quot; mode rotates refresh tokens out after 7 days). Fall back</span>
+            <span class="c1"># "Testing" mode rotates refresh tokens out after 7 days). Fall back</span>
             <span class="c1"># to a fresh interactive consent rather than propagating the error.</span>
             <span class="n">creds</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">refreshed</span><span class="p">:</span>
         <span class="n">secrets</span> <span class="o">=</span> <span class="n">_resolve_client_secrets</span><span class="p">(</span><span class="n">client_secrets_file</span><span class="p">)</span>
         <span class="n">flow</span> <span class="o">=</span> <span class="n">InstalledAppFlow</span><span class="o">.</span><span class="n">from_client_secrets_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="p">),</span> <span class="n">scopes</span><span class="p">)</span>
-        <span class="n">creds</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_local_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">open_browser</span> <span class="k">else</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_console</span><span class="p">()</span>
+        <span class="n">creds</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_local_server</span><span class="p">(</span>
+            <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="n">open_browser</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span>
+        <span class="p">)</span>
 
     <span class="n">token_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">token_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">creds</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
@@ -222,11 +247,15 @@
 <div class="viewcode-block" id="get_service">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/auth.html#yb.youtube.get_service">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_service</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a YouTube Data API v3 service object.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Build a YouTube Data API v3 service object.</span>
+
+<span class="sd">    ``cred_kwargs`` are forwarded to :func:`get_credentials` (``token_file=``,</span>
+<span class="sd">    ``open_browser=``, ``port=``, ...) unless ``credentials`` is given.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">googleapiclient.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">build</span>
 
     <span class="n">credentials</span> <span class="o">=</span> <span class="n">credentials</span> <span class="ow">or</span> <span class="n">get_credentials</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">build</span><span class="p">(</span><span class="s2">&quot;youtube&quot;</span><span class="p">,</span> <span class="s2">&quot;v3&quot;</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">credentials</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">build</span><span class="p">(</span><span class="s2">"youtube"</span><span class="p">,</span> <span class="s2">"v3"</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">credentials</span><span class="p">)</span></div>
 
 </pre></div>
 

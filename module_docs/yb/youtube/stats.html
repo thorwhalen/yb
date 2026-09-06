@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.stats &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.stats &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -115,12 +115,12 @@ with optional field selection, named field <strong>groups</strong> (presets like
 <code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>), and an ASCII-table rendering for quick terminal reading.</p>
 <p>Simple things simple:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">video_metadata</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">)</span>
-<span class="go">{&#39;views&#39;: 666, &#39;likes&#39;: 11, &#39;dislikes&#39;: 0, &#39;comments&#39;: 0, ...}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span><span class="p">)</span>
+<span class="go">{'views': 666, 'likes': 11, 'dislikes': 0, 'comments': 0, ...}</span>
 </pre></div>
 </div>
 <p>Readable table for a terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="go">field              value</span>
 <span class="go">-----------------  -----</span>
 <span class="go">views                666</span>
@@ -129,8 +129,8 @@ with optional field selection, named field <strong>groups</strong> (presets like
 </pre></div>
 </div>
 <p>Pick exact fields and order, or compare several videos at once:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">&quot;VIDEO_ID&quot;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;views&quot;</span><span class="p">,</span> <span class="s2">&quot;likes&quot;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">([</span><span class="s2">&quot;ID1&quot;</span><span class="p">,</span> <span class="s2">&quot;ID2&quot;</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;engagement&quot;</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">video_metadata</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">"views"</span><span class="p">,</span> <span class="s2">"likes"</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">video_metadata</span><span class="p">([</span><span class="s2">"ID1"</span><span class="p">,</span> <span class="s2">"ID2"</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Note: <code class="docutils literal notranslate"><span class="pre">dislikes</span></code> is only returned by the API to a video’s <strong>owner</strong>; for

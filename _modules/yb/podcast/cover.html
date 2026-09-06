@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.podcast.cover &mdash; yb 0.1.7 documentation</title>
+  <title>yb.podcast.cover &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,17 +95,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.podcast.cover</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Cover-over-audio video: turn a podcast audio file into a simple video.</span>
+<span></span><span class="sd">"""Cover-over-audio video: turn a podcast audio file into a simple video.</span>
 
 <span class="sd">Useful for publishing an audio episode where a video is expected (YouTube): the</span>
-<span class="sd">cover image, held for the episode&#39;s duration, muxed with the audio — optionally</span>
+<span class="sd">cover image, held for the episode's duration, muxed with the audio — optionally</span>
 <span class="sd">with a slow Ken Burns pan/zoom.</span>
 
 <span class="sd">This is a thin adapter over :mod:`muvid.visualize`, which owns the audio→video</span>
 <span class="sd">rendering. Reach for :func:`muvid.visualize.render_audio_video` directly when you</span>
 <span class="sd">want a visual other than a held cover, a burnt-in title, or loudness</span>
-<span class="sd">normalization. Needs ``pip install &#39;yb[music]&#39;`` (pulls ``muvid``).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">normalization. Needs ``pip install 'yb[music]'`` (pulls ``muvid``).</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -117,13 +117,13 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_render</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Import muvid.visualize lazily, so ``import yb.podcast`` works without it.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Import muvid.visualize lazily, so ``import yb.podcast`` works without it."""</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">muvid.visualize</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">viz</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - environment dependent</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;yb.podcast.cover needs the &#39;muvid&#39; package for rendering &quot;</span>
-            <span class="s2">&quot;(pip install &#39;yb[music]&#39;).&quot;</span>
+            <span class="s2">"yb.podcast.cover needs the 'muvid' package for rendering "</span>
+            <span class="s2">"(pip install 'yb[music]')."</span>
         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
     <span class="k">return</span> <span class="n">viz</span>
 
@@ -140,7 +140,7 @@
     <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">layout</span><span class="p">:</span> <span class="n">CoverLayout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render a video of ``image`` held over ``audio``.</span>
+<span class="w">    </span><span class="sd">"""Render a video of ``image`` held over ``audio``.</span>
 
 <span class="sd">    The cover is composed onto a 16:9 canvas — filled with a blurred, darkened</span>
 <span class="sd">    copy of itself rather than black bars — so square or portrait art still</span>
@@ -153,7 +153,7 @@
 <span class="sd">        ken_burns: Apply a slow pan/zoom (rendered by ``burns``) instead of a</span>
 <span class="sd">            static image. Much slower than the static path.</span>
 <span class="sd">        size: Output resolution (width, height); defaults to 1080p.</span>
-<span class="sd">        fps: Output frame rate; defaults to muvid&#39;s default.</span>
+<span class="sd">        fps: Output frame rate; defaults to muvid's default.</span>
 <span class="sd">        layout: How the cover sits on the canvas.</span>
 
 <span class="sd">    Returns:</span>
@@ -161,16 +161,16 @@
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ImportError: the ``muvid`` package is not installed (``pip install</span>
-<span class="sd">            &#39;yb[music]&#39;``).</span>
+<span class="sd">            'yb[music]'``).</span>
 <span class="sd">        FfmpegError: ffmpeg is missing, or the render failed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">viz</span> <span class="o">=</span> <span class="n">_render</span><span class="p">()</span>
     <span class="n">audio</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">saveas</span><span class="p">)</span> <span class="k">if</span> <span class="n">saveas</span> <span class="k">else</span> <span class="n">audio</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.cover.mp4&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">saveas</span><span class="p">)</span> <span class="k">if</span> <span class="n">saveas</span> <span class="k">else</span> <span class="n">audio</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">".cover.mp4"</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">render_audio_video</span><span class="p">(</span>
         <span class="n">audio</span><span class="p">,</span>
         <span class="n">image</span><span class="p">,</span>
-        <span class="n">visual</span><span class="o">=</span><span class="s2">&quot;ken_burns&quot;</span> <span class="k">if</span> <span class="n">ken_burns</span> <span class="k">else</span> <span class="s2">&quot;still&quot;</span><span class="p">,</span>
+        <span class="n">visual</span><span class="o">=</span><span class="s2">"ken_burns"</span> <span class="k">if</span> <span class="n">ken_burns</span> <span class="k">else</span> <span class="s2">"still"</span><span class="p">,</span>
         <span class="n">saveas</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
         <span class="n">size</span><span class="o">=</span><span class="n">size</span> <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">viz</span><span class="o">.</span><span class="n">DEFAULT_SIZE</span><span class="p">,</span>
         <span class="n">fps</span><span class="o">=</span><span class="n">fps</span> <span class="k">if</span> <span class="n">fps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">viz</span><span class="o">.</span><span class="n">DEFAULT_FPS</span><span class="p">,</span>

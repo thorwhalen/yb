@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.playlists &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.playlists &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,15 +95,15 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.youtube.playlists</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;YouTube playlist operations: find/create a playlist and add videos to it.</span>
+<span></span><span class="sd">"""YouTube playlist operations: find/create a playlist and add videos to it.</span>
 
 <span class="sd">Wraps the Data API ``playlists`` and ``playlistItems`` resources (writable with</span>
 <span class="sd">the ``youtube.force-ssl`` scope ``yb`` already requests — no extra consent). The</span>
 <span class="sd">high-level :func:`add_video_to_playlist` works from a stable human *title* like</span>
-<span class="sd">``&quot;TW Uploads&quot;``: it finds the playlist (optionally creating it), skips the add</span>
+<span class="sd">``"TW Uploads"``: it finds the playlist (optionally creating it), skips the add</span>
 <span class="sd">if the video is already in it, and appends otherwise — so re-publishing or</span>
 <span class="sd">re-running is idempotent.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -121,7 +121,7 @@
 <div class="viewcode-block" id="list_my_playlists">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.list_my_playlists">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_my_playlists</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return all playlists owned by the authenticated channel (paginated).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return all playlists owned by the authenticated channel (paginated)."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
@@ -129,15 +129,15 @@
         <span class="n">resp</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">service</span><span class="o">.</span><span class="n">playlists</span><span class="p">()</span>
             <span class="o">.</span><span class="n">list</span><span class="p">(</span>
-                <span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet,status&quot;</span><span class="p">,</span>
+                <span class="n">part</span><span class="o">=</span><span class="s2">"snippet,status"</span><span class="p">,</span>
                 <span class="n">mine</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">maxResults</span><span class="o">=</span><span class="n">_MAX_RESULTS</span><span class="p">,</span>
                 <span class="n">pageToken</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="o">.</span><span class="n">execute</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]))</span>
-        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nextPageToken&quot;</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"nextPageToken"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">out</span></div>
 
@@ -146,15 +146,15 @@
 <div class="viewcode-block" id="find_playlist">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/playlists.html#yb.find_playlist">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the id of the caller&#39;s playlist titled ``title`` (or ``None``).</span>
+<span class="w">    </span><span class="sd">"""Return the id of the caller's playlist titled ``title`` (or ``None``).</span>
 
 <span class="sd">    Matches the first playlist with an exact title; YouTube allows duplicate</span>
 <span class="sd">    titles, so prefer unique playlist names.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">pl</span> <span class="ow">in</span> <span class="n">list_my_playlists</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">pl</span><span class="p">[</span><span class="s2">&quot;snippet&quot;</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">title</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">pl</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pl</span><span class="p">[</span><span class="s2">"snippet"</span><span class="p">][</span><span class="s2">"title"</span><span class="p">]</span> <span class="o">==</span> <span class="n">title</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pl</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
@@ -164,19 +164,19 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">create_playlist</span><span class="p">(</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a playlist and return its id.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Create a playlist and return its id."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">},</span>
-        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;privacyStatus&quot;</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">},</span>
+        <span class="s2">"snippet"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="n">description</span><span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"privacyStatus"</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">},</span>
     <span class="p">}</span>
-    <span class="n">resp</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">playlists</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet,status&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">playlists</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">"snippet,status"</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">resp</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span></div>
 
 
 
@@ -186,15 +186,15 @@
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">create</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_PLAYLIST_PRIVACY_STATUS</span><span class="p">,</span>
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the id of the playlist titled ``title``, creating it if missing.</span>
+<span class="w">    </span><span class="sd">"""Return the id of the playlist titled ``title``, creating it if missing.</span>
 
 <span class="sd">    Returns ``None`` only when the playlist is absent and ``create=False``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">pid</span> <span class="o">=</span> <span class="n">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">pid</span><span class="p">:</span>
@@ -212,24 +212,24 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">is_video_in_playlist</span><span class="p">(</span>
     <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether ``video_id`` is already an item of ``playlist_id`` (paginated).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Whether ``video_id`` is already an item of ``playlist_id`` (paginated)."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">service</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span>
             <span class="o">.</span><span class="n">list</span><span class="p">(</span>
-                <span class="n">part</span><span class="o">=</span><span class="s2">&quot;contentDetails&quot;</span><span class="p">,</span>
+                <span class="n">part</span><span class="o">=</span><span class="s2">"contentDetails"</span><span class="p">,</span>
                 <span class="n">playlistId</span><span class="o">=</span><span class="n">playlist_id</span><span class="p">,</span>
                 <span class="n">maxResults</span><span class="o">=</span><span class="n">_MAX_RESULTS</span><span class="p">,</span>
                 <span class="n">pageToken</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="o">.</span><span class="n">execute</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]):</span>
-            <span class="k">if</span> <span class="n">it</span><span class="p">[</span><span class="s2">&quot;contentDetails&quot;</span><span class="p">][</span><span class="s2">&quot;videoId&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">video_id</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="n">it</span><span class="p">[</span><span class="s2">"contentDetails"</span><span class="p">][</span><span class="s2">"videoId"</span><span class="p">]</span> <span class="o">==</span> <span class="n">video_id</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">True</span>
-        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nextPageToken&quot;</span><span class="p">)</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"nextPageToken"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
@@ -240,15 +240,15 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">add_to_playlist</span><span class="p">(</span>
     <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">cred_kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Append ``video_id`` to ``playlist_id`` (``playlistItems.insert``).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Append ``video_id`` to ``playlist_id`` (``playlistItems.insert``)."""</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;playlistId&quot;</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
-            <span class="s2">&quot;resourceId&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;youtube#video&quot;</span><span class="p">,</span> <span class="s2">&quot;videoId&quot;</span><span class="p">:</span> <span class="n">video_id</span><span class="p">},</span>
+        <span class="s2">"snippet"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"playlistId"</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
+            <span class="s2">"resourceId"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"youtube#video"</span><span class="p">,</span> <span class="s2">"videoId"</span><span class="p">:</span> <span class="n">video_id</span><span class="p">},</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">&quot;snippet&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="s2">"snippet"</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 
 
 
@@ -264,23 +264,23 @@
     <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">cred_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find-or-create the playlist named ``title`` and append ``video_id``.</span>
+<span class="w">    </span><span class="sd">"""Find-or-create the playlist named ``title`` and append ``video_id``.</span>
 
 <span class="sd">    Idempotent: with ``skip_if_present`` (default), a video already in the</span>
 <span class="sd">    playlist is left alone instead of duplicated.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        ``{&quot;playlist_id&quot;, &quot;playlist_title&quot;, &quot;added&quot;, &quot;created&quot;}`` where ``added``</span>
+<span class="sd">        ``{"playlist_id", "playlist_title", "added", "created"}`` where ``added``</span>
 <span class="sd">        is ``False`` if the video was already present and ``created`` is ``True``</span>
 <span class="sd">        if the playlist had to be made.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        KeyError: the playlist is absent and ``create=False``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">service</span> <span class="ow">or</span> <span class="n">_service</span><span class="p">(</span><span class="o">**</span><span class="n">cred_kwargs</span><span class="p">)</span>
     <span class="n">existing</span> <span class="o">=</span> <span class="n">find_playlist</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">existing</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Playlist not found and create=False: </span><span class="si">{</span><span class="n">title</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Playlist not found and create=False: </span><span class="si">{</span><span class="n">title</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
     <span class="n">playlist_id</span> <span class="o">=</span> <span class="n">existing</span> <span class="ow">or</span> <span class="n">create_playlist</span><span class="p">(</span>
         <span class="n">title</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="n">privacy_status</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="n">service</span>
     <span class="p">)</span>
@@ -293,10 +293,10 @@
         <span class="n">added</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;playlist_id&quot;</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
-        <span class="s2">&quot;playlist_title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
-        <span class="s2">&quot;added&quot;</span><span class="p">:</span> <span class="n">added</span><span class="p">,</span>
-        <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="n">created</span><span class="p">,</span>
+        <span class="s2">"playlist_id"</span><span class="p">:</span> <span class="n">playlist_id</span><span class="p">,</span>
+        <span class="s2">"playlist_title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">"added"</span><span class="p">:</span> <span class="n">added</span><span class="p">,</span>
+        <span class="s2">"created"</span><span class="p">:</span> <span class="n">created</span><span class="p">,</span>
     <span class="p">}</span></div>
 
 </pre></div>

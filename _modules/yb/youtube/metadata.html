@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.youtube.metadata &mdash; yb 0.1.7 documentation</title>
+  <title>yb.youtube.metadata &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,14 +95,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.youtube.metadata</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;YouTube video metadata ↔ API snippet mapping.</span>
+<span></span><span class="sd">"""YouTube video metadata ↔ API snippet mapping.</span>
 
 <span class="sd">Maps the platform-neutral :class:`yb.content.PublicationContent` onto a</span>
-<span class="sd">YouTube ``videos.insert`` body, applying YouTube&#39;s field limits (title &lt;= 100</span>
+<span class="sd">YouTube ``videos.insert`` body, applying YouTube's field limits (title &lt;= 100</span>
 <span class="sd">chars, description &lt;= 5000, tags combined &lt;= 500) and embedding the chapters</span>
 <span class="sd">block into the description (YouTube renders chapters from description</span>
 <span class="sd">timestamps when the first is ``0:00``).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -112,11 +112,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">yb.content</span><span class="w"> </span><span class="kn">import</span> <span class="n">PublicationContent</span><span class="p">,</span> <span class="n">format_chapter_lines</span>
 
 <span class="c1">#: A useful subset of YouTube video category ids.</span>
-<span class="n">CATEGORY_SCIENCE_TECH</span> <span class="o">=</span> <span class="s2">&quot;28&quot;</span>
-<span class="n">CATEGORY_EDUCATION</span> <span class="o">=</span> <span class="s2">&quot;27&quot;</span>
-<span class="n">CATEGORY_PEOPLE_BLOGS</span> <span class="o">=</span> <span class="s2">&quot;22&quot;</span>
-<span class="n">CATEGORY_ENTERTAINMENT</span> <span class="o">=</span> <span class="s2">&quot;24&quot;</span>
-<span class="n">CATEGORY_MUSIC</span> <span class="o">=</span> <span class="s2">&quot;10&quot;</span>
+<span class="n">CATEGORY_SCIENCE_TECH</span> <span class="o">=</span> <span class="s2">"28"</span>
+<span class="n">CATEGORY_EDUCATION</span> <span class="o">=</span> <span class="s2">"27"</span>
+<span class="n">CATEGORY_PEOPLE_BLOGS</span> <span class="o">=</span> <span class="s2">"22"</span>
+<span class="n">CATEGORY_ENTERTAINMENT</span> <span class="o">=</span> <span class="s2">"24"</span>
+<span class="n">CATEGORY_MUSIC</span> <span class="o">=</span> <span class="s2">"10"</span>
 
 <span class="n">_TITLE_MAX</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">_DESC_MAX</span> <span class="o">=</span> <span class="mi">5000</span>
@@ -127,7 +127,7 @@
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/metadata.html#yb.youtube.VideoMetadata">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">VideoMetadata</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;YouTube-specific video metadata.</span>
+<span class="w">    </span><span class="sd">"""YouTube-specific video metadata.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        title: Title (&lt;= 100 chars).</span>
@@ -137,11 +137,11 @@
 <span class="sd">        default_language: BCP-47 language of the metadata text.</span>
 <span class="sd">        default_audio_language: BCP-47 language of the audio.</span>
 <span class="sd">        contains_synthetic_media: Declare that the video contains realistic</span>
-<span class="sd">            altered or synthetic content. YouTube&#39;s disclosure rule turns on</span>
+<span class="sd">            altered or synthetic content. YouTube's disclosure rule turns on</span>
 <span class="sd">            *realism*, not on whether AI was involved: it applies when a viewer</span>
 <span class="sd">            could mistake the content for a real person, place, or event —</span>
 <span class="sd">            not to stylised artwork or a visualizer. Left unset when ``None``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
@@ -165,18 +165,18 @@
         <span class="o">*</span><span class="p">,</span>
         <span class="n">category_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">CATEGORY_SCIENCE_TECH</span><span class="p">,</span>
         <span class="n">with_chapters</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;VideoMetadata&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build YouTube metadata from a platform-neutral content bundle.</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"VideoMetadata"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build YouTube metadata from a platform-neutral content bundle.</span>
 
 <span class="sd">        Embeds the chapters block into the description (when present and</span>
 <span class="sd">        ``with_chapters``), so YouTube renders interactive chapters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">description</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">description</span>
         <span class="k">if</span> <span class="n">with_chapters</span> <span class="ow">and</span> <span class="n">content</span><span class="o">.</span><span class="n">chapters</span><span class="p">:</span>
             <span class="n">block</span> <span class="o">=</span> <span class="n">format_chapter_lines</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">chapters</span><span class="p">)</span>
             <span class="n">body</span> <span class="o">=</span> <span class="n">description</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
             <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">body</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">body</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"Chapters:</span><span class="se">\n</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s2">"</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="n">content</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
@@ -190,41 +190,41 @@
 
 <div class="viewcode-block" id="VideoMetadata.insert_body">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/metadata.html#yb.youtube.VideoMetadata.insert_body">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">insert_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;unlisted&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the ``videos.insert`` body (snippet + status).&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"unlisted"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build the ``videos.insert`` body (snippet + status)."""</span>
         <span class="n">status</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;privacyStatus&quot;</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">,</span>
-            <span class="s2">&quot;selfDeclaredMadeForKids&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"privacyStatus"</span><span class="p">:</span> <span class="n">privacy_status</span><span class="p">,</span>
+            <span class="s2">"selfDeclaredMadeForKids"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_synthetic_media</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">status</span><span class="p">[</span><span class="s2">&quot;containsSyntheticMedia&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_synthetic_media</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snippet</span><span class="p">(),</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">}</span></div>
+            <span class="n">status</span><span class="p">[</span><span class="s2">"containsSyntheticMedia"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains_synthetic_media</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"snippet"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snippet</span><span class="p">(),</span> <span class="s2">"status"</span><span class="p">:</span> <span class="n">status</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="VideoMetadata.update_snippet">
 <a class="viewcode-back" href="../../../module_docs/yb/youtube/metadata.html#yb.youtube.VideoMetadata.update_snippet">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_snippet</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the snippet for ``videos.update`` (categoryId is required).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Build the snippet for ``videos.update`` (categoryId is required)."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snippet</span><span class="p">()</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_snippet</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="n">snippet</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
-            <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
-            <span class="s2">&quot;categoryId&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_id</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="s2">"tags"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
+            <span class="s2">"categoryId"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_id</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span><span class="p">:</span>
-            <span class="n">snippet</span><span class="p">[</span><span class="s2">&quot;defaultLanguage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span>
+            <span class="n">snippet</span><span class="p">[</span><span class="s2">"defaultLanguage"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_audio_language</span><span class="p">:</span>
-            <span class="n">snippet</span><span class="p">[</span><span class="s2">&quot;defaultAudioLanguage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_audio_language</span>
+            <span class="n">snippet</span><span class="p">[</span><span class="s2">"defaultAudioLanguage"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_audio_language</span>
         <span class="k">return</span> <span class="n">snippet</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_cap_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">total_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trim a tag list so the comma-joined length stays under ``total_max``.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Trim a tag list so the comma-joined length stays under ``total_max``."""</span>
     <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">used</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>

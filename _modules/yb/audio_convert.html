@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>yb.audio_convert &mdash; yb 0.1.7 documentation</title>
+  <title>yb.audio_convert &mdash; yb 0.1.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
+      <script src="../../_static/documentation_options.js?v=22607128"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -95,27 +95,27 @@
            <div itemprop="articleBody">
              
   <h1>Source code for yb.audio_convert</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Convert audio files between formats with ffmpeg.</span>
+<span></span><span class="sd">"""Convert audio files between formats with ffmpeg.</span>
 
-<span class="sd">Audio arrives in whatever format the source offers — YouTube&#39;s best audio is</span>
+<span class="sd">Audio arrives in whatever format the source offers — YouTube's best audio is</span>
 <span class="sd">typically Opus in a ``.webm`` container — which is usually fine to keep as is.</span>
 <span class="sd">Publishing paths, though, often want something specific: ``.mp3`` for podcast</span>
 <span class="sd">players, ``.wav`` for editing. :func:`convert_audio` is the one-call bridge:</span>
 
 <span class="sd">    &gt;&gt;&gt; from yb.audio_convert import convert_audio</span>
-<span class="sd">    &gt;&gt;&gt; convert_audio(&quot;talk.webm&quot;, &quot;mp3&quot;)  # doctest: +SKIP</span>
-<span class="sd">    PosixPath(&#39;talk.mp3&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; convert_audio("talk.webm", "mp3")  # doctest: +SKIP</span>
+<span class="sd">    PosixPath('talk.mp3')</span>
 
 <span class="sd">Conversion is a **no-op when the source is already in the target format**, so it</span>
 <span class="sd">is safe to call unconditionally:</span>
 
-<span class="sd">    &gt;&gt;&gt; convert_audio(&quot;talk.mp3&quot;, &quot;mp3&quot;)  # doctest: +SKIP</span>
-<span class="sd">    PosixPath(&#39;talk.mp3&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; convert_audio("talk.mp3", "mp3")  # doctest: +SKIP</span>
+<span class="sd">    PosixPath('talk.mp3')</span>
 
 <span class="sd">Requires ``ffmpeg`` on ``PATH``; without it :class:`AudioConversionError` is</span>
-<span class="sd">raised (see also the ``on_error=&quot;warn&quot;`` escape hatch in</span>
+<span class="sd">raised (see also the ``on_error="warn"`` escape hatch in</span>
 <span class="sd">:func:`yb.download.download_youtube_audio`).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -128,33 +128,33 @@
 <span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span>
 
 <span class="c1">#: Formats that store samples losslessly — a target bitrate is meaningless there.</span>
-<span class="n">LOSSLESS_FORMATS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">&quot;wav&quot;</span><span class="p">,</span> <span class="s2">&quot;flac&quot;</span><span class="p">,</span> <span class="s2">&quot;aiff&quot;</span><span class="p">,</span> <span class="s2">&quot;aif&quot;</span><span class="p">,</span> <span class="s2">&quot;alac&quot;</span><span class="p">})</span>
+<span class="n">LOSSLESS_FORMATS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">"wav"</span><span class="p">,</span> <span class="s2">"flac"</span><span class="p">,</span> <span class="s2">"aiff"</span><span class="p">,</span> <span class="s2">"aif"</span><span class="p">,</span> <span class="s2">"alac"</span><span class="p">})</span>
 
-<span class="c1">#: Bitrate applied to lossy targets when the caller doesn&#39;t specify one.</span>
-<span class="n">DEFAULT_LOSSY_BITRATE</span> <span class="o">=</span> <span class="s2">&quot;192k&quot;</span>
+<span class="c1">#: Bitrate applied to lossy targets when the caller doesn't specify one.</span>
+<span class="n">DEFAULT_LOSSY_BITRATE</span> <span class="o">=</span> <span class="s2">"192k"</span>
 
-<span class="c1">#: How many trailing lines of ffmpeg&#39;s stderr to quote when it fails.</span>
+<span class="c1">#: How many trailing lines of ffmpeg's stderr to quote when it fails.</span>
 <span class="n">_ERROR_TAIL_LINES</span> <span class="o">=</span> <span class="mi">8</span>
 
 
 <div class="viewcode-block" id="AudioConversionError">
 <a class="viewcode-back" href="../../module_docs/yb/download.html#yb.audio_convert.AudioConversionError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AudioConversionError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when audio could not be converted to the requested format.&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">"""Raised when audio could not be converted to the requested format."""</span></div>
 
 
 
 <div class="viewcode-block" id="normalize_format">
 <a class="viewcode-back" href="../../module_docs/yb/audio_convert.html#yb.audio_convert.normalize_format">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">normalize_format</span><span class="p">(</span><span class="n">audio_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a format spec to a bare lowercase extension.</span>
+<span class="w">    </span><span class="sd">"""Normalize a format spec to a bare lowercase extension.</span>
 
 <span class="sd">    Accepts it with or without the leading dot, in any case:</span>
 
-<span class="sd">    &gt;&gt;&gt; normalize_format(&quot;mp3&quot;), normalize_format(&quot;.MP3&quot;), normalize_format(&quot; .Wav &quot;)</span>
-<span class="sd">    (&#39;mp3&#39;, &#39;mp3&#39;, &#39;wav&#39;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">audio_format</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+<span class="sd">    &gt;&gt;&gt; normalize_format("mp3"), normalize_format(".MP3"), normalize_format(" .Wav ")</span>
+<span class="sd">    ('mp3', 'mp3', 'wav')</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">audio_format</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
 
 
@@ -169,58 +169,58 @@
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">extra_ffmpeg_args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert ``src`` to ``audio_format``, returning the resulting path.</span>
+<span class="w">    </span><span class="sd">"""Convert ``src`` to ``audio_format``, returning the resulting path.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        src: The audio file to convert.</span>
-<span class="sd">        audio_format: Target format as an extension (``&quot;mp3&quot;``, ``&quot;.wav&quot;``, ...).</span>
+<span class="sd">        audio_format: Target format as an extension (``"mp3"``, ``".wav"``, ...).</span>
 <span class="sd">        output: Destination path. Defaults to ``src`` with the new extension.</span>
-<span class="sd">        bitrate: Target bitrate for lossy formats (e.g. ``&quot;320k&quot;``). Defaults to</span>
+<span class="sd">        bitrate: Target bitrate for lossy formats (e.g. ``"320k"``). Defaults to</span>
 <span class="sd">            :data:`DEFAULT_LOSSY_BITRATE`; ignored for :data:`LOSSLESS_FORMATS`.</span>
 <span class="sd">        overwrite: Overwrite ``output`` if it already exists.</span>
 <span class="sd">        extra_ffmpeg_args: Raw ffmpeg arguments, appended last so they win.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        The converted file&#39;s path — or ``src`` unchanged when it is already in</span>
+<span class="sd">        The converted file's path — or ``src`` unchanged when it is already in</span>
 <span class="sd">        the target format (no pointless re-encode, no generation loss).</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        FileNotFoundError: If ``src`` does not exist.</span>
 <span class="sd">        AudioConversionError: If ffmpeg is missing, or the conversion fails.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">src</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such audio file: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No such audio file: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="n">fmt</span> <span class="o">=</span> <span class="n">normalize_format</span><span class="p">(</span><span class="n">audio_format</span><span class="p">)</span>
     <span class="c1"># Already in the target format: converting would only lose quality.</span>
     <span class="k">if</span> <span class="n">normalize_format</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">suffix</span><span class="p">)</span> <span class="o">==</span> <span class="n">fmt</span> <span class="ow">and</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">src</span>
 
-    <span class="n">out_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">if</span> <span class="n">output</span> <span class="k">else</span> <span class="n">src</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">if</span> <span class="n">output</span> <span class="k">else</span> <span class="n">src</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="sa">f</span><span class="s2">".</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">out_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Refusing to overwrite existing file: </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> (pass overwrite=True)&quot;</span>
+            <span class="sa">f</span><span class="s2">"Refusing to overwrite existing file: </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> (pass overwrite=True)"</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">has_ffmpeg</span><span class="p">():</span>
         <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;ffmpeg is required to convert </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> but was not found &quot;</span>
-            <span class="s2">&quot;on PATH. Install it (macOS: `brew install ffmpeg`, Ubuntu: &quot;</span>
-            <span class="s2">&quot;`apt install ffmpeg`), or skip conversion to keep the original file.&quot;</span>
+            <span class="sa">f</span><span class="s2">"ffmpeg is required to convert </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> but was not found "</span>
+            <span class="s2">"on PATH. Install it (macOS: `brew install ffmpeg`, Ubuntu: "</span>
+            <span class="s2">"`apt install ffmpeg`), or skip conversion to keep the original file."</span>
         <span class="p">)</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ffmpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;-y&quot;</span> <span class="k">if</span> <span class="n">overwrite</span> <span class="k">else</span> <span class="s2">&quot;-n&quot;</span><span class="p">,</span> <span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="s2">&quot;-vn&quot;</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ffmpeg"</span><span class="p">,</span> <span class="s2">"-y"</span> <span class="k">if</span> <span class="n">overwrite</span> <span class="k">else</span> <span class="s2">"-n"</span><span class="p">,</span> <span class="s2">"-i"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="s2">"-vn"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">fmt</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LOSSLESS_FORMATS</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-b:a&quot;</span><span class="p">,</span> <span class="n">bitrate</span> <span class="ow">or</span> <span class="n">DEFAULT_LOSSY_BITRATE</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-b:a"</span><span class="p">,</span> <span class="n">bitrate</span> <span class="ow">or</span> <span class="n">DEFAULT_LOSSY_BITRATE</span><span class="p">]</span>
     <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="o">*</span><span class="n">extra_ffmpeg_args</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">)]</span>
 
     <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">out_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-        <span class="n">detail</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="n">_ERROR_TAIL_LINES</span><span class="p">:])</span>
+        <span class="n">detail</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="n">_ERROR_TAIL_LINES</span><span class="p">:])</span>
         <span class="k">raise</span> <span class="n">AudioConversionError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;ffmpeg failed to convert </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> (exit </span><span class="si">{</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">).</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;The original file is untouched at: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">"ffmpeg failed to convert </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> (exit </span><span class="si">{</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">).</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"The original file is untouched at: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">out_path</span></div>
 
