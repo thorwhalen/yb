@@ -72,12 +72,21 @@ def get_credentials(
     token_file: PathLike | None = None,
     scopes: Sequence[str] = DEFAULT_SCOPES,
     open_browser: bool = True,
+    port: int = 0,
 ):
     """Return OAuth user credentials, running the consent flow if needed.
 
-    First use opens a browser for consent (or prints a URL when
-    ``open_browser=False``) and caches the token to ``token_file`` so later
-    calls are non-interactive. Expired tokens are refreshed automatically.
+    First use runs the installed-app consent flow and caches the token to
+    ``token_file`` so later calls are non-interactive. Expired tokens are
+    refreshed automatically.
+
+    Consent always goes through a temporary local web server on ``port`` (``0``
+    picks a free one), because Google retired the copy-paste "out-of-band" flow
+    in 2022. ``open_browser=False`` only stops the browser from being launched:
+    it prints the authorization URL instead, and the redirect must still reach
+    that local server. So on a headless box, pass a fixed ``port=`` and forward
+    it from the machine holding the browser (``ssh -L <port>:localhost:<port>``),
+    keeping ``http://localhost:<port>/`` among the OAuth client's redirect URIs.
     """
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
@@ -106,7 +115,7 @@ def get_credentials(
     if not refreshed:
         secrets = _resolve_client_secrets(client_secrets_file)
         flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
-        creds = flow.run_local_server(port=0) if open_browser else flow.run_console()
+        creds = flow.run_local_server(port=port, open_browser=open_browser)
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(creds.to_json())
