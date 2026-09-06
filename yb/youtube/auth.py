@@ -73,6 +73,7 @@ def get_credentials(
     scopes: Sequence[str] = DEFAULT_SCOPES,
     open_browser: bool = True,
     port: int = 0,
+    timeout_seconds: float | None = None,
 ):
     """Return OAuth user credentials, running the consent flow if needed.
 
@@ -83,10 +84,23 @@ def get_credentials(
     Consent always goes through a temporary local web server on ``port`` (``0``
     picks a free one), because Google retired the copy-paste "out-of-band" flow
     in 2022. ``open_browser=False`` only stops the browser from being launched:
-    it prints the authorization URL instead, and the redirect must still reach
-    that local server. So on a headless box, pass a fixed ``port=`` and forward
-    it from the machine holding the browser (``ssh -L <port>:localhost:<port>``),
-    keeping ``http://localhost:<port>/`` among the OAuth client's redirect URIs.
+    the authorization URL is printed instead, and the redirect must still reach
+    that local server.
+
+    Headless recipe: pass ``open_browser=False`` plus a fixed ``port=``, and
+    forward that port from the machine holding the browser
+    (``ssh -L <port>:localhost:<port> <host>``). Nothing needs registering in
+    the Cloud console — the *Desktop app* client this module requires accepts
+    any ``localhost`` port, which is also why the ``port=0`` default works.
+
+    The call blocks until the redirect arrives. ``timeout_seconds`` bounds that
+    wait, raising the flow's ``WSGITimeoutError`` instead of hanging forever
+    (``None``, the default, is the library's "wait indefinitely").
+
+    These keywords ride ``**cred_kwargs`` through :func:`get_service` and the
+    publishing helpers. The few entry points that take none (notably
+    :func:`yb.music.publish.publish_folder`) still work headlessly: call this
+    once to mint the token, after which nothing prompts again.
     """
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
@@ -115,7 +129,9 @@ def get_credentials(
     if not refreshed:
         secrets = _resolve_client_secrets(client_secrets_file)
         flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
-        creds = flow.run_local_server(port=port, open_browser=open_browser)
+        creds = flow.run_local_server(
+            port=port, open_browser=open_browser, timeout_seconds=timeout_seconds
+        )
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(creds.to_json())
@@ -123,7 +139,11 @@ def get_credentials(
 
 
 def get_service(*, credentials=None, **cred_kwargs):
-    """Build a YouTube Data API v3 service object."""
+    """Build a YouTube Data API v3 service object.
+
+    ``cred_kwargs`` are forwarded to :func:`get_credentials` (``token_file=``,
+    ``open_browser=``, ``port=``, ...) unless ``credentials`` is given.
+    """
     from googleapiclient.discovery import build
 
     credentials = credentials or get_credentials(**cred_kwargs)

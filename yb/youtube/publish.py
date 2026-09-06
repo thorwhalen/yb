@@ -62,6 +62,7 @@ def publish_content(
     token_file: PathLike | None = None,
     progress: bool = True,
     service=None,
+    **cred_kwargs,
 ) -> dict:
     """Upload a prepared :class:`PublicationContent` to YouTube.
 
@@ -76,6 +77,9 @@ def publish_content(
     ``playlist=None`` to skip the playlist for one call, or ``playlist="Name"``
     to override the target.
 
+    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.
+    ``open_browser=False, port=8080`` for headless consent).
+
     Returns:
         ``{"video_id", "url", "studio_url", "privacy_status", "captions",
         "thumbnail", "playlist"}``. ``privacy_status`` reflects what YouTube
@@ -86,7 +90,7 @@ def publish_content(
     cfg = config or load_config(privacy_status=privacy_status)
     privacy_status = cfg.privacy_status
     service = service or get_service(
-        client_secrets_file=client_secrets_file, token_file=token_file
+        client_secrets_file=client_secrets_file, token_file=token_file, **cred_kwargs
     )
     meta = VideoMetadata.from_content(
         content, category_id=category_id, with_chapters=with_chapters
@@ -147,6 +151,7 @@ def prepare_and_publish(
     client_secrets_file: PathLike | None = None,
     token_file: PathLike | None = None,
     progress: bool = True,
+    **cred_kwargs,
 ) -> dict:
     """One call: prepare publication content from ``media`` and upload it.
 
@@ -155,6 +160,9 @@ def prepare_and_publish(
     captions + thumbnail + chapters and adds the video to the configured
     playlist. ``privacy_status`` and ``playlist`` default to your ``yb`` config
     (see :func:`publish_content`).
+
+    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.
+    ``open_browser=False, port=8080`` for headless consent).
     """
     content = prepare_content(
         media,
@@ -176,6 +184,7 @@ def prepare_and_publish(
         client_secrets_file=client_secrets_file,
         token_file=token_file,
         progress=progress,
+        **cred_kwargs,
     )
 
 
@@ -192,16 +201,20 @@ def publish_video(
     token_file: PathLike | None = None,
     progress: bool = True,
     service=None,
+    **cred_kwargs,
 ) -> dict:
     """Lower-level upload: explicit :class:`VideoMetadata` + caption tracks.
 
     ``privacy_status`` and ``playlist`` default to your ``yb`` config (see
     :func:`publish_content`).
+
+    ``cred_kwargs`` reach :func:`~yb.youtube.auth.get_credentials` (e.g.
+    ``open_browser=False, port=8080`` for headless consent).
     """
     cfg = config or load_config(privacy_status=privacy_status)
     privacy_status = cfg.privacy_status
     service = service or get_service(
-        client_secrets_file=client_secrets_file, token_file=token_file
+        client_secrets_file=client_secrets_file, token_file=token_file, **cred_kwargs
     )
     body = metadata.insert_body(privacy_status=privacy_status)
     if progress:

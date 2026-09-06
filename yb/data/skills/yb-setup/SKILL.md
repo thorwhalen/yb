@@ -73,8 +73,30 @@ me = svc.channels().list(part="snippet", mine=True).execute()
 print(me["items"][0]["snippet"]["title"])  # your channel name => success
 ```
 
-If running headless, the consent prints a URL — open it in a browser on the same
-machine (the redirect goes to a localhost port the flow opened).
+### Headless (no browser on the machine running `yb`)
+
+The default `get_service()` tries to *launch* a browser, so on a box without one
+it raises `webbrowser.Error` before printing anything. Ask for the URL instead,
+on a port you can forward:
+
+```bash
+ssh -L 8080:localhost:8080 <host>   # from the machine that has the browser
+```
+
+```python
+# on <host>
+from yb.youtube import get_credentials
+
+get_credentials(open_browser=False, port=8080)  # prints the URL, then waits
+```
+
+Open the printed URL in your local browser; the redirect travels back down the
+tunnel to the flow's server. Nothing to register in the Cloud console — a
+*Desktop app* client accepts any `localhost` port. The token is then cached, so
+every later call is non-interactive, including `get_service()` and the publish
+helpers (which also forward `open_browser=` / `port=` themselves).
+
+Pass `timeout_seconds=` if you want the wait bounded rather than indefinite.
 
 ## Caveats to surface to the user
 

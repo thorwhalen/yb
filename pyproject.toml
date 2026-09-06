@@ -78,6 +78,12 @@ doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
 [tool.wads.ci]
 project_name = ""
 
+# CI installs `.[youtube]`, not just the core deps: tests/test_youtube_auth.py
+# pins the contract with google-auth-oauthlib (the API break behind #7), and
+# without the extra it would `importorskip` itself into a silent green.
+[tool.wads.ci.install]
+extras = "youtube"
+
 [tool.wads.ci.commands]
 pre_test = []
 test = []
