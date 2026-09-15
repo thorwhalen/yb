@@ -28,6 +28,29 @@ DEFAULT_SCOPES = [
 _CLIENT_SECRETS_ENV = ("YOUTUBE_CLIENT_SECRETS_FILE", "GOOGLE_CLIENT_SECRETS_FILE")
 
 
+class ConsentRequired(RuntimeError):
+    """Consent is needed and this process cannot obtain it.
+
+    Raised instead of starting a consent flow that nobody can complete. The
+    alternative is worse than an error: ``run_local_server`` prints a URL to a
+    stdout nobody is reading and waits on ``localhost`` for a redirect that will
+    never arrive, so an automated caller *blocks* rather than failing. That has
+    happened — an upload stopped dead mid-script and read as a slow network for
+    hours, when the underlying cause was one line of ``invalid_grant``.
+    """
+
+
+#: How long consent may wait for its redirect before giving up.
+#:
+#: The library's own default is "wait indefinitely", which is not a good default
+#: for anything: a caller that cannot complete consent then *blocks* rather than
+#: failing, and an automated upload reads as a slow network until someone thinks
+#: to run ``ps``. Five minutes is long enough for a human to find the tab and
+#: click through an unverified-app warning, and short enough that a machine
+#: finds out today. Pass ``timeout_seconds=None`` for the old behaviour.
+DEFAULT_CONSENT_TIMEOUT_S = 300.0
+
+
 def _config_dir() -> Path:
     """``yb`` config directory (``$XDG_CONFIG_HOME`` or ``~/.config``)/``yb``."""
     base = os.environ.get("XDG_CONFIG_HOME")
@@ -66,6 +89,42 @@ def _resolve_client_secrets(client_secrets_file: PathLike | None) -> Path:
     )
 
 
+def _consent_required_message(refresh_error, token_path: Path) -> str:
+    """Why consent is needed, and the two things that fix it.
+
+    Both halves earn their place. The *cause* is invisible otherwise — the
+    underlying ``invalid_grant`` is swallowed by the fallback, so a caller sees
+    only that something wants a browser. The *permanent* remedy matters because
+    the usual one (re-consent) buys about seven days: an OAuth client left in
+    "Testing" rotates refresh tokens out on that cycle, so anything scheduled
+    breaks again next week unless the consent screen is published.
+    """
+    cause = (
+        f"the cached token could not be refreshed ({refresh_error})"
+        if refresh_error is not None
+        else f"no usable cached token at {token_path}"
+    )
+    return (
+        f"YouTube consent is required ({cause}), but this process cannot obtain "
+        "it: there is no terminal, so the consent URL has nowhere to go.\n"
+        "\n"
+        "To re-consent now, from a shell you are watching:\n"
+        "    python -c 'from yb.youtube import get_credentials; "
+        "get_credentials(interactive=True)'\n"
+        "or, with no browser on this machine, print the URL and open it "
+        "elsewhere:\n"
+        "    get_credentials(interactive=True, open_browser=False, port=8080)\n"
+        "\n"
+        "To stop this recurring: an OAuth client in \"Testing\" rotates refresh "
+        "tokens out after ~7 days. Publishing the consent screen (Google Cloud "
+        "console -> APIs & Services -> Google Auth Platform -> Audience -> "
+        "Publish app) removes that expiry; the unverified-app warning at "
+        "consent time is the only cost.\n"
+        "\n"
+        "Pass interactive=True to run the flow here anyway."
+    )
+
+
 def get_credentials(
     *,
     client_secrets_file: PathLike | None = None,
@@ -73,7 +132,8 @@ def get_credentials(
     scopes: Sequence[str] = DEFAULT_SCOPES,
     open_browser: bool = True,
     port: int = 0,
-    timeout_seconds: float | None = None,
+    timeout_seconds: float | None = DEFAULT_CONSENT_TIMEOUT_S,
+    interactive: bool = True,
 ):
     """Return OAuth user credentials, running the consent flow if needed.
 
@@ -81,21 +141,35 @@ def get_credentials(
     ``token_file`` so later calls are non-interactive. Expired tokens are
     refreshed automatically.
 
+    Pass ``interactive=False`` when nobody can answer a consent prompt — a cron
+    job, a queue worker, an agent. Consent is then never started; a token that
+    cannot be refreshed raises :class:`ConsentRequired` naming the cause and the
+    fix. This is not an edge case: an OAuth client left in "Testing" rotates
+    refresh tokens out after about seven days, so anything scheduled hits it
+    weekly.
+
+    Even with the default ``interactive=True`` the call can no longer hang:
+    consent is bounded by ``timeout_seconds``
+    (:data:`DEFAULT_CONSENT_TIMEOUT_S`), and a timeout is reported as the same
+    :class:`ConsentRequired`, because "nobody answered" and "nobody could
+    answer" want the same thing done about them.
+
     Consent always goes through a temporary local web server on ``port`` (``0``
     picks a free one), because Google retired the copy-paste "out-of-band" flow
     in 2022. ``open_browser=False`` only stops the browser from being launched:
     the authorization URL is printed instead, and the redirect must still reach
     that local server.
 
-    Headless recipe: pass ``open_browser=False`` plus a fixed ``port=``, and
+    Headless recipe: pass ``interactive=True`` (there is no terminal, so the
+    default would refuse), ``open_browser=False`` and a fixed ``port=``, then
     forward that port from the machine holding the browser
     (``ssh -L <port>:localhost:<port> <host>``). Nothing needs registering in
     the Cloud console — the *Desktop app* client this module requires accepts
     any ``localhost`` port, which is also why the ``port=0`` default works.
 
-    The call blocks until the redirect arrives. ``timeout_seconds`` bounds that
-    wait, raising the flow's ``WSGITimeoutError`` instead of hanging forever
-    (``None``, the default, is the library's "wait indefinitely").
+    The call blocks until the redirect arrives, bounded by ``timeout_seconds``
+    (default :data:`DEFAULT_CONSENT_TIMEOUT_S`; pass ``None`` for the library's
+    "wait indefinitely", which is what this used to do).
 
     These keywords ride ``**cred_kwargs`` through :func:`get_service` and the
     publishing helpers. The few entry points that take none (notably
@@ -107,6 +181,12 @@ def get_credentials(
     from google.auth.exceptions import RefreshError
     from google_auth_oauthlib.flow import InstalledAppFlow
 
+    try:  # the flow's own timeout error; older releases may not define it
+        from google_auth_oauthlib.flow import WSGITimeoutError as _WSGITimeoutError
+    except ImportError:  # pragma: no cover - depends on the installed version
+        class _WSGITimeoutError(Exception):
+            """Never raised; keeps the except-clause valid on older releases."""
+
     token_path = Path(token_file) if token_file else default_token_file()
     scopes = list(scopes)
     creds = None
@@ -117,21 +197,35 @@ def get_credentials(
         return creds
 
     refreshed = False
+    refresh_error: RefreshError | None = None
     if creds and creds.expired and creds.refresh_token:
         try:
             creds.refresh(Request())
             refreshed = True
-        except RefreshError:
+        except RefreshError as error:
             # Token revoked/expired beyond refresh (e.g. an OAuth app in
             # "Testing" mode rotates refresh tokens out after 7 days). Fall back
-            # to a fresh interactive consent rather than propagating the error.
+            # to a fresh interactive consent rather than propagating the error —
+            # but only where consent can actually be given (see below).
+            refresh_error = error
             creds = None
     if not refreshed:
+        if not interactive:
+            raise ConsentRequired(_consent_required_message(refresh_error, token_path))
         secrets = _resolve_client_secrets(client_secrets_file)
         flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
-        creds = flow.run_local_server(
-            port=port, open_browser=open_browser, timeout_seconds=timeout_seconds
-        )
+        try:
+            creds = flow.run_local_server(
+                port=port, open_browser=open_browser, timeout_seconds=timeout_seconds
+            )
+        except _WSGITimeoutError as timed_out:
+            # Nobody answered. Whatever the caller thought it was doing, the
+            # actionable facts are the same ones `interactive=False` reports —
+            # so report them, rather than a bare timeout from a library the
+            # caller never named.
+            raise ConsentRequired(
+                _consent_required_message(refresh_error, token_path)
+            ) from timed_out
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(creds.to_json())

@@ -16,6 +16,7 @@ Edit an existing video:
 
 from yb.youtube.auth import (
     DEFAULT_SCOPES,
+    ConsentRequired,
     get_credentials,
     get_service,
     default_token_file,
@@ -72,6 +73,7 @@ from yb.youtube.publish import (
 
 __all__ = [
     "DEFAULT_SCOPES",
+    "ConsentRequired",
     "get_credentials",
     "get_service",
     "default_token_file",
