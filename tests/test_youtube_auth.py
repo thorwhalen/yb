@@ -20,12 +20,26 @@ import pytest
 flow_module = pytest.importorskip("google_auth_oauthlib.flow")
 InstalledAppFlow = flow_module.InstalledAppFlow
 
-from yb.youtube.auth import get_credentials  # noqa: E402  (needs the gate above)
+from google.auth.exceptions import RefreshError as _RefreshError  # noqa: E402
+from google.oauth2.credentials import Credentials as _Credentials  # noqa: E402
+
+from yb.youtube.auth import (  # noqa: E402  (needs the gate above)
+    DEFAULT_CONSENT_TIMEOUT_S,
+    ConsentRequired,
+    get_credentials,
+)
+
+#: The flow's own timeout error, or a stand-in on releases that lack it.
+_WSGITimeoutError = getattr(flow_module, "WSGITimeoutError", TimeoutError)
 
 #: Keywords ``get_credentials`` drives the consent flow with, and the value each
 #: takes when the caller says nothing. Every case below asserts the *whole* call,
 #: so a dropped, renamed, or silently rewritten keyword fails the suite.
-CONSENT_DEFAULTS = {"port": 0, "open_browser": True, "timeout_seconds": None}
+CONSENT_DEFAULTS = {
+    "port": 0,
+    "open_browser": True,
+    "timeout_seconds": DEFAULT_CONSENT_TIMEOUT_S,
+}
 
 
 def _expected(**overrides):
@@ -93,3 +107,105 @@ def test_run_local_server_contract():
     """
     params = inspect.signature(InstalledAppFlow.run_local_server).parameters
     assert set(CONSENT_DEFAULTS) <= set(params)
+
+
+# --------------------------------------------------------------------------- #
+# #13 — a caller that cannot consent must be told, not blocked
+# --------------------------------------------------------------------------- #
+
+class TestConsentNeverHangs:
+    """The reported failure: an automated upload stopped dead and stayed there.
+
+    A refresh token had expired (an OAuth client in "Testing" rotates them out
+    after ~7 days). ``get_credentials`` swallowed the ``invalid_grant`` and fell
+    back to ``run_local_server``, which printed a consent URL to a stdout nobody
+    was reading and waited on localhost for a redirect that could never arrive.
+    With ``timeout_seconds=None`` that wait was unbounded, so the process blocked
+    for hours and read as a slow network.
+
+    Every assertion here is about the *shape* of the failure: it must be an
+    exception, it must arrive, and it must say what to do about it.
+    """
+
+    @staticmethod
+    def _dead_token(tmp_path):
+        """A cached token whose refresh fails the way a rotated-out one does."""
+        token = tmp_path / "token.json"
+        token.write_text("{}")
+        creds = mock.Mock(valid=False, expired=True, refresh_token="r")
+        creds.refresh.side_effect = _RefreshError("Token has been expired or revoked.")
+        return token, creds
+
+    def test_non_interactive_raises_instead_of_starting_a_flow(
+        self, consent_flow, tmp_path
+    ):
+        flow, kwargs = consent_flow
+        token, creds = self._dead_token(tmp_path)
+        with mock.patch.object(
+            _Credentials, "from_authorized_user_file", return_value=creds
+        ):
+            with pytest.raises(ConsentRequired):
+                get_credentials(**{**kwargs, "token_file": token}, interactive=False)
+        flow.run_local_server.assert_not_called()
+
+    def test_the_message_names_the_cause_and_both_remedies(
+        self, consent_flow, tmp_path
+    ):
+        """A traceback nobody can act on is barely better than the hang."""
+        _, kwargs = consent_flow
+        token, creds = self._dead_token(tmp_path)
+        with mock.patch.object(
+            _Credentials, "from_authorized_user_file", return_value=creds
+        ):
+            with pytest.raises(ConsentRequired) as excinfo:
+                get_credentials(**{**kwargs, "token_file": token}, interactive=False)
+        message = str(excinfo.value)
+        assert "expired or revoked" in message  # the cause, no longer swallowed
+        assert "interactive=True" in message  # how to re-consent now
+        assert "Testing" in message  # why it will happen again
+        assert "Publish app" in message  # how to stop it happening again
+
+    def test_a_timeout_is_reported_as_the_same_actionable_error(
+        self, consent_flow, tmp_path
+    ):
+        """"Nobody answered" and "nobody could answer" want the same fix."""
+        flow, kwargs = consent_flow
+        token, creds = self._dead_token(tmp_path)
+        flow.run_local_server.side_effect = _WSGITimeoutError("timed out")
+        with mock.patch.object(
+            _Credentials, "from_authorized_user_file", return_value=creds
+        ):
+            with pytest.raises(ConsentRequired) as excinfo:
+                get_credentials(**{**kwargs, "token_file": token})
+        assert "Publish app" in str(excinfo.value)
+        assert isinstance(excinfo.value.__cause__, _WSGITimeoutError)
+
+    def test_consent_is_bounded_by_default(self, consent_flow):
+        """The hang itself: the library's own default is "wait indefinitely"."""
+        flow, kwargs = consent_flow
+        get_credentials(**kwargs)
+        assert DEFAULT_CONSENT_TIMEOUT_S is not None
+        assert (
+            flow.run_local_server.call_args.kwargs["timeout_seconds"]
+            == DEFAULT_CONSENT_TIMEOUT_S
+        )
+
+    def test_an_explicit_none_still_waits_forever(self, consent_flow):
+        """The old behaviour stays reachable for anyone who wants it."""
+        flow, kwargs = consent_flow
+        get_credentials(**kwargs, timeout_seconds=None)
+        assert flow.run_local_server.call_args.kwargs["timeout_seconds"] is None
+
+    def test_a_valid_cached_token_never_consults_any_of_this(
+        self, consent_flow, tmp_path
+    ):
+        """The common path must stay silent, offline and unchanged."""
+        flow, kwargs = consent_flow
+        token = tmp_path / "token.json"
+        token.write_text("{}")
+        good = mock.Mock(valid=True)
+        with mock.patch.object(
+            _Credentials, "from_authorized_user_file", return_value=good
+        ):
+            assert get_credentials(**{**kwargs, "token_file": token}) is good
+        flow.run_local_server.assert_not_called()
