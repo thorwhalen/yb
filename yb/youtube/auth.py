@@ -115,7 +115,7 @@ def _consent_required_message(refresh_error, token_path: Path) -> str:
         "elsewhere:\n"
         "    get_credentials(interactive=True, open_browser=False, port=8080)\n"
         "\n"
-        "To stop this recurring: an OAuth client in \"Testing\" rotates refresh "
+        'To stop this recurring: an OAuth client in "Testing" rotates refresh '
         "tokens out after ~7 days. Publishing the consent screen (Google Cloud "
         "console -> APIs & Services -> Google Auth Platform -> Audience -> "
         "Publish app) removes that expiry; the unverified-app warning at "
@@ -184,6 +184,7 @@ def get_credentials(
     try:  # the flow's own timeout error; older releases may not define it
         from google_auth_oauthlib.flow import WSGITimeoutError as _WSGITimeoutError
     except ImportError:  # pragma: no cover - depends on the installed version
+
         class _WSGITimeoutError(Exception):
             """Never raised; keeps the except-clause valid on older releases."""
 
