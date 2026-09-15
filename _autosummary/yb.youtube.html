@@ -1,0 +1,1153 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="alternate" type="text/markdown" href="yb.youtube.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.api" href="yb.youtube.api.html"><link rel="prev" title="yb.podcast.shownotes" href="yb.podcast.shownotes.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>yb.youtube - yb</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  --color-brand-primary: #006787;
+  --color-brand-content: #006787;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #30cbed;
+  --color-brand-content: #30cbed;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #30cbed;
+  --color-brand-content: #30cbed;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">yb</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">yb</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../api.html">API reference</a><input aria-label="Toggle navigation of API reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="yb.html">yb</a><input aria-label="Toggle navigation of yb" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="yb.audio_convert.html">yb.audio_convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yb.config.html">yb.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yb.content.html">yb.content</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="yb.download.html">yb.download</a><input aria-label="Toggle navigation of yb.download" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="yb.download.youtube.html">yb.download.youtube</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="yb.podcast.html">yb.podcast</a><input aria-label="Toggle navigation of yb.podcast" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="yb.podcast.chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.podcast.cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.podcast.feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.podcast.publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.podcast.shownotes.html">yb.podcast.shownotes</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">yb.youtube</a><input aria-label="Toggle navigation of yb.youtube" checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.api.html">yb.youtube.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.stats.html">yb.youtube.stats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ai-agents.html">For AI agents</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/_autosummary/yb.youtube.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-yb.youtube">
+<span id="yb-youtube"></span><h1>yb.youtube<a class="headerlink" href="#module-yb.youtube" title="Link to this heading">¶</a></h1>
+<p>YouTube publishing via the YouTube Data API v3.</p>
+<p>Optionally installed (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[youtube]'</span></code>). Needs an OAuth Desktop
+client (see the <code class="docutils literal notranslate"><span class="pre">yb-setup</span></code> skill) — set <code class="docutils literal notranslate"><span class="pre">$YOUTUBE_CLIENT_SECRETS_FILE</span></code>.</p>
+<p>Create:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_and_publish</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prepare_and_publish</span><span class="p">(</span><span class="s2">"promo.fr.mp4"</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">"French"</span><span class="p">,</span> <span class="n">language_code</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">audio_language_code</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="s2">"unlisted"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Edit an existing video:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">update_video_fields</span><span class="p">,</span> <span class="n">upsert_caption</span><span class="p">,</span> <span class="n">set_chapters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">update_video_fields</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"New title"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">upsert_caption</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="s2">"subs.fr.srt"</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Français"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.get_credentials" title="yb.youtube.get_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_credentials</span></code></a>(*[, client_secrets_file, ...])</p></td>
+<td><p>Return OAuth user credentials, running the consent flow if needed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.get_service" title="yb.youtube.get_service"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_service</span></code></a>(*[, credentials])</p></td>
+<td><p>Build a YouTube Data API v3 service object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.default_token_file" title="yb.youtube.default_token_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_token_file</span></code></a>()</p></td>
+<td><p>Cached OAuth token location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.default_client_secrets_file" title="yb.youtube.default_client_secrets_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_client_secrets_file</span></code></a>()</p></td>
+<td><p>Default OAuth client-secrets location: <code class="docutils literal notranslate"><span class="pre">&lt;config</span> <span class="pre">dir&gt;/client_secret.json</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.list_my_playlists" title="yb.youtube.list_my_playlists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_my_playlists</span></code></a>(*[, service])</p></td>
+<td><p>Return all playlists owned by the authenticated channel (paginated).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.find_playlist" title="yb.youtube.find_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_playlist</span></code></a>(title, *[, service])</p></td>
+<td><p>Return the id of the caller's playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code> (or <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.create_playlist" title="yb.youtube.create_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_playlist</span></code></a>(title, *[, description, ...])</p></td>
+<td><p>Create a playlist and return its id.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.ensure_playlist" title="yb.youtube.ensure_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_playlist</span></code></a>(title, *[, create, ...])</p></td>
+<td><p>Return the id of the playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code>, creating it if missing.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.is_video_in_playlist" title="yb.youtube.is_video_in_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_video_in_playlist</span></code></a>(video_id, playlist_id, *)</p></td>
+<td><p>Whether <code class="docutils literal notranslate"><span class="pre">video_id</span></code> is already an item of <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (paginated).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.add_to_playlist" title="yb.youtube.add_to_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_to_playlist</span></code></a>(video_id, playlist_id, *[, ...])</p></td>
+<td><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.add_video_to_playlist" title="yb.youtube.add_video_to_playlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_video_to_playlist</span></code></a>(video_id, title, *[, ...])</p></td>
+<td><p>Find-or-create the playlist named <code class="docutils literal notranslate"><span class="pre">title</span></code> and append <code class="docutils literal notranslate"><span class="pre">video_id</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.get_video" title="yb.youtube.get_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_video</span></code></a>(video_id, *[, part, service])</p></td>
+<td><p>Fetch a video resource (raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if not found/visible).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.upload_video" title="yb.youtube.upload_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upload_video</span></code></a>(video_path, body, *[, service, ...])</p></td>
+<td><p>Resumably upload a video with the given <code class="docutils literal notranslate"><span class="pre">videos.insert</span></code> <code class="docutils literal notranslate"><span class="pre">body</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.update_video" title="yb.youtube.update_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_video</span></code></a>(video_id, snippet, *[, service])</p></td>
+<td><p>Update a video's snippet (<code class="docutils literal notranslate"><span class="pre">videos.update</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.update_video_fields" title="yb.youtube.update_video_fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_video_fields</span></code></a>(video_id, *[, title, ...])</p></td>
+<td><p>Patch selected snippet fields, preserving the rest.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.set_thumbnail" title="yb.youtube.set_thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_thumbnail</span></code></a>(video_id, image_path, *[, service])</p></td>
+<td><p>Set a custom thumbnail (<code class="docutils literal notranslate"><span class="pre">thumbnails.set</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.set_chapters" title="yb.youtube.set_chapters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_chapters</span></code></a>(video_id, chapters, *[, ...])</p></td>
+<td><p>Insert/replace a chapters block in the video's description.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.video_metadata" title="yb.youtube.video_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">video_metadata</span></code></a>(video_id, *[, group, fields, ...])</p></td>
+<td><p>Fetch a video's live metadata &amp; engagement numbers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.flatten_video" title="yb.youtube.flatten_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_video</span></code></a>(resource)</p></td>
+<td><p>Flatten a raw <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> item into a friendly, typed, ordered dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.select_fields" title="yb.youtube.select_fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_fields</span></code></a>(flat, *[, group, fields])</p></td>
+<td><p>Return an ordered subset of <code class="docutils literal notranslate"><span class="pre">flat</span></code> per <code class="docutils literal notranslate"><span class="pre">fields</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.resolve_fields" title="yb.youtube.resolve_fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_fields</span></code></a>(*[, group, fields, available])</p></td>
+<td><p>Resolve the ordered field list to show.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.render_table" title="yb.youtube.render_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_table</span></code></a>(data, *[, fields])</p></td>
+<td><p>Render metadata as an ASCII table.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.list_captions" title="yb.youtube.list_captions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_captions</span></code></a>(video_id, *[, service])</p></td>
+<td><p>List caption tracks on a video (each item's snippet has language/name/trackKind/status).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.insert_caption" title="yb.youtube.insert_caption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_caption</span></code></a>(video_id, path, *, language)</p></td>
+<td><p>Insert a new caption track (<code class="docutils literal notranslate"><span class="pre">captions.insert</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.update_caption" title="yb.youtube.update_caption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_caption</span></code></a>(caption_id, path, *[, ...])</p></td>
+<td><p>Replace the content of an existing caption track (<code class="docutils literal notranslate"><span class="pre">captions.update</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.upsert_caption" title="yb.youtube.upsert_caption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upsert_caption</span></code></a>(video_id, track, *[, ...])</p></td>
+<td><p>Insert a caption track, or update the existing same-language one.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.download_caption" title="yb.youtube.download_caption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_caption</span></code></a>(caption_id, *[, tfmt, service])</p></td>
+<td><p>Download a caption track's content (<code class="docutils literal notranslate"><span class="pre">captions.download</span></code>), default SRT.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.delete_caption" title="yb.youtube.delete_caption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_caption</span></code></a>(caption_id, *[, service])</p></td>
+<td><p>Delete a caption track (<code class="docutils literal notranslate"><span class="pre">captions.delete</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.publish_content" title="yb.youtube.publish_content"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish_content</span></code></a>(content, *[, ...])</p></td>
+<td><p>Upload a prepared <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code> to YouTube.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.prepare_and_publish" title="yb.youtube.prepare_and_publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_and_publish</span></code></a>(media, *[, language, ...])</p></td>
+<td><p>One call: prepare publication content from <code class="docutils literal notranslate"><span class="pre">media</span></code> and upload it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.publish_video" title="yb.youtube.publish_video"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish_video</span></code></a>(video_path, metadata, *[, ...])</p></td>
+<td><p>Lower-level upload: explicit <a class="reference internal" href="#yb.youtube.VideoMetadata" title="yb.youtube.VideoMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a> + caption tracks.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.VideoMetadata" title="yb.youtube.VideoMetadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a>(title, description[, tags, ...])</p></td>
+<td><p>YouTube-specific video metadata.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.CaptionTrack" title="yb.youtube.CaptionTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>(path, language[, name, is_draft])</p></td>
+<td><p>A caption track to attach to a video.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Exceptions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.ConsentRequired" title="yb.youtube.ConsentRequired"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></p></td>
+<td><p>Consent is needed and this process cannot obtain it.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.youtube.CaptionTrack">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">CaptionTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#CaptionTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.CaptionTrack" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A caption track to attach to a video.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.CaptionTrack.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#yb.youtube.CaptionTrack.path" title="Link to this definition">¶</a></dt>
+<dd><p>Path to an <code class="docutils literal notranslate"><span class="pre">.srt</span></code> (or <code class="docutils literal notranslate"><span class="pre">.vtt</span></code>) file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.CaptionTrack.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#yb.youtube.CaptionTrack.language" title="Link to this definition">¶</a></dt>
+<dd><p>BCP-47 language code, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;en&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;fr&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.CaptionTrack.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#yb.youtube.CaptionTrack.name" title="Link to this definition">¶</a></dt>
+<dd><p>Track name shown in the YouTube UI (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;English&quot;</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.CaptionTrack.is_draft">
+<span class="sig-name descname"><span class="pre">is_draft</span></span><a class="headerlink" href="#yb.youtube.CaptionTrack.is_draft" title="Link to this definition">¶</a></dt>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, uploaded but not published to viewers.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="yb.youtube.ConsentRequired">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">ConsentRequired</span></span><a class="reference internal" href="../_modules/yb/youtube/auth.html#ConsentRequired"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.ConsentRequired" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
+<p>Consent is needed and this process cannot obtain it.</p>
+<p>Raised instead of starting a consent flow that nobody can complete. The
+alternative is worse than an error: <code class="docutils literal notranslate"><span class="pre">run_local_server</span></code> prints a URL to a
+stdout nobody is reading and waits on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> for a redirect that will
+never arrive, so an automated caller <em>blocks</em> rather than failing. That has
+happened — an upload stopped dead mid-script and read as a slow network for
+hours, when the underlying cause was one line of <code class="docutils literal notranslate"><span class="pre">invalid_grant</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">VideoMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains_synthetic_media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/metadata.html#VideoMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>YouTube-specific video metadata.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.title" title="Link to this definition">¶</a></dt>
+<dd><p>Title (&lt;= 100 chars).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.description" title="Link to this definition">¶</a></dt>
+<dd><p>Description (&lt;= 5000 chars), chapters already embedded.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.tags" title="Link to this definition">¶</a></dt>
+<dd><p>Keyword tags (combined length kept under 500 chars).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.category_id">
+<span class="sig-name descname"><span class="pre">category_id</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.category_id" title="Link to this definition">¶</a></dt>
+<dd><p>YouTube category id (default Science &amp; Technology).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.default_language">
+<span class="sig-name descname"><span class="pre">default_language</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.default_language" title="Link to this definition">¶</a></dt>
+<dd><p>BCP-47 language of the metadata text.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.default_audio_language">
+<span class="sig-name descname"><span class="pre">default_audio_language</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.default_audio_language" title="Link to this definition">¶</a></dt>
+<dd><p>BCP-47 language of the audio.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.contains_synthetic_media">
+<span class="sig-name descname"><span class="pre">contains_synthetic_media</span></span><a class="headerlink" href="#yb.youtube.VideoMetadata.contains_synthetic_media" title="Link to this definition">¶</a></dt>
+<dd><p>Declare that the video contains realistic
+altered or synthetic content. YouTube’s disclosure rule turns on
+<em>realism</em>, not on whether AI was involved: it applies when a viewer
+could mistake the content for a real person, place, or event —
+not to stylised artwork or a visualizer. Left unset when <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.from_content">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/metadata.html#VideoMetadata.from_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata.from_content" title="Link to this definition">¶</a></dt>
+<dd><p>Build YouTube metadata from a platform-neutral content bundle.</p>
+<p>Embeds the chapters block into the description (when present and
+<code class="docutils literal notranslate"><span class="pre">with_chapters</span></code>), so YouTube renders interactive chapters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="yb.youtube.metadata.html#yb.youtube.metadata.VideoMetadata" title="yb.youtube.metadata.VideoMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.insert_body">
+<span class="sig-name descname"><span class="pre">insert_body</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unlisted'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/metadata.html#VideoMetadata.insert_body"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata.insert_body" title="Link to this definition">¶</a></dt>
+<dd><p>Build the <code class="docutils literal notranslate"><span class="pre">videos.insert</span></code> body (snippet + status).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yb.youtube.VideoMetadata.update_snippet">
+<span class="sig-name descname"><span class="pre">update_snippet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/metadata.html#VideoMetadata.update_snippet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata.update_snippet" title="Link to this definition">¶</a></dt>
+<dd><p>Build the snippet for <code class="docutils literal notranslate"><span class="pre">videos.update</span></code> (categoryId is required).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.add_to_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">add_to_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#add_to_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.add_to_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.add_video_to_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">add_video_to_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_if_present</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#add_video_to_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.add_video_to_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Find-or-create the playlist named <code class="docutils literal notranslate"><span class="pre">title</span></code> and append <code class="docutils literal notranslate"><span class="pre">video_id</span></code>.</p>
+<p>Idempotent: with <code class="docutils literal notranslate"><span class="pre">skip_if_present</span></code> (default), a video already in the
+playlist is left alone instead of duplicated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{&quot;playlist_id&quot;,</span> <span class="pre">&quot;playlist_title&quot;,</span> <span class="pre">&quot;added&quot;,</span> <span class="pre">&quot;created&quot;}</span></code> where <code class="docutils literal notranslate"><span class="pre">added</span></code>
+is <code class="docutils literal notranslate"><span class="pre">False</span></code> if the video was already present and <code class="docutils literal notranslate"><span class="pre">created</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>
+if the playlist had to be made.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.create_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">create_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#create_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.create_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Create a playlist and return its id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.default_client_secrets_file">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">default_client_secrets_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#default_client_secrets_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.default_client_secrets_file" title="Link to this definition">¶</a></dt>
+<dd><p>Default OAuth client-secrets location: <code class="docutils literal notranslate"><span class="pre">&lt;config</span> <span class="pre">dir&gt;/client_secret.json</span></code>.</p>
+<p>Used when neither <code class="docutils literal notranslate"><span class="pre">client_secrets_file=</span></code> nor the env vars are set, so all
+of <code class="docutils literal notranslate"><span class="pre">yb</span></code>’s state can live in one directory next to the token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.default_token_file">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">default_token_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#default_token_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.default_token_file" title="Link to this definition">¶</a></dt>
+<dd><p>Cached OAuth token location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.delete_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">delete_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#delete_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.delete_caption" title="Link to this definition">¶</a></dt>
+<dd><p>Delete a caption track (<code class="docutils literal notranslate"><span class="pre">captions.delete</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.download_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">download_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">tfmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'srt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#download_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.download_caption" title="Link to this definition">¶</a></dt>
+<dd><p>Download a caption track’s content (<code class="docutils literal notranslate"><span class="pre">captions.download</span></code>), default SRT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.ensure_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">ensure_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'private'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#ensure_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.ensure_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Return the id of the playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code>, creating it if missing.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> only when the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.find_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">find_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#find_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.find_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Return the id of the caller’s playlist titled <code class="docutils literal notranslate"><span class="pre">title</span></code> (or <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+<p>Matches the first playlist with an exact title; YouTube allows duplicate
+titles, so prefer unique playlist names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.flatten_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">flatten_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#flatten_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.flatten_video" title="Link to this definition">¶</a></dt>
+<dd><p>Flatten a raw <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> item into a friendly, typed, ordered dict.</p>
+<p>Pure: pass the dict returned by the API. Missing pieces (from a partial
+<code class="docutils literal notranslate"><span class="pre">part=</span></code> request, disabled stats, or an unauthorized dislike count) become
+<code class="docutils literal notranslate"><span class="pre">None</span></code> rather than raising, so callers never have to guard the shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.get_credentials">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">get_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.get_credentials" title="Link to this definition">¶</a></dt>
+<dd><p>Return OAuth user credentials, running the consent flow if needed.</p>
+<p>First use runs the installed-app consent flow and caches the token to
+<code class="docutils literal notranslate"><span class="pre">token_file</span></code> so later calls are non-interactive. Expired tokens are
+refreshed automatically.</p>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">interactive=False</span></code> when nobody can answer a consent prompt — a cron
+job, a queue worker, an agent. Consent is then never started; a token that
+cannot be refreshed raises <a class="reference internal" href="#yb.youtube.ConsentRequired" title="yb.youtube.ConsentRequired"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a> naming the cause and the
+fix. This is not an edge case: an OAuth client left in “Testing” rotates
+refresh tokens out after about seven days, so anything scheduled hits it
+weekly.</p>
+<p>Even with the default <code class="docutils literal notranslate"><span class="pre">interactive=True</span></code> the call can no longer hang:
+consent is bounded by <code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code>
+(<code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code>), and a timeout is reported as the same
+<a class="reference internal" href="#yb.youtube.ConsentRequired" title="yb.youtube.ConsentRequired"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a>, because “nobody answered” and “nobody could
+answer” want the same thing done about them.</p>
+<p>Consent always goes through a temporary local web server on <code class="docutils literal notranslate"><span class="pre">port</span></code> (<code class="docutils literal notranslate"><span class="pre">0</span></code>
+picks a free one), because Google retired the copy-paste “out-of-band” flow
+in 2022. <code class="docutils literal notranslate"><span class="pre">open_browser=False</span></code> only stops the browser from being launched:
+the authorization URL is printed instead, and the redirect must still reach
+that local server.</p>
+<p>Headless recipe: pass <code class="docutils literal notranslate"><span class="pre">interactive=True</span></code> (there is no terminal, so the
+default would refuse), <code class="docutils literal notranslate"><span class="pre">open_browser=False</span></code> and a fixed <code class="docutils literal notranslate"><span class="pre">port=</span></code>, then
+forward that port from the machine holding the browser
+(<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-L</span> <span class="pre">&lt;port&gt;:localhost:&lt;port&gt;</span> <span class="pre">&lt;host&gt;</span></code>). Nothing needs registering in
+the Cloud console — the <em>Desktop app</em> client this module requires accepts
+any <code class="docutils literal notranslate"><span class="pre">localhost</span></code> port, which is also why the <code class="docutils literal notranslate"><span class="pre">port=0</span></code> default works.</p>
+<p>The call blocks until the redirect arrives, bounded by <code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code>
+(default <code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code>; pass <code class="docutils literal notranslate"><span class="pre">None</span></code> for the library’s
+“wait indefinitely”, which is what this used to do).</p>
+<p>These keywords ride <code class="docutils literal notranslate"><span class="pre">**cred_kwargs</span></code> through <a class="reference internal" href="#yb.youtube.get_service" title="yb.youtube.get_service"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_service()</span></code></a> and the
+publishing helpers. The few entry points that take none (notably
+<code class="xref py py-func docutils literal notranslate"><span class="pre">yb.music.publish.publish_folder()</span></code>) still work headlessly: call this
+once to mint the token, after which nothing prompts again.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.get_service">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">get_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.get_service" title="Link to this definition">¶</a></dt>
+<dd><p>Build a YouTube Data API v3 service object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> are forwarded to <a class="reference internal" href="#yb.youtube.get_credentials" title="yb.youtube.get_credentials"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_credentials()</span></code></a> (<code class="docutils literal notranslate"><span class="pre">token_file=</span></code>,
+<code class="docutils literal notranslate"><span class="pre">open_browser=</span></code>, <code class="docutils literal notranslate"><span class="pre">port=</span></code>, …) unless <code class="docutils literal notranslate"><span class="pre">credentials</span></code> is given.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.get_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">get_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snippet,status'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#get_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.get_video" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch a video resource (raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if not found/visible).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.insert_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">insert_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#insert_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.insert_caption" title="Link to this definition">¶</a></dt>
+<dd><p>Insert a new caption track (<code class="docutils literal notranslate"><span class="pre">captions.insert</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.is_video_in_playlist">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">is_video_in_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#is_video_in_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.is_video_in_playlist" title="Link to this definition">¶</a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">video_id</span></code> is already an item of <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (paginated).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.list_captions">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">list_captions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#list_captions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.list_captions" title="Link to this definition">¶</a></dt>
+<dd><p>List caption tracks on a video (each item’s snippet has language/name/trackKind/status).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.list_my_playlists">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">list_my_playlists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#list_my_playlists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.list_my_playlists" title="Link to this definition">¶</a></dt>
+<dd><p>Return all playlists owned by the authenticated channel (paginated).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.prepare_and_publish">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">prepare_and_publish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_language_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_thumbnail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/publish.html#prepare_and_publish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.prepare_and_publish" title="Link to this definition">¶</a></dt>
+<dd><p>One call: prepare publication content from <code class="docutils literal notranslate"><span class="pre">media</span></code> and upload it.</p>
+<p>Transcribes (persisting the SRT next to the media) if needed, writes
+LLM metadata, detects chapters, renders a thumbnail, then uploads with
+captions + thumbnail + chapters and adds the video to the configured
+playlist. <code class="docutils literal notranslate"><span class="pre">privacy_status</span></code> and <code class="docutils literal notranslate"><span class="pre">playlist</span></code> default to your <code class="docutils literal notranslate"><span class="pre">yb</span></code> config
+(see <a class="reference internal" href="#yb.youtube.publish_content" title="yb.youtube.publish_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">publish_content()</span></code></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> reach <a class="reference internal" href="yb.youtube.auth.html#yb.youtube.auth.get_credentials" title="yb.youtube.auth.get_credentials"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_credentials()</span></code></a> (e.g.
+<code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.publish_content">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">publish_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_chapters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attach_caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_thumb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/publish.html#publish_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.publish_content" title="Link to this definition">¶</a></dt>
+<dd><p>Upload a prepared <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicationContent</span></code> to YouTube.</p>
+<p>Maps the content to a YouTube snippet (chapters embedded in the
+description when present), uploads, attaches the SRT caption track
+(language = <code class="docutils literal notranslate"><span class="pre">content.audio_language</span></code> or <code class="docutils literal notranslate"><span class="pre">content.language</span></code>) and the
+thumbnail when available, and adds the video to the configured playlist.</p>
+<p><code class="docutils literal notranslate"><span class="pre">privacy_status</span></code> and <code class="docutils literal notranslate"><span class="pre">playlist</span></code> default to your <code class="docutils literal notranslate"><span class="pre">yb</span></code> config (see
+<a class="reference internal" href="yb.config.html#module-yb.config" title="yb.config"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.config</span></code></a>): unset means “use the config value”, so privacy falls back
+to <code class="docutils literal notranslate"><span class="pre">unlisted</span></code> and the video joins your configured playlist. Pass
+<code class="docutils literal notranslate"><span class="pre">playlist=None</span></code> to skip the playlist for one call, or <code class="docutils literal notranslate"><span class="pre">playlist=&quot;Name&quot;</span></code>
+to override the target.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> reach <a class="reference internal" href="yb.youtube.auth.html#yb.youtube.auth.get_credentials" title="yb.youtube.auth.get_credentials"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_credentials()</span></code></a> (e.g.
+<code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{&quot;video_id&quot;,</span> <span class="pre">&quot;url&quot;,</span> <span class="pre">&quot;studio_url&quot;,</span> <span class="pre">&quot;privacy_status&quot;,</span> <span class="pre">&quot;captions&quot;,</span>
+<span class="pre">&quot;thumbnail&quot;,</span> <span class="pre">&quot;playlist&quot;}</span></code>. <code class="docutils literal notranslate"><span class="pre">privacy_status</span></code> reflects what YouTube
+actually set (an unaudited project may force <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;</span></code>); <code class="docutils literal notranslate"><span class="pre">playlist</span></code>
+is the <a class="reference internal" href="yb.youtube.playlists.html#yb.youtube.playlists.add_video_to_playlist" title="yb.youtube.playlists.add_video_to_playlist"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a> result or
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.publish_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">publish_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/publish.html#publish_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.publish_video" title="Link to this definition">¶</a></dt>
+<dd><p>Lower-level upload: explicit <a class="reference internal" href="#yb.youtube.VideoMetadata" title="yb.youtube.VideoMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a> + caption tracks.</p>
+<p><code class="docutils literal notranslate"><span class="pre">privacy_status</span></code> and <code class="docutils literal notranslate"><span class="pre">playlist</span></code> default to your <code class="docutils literal notranslate"><span class="pre">yb</span></code> config (see
+<a class="reference internal" href="#yb.youtube.publish_content" title="yb.youtube.publish_content"><code class="xref py py-func docutils literal notranslate"><span class="pre">publish_content()</span></code></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> reach <a class="reference internal" href="yb.youtube.auth.html#yb.youtube.auth.get_credentials" title="yb.youtube.auth.get_credentials"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_credentials()</span></code></a> (e.g.
+<code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.render_table">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">render_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#render_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.render_table" title="Link to this definition">¶</a></dt>
+<dd><p>Render metadata as an ASCII table.</p>
+<p>A single flat dict renders as a two-column <code class="docutils literal notranslate"><span class="pre">field</span> <span class="pre">|</span> <span class="pre">value</span></code> table; a list
+of flat dicts renders one row per video with <code class="docutils literal notranslate"><span class="pre">fields</span></code> as columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.resolve_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">resolve_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#resolve_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.resolve_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Resolve the ordered field list to show.</p>
+<p>Precedence: explicit <code class="docutils literal notranslate"><span class="pre">fields</span></code> &gt; named <code class="docutils literal notranslate"><span class="pre">group</span></code> &gt; every <code class="docutils literal notranslate"><span class="pre">available</span></code>
+field. An unknown <code class="docutils literal notranslate"><span class="pre">group</span></code> raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> naming the valid options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.select_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">select_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flat</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#select_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.select_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Return an ordered subset of <code class="docutils literal notranslate"><span class="pre">flat</span></code> per <code class="docutils literal notranslate"><span class="pre">fields</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.set_chapters">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">set_chapters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapters</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Chapters:'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#set_chapters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.set_chapters" title="Link to this definition">¶</a></dt>
+<dd><p>Insert/replace a chapters block in the video’s description.</p>
+<p>Strips any prior block under <code class="docutils literal notranslate"><span class="pre">header</span></code> and appends the new one. YouTube
+renders interactive chapters when the first timestamp is <code class="docutils literal notranslate"><span class="pre">0:00</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.set_thumbnail">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">set_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#set_thumbnail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.set_thumbnail" title="Link to this definition">¶</a></dt>
+<dd><p>Set a custom thumbnail (<code class="docutils literal notranslate"><span class="pre">thumbnails.set</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.update_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">update_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caption_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#update_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.update_caption" title="Link to this definition">¶</a></dt>
+<dd><p>Replace the content of an existing caption track (<code class="docutils literal notranslate"><span class="pre">captions.update</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.update_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">update_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snippet</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#update_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.update_video" title="Link to this definition">¶</a></dt>
+<dd><p>Update a video’s snippet (<code class="docutils literal notranslate"><span class="pre">videos.update</span></code>). <code class="docutils literal notranslate"><span class="pre">categoryId</span></code> is required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.update_video_fields">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">update_video_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#update_video_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.update_video_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Patch selected snippet fields, preserving the rest.</p>
+<p>Fetches the current snippet, overlays the provided fields, and updates.
+<code class="docutils literal notranslate"><span class="pre">categoryId</span></code> must be present (kept from the existing snippet if not given).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.upload_video">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">upload_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8388608</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/api.html#upload_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.upload_video" title="Link to this definition">¶</a></dt>
+<dd><p>Resumably upload a video with the given <code class="docutils literal notranslate"><span class="pre">videos.insert</span></code> <code class="docutils literal notranslate"><span class="pre">body</span></code>.</p>
+<p>Returns the created video resource (includes <code class="docutils literal notranslate"><span class="pre">id</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.upsert_caption">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">upsert_caption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#upsert_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.upsert_caption" title="Link to this definition">¶</a></dt>
+<dd><p>Insert a caption track, or update the existing same-language one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target video.</p></li>
+<li><p><strong>track</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="yb.youtube.captions.html#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – A <a class="reference internal" href="#yb.youtube.CaptionTrack" title="yb.youtube.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
+<li><p><strong>replace</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When an uploaded track in the same language exists, update it
+(<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) rather than inserting a duplicate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The inserted/updated caption resource.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.video_metadata">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">video_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snippet,statistics,contentDetails,status'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#video_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.video_metadata" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch a video’s live metadata &amp; engagement numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – A single video id or an iterable of ids (batched, ≤50/call).</p></li>
+<li><p><strong>group</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Name of a preset field set from <code class="xref py py-data docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>). Ignored if <code class="docutils literal notranslate"><span class="pre">fields</span></code> is given.</p></li>
+<li><p><strong>fields</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – Explicit ordered field names to keep (overrides <code class="docutils literal notranslate"><span class="pre">group</span></code>).
+With neither <code class="docutils literal notranslate"><span class="pre">group</span></code> nor <code class="docutils literal notranslate"><span class="pre">fields</span></code> you get every field.</p></li>
+<li><p><strong>part</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> parts to request (default covers all fields).</p></li>
+<li><p><strong>as_table</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a ready-to-print ASCII table string
+instead of the dict/list.</p></li>
+<li><p><strong>service</strong> – An authenticated YouTube service; else built from
+<code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">token_file=...</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A flat <code class="docutils literal notranslate"><span class="pre">dict</span></code> for one id / <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> for many — or an ASCII
+table <code class="docutils literal notranslate"><span class="pre">str</span></code> when <code class="docutils literal notranslate"><span class="pre">as_table=True</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Modules</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.api.html#module-yb.youtube.api" title="yb.youtube.api"><code class="xref py py-obj docutils literal notranslate"><span class="pre">api</span></code></a></p></td>
+<td><p>YouTube video operations: get, upload, update metadata, thumbnail, chapters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.auth.html#module-yb.youtube.auth" title="yb.youtube.auth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auth</span></code></a></p></td>
+<td><p>OAuth 2.0 plumbing for the YouTube Data API v3.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.captions.html#module-yb.youtube.captions" title="yb.youtube.captions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">captions</span></code></a></p></td>
+<td><p>Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.metadata.html#module-yb.youtube.metadata" title="yb.youtube.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
+<td><p>YouTube video metadata ↔ API snippet mapping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.playlists.html#module-yb.youtube.playlists" title="yb.youtube.playlists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">playlists</span></code></a></p></td>
+<td><p>YouTube playlist operations: find/create a playlist and add videos to it.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.publish.html#module-yb.youtube.publish" title="yb.youtube.publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish</span></code></a></p></td>
+<td><p>High-level YouTube publishing: prepare → upload → captions → thumbnail.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.stats.html#module-yb.youtube.stats" title="yb.youtube.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stats</span></code></a></p></td>
+<td><p>Read live video metadata &amp; engagement numbers from the YouTube Data API v3.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="yb.youtube.api.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">yb.youtube.api</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="yb.podcast.shownotes.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">yb.podcast.shownotes</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">yb.youtube</a><ul>
+<li><a class="reference internal" href="#yb.youtube.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a><ul>
+<li><a class="reference internal" href="#yb.youtube.CaptionTrack.path"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.path</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.CaptionTrack.language"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.language</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.CaptionTrack.name"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.name</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.CaptionTrack.is_draft"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.is_draft</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#yb.youtube.ConsentRequired"><code class="docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a><ul>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.title"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.title</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.description"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.description</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.tags"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.tags</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.category_id"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.category_id</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.default_language"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.default_language</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.default_audio_language"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.default_audio_language</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.contains_synthetic_media"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.contains_synthetic_media</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.from_content"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.from_content()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.insert_body"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.insert_body()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.VideoMetadata.update_snippet"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.update_snippet()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#yb.youtube.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.delete_caption"><code class="docutils literal notranslate"><span class="pre">delete_caption()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.get_video"><code class="docutils literal notranslate"><span class="pre">get_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.insert_caption"><code class="docutils literal notranslate"><span class="pre">insert_caption()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.list_captions"><code class="docutils literal notranslate"><span class="pre">list_captions()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.publish_video"><code class="docutils literal notranslate"><span class="pre">publish_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.render_table"><code class="docutils literal notranslate"><span class="pre">render_table()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.resolve_fields"><code class="docutils literal notranslate"><span class="pre">resolve_fields()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.set_thumbnail"><code class="docutils literal notranslate"><span class="pre">set_thumbnail()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.update_video"><code class="docutils literal notranslate"><span class="pre">update_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.upload_video"><code class="docutils literal notranslate"><span class="pre">upload_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.video_metadata"><code class="docutils literal notranslate"><span class="pre">video_metadata()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=dba2a9e9"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fd10adb8"></script>
+    </body>
+</html>

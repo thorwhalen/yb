@@ -1,0 +1,39 @@
+# yb
+
+> Streamlining media publishing: prepare, upload, and edit videos (YouTube) and podcasts
+
+
+## Pages
+
+- [yb](index.html.md): Streamline media publishing: **prepare a piece of media once, publish it
+- [API reference](api.html.md): | [`yb`](_autosummary/yb.html.md#module-yb)   | yb — streamline media publishing: prepare once, publ...
+- [yb](_autosummary/yb.html.md): yb — streamline media publishing: prepare once, publish to YouTube or podcast.
+- [yb.audio_convert](_autosummary/yb.audio_convert.html.md): Convert audio files between formats with ffmpeg.
+- [yb.config](_autosummary/yb.config.html.md): User configuration for `yb` publishing defaults.
+- [yb.content](_autosummary/yb.content.html.md): Target-agnostic publication content: prepare it once, publish anywhere.
+- [yb.download](_autosummary/yb.download.html.md): Media download (yt-dlp) — fetch videos, audio, and their metadata.
+- [yb.download.youtube](_autosummary/yb.download.youtube.html.md): Download YouTube videos (and their metadata) via yt-dlp.
+- [yb.podcast](_autosummary/yb.podcast.html.md): Podcast publishing: show notes, chapters, cover video, and RSS.
+- [yb.podcast.chapters](_autosummary/yb.podcast.chapters.html.md): Podcast chapter markers: Podlove Simple Chapters (PSC) + MP3 ID3 chapters.
+- [yb.podcast.cover](_autosummary/yb.podcast.cover.html.md): Cover-over-audio video: turn a podcast audio file into a simple video.
+- [yb.podcast.feed](_autosummary/yb.podcast.feed.html.md): Podcast RSS feed generation (iTunes-compatible) via feedgen.
+- [yb.podcast.publish](_autosummary/yb.podcast.publish.html.md): Assemble a publishable podcast episode from a media file.
+- [yb.podcast.shownotes](_autosummary/yb.podcast.shownotes.html.md): Podcast show notes — the human-readable episode description block.
+- [yb.youtube](_autosummary/yb.youtube.html.md): YouTube publishing via the YouTube Data API v3.
+- [yb.youtube.api](_autosummary/yb.youtube.api.html.md): YouTube video operations: get, upload, update metadata, thumbnail, chapters.
+- [yb.youtube.auth](_autosummary/yb.youtube.auth.html.md): OAuth 2.0 plumbing for the YouTube Data API v3.
+- [yb.youtube.captions](_autosummary/yb.youtube.captions.html.md): Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.
+- [yb.youtube.metadata](_autosummary/yb.youtube.metadata.html.md): YouTube video metadata ↔ API snippet mapping.
+- [yb.youtube.playlists](_autosummary/yb.youtube.playlists.html.md): YouTube playlist operations: find/create a playlist and add videos to it.
+- [yb.youtube.publish](_autosummary/yb.youtube.publish.html.md): High-level YouTube publishing: prepare → upload → captions → thumbnail.
+- [yb.youtube.stats](_autosummary/yb.youtube.stats.html.md): Read live video metadata & engagement numbers from the YouTube Data API v3.
+- [For AI agents](ai-agents.html.md): `yb` ships artifacts for coding agents alongside its code. This page lists
+- [About this build](about-this-build.html.md): This documentation was built on **2026-09-15 09:42 UTC** from commit <a href="https://github.com/tho...
+
+---
+
+For more comprehensive documentation, see [yb.md](yb.md)
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-09-15T09:42:15Z",
+  "package": {
+    "name": "yb",
+    "version": "0.1.9",
+    "display_name": "yb",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "86f14ec46d1099c45635a52bcbdeb327dbe7891a",
+    "short_commit": "86f14ec",
+    "branch": "main",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/thorwhalen/yb",
+    "commit_url": "https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "thorwhalen/yb",
+    "sha": "86f14ec46d1099c45635a52bcbdeb327dbe7891a",
+    "sha_in_history": true,
+    "ref": "refs/heads/main",
+    "ref_name": "main",
+    "run_id": "34953761630",
+    "run_url": "https://github.com/thorwhalen/yb/actions/runs/34953761630",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.8",
+    "sphinx": "9.1.0",
+    "docutils": "0.22.4",
+    "python": "3.12.14"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "furo",
+    "accent": "#006787",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 20,
+    "objects_documented": 215
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.1.10",
+    "relation": "behind",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/thorwhalen/yb && cd yb\ngit checkout 86f14ec46d1099c45635a52bcbdeb327dbe7891a\npip install \"epythet==0.2.8\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": false,
+    "notes": [
+      "The documented version (0.1.9) is behind the latest release on PyPI (0.1.10): `pip install yb` gives newer code than these docs describe."
+    ]
+  }
+}

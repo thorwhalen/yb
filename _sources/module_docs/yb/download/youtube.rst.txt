@@ -1,4 +1,0 @@
-yb.download.youtube
-===================
-.. automodule:: yb.download.youtube
-   :members:

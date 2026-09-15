@@ -1,4 +1,0 @@
-yb
-==
-.. automodule:: yb
-   :members:

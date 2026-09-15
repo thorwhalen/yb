@@ -1,354 +1,647 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt" type="text/markdown"><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>yb</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
 
 
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to yb’s documentation! &mdash; yb 0.1.8 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  --color-brand-primary: #006787;
+  --color-brand-content: #006787;
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=22607128"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
-      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-      <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="yb" href="module_docs/yb.html" /> 
-</head>
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #30cbed;
+  --color-brand-content: #30cbed;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #30cbed;
+  --color-brand-content: #30cbed;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          
-          <a href="#" class="icon icon-home">
-            yb
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/audio_convert.html">yb.audio_convert</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download/youtube.html">yb.download.youtube</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/music.html">yb.music</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/music/publish.html">yb.music.publish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast.html">yb.podcast</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/cover.html">yb.podcast.cover</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/feed.html">yb.podcast.feed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/publish.html">yb.podcast.publish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube.html">yb.youtube</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/api.html">yb.youtube.api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/auth.html">yb.youtube.auth</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/captions.html">yb.youtube.captions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/publish.html">yb.youtube.publish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/stats.html">yb.youtube.stats</a></li>
-</ul>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
 
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">yb</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to yb’s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="welcome-to-yb-s-documentation">
-<h1>Welcome to yb’s documentation!<a class="headerlink" href="#welcome-to-yb-s-documentation" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb.html">yb</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.ContentMetadata"><code class="docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.PublicationContent"><code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.format_chapter_lines"><code class="docutils literal notranslate"><span class="pre">format_chapter_lines()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.generate_metadata"><code class="docutils literal notranslate"><span class="pre">generate_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_content"><code class="docutils literal notranslate"><span class="pre">prepare_content()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.prepare_podcast_episode"><code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb.html#yb.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/audio_convert.html">yb.audio_convert</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.AudioConversionError"><code class="docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.DEFAULT_LOSSY_BITRATE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOSSY_BITRATE</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.LOSSLESS_FORMATS"><code class="docutils literal notranslate"><span class="pre">LOSSLESS_FORMATS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.convert_audio"><code class="docutils literal notranslate"><span class="pre">convert_audio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/audio_convert.html#yb.audio_convert.normalize_format"><code class="docutils literal notranslate"><span class="pre">normalize_format()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/config.html">yb.config</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PLAYLIST_PRIVACY_STATUS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.DEFAULT_PRIVACY_STATUS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PRIVACY_STATUS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.YbConfig"><code class="docutils literal notranslate"><span class="pre">YbConfig</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.default_config_file"><code class="docutils literal notranslate"><span class="pre">default_config_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/config.html#yb.config.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/content.html">yb.content</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/content.html#yb.content.ContentMetadata"><code class="docutils literal notranslate"><span class="pre">ContentMetadata</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/content.html#yb.content.PublicationContent"><code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/content.html#yb.content.format_chapter_lines"><code class="docutils literal notranslate"><span class="pre">format_chapter_lines()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/content.html#yb.content.generate_metadata"><code class="docutils literal notranslate"><span class="pre">generate_metadata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/content.html#yb.content.prepare_content"><code class="docutils literal notranslate"><span class="pre">prepare_content()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download.html">yb.download</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.AudioConversionError"><code class="docutils literal notranslate"><span class="pre">AudioConversionError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.convert_audio"><code class="docutils literal notranslate"><span class="pre">convert_audio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_playlist"><code class="docutils literal notranslate"><span class="pre">download_youtube_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.youtube_playlist_info"><code class="docutils literal notranslate"><span class="pre">youtube_playlist_info()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download.html#yb.download.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/download/youtube.html">yb.download.youtube</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_AUDIO_FMT"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUDIO_FMT</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DEFAULT_OUTTMPL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_OUTTMPL</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DOWNLOAD_DIR_ENV"><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_DIR_ENV</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.DownloadResult"><code class="docutils literal notranslate"><span class="pre">DownloadResult</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.OnConvertError"><code class="docutils literal notranslate"><span class="pre">OnConvertError</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.default_download_dir"><code class="docutils literal notranslate"><span class="pre">default_download_dir()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_audio"><code class="docutils literal notranslate"><span class="pre">download_youtube_audio()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_playlist"><code class="docutils literal notranslate"><span class="pre">download_youtube_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.download_youtube_video"><code class="docutils literal notranslate"><span class="pre">download_youtube_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.glob_escape"><code class="docutils literal notranslate"><span class="pre">glob_escape()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.youtube_playlist_info"><code class="docutils literal notranslate"><span class="pre">youtube_playlist_info()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/download/youtube.html#yb.download.youtube.youtube_video_info"><code class="docutils literal notranslate"><span class="pre">youtube_video_info()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/music.html">yb.music</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/music/publish.html">yb.music.publish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast.html">yb.podcast</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.EpisodeFeedItem"><code class="docutils literal notranslate"><span class="pre">EpisodeFeedItem</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.PodcastChannel"><code class="docutils literal notranslate"><span class="pre">PodcastChannel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.PodcastEpisode"><code class="docutils literal notranslate"><span class="pre">PodcastEpisode</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.build_feed"><code class="docutils literal notranslate"><span class="pre">build_feed()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.cover_video"><code class="docutils literal notranslate"><span class="pre">cover_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.format_show_notes"><code class="docutils literal notranslate"><span class="pre">format_show_notes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.prepare_podcast_episode"><code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.psc_xml"><code class="docutils literal notranslate"><span class="pre">psc_xml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.write_id3_chapters"><code class="docutils literal notranslate"><span class="pre">write_id3_chapters()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast.html#yb.podcast.write_psc"><code class="docutils literal notranslate"><span class="pre">write_psc()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/chapters.html">yb.podcast.chapters</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/chapters.html#yb.podcast.chapters.psc_xml"><code class="docutils literal notranslate"><span class="pre">psc_xml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/chapters.html#yb.podcast.chapters.write_id3_chapters"><code class="docutils literal notranslate"><span class="pre">write_id3_chapters()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/chapters.html#yb.podcast.chapters.write_psc"><code class="docutils literal notranslate"><span class="pre">write_psc()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/cover.html">yb.podcast.cover</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/cover.html#yb.podcast.cover.cover_video"><code class="docutils literal notranslate"><span class="pre">cover_video()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/feed.html">yb.podcast.feed</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/feed.html#yb.podcast.feed.EpisodeFeedItem"><code class="docutils literal notranslate"><span class="pre">EpisodeFeedItem</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/feed.html#yb.podcast.feed.PodcastChannel"><code class="docutils literal notranslate"><span class="pre">PodcastChannel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/feed.html#yb.podcast.feed.build_feed"><code class="docutils literal notranslate"><span class="pre">build_feed()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/publish.html">yb.podcast.publish</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/publish.html#yb.podcast.publish.PodcastEpisode"><code class="docutils literal notranslate"><span class="pre">PodcastEpisode</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/publish.html#yb.podcast.publish.prepare_podcast_episode"><code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/podcast/shownotes.html">yb.podcast.shownotes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/podcast/shownotes.html#yb.podcast.shownotes.format_show_notes"><code class="docutils literal notranslate"><span class="pre">format_show_notes()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube.html">yb.youtube</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.delete_caption"><code class="docutils literal notranslate"><span class="pre">delete_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.get_video"><code class="docutils literal notranslate"><span class="pre">get_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.insert_caption"><code class="docutils literal notranslate"><span class="pre">insert_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.list_captions"><code class="docutils literal notranslate"><span class="pre">list_captions()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.publish_video"><code class="docutils literal notranslate"><span class="pre">publish_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.render_table"><code class="docutils literal notranslate"><span class="pre">render_table()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.resolve_fields"><code class="docutils literal notranslate"><span class="pre">resolve_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.set_thumbnail"><code class="docutils literal notranslate"><span class="pre">set_thumbnail()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.update_video"><code class="docutils literal notranslate"><span class="pre">update_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.upload_video"><code class="docutils literal notranslate"><span class="pre">upload_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube.html#yb.youtube.video_metadata"><code class="docutils literal notranslate"><span class="pre">video_metadata()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/api.html">yb.youtube.api</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.get_video"><code class="docutils literal notranslate"><span class="pre">get_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.set_thumbnail"><code class="docutils literal notranslate"><span class="pre">set_thumbnail()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.update_video"><code class="docutils literal notranslate"><span class="pre">update_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/api.html#yb.youtube.api.upload_video"><code class="docutils literal notranslate"><span class="pre">upload_video()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/auth.html">yb.youtube.auth</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.DEFAULT_SCOPES"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SCOPES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/auth.html#yb.youtube.auth.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/captions.html">yb.youtube.captions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.CaptionTrack"><code class="docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.delete_caption"><code class="docutils literal notranslate"><span class="pre">delete_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.insert_caption"><code class="docutils literal notranslate"><span class="pre">insert_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.list_captions"><code class="docutils literal notranslate"><span class="pre">list_captions()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/captions.html#yb.youtube.captions.upsert_caption"><code class="docutils literal notranslate"><span class="pre">upsert_caption()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/metadata.html">yb.youtube.metadata</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/metadata.html#yb.youtube.metadata.CATEGORY_SCIENCE_TECH"><code class="docutils literal notranslate"><span class="pre">CATEGORY_SCIENCE_TECH</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/metadata.html#yb.youtube.metadata.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/playlists.html">yb.youtube.playlists</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.is_video_in_playlist"><code class="docutils literal notranslate"><span class="pre">is_video_in_playlist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/playlists.html#yb.youtube.playlists.list_my_playlists"><code class="docutils literal notranslate"><span class="pre">list_my_playlists()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/publish.html">yb.youtube.publish</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/publish.html#yb.youtube.publish.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/publish.html#yb.youtube.publish.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/publish.html#yb.youtube.publish.publish_video"><code class="docutils literal notranslate"><span class="pre">publish_video()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="module_docs/yb/youtube/stats.html">yb.youtube.stats</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.DEFAULT_PARTS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PARTS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.FIELD_GROUPS"><code class="docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.render_table"><code class="docutils literal notranslate"><span class="pre">render_table()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.resolve_fields"><code class="docutils literal notranslate"><span class="pre">resolve_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="module_docs/yb/youtube/stats.html#yb.youtube.stats.video_metadata"><code class="docutils literal notranslate"><span class="pre">video_metadata()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
-<p>Release: 0.1.8</p>
-<p>Last change: Sep 06, 2026</p>
-</section>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="module_docs/yb.html" class="btn btn-neutral float-right" title="yb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
     </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">yb</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  
+  <span class="sidebar-brand-text">yb</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="_autosummary/yb.html">yb</a><input aria-label="Toggle navigation of yb" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/yb.audio_convert.html">yb.audio_convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/yb.config.html">yb.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/yb.content.html">yb.content</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/yb.download.html">yb.download</a><input aria-label="Toggle navigation of yb.download" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.download.youtube.html">yb.download.youtube</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/yb.podcast.html">yb.podcast</a><input aria-label="Toggle navigation of yb.podcast" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.podcast.chapters.html">yb.podcast.chapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.podcast.cover.html">yb.podcast.cover</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.podcast.feed.html">yb.podcast.feed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.podcast.publish.html">yb.podcast.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.podcast.shownotes.html">yb.podcast.shownotes</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/yb.youtube.html">yb.youtube</a><input aria-label="Toggle navigation of yb.youtube" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.api.html">yb.youtube.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.auth.html">yb.youtube.auth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.captions.html">yb.youtube.captions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.stats.html">yb.youtube.stats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ai-agents.html">For AI agents</a></li>
+</ul>
 
-  <hr/>
+</div>
+</div>
 
-  <div role="contentinfo">
-    <p></p>
-  </div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/index.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <!-- generated by epythet -->
+<section id="yb">
+<h1>yb<a class="headerlink" href="#yb" title="Link to this heading">¶</a></h1>
+<p>Streamline media publishing: <strong>prepare a piece of media once, publish it
+anywhere</strong> — to YouTube (upload + edit) or as a podcast (show notes, chapters,
+RSS) — plus a download module for pulling videos back down.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yb</span>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+<span class="c1"># Download a video (-&gt; ~/Downloads, named "Title (id).mp4")</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">yb</span><span class="o">.</span><span class="n">download_youtube_video</span><span class="p">(</span><span class="s2">"https://youtu.be/PRa9ciOe-us"</span><span class="p">)</span>
 
-</footer>
+<span class="c1"># One call: transcribe, write title/description/keywords, detect chapters,</span>
+<span class="c1"># render a thumbnail, and upload to YouTube (unlisted) with captions.</span>
+<span class="n">yb</span><span class="o">.</span><span class="n">prepare_and_publish</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+    <span class="n">language</span><span class="o">=</span><span class="s2">"English"</span><span class="p">,</span>
+    <span class="n">language_code</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span>
+    <span class="n">audio_language_code</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="o">=</span><span class="s2">"unlisted"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="why">
+<h2>Why<a class="headerlink" href="#why" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">yb</span></code> separates <strong>what</strong> you publish from <strong>where</strong> you publish it. A media file
+is turned into a platform-neutral <a class="reference internal" href="#yb/content.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code></span></a> — title,
+description, keywords, chapters, captions, thumbnail — and thin <em>adapters</em> map
+that onto each destination’s API. The media work itself (transcription, chapter
+detection, thumbnails, dubbing/translation) lives in the
+<a class="reference external" href="https://github.com/thorwhalen/mixing"><code class="docutils literal notranslate"><span class="pre">mixing</span></code></a> package; <code class="docutils literal notranslate"><span class="pre">yb</span></code> is the
+publication layer on top.</p>
+</section>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>yb<span class="w">                 </span><span class="c1"># core (needs `mixing`)</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'yb[youtube]'</span><span class="w">      </span><span class="c1"># YouTube upload/edit (Google API client)</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'yb[download]'</span><span class="w">     </span><span class="c1"># yt-dlp downloader</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'yb[podcast]'</span><span class="w">      </span><span class="c1"># podcast chapters (ID3/PSC) + RSS</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'yb[llm]'</span><span class="w">          </span><span class="c1"># LLM metadata/chapter copy (via `aix`)</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'yb[all]'</span><span class="w">          </span><span class="c1"># everything</span>
+</pre></div>
+</div>
+<p>Everything heavy is an optional extra, and <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">yb</span></code> never fails for a missing
+one — the error only surfaces when you actually call that feature. You also need
+<strong>ffmpeg</strong> on PATH for media work, and an <code class="docutils literal notranslate"><span class="pre">ELEVENLABS_API_KEY</span></code> for transcription.</p>
+</section>
+<section id="common-tasks">
+<h2>Common tasks<a class="headerlink" href="#common-tasks" title="Link to this heading">¶</a></h2>
+<section id="download">
+<h3>Download<a class="headerlink" href="#download" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.download</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">download_youtube_video</span><span class="p">,</span>
+    <span class="n">download_youtube_audio</span><span class="p">,</span>
+    <span class="n">youtube_video_info</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">youtube_video_info</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># metadata only, no download</span>
+<span class="n">download_youtube_video</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># best quality -&gt; ~/Downloads/"Title (id).mp4"</span>
+<span class="n">download_youtube_video</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">,</span>
+    <span class="n">download_dir</span><span class="o">=</span><span class="s2">"~/clips"</span><span class="p">,</span>
+    <span class="n">write_info_json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">write_subtitles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subtitle_langs</span><span class="o">=</span><span class="p">(</span><span class="s2">"en"</span><span class="p">,</span> <span class="s2">"fr"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># audio only, source format -&gt; "Title (id).webm"</span>
+<span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">"mp3"</span><span class="p">)</span>  <span class="c1"># ...converted (needs ffmpeg)</span>
+<span class="n">download_youtube_audio</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="s2">"mp3"</span><span class="p">,</span> <span class="n">bitrate</span><span class="o">=</span><span class="s2">"320k"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The destination defaults to <code class="docutils literal notranslate"><span class="pre">$YB_DOWNLOAD_DIR</span></code> (else <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>). Every knob
+— format, filename template, which sidecar metadata to also save — is
+overridable, and any raw yt-dlp option can be passed via <code class="docutils literal notranslate"><span class="pre">extra_opts=</span></code>.</p>
+<p><strong>Audio format.</strong> <code class="docutils literal notranslate"><span class="pre">download_youtube_audio</span></code> keeps whatever the source offers by
+default (YouTube’s best audio is normally Opus in a <code class="docutils literal notranslate"><span class="pre">.webm</span></code> container). That
+default needs no ffmpeg and avoids re-encoding one lossy format into another.
+Pass <code class="docutils literal notranslate"><span class="pre">audio_format=</span></code> when you need a specific one — it’s a no-op if the download
+already is that format, so it’s safe to pass unconditionally. If conversion
+can’t happen (no ffmpeg) it raises, and <strong>the download is always left on disk</strong>;
+pass <code class="docutils literal notranslate"><span class="pre">on_error=&quot;warn&quot;</span></code> to fall back to the unconverted file instead.</p>
+<p>The same conversion is available standalone for files you already have:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.audio_convert</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_audio</span>
+
+<span class="n">convert_audio</span><span class="p">(</span><span class="s2">"talk.webm"</span><span class="p">,</span> <span class="s2">"mp3"</span><span class="p">)</span>  <span class="c1"># -&gt; talk.mp3</span>
+<span class="n">convert_audio</span><span class="p">(</span><span class="s2">"talk.webm"</span><span class="p">,</span> <span class="s2">"wav"</span><span class="p">)</span>  <span class="c1"># lossless: bitrate not applied</span>
+</pre></div>
+</div>
+</section>
+<section id="publish-to-youtube">
+<h3>Publish to YouTube<a class="headerlink" href="#publish-to-youtube" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_and_publish</span><span class="p">,</span> <span class="n">VideoMetadata</span><span class="p">,</span> <span class="n">publish_video</span><span class="p">,</span> <span class="n">CaptionTrack</span>
+
+<span class="c1"># High level: prepare assets from the media file, then upload.</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">prepare_and_publish</span><span class="p">(</span>
+    <span class="s2">"promo.fr.mp4"</span><span class="p">,</span>
+    <span class="n">language</span><span class="o">=</span><span class="s2">"French"</span><span class="p">,</span>
+    <span class="n">language_code</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span>
+    <span class="n">audio_language_code</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="o">=</span><span class="s2">"unlisted"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"url"</span><span class="p">])</span>
+
+<span class="c1"># Lower level: you supply the metadata and captions.</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="n">VideoMetadata</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"..."</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"..."</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="n">default_language</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span>
+    <span class="n">default_audio_language</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">publish_video</span><span class="p">(</span>
+    <span class="s2">"promo.en.mp4"</span><span class="p">,</span>
+    <span class="n">meta</span><span class="p">,</span>
+    <span class="n">privacy_status</span><span class="o">=</span><span class="s2">"unlisted"</span><span class="p">,</span>
+    <span class="n">captions</span><span class="o">=</span><span class="p">[</span><span class="n">CaptionTrack</span><span class="p">(</span><span class="s2">"promo.en.srt"</span><span class="p">,</span> <span class="s2">"en"</span><span class="p">,</span> <span class="s2">"English"</span><span class="p">)],</span>
+    <span class="n">thumbnail</span><span class="o">=</span><span class="s2">"thumb.jpg"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Chapters</strong> are on by default: when the media is long enough to host them
+(YouTube requires ≥3 markers, each ≥10 s, first at <code class="docutils literal notranslate"><span class="pre">0:00</span></code>), they are detected
+from the transcript and embedded in the description so YouTube renders
+interactive chapters. Short clips simply get none.</p>
+</section>
+<section id="edit-an-already-published-video">
+<h3>Edit an already-published video<a class="headerlink" href="#edit-an-already-published-video" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">update_video_fields</span><span class="p">,</span> <span class="n">upsert_caption</span><span class="p">,</span> <span class="n">set_chapters</span><span class="p">,</span> <span class="n">set_thumbnail</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mixing.chapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chapter</span>
+
+<span class="n">update_video_fields</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"New title"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">])</span>
+<span class="n">upsert_caption</span><span class="p">(</span>
+    <span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="s2">"subs.fr.srt"</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">"fr"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Français"</span>
+<span class="p">)</span>  <span class="c1"># replaces same-lang track</span>
+<span class="n">set_chapters</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="p">[</span><span class="n">Chapter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"Intro"</span><span class="p">),</span> <span class="n">Chapter</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="s2">"Demo"</span><span class="p">)])</span>
+<span class="n">set_thumbnail</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="s2">"thumb.jpg"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="read-live-stats-metadata">
+<h3>Read live stats &amp; metadata<a class="headerlink" href="#read-live-stats-metadata" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube</span><span class="w"> </span><span class="kn">import</span> <span class="n">video_metadata</span><span class="p">,</span> <span class="n">FIELD_GROUPS</span>
+
+<span class="n">video_metadata</span><span class="p">(</span>
+    <span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span>
+<span class="p">)</span>  <span class="c1"># dict: views, likes, dislikes, comments, ...</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">video_metadata</span><span class="p">(</span><span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>  <span class="c1"># readable ASCII table</span>
+<span class="n">video_metadata</span><span class="p">(</span>
+    <span class="s2">"VIDEO_ID"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">"views"</span><span class="p">,</span> <span class="s2">"likes"</span><span class="p">]</span>
+<span class="p">)</span>  <span class="c1"># pick &amp; order exact fields</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">video_metadata</span><span class="p">([</span><span class="s2">"ID1"</span><span class="p">,</span> <span class="s2">"ID2"</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="s2">"engagement"</span><span class="p">,</span> <span class="n">as_table</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>  <span class="c1"># compare videos, one row each</span>
+</pre></div>
+</div>
+<p>One request returns a flat, typed view of a video’s live numbers plus content
+and status details. With no <code class="docutils literal notranslate"><span class="pre">group</span></code>/<code class="docutils literal notranslate"><span class="pre">fields</span></code> you get every field; <code class="docutils literal notranslate"><span class="pre">fields</span></code>
+overrides <code class="docutils literal notranslate"><span class="pre">group</span></code>. Named groups (<code class="docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code>): <code class="docutils literal notranslate"><span class="pre">engagement</span></code>, <code class="docutils literal notranslate"><span class="pre">overview</span></code>,
+<code class="docutils literal notranslate"><span class="pre">content</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">identity</span></code>. <code class="docutils literal notranslate"><span class="pre">dislikes</span></code> is returned only to the video’s
+<strong>owner</strong> (else <code class="docutils literal notranslate"><span class="pre">None</span></code>); watch-time/retention/shares live in the YouTube
+<em>Analytics</em> API, not here.</p>
+</section>
+<section id="publish-a-song-as-a-music-video">
+<h3>Publish a song as a music video<a class="headerlink" href="#publish-a-song-as-a-music-video" title="Link to this heading">¶</a></h3>
+<p>You have a song and its cover; YouTube wants a video. <code class="docutils literal notranslate"><span class="pre">yb.music</span></code> renders one
+(through <a class="reference external" href="https://github.com/thorwhalen/muvid"><code class="docutils literal notranslate"><span class="pre">muvid.visualize</span></code></a>) and publishes
+it through the same machinery as everything else. Needs <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'yb[music]'</span></code>
+(pulls <code class="docutils literal notranslate"><span class="pre">muvid</span></code>, which needs <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code>); uploading also needs <code class="docutils literal notranslate"><span class="pre">yb[youtube]</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.music</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_music_video</span><span class="p">,</span> <span class="n">publish_music</span><span class="p">,</span> <span class="n">publish_folder</span>
+
+<span class="c1"># Simplest: the cover on a 16:9 canvas, held for the song's length.</span>
+<span class="n">mv</span> <span class="o">=</span> <span class="n">prepare_music_video</span><span class="p">(</span><span class="s2">"song.wav"</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">"cover.png"</span><span class="p">)</span>
+<span class="n">mv</span><span class="o">.</span><span class="n">video</span><span class="p">,</span> <span class="n">mv</span><span class="o">.</span><span class="n">thumbnail</span>  <span class="c1"># -&gt; song.mp4, song.thumb.jpg</span>
+
+<span class="c1"># Render and upload in one call.</span>
+<span class="n">publish_music</span><span class="p">(</span><span class="s2">"song.wav"</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">"cover.png"</span><span class="p">,</span> <span class="n">privacy_status</span><span class="o">=</span><span class="s2">"unlisted"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>A whole folder → an album.</strong> Drop <code class="docutils literal notranslate"><span class="pre">(song.wav,</span> <span class="pre">song.jpeg)</span></code> pairs in a folder —
+the <strong>filename is the title</strong>, covers match by name — and publish them all, each
+song rendered with the next visual in a rotation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test the first song (unlisted) before committing the set…</span>
+<span class="n">publish_folder</span><span class="p">(</span><span class="s2">"~/album"</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># …then do the rest, collected into one playlist.</span>
+<span class="n">publish_folder</span><span class="p">(</span><span class="s2">"~/album"</span><span class="p">,</span> <span class="n">playlist</span><span class="o">=</span><span class="s2">"My Album"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default the rotation is <code class="docutils literal notranslate"><span class="pre">waves</span> <span class="pre">→</span> <span class="pre">cqt</span> <span class="pre">→</span> <span class="pre">spectrum</span> <span class="pre">→</span> <span class="pre">bars</span> <span class="pre">→</span> <span class="pre">scope</span></code> (override with
+<code class="docutils literal notranslate"><span class="pre">cycle=</span></code>), so a set varies method to method yet reads as one release — reinforced
+by a consistent <strong>teal</strong> accent and one loudness target across every video.
+<code class="docutils literal notranslate"><span class="pre">prepare_folder(...)</span></code> renders without uploading, for review first.</p>
+<p>Pick a single <strong>visual</strong> with <code class="docutils literal notranslate"><span class="pre">visual=</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;still&quot;</span></code> (default when there’s an
+image), <code class="docutils literal notranslate"><span class="pre">&quot;ken_burns&quot;</span></code> (a slow pan/zoom), or an audio-reactive one — <code class="docutils literal notranslate"><span class="pre">&quot;cqt&quot;</span></code>
+(pitch-aligned bars, the most musical), <code class="docutils literal notranslate"><span class="pre">&quot;bars&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;spectrum&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;waves&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;scope&quot;</span></code>. All the reactive ones are pure ffmpeg. You can also pass <strong>your own
+callable</strong> (see <code class="docutils literal notranslate"><span class="pre">muvid.visualize.register_visual</span></code>).</p>
+<p>What you get for free, because it’s what makes a set of songs feel like a release:</p>
+<ul class="simple">
+<li><p><strong>16:9, never pillarboxed.</strong> Square or portrait art is composed onto a 1080p
+canvas filled with a blurred, darkened copy of itself — not black bars.</p></li>
+<li><p><strong>Loudness-normalized</strong> to −14 LUFS (EBU R128, two-pass), so an album plays at
+one level. <code class="docutils literal notranslate"><span class="pre">normalize=False</span></code> to opt out.</p></li>
+<li><p><strong>A thumbnail</strong> derived from the same composition (1280×720, under YouTube’s
+2 MiB limit), used as the video’s thumbnail by default.</p></li>
+<li><p><strong>Music category</strong>, and a video exactly as long as the song.</p></li>
+</ul>
+<p>Check what you made before you ship it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">muvid.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">verify_video</span><span class="p">,</span> <span class="n">report</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">(</span><span class="n">verify_video</span><span class="p">(</span><span class="s2">"song.mp4"</span><span class="p">,</span> <span class="n">audio</span><span class="o">=</span><span class="s2">"song.wav"</span><span class="p">,</span> <span class="n">thumbnail</span><span class="o">=</span><span class="s2">"song.thumb.jpg"</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>See the <strong><code class="docutils literal notranslate"><span class="pre">music2video</span></code></strong> skill for the visualizer menu and the full quality
+checklist.</p>
+</section>
+<section id="publish-a-podcast-episode">
+<h3>Publish a podcast episode<a class="headerlink" href="#publish-a-podcast-episode" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">yb.podcast</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">prepare_podcast_episode</span><span class="p">,</span>
+    <span class="n">PodcastChannel</span><span class="p">,</span>
+    <span class="n">EpisodeFeedItem</span><span class="p">,</span>
+    <span class="n">build_feed</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ep</span> <span class="o">=</span> <span class="n">prepare_podcast_episode</span><span class="p">(</span>
+    <span class="s2">"episode.mp3"</span><span class="p">,</span> <span class="s2">"out/"</span><span class="p">,</span> <span class="n">cover_image</span><span class="o">=</span><span class="s2">"cover.jpg"</span><span class="p">,</span> <span class="n">make_cover_video</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="c1"># -&gt; out/episode.mp3 (with ID3 chapters), .shownotes.txt, .psc.xml,</span>
+<span class="c1">#    .chapters.json, and .cover.mp4</span>
+
+<span class="c1"># Assemble an RSS feed (delivery to Spotify/Apple is via your podcast host).</span>
+</pre></div>
+</div>
+<p>A podcast episode and a YouTube video are built from the <em>same</em>
+<code class="docutils literal notranslate"><span class="pre">PublicationContent</span></code>: an episode “could just be audio with a cover image” (or a
+Ken Burns video), which is exactly what <code class="docutils literal notranslate"><span class="pre">prepare_podcast_episode</span></code> can render.</p>
+</section>
+</section>
+<section id="setup-youtube-oauth">
+<h2>Setup (YouTube OAuth)<a class="headerlink" href="#setup-youtube-oauth" title="Link to this heading">¶</a></h2>
+<p>YouTube upload needs a Google OAuth <em>Desktop</em> client (one-time). <code class="docutils literal notranslate"><span class="pre">gcloud</span></code> is
+<strong>not required</strong> — the console path works. See the <strong><code class="docutils literal notranslate"><span class="pre">yb-setup</span></code></strong> skill for the
+full walkthrough (enable the API, create the OAuth client, run consent, test).
+Point <code class="docutils literal notranslate"><span class="pre">yb</span></code> at the client JSON via <code class="docutils literal notranslate"><span class="pre">$YOUTUBE_CLIENT_SECRETS_FILE</span></code>.</p>
+<blockquote>
+<div><p>Note: until your Google Cloud project passes YouTube’s one-time API
+compliance audit, uploads may be forced to <strong>private</strong> even when you request
+<code class="docutils literal notranslate"><span class="pre">unlisted</span></code>/<code class="docutils literal notranslate"><span class="pre">public</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Role</p></th>
+<th class="head"><p>Extra</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yb.content</span></code></p></td>
+<td><p>platform-neutral content prep (metadata, chapters, thumbnail)</p></td>
+<td><p>core</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yb.music</span></code></p></td>
+<td><p>songs → music videos, published as an album</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">music</span></code> (+<code class="docutils literal notranslate"><span class="pre">youtube</span></code> to upload)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yb.youtube</span></code></p></td>
+<td><p>upload, edit + read stats via YouTube Data API v3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">youtube</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yb.podcast</span></code></p></td>
+<td><p>show notes, ID3/PSC chapters, cover video, RSS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">podcast</span></code> (+<code class="docutils literal notranslate"><span class="pre">music</span></code> for cover video)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yb.download</span></code></p></td>
+<td><p>yt-dlp downloader (video, audio-only, playlists, metadata)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">download</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yb.audio_convert</span></code></p></td>
+<td><p>audio format conversion via ffmpeg</p></td>
+<td><p>core (needs <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The audio→video rendering itself lives in
+<a class="reference external" href="https://github.com/thorwhalen/muvid"><code class="docutils literal notranslate"><span class="pre">muvid.visualize</span></code></a> (canvas, visual
+strategies, loudness, verification); <code class="docutils literal notranslate"><span class="pre">yb.music</span></code> is the publish-facing facade over
+it, and the <code class="docutils literal notranslate"><span class="pre">music</span></code> extra pulls <code class="docutils literal notranslate"><span class="pre">muvid</span></code>.</p>
+<p class="epythet-aggregates">This documentation as a single file: <a href="yb.md">yb.md</a> (Markdown, for agents).</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-15 09:42 UTC from <a href="https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a">86f14ec</a> (main) · yb 0.1.9 · <a href="about-this-build.html">about this build</a></p>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="api.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">yb</a><ul>
+<li><a class="reference internal" href="#why">Why</a></li>
+<li><a class="reference internal" href="#install">Install</a></li>
+<li><a class="reference internal" href="#common-tasks">Common tasks</a><ul>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#publish-to-youtube">Publish to YouTube</a></li>
+<li><a class="reference internal" href="#edit-an-already-published-video">Edit an already-published video</a></li>
+<li><a class="reference internal" href="#read-live-stats-metadata">Read live stats &amp; metadata</a></li>
+<li><a class="reference internal" href="#publish-a-song-as-a-music-video">Publish a song as a music video</a></li>
+<li><a class="reference internal" href="#publish-a-podcast-episode">Publish a podcast episode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup-youtube-oauth">Setup (YouTube OAuth)</a></li>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
         </div>
       </div>
-    </section>
+      
+      
+    </aside>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script src="_static/documentation_options.js?v=dba2a9e9"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fd10adb8"></script>
+    </body>
 </html>

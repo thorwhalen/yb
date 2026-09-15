@@ -1,0 +1,19 @@
+﻿yb
+==
+
+.. automodule:: yb
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   audio_convert
+   config
+   content
+   download
+   music
+   podcast
+   youtube

@@ -1,0 +1,26 @@
+yb.config
+=========
+
+.. automodule:: yb.config
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DEFAULT_PRIVACY_STATUS
+      DEFAULT_PLAYLIST_PRIVACY_STATUS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      default_config_file
+      load_config
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      YbConfig
+   

@@ -1,4 +1,0 @@
-yb.podcast.shownotes
-====================
-.. automodule:: yb.podcast.shownotes
-   :members:

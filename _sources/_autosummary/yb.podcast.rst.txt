@@ -1,0 +1,37 @@
+yb.podcast
+==========
+
+.. automodule:: yb.podcast
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      format_show_notes
+      psc_xml
+      write_psc
+      write_id3_chapters
+      cover_video
+      build_feed
+      prepare_podcast_episode
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      PodcastChannel
+      EpisodeFeedItem
+      PodcastEpisode
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   chapters
+   cover
+   feed
+   publish
+   shownotes

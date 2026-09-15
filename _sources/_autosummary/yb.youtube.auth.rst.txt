@@ -1,0 +1,28 @@
+yb.youtube.auth
+===============
+
+.. automodule:: yb.youtube.auth
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DEFAULT_SCOPES
+      DEFAULT_CONSENT_TIMEOUT_S
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      default_client_secrets_file
+      default_token_file
+      get_credentials
+      get_service
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      ConsentRequired
+   

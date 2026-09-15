@@ -1,0 +1,21 @@
+yb.content
+==========
+
+.. automodule:: yb.content
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      format_chapter_lines
+      generate_metadata
+      prepare_content
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ContentMetadata
+      PublicationContent
+   

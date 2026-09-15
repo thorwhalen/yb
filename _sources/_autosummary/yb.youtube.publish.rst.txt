@@ -1,0 +1,14 @@
+yb.youtube.publish
+==================
+
+.. automodule:: yb.youtube.publish
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      prepare_and_publish
+      publish_content
+      publish_video
+   

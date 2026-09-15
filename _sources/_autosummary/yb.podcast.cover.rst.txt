@@ -1,0 +1,12 @@
+yb.podcast.cover
+================
+
+.. automodule:: yb.podcast.cover
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      cover_video
+   

@@ -1,4 +1,0 @@
-yb.music.publish
-================
-.. automodule:: yb.music.publish
-   :members:

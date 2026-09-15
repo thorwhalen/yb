@@ -1,4 +1,0 @@
-yb.content
-==========
-.. automodule:: yb.content
-   :members:

@@ -1,0 +1,19 @@
+yb.podcast.feed
+===============
+
+.. automodule:: yb.podcast.feed
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      build_feed
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      EpisodeFeedItem
+      PodcastChannel
+   

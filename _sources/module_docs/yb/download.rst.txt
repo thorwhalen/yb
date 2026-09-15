@@ -1,4 +1,0 @@
-yb.download
-===========
-.. automodule:: yb.download
-   :members:

@@ -1,0 +1,26 @@
+yb.audio\_convert
+=================
+
+.. automodule:: yb.audio_convert
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      LOSSLESS_FORMATS
+      DEFAULT_LOSSY_BITRATE
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      convert_audio
+      normalize_format
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      AudioConversionError
+   

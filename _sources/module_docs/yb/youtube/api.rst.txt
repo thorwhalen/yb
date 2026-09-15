@@ -1,4 +1,0 @@
-yb.youtube.api
-==============
-.. automodule:: yb.youtube.api
-   :members:

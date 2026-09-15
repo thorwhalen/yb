@@ -1,4 +1,0 @@
-yb.config
-=========
-.. automodule:: yb.config
-   :members:

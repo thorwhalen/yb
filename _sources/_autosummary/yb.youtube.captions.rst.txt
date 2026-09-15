@@ -1,0 +1,23 @@
+yb.youtube.captions
+===================
+
+.. automodule:: yb.youtube.captions
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      delete_caption
+      download_caption
+      insert_caption
+      list_captions
+      update_caption
+      upsert_caption
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CaptionTrack
+   

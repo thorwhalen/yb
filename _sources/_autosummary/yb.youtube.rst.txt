@@ -1,0 +1,68 @@
+yb.youtube
+==========
+
+.. automodule:: yb.youtube
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_credentials
+      get_service
+      default_token_file
+      default_client_secrets_file
+      list_my_playlists
+      find_playlist
+      create_playlist
+      ensure_playlist
+      is_video_in_playlist
+      add_to_playlist
+      add_video_to_playlist
+      get_video
+      upload_video
+      update_video
+      update_video_fields
+      set_thumbnail
+      set_chapters
+      video_metadata
+      flatten_video
+      select_fields
+      resolve_fields
+      render_table
+      list_captions
+      insert_caption
+      update_caption
+      upsert_caption
+      download_caption
+      delete_caption
+      publish_content
+      prepare_and_publish
+      publish_video
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      VideoMetadata
+      CaptionTrack
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      ConsentRequired
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   api
+   auth
+   captions
+   metadata
+   playlists
+   publish
+   stats

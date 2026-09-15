@@ -1,4 +1,0 @@
-yb.podcast.chapters
-===================
-.. automodule:: yb.podcast.chapters
-   :members:

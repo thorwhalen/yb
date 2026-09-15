@@ -1,0 +1,12 @@
+yb.podcast.shownotes
+====================
+
+.. automodule:: yb.podcast.shownotes
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      format_show_notes
+   

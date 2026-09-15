@@ -1,0 +1,18 @@
+yb.youtube.playlists
+====================
+
+.. automodule:: yb.youtube.playlists
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      add_to_playlist
+      add_video_to_playlist
+      create_playlist
+      ensure_playlist
+      find_playlist
+      is_video_in_playlist
+      list_my_playlists
+   

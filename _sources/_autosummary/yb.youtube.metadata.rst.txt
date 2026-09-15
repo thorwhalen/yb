@@ -1,0 +1,18 @@
+yb.youtube.metadata
+===================
+
+.. automodule:: yb.youtube.metadata
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      CATEGORY_SCIENCE_TECH
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      VideoMetadata
+   

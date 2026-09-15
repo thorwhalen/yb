@@ -1,4 +1,0 @@
-yb.youtube.metadata
-===================
-.. automodule:: yb.youtube.metadata
-   :members:

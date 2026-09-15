@@ -1,4 +1,0 @@
-yb.podcast.cover
-================
-.. automodule:: yb.podcast.cover
-   :members:

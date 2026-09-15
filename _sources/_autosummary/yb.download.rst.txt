@@ -1,0 +1,37 @@
+yb.download
+===========
+
+.. automodule:: yb.download
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      download_youtube_video
+      download_youtube_audio
+      youtube_video_info
+      download_youtube_playlist
+      youtube_playlist_info
+      default_download_dir
+      convert_audio
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      DownloadResult
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      AudioConversionError
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   youtube

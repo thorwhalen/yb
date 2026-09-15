@@ -1,0 +1,18 @@
+yb.podcast.publish
+==================
+
+.. automodule:: yb.podcast.publish
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      prepare_podcast_episode
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      PodcastEpisode
+   

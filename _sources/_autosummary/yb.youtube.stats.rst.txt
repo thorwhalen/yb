@@ -1,0 +1,23 @@
+yb.youtube.stats
+================
+
+.. automodule:: yb.youtube.stats
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DEFAULT_PARTS
+      FIELD_GROUPS
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      flatten_video
+      render_table
+      resolve_fields
+      select_fields
+      video_metadata
+   

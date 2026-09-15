@@ -1,0 +1,17 @@
+yb.youtube.api
+==============
+
+.. automodule:: yb.youtube.api
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_video
+      set_chapters
+      set_thumbnail
+      update_video
+      update_video_fields
+      upload_video
+   

@@ -1,0 +1,14 @@
+yb.podcast.chapters
+===================
+
+.. automodule:: yb.podcast.chapters
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      psc_xml
+      write_id3_chapters
+      write_psc
+   

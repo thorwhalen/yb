@@ -1,0 +1,33 @@
+yb.download.youtube
+===================
+
+.. automodule:: yb.download.youtube
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      OnConvertError
+      DOWNLOAD_DIR_ENV
+      DEFAULT_OUTTMPL
+      DEFAULT_AUDIO_FMT
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      default_download_dir
+      download_youtube_audio
+      download_youtube_playlist
+      download_youtube_video
+      glob_escape
+      youtube_playlist_info
+      youtube_video_info
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      DownloadResult
+   
