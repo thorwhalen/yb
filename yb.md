@@ -1,4 +1,4 @@
-> built 2026-09-15 09:42 UTC from 86f14ec (main) · yb 0.1.9. Details: build_info.json
+> built 2026-09-16 19:50 UTC from 7419d71 (main) · yb 0.1.10. Details: build_info.json
 
 # index.html.md
 
@@ -796,8 +796,7 @@ a playlist download is usually an archival operation).
 
 Selecting a subset (yt-dlp `--playlist-items` is **1-based**):
 
-> ### skip the first (“PV”/intro) entry, keep the rest
-
+> # skip the first (“PV”/intro) entry, keep the rest
 > download_youtube_playlist(url, skip_first=True)         # -> playlist_items=”2:”
 > download_youtube_playlist(url, playlist_items=”2:”)     # same, explicit
 > download_youtube_playlist(url, playlist_items=”2”)      # only the 2nd video
@@ -1059,8 +1058,7 @@ a playlist download is usually an archival operation).
 
 Selecting a subset (yt-dlp `--playlist-items` is **1-based**):
 
-> ### skip the first (“PV”/intro) entry, keep the rest
-
+> # skip the first (“PV”/intro) entry, keep the rest
 > download_youtube_playlist(url, skip_first=True)         # -> playlist_items=”2:”
 > download_youtube_playlist(url, playlist_items=”2:”)     # same, explicit
 > download_youtube_playlist(url, playlist_items=”2”)      # only the 2nd video
@@ -2293,8 +2291,14 @@ Edit an existing video:
 
 ### Functions
 
-| [`get_credentials`](_autosummary/yb.youtube.html.md#yb.youtube.get_credentials)(\*[, client_secrets_file, ...])    | Return OAuth user credentials, running the consent flow if needed.                                            |
+| [`api_available`](_autosummary/yb.youtube.html.md#yb.youtube.api_available)(\*[, api_key])                       | Whether the Data API can actually be called with the key we have.                                             |
 |-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `watch_url`(video_id)                                                                               |                                                                                                               |
+| [`thumbnail_url`](_autosummary/yb.youtube.html.md#yb.youtube.thumbnail_url)(video_id, \*[, quality])             | Thumbnail URL for a video.                                                                                    |
+| [`rank_by_engagement`](_autosummary/yb.youtube.html.md#yb.youtube.rank_by_engagement)(videos, \*[, min_views, ...])   | Order videos by a like-rate-and-reach score.                                                                  |
+| [`add_stats`](_autosummary/yb.youtube.html.md#yb.youtube.add_stats)(videos, \*[, api_key, backend])          | Fill in engagement numbers on search results, in place-ish (returns them).                                    |
+| [`search_videos`](_autosummary/yb.youtube.html.md#yb.youtube.search_videos)(query, \*[, max_results, ...])       | Search YouTube and return a list of video records.                                                            |
+| [`get_credentials`](_autosummary/yb.youtube.html.md#yb.youtube.get_credentials)(\*[, client_secrets_file, ...])    | Return OAuth user credentials, running the consent flow if needed.                                            |
 | [`get_service`](_autosummary/yb.youtube.html.md#yb.youtube.get_service)(\*[, credentials])                     | Build a YouTube Data API v3 service object.                                                                   |
 | [`default_token_file`](_autosummary/yb.youtube.html.md#yb.youtube.default_token_file)()                               | Cached OAuth token location (`$XDG_CONFIG_HOME` or `~/.config`).                                              |
 | [`default_client_secrets_file`](_autosummary/yb.youtube.html.md#yb.youtube.default_client_secrets_file)()                      | Default OAuth client-secrets location: `<config dir>/client_secret.json`.                                     |
@@ -2434,6 +2438,13 @@ Build the snippet for `videos.update` (categoryId is required).
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 
+### yb.youtube.add_stats(videos, , api_key=None, backend='auto')
+
+Fill in engagement numbers on search results, in place-ish (returns them).
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
 ### yb.youtube.add_to_playlist(video_id, playlist_id, , service=None, \*\*cred_kwargs)
 
 Append `video_id` to `playlist_id` (`playlistItems.insert`).
@@ -2456,6 +2467,17 @@ playlist is left alone instead of duplicated.
   if the playlist had to be made.
 * **Raises:**
   [**KeyError**](https://docs.python.org/3/builtins/exceptions.html#KeyError) – the playlist is absent and `create=False`.
+
+### yb.youtube.api_available(, api_key=None)
+
+Whether the Data API can actually be called with the key we have.
+
+A key that exists is not a key that works: the API has to be enabled on its
+Cloud project too, and that failure is a 403 at call time rather than
+anything visible up front.
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### yb.youtube.create_playlist(title, , description='', privacy_status='private', service=None, \*\*cred_kwargs)
 
@@ -2666,6 +2688,20 @@ Lower-level upload: explicit [`VideoMetadata`](_autosummary/yb.youtube.html.md#y
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 
+### yb.youtube.rank_by_engagement(videos, , min_views=0, like_weight=1.0, view_weight=1.0)
+
+Order videos by a like-rate-and-reach score.
+
+Raw view count alone rewards age and luck, and like count alone rewards the
+same. The score multiplies *reach* (log views, so an order of magnitude
+counts for a fixed amount) by *approval* (likes per thousand views), which
+ranks a well-liked mid-sized video above a big indifferent one. Videos
+missing numbers sort last rather than being dropped, since absent is not the
+same as bad.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
 ### yb.youtube.render_table(data, , fields=None)
 
 Render metadata as an ASCII table.
@@ -2685,6 +2721,18 @@ field. An unknown `group` raises `KeyError` naming the valid options.
 
 * **Return type:**
   [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str)]
+
+### yb.youtube.search_videos(query, , max_results=10, backend='auto', with_stats=False, api_key=None, language=None, region=None, \*\*params)
+
+Search YouTube and return a list of video records.
+
+`language`/`region` bias results (`"en"`, `"GB"`) rather than filter
+them — YouTube offers no hard language filter. Check what comes back if the
+language matters; a title can be auto-translated by the interface, which
+makes an English video look like a local one.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
 
 ### yb.youtube.select_fields(flat, , group=None, fields=None)
 
@@ -2709,6 +2757,13 @@ Set a custom thumbnail (`thumbnails.set`).
 
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
+
+### yb.youtube.thumbnail_url(video_id, , quality='mqdefault')
+
+Thumbnail URL for a video. Always available, no API call, no key.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 ### yb.youtube.update_caption(caption_id, path, , is_draft=None, service=None, \*\*cred_kwargs)
 
@@ -2787,6 +2842,7 @@ Fetch a video’s live metadata & engagement numbers.
 | [`metadata`](_autosummary/yb.youtube.metadata.html.md#module-yb.youtube.metadata)   | YouTube video metadata ↔ API snippet mapping.                                  |
 | [`playlists`](_autosummary/yb.youtube.playlists.html.md#module-yb.youtube.playlists) | YouTube playlist operations: find/create a playlist and add videos to it.      |
 | [`publish`](_autosummary/yb.youtube.publish.html.md#module-yb.youtube.publish)     | High-level YouTube publishing: prepare → upload → captions → thumbnail.        |
+| [`search`](_autosummary/yb.youtube.search.html.md#module-yb.youtube.search)       | Search YouTube for videos, with engagement numbers to rank them by.            |
 | [`stats`](_autosummary/yb.youtube.stats.html.md#module-yb.youtube.stats)         | Read live video metadata & engagement numbers from the YouTube Data API v3.    |
 
 
@@ -3046,6 +3102,128 @@ Lower-level upload: explicit `VideoMetadata` + caption tracks.
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 
 
+# _autosummary/yb.youtube.search.html.md
+
+# yb.youtube.search
+
+Search YouTube for videos, with engagement numbers to rank them by.
+
+A read-only companion to [`yb.youtube.stats`](_autosummary/yb.youtube.stats.html.md#module-yb.youtube.stats): that module tells you about a
+video you already know; this one finds the videos.
+
+Simple things simple:
+
+```default
+>>> from yb.youtube import search_videos
+>>> for v in search_videos("prime factorisation", max_results=3):
+...     print(v["views"], v["title"])
+```
+
+Two backends, because the obvious one is not always available:
+
+`"api"`
+: The official Data API `search.list`. Costs 100 quota units per call out of
+  a default 10 000/day, so roughly 100 searches. Needs `GOOGLE_API_KEY` *and*
+  YouTube Data API v3 enabled on that key’s Cloud project.
+
+`"scrape"`
+: Reads the public results page and pulls the same public fields out of the
+  `ytInitialData` blob the page ships to render itself. No key, no quota. It
+  depends on a page layout Google can change, so it is the fallback, not the
+  default — and it is for occasional personal use, not bulk collection.
+
+`backend="auto"` (the default) uses the API when it can and falls back
+otherwise, telling you which it used in each result’s `source` field, so a
+silently degraded search is never mistaken for a good one.
+
+Search results carry no engagement numbers on either backend. Pass
+`with_stats=True` to fill in `views`/`likes`/`comments` — one extra
+batched call per 50 videos on the API backend (1 quota unit), or one page fetch
+per video when scraping.
+
+**What each backend can actually tell you about engagement** (measured, not
+assumed): the API gives views, likes and comments. The scrape gives \*\*views
+only\*\* – YouTube no longer ships the like count in the watch page HTML for a
+signed-out request, so `likes` comes back `None` there rather than wrong.
+[`rank_by_engagement()`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.rank_by_engagement) degrades to ranking on reach alone when likes are
+missing; enabling the Data API is what makes approval-weighted ranking possible.
+
+### Module Attributes
+
+| [`WATCH_URL`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.WATCH_URL)           | Where a video lives, and the thumbnail YouTube always serves for it.   |
+|----------------------------------------------------------------------|------------------------------------------------------------------------|
+| [`THUMBNAIL_QUALITIES`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.THUMBNAIL_QUALITIES) | Thumbnail sizes YouTube serves for every video without an API call.    |
+
+### Functions
+
+| [`add_stats`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.add_stats)(videos, \*[, api_key, backend])        | Fill in engagement numbers on search results, in place-ish (returns them).   |
+|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| [`api_available`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.api_available)(\*[, api_key])                     | Whether the Data API can actually be called with the key we have.            |
+| [`rank_by_engagement`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.rank_by_engagement)(videos, \*[, min_views, ...]) | Order videos by a like-rate-and-reach score.                                 |
+| [`search_videos`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.search_videos)(query, \*[, max_results, ...])     | Search YouTube and return a list of video records.                           |
+| [`thumbnail_url`](_autosummary/yb.youtube.search.html.md#yb.youtube.search.thumbnail_url)(video_id, \*[, quality])           | Thumbnail URL for a video.                                                   |
+| `watch_url`(video_id)                                                                             |                                                                              |
+
+### yb.youtube.search.THUMBNAIL_QUALITIES *= ('default', 'mqdefault', 'hqdefault', 'sddefault', 'maxresdefault')*
+
+Thumbnail sizes YouTube serves for every video without an API call.
+
+### yb.youtube.search.WATCH_URL *= 'https://www.youtube.com/watch?v={video_id}'*
+
+Where a video lives, and the thumbnail YouTube always serves for it.
+
+### yb.youtube.search.add_stats(videos, , api_key=None, backend='auto')
+
+Fill in engagement numbers on search results, in place-ish (returns them).
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
+### yb.youtube.search.api_available(, api_key=None)
+
+Whether the Data API can actually be called with the key we have.
+
+A key that exists is not a key that works: the API has to be enabled on its
+Cloud project too, and that failure is a 403 at call time rather than
+anything visible up front.
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
+
+### yb.youtube.search.rank_by_engagement(videos, , min_views=0, like_weight=1.0, view_weight=1.0)
+
+Order videos by a like-rate-and-reach score.
+
+Raw view count alone rewards age and luck, and like count alone rewards the
+same. The score multiplies *reach* (log views, so an order of magnitude
+counts for a fixed amount) by *approval* (likes per thousand views), which
+ranks a well-liked mid-sized video above a big indifferent one. Videos
+missing numbers sort last rather than being dropped, since absent is not the
+same as bad.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
+### yb.youtube.search.search_videos(query, , max_results=10, backend='auto', with_stats=False, api_key=None, language=None, region=None, \*\*params)
+
+Search YouTube and return a list of video records.
+
+`language`/`region` bias results (`"en"`, `"GB"`) rather than filter
+them — YouTube offers no hard language filter. Check what comes back if the
+language matters; a title can be auto-translated by the interface, which
+makes an English video look like a local one.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
+### yb.youtube.search.thumbnail_url(video_id, , quality='mqdefault')
+
+Thumbnail URL for a video. Always available, no API call, no key.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
+
 # _autosummary/yb.youtube.stats.html.md
 
 # yb.youtube.stats
@@ -3183,18 +3361,18 @@ Fetch a video’s live metadata & engagement numbers.
 
 # About this build
 
-This documentation was built on **2026-09-15 09:42 UTC** from commit <a href="https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a"><code>86f14ec</code></a> on branch <code>main</code>, for **yb 0.1.9** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-16 19:50 UTC** from commit <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d71</code></a> on branch <code>main</code>, for **yb 0.1.10** (from <code>pyproject.toml</code>).
 
 #### WARNING
 The documentation and the package may be misaligned:
 
-- The documented version (0.1.9) is behind the latest release on PyPI (0.1.10): `pip install yb` gives newer code than these docs describe.
+- The documented version (0.1.10) is behind the latest release on PyPI (0.1.11): `pip install yb` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                      |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a"><code>86f14ec46d1099c45635a52bcbdeb327dbe7891a</code></a> |
+| Commit              | <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code></a> |
 | Branch              | <code>main</code>                                                                                                                                    |
 | Tags at this commit | none                                                                                                                                                 |
 | Working tree        | clean                                                                                                                                                |
@@ -3205,15 +3383,15 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>thorwhalen/yb</code>                                                                 |
-| Run          | <a href="https://github.com/thorwhalen/yb/actions/runs/34953761630">34953761630</a>        |
+| Run          | <a href="https://github.com/thorwhalen/yb/actions/runs/35142866668">35142866668</a>        |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>86f14ec46d1099c45635a52bcbdeb327dbe7891a</code> (in the history of the built commit) |
+| Event commit | <code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code> (in the history of the built commit) |
 
 ## Tools
 
 |          |         |
 |----------|---------|
-| epythet  | 0.2.8   |
+| epythet  | 0.2.12  |
 | Sphinx   | 9.1.0   |
 | docutils | 0.22.4  |
 | Python   | 3.12.14 |
@@ -3232,14 +3410,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/yb/0.1.10/">0.1.10</a>, newer than the documented version (0.1.9).
+Latest release: <a href="https://pypi.org/project/yb/0.1.11/">0.1.11</a>, newer than the documented version (0.1.10).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/yb && cd yb
-git checkout 86f14ec46d1099c45635a52bcbdeb327dbe7891a
-pip install "epythet==0.2.8"
+git checkout 7419d710b5ddc0efc1b661fcbac309cf91ed72bc
+pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 

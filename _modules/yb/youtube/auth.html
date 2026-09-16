@@ -223,6 +223,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.search.html">yb.youtube.search</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.stats.html">yb.youtube.stats</a></li>
 </ul>
 </li>
@@ -390,7 +391,7 @@
         <span class="s2">"elsewhere:</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s2">"    get_credentials(interactive=True, open_browser=False, port=8080)</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
-        <span class="s2">"To stop this recurring: an OAuth client in </span><span class="se">\"</span><span class="s2">Testing</span><span class="se">\"</span><span class="s2"> rotates refresh "</span>
+        <span class="s1">'To stop this recurring: an OAuth client in "Testing" rotates refresh '</span>
         <span class="s2">"tokens out after ~7 days. Publishing the consent screen (Google Cloud "</span>
         <span class="s2">"console -&gt; APIs &amp; Services -&gt; Google Auth Platform -&gt; Audience -&gt; "</span>
         <span class="s2">"Publish app) removes that expiry; the unverified-app warning at "</span>
@@ -461,6 +462,7 @@
     <span class="k">try</span><span class="p">:</span>  <span class="c1"># the flow's own timeout error; older releases may not define it</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">google_auth_oauthlib.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">WSGITimeoutError</span> <span class="k">as</span> <span class="n">_WSGITimeoutError</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover - depends on the installed version</span>
+
         <span class="k">class</span><span class="w"> </span><span class="nc">_WSGITimeoutError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">"""Never raised; keeps the except-clause valid on older releases."""</span>
 
@@ -551,7 +553,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=dba2a9e9"></script>
+</div><script src="../../../_static/documentation_options.js?v=3a6d79cd"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>

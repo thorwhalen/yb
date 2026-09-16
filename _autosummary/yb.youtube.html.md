@@ -23,8 +23,14 @@ Edit an existing video:
 
 ### Functions
 
-| [`get_credentials`](#yb.youtube.get_credentials)(\*[, client_secrets_file, ...])    | Return OAuth user credentials, running the consent flow if needed.                                            |
+| [`api_available`](#yb.youtube.api_available)(\*[, api_key])                       | Whether the Data API can actually be called with the key we have.                                             |
 |-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `watch_url`(video_id)                                                                               |                                                                                                               |
+| [`thumbnail_url`](#yb.youtube.thumbnail_url)(video_id, \*[, quality])             | Thumbnail URL for a video.                                                                                    |
+| [`rank_by_engagement`](#yb.youtube.rank_by_engagement)(videos, \*[, min_views, ...])   | Order videos by a like-rate-and-reach score.                                                                  |
+| [`add_stats`](#yb.youtube.add_stats)(videos, \*[, api_key, backend])          | Fill in engagement numbers on search results, in place-ish (returns them).                                    |
+| [`search_videos`](#yb.youtube.search_videos)(query, \*[, max_results, ...])       | Search YouTube and return a list of video records.                                                            |
+| [`get_credentials`](#yb.youtube.get_credentials)(\*[, client_secrets_file, ...])    | Return OAuth user credentials, running the consent flow if needed.                                            |
 | [`get_service`](#yb.youtube.get_service)(\*[, credentials])                     | Build a YouTube Data API v3 service object.                                                                   |
 | [`default_token_file`](#yb.youtube.default_token_file)()                               | Cached OAuth token location (`$XDG_CONFIG_HOME` or `~/.config`).                                              |
 | [`default_client_secrets_file`](#yb.youtube.default_client_secrets_file)()                      | Default OAuth client-secrets location: `<config dir>/client_secret.json`.                                     |
@@ -164,6 +170,13 @@ Build the snippet for `videos.update` (categoryId is required).
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 
+### yb.youtube.add_stats(videos, , api_key=None, backend='auto')
+
+Fill in engagement numbers on search results, in place-ish (returns them).
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
 ### yb.youtube.add_to_playlist(video_id, playlist_id, , service=None, \*\*cred_kwargs)
 
 Append `video_id` to `playlist_id` (`playlistItems.insert`).
@@ -186,6 +199,17 @@ playlist is left alone instead of duplicated.
   if the playlist had to be made.
 * **Raises:**
   [**KeyError**](https://docs.python.org/3/builtins/exceptions.html#KeyError) – the playlist is absent and `create=False`.
+
+### yb.youtube.api_available(, api_key=None)
+
+Whether the Data API can actually be called with the key we have.
+
+A key that exists is not a key that works: the API has to be enabled on its
+Cloud project too, and that failure is a 403 at call time rather than
+anything visible up front.
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### yb.youtube.create_playlist(title, , description='', privacy_status='private', service=None, \*\*cred_kwargs)
 
@@ -396,6 +420,20 @@ Lower-level upload: explicit [`VideoMetadata`](#yb.youtube.VideoMetadata) + capt
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 
+### yb.youtube.rank_by_engagement(videos, , min_views=0, like_weight=1.0, view_weight=1.0)
+
+Order videos by a like-rate-and-reach score.
+
+Raw view count alone rewards age and luck, and like count alone rewards the
+same. The score multiplies *reach* (log views, so an order of magnitude
+counts for a fixed amount) by *approval* (likes per thousand views), which
+ranks a well-liked mid-sized video above a big indifferent one. Videos
+missing numbers sort last rather than being dropped, since absent is not the
+same as bad.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
+
 ### yb.youtube.render_table(data, , fields=None)
 
 Render metadata as an ASCII table.
@@ -415,6 +453,18 @@ field. An unknown `group` raises `KeyError` naming the valid options.
 
 * **Return type:**
   [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str)]
+
+### yb.youtube.search_videos(query, , max_results=10, backend='auto', with_stats=False, api_key=None, language=None, region=None, \*\*params)
+
+Search YouTube and return a list of video records.
+
+`language`/`region` bias results (`"en"`, `"GB"`) rather than filter
+them — YouTube offers no hard language filter. Check what comes back if the
+language matters; a title can be auto-translated by the interface, which
+makes an English video look like a local one.
+
+* **Return type:**
+  [`list`](https://docs.python.org/3/builtins/stdtypes.html#list)
 
 ### yb.youtube.select_fields(flat, , group=None, fields=None)
 
@@ -439,6 +489,13 @@ Set a custom thumbnail (`thumbnails.set`).
 
 * **Return type:**
   [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
+
+### yb.youtube.thumbnail_url(video_id, , quality='mqdefault')
+
+Thumbnail URL for a video. Always available, no API call, no key.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 ### yb.youtube.update_caption(caption_id, path, , is_draft=None, service=None, \*\*cred_kwargs)
 
@@ -517,4 +574,5 @@ Fetch a video’s live metadata & engagement numbers.
 | [`metadata`](yb.youtube.metadata.html.md#module-yb.youtube.metadata)   | YouTube video metadata ↔ API snippet mapping.                                  |
 | [`playlists`](yb.youtube.playlists.html.md#module-yb.youtube.playlists) | YouTube playlist operations: find/create a playlist and add videos to it.      |
 | [`publish`](yb.youtube.publish.html.md#module-yb.youtube.publish)     | High-level YouTube publishing: prepare → upload → captions → thumbnail.        |
+| [`search`](yb.youtube.search.html.md#module-yb.youtube.search)       | Search YouTube for videos, with engagement numbers to rank them by.            |
 | [`stats`](yb.youtube.stats.html.md#module-yb.youtube.stats)         | Read live video metadata & engagement numbers from the YouTube Data API v3.    |

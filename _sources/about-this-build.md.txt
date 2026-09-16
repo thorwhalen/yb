@@ -5,19 +5,19 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-09-15 09:42 UTC** from commit <a href="https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a"><code>86f14ec</code></a> on branch <code>main</code>, for **yb 0.1.9** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-09-16 19:50 UTC** from commit <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d71</code></a> on branch <code>main</code>, for **yb 0.1.10** (from <code>pyproject.toml</code>).
 
 :::{warning}
 The documentation and the package may be misaligned:
 
-- The documented version (0.1.9) is behind the latest release on PyPI (0.1.10): `pip install yb` gives newer code than these docs describe.
+- The documented version (0.1.10) is behind the latest release on PyPI (0.1.11): `pip install yb` gives newer code than these docs describe.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a"><code>86f14ec46d1099c45635a52bcbdeb327dbe7891a</code></a> |
+| Commit | <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code></a> |
 | Branch | <code>main</code> |
 | Tags at this commit | none |
 | Working tree | clean |
@@ -28,15 +28,15 @@ The documentation and the package may be misaligned:
 | | |
 |---|---|
 | Repository | <code>thorwhalen/yb</code> |
-| Run | <a href="https://github.com/thorwhalen/yb/actions/runs/34953761630">34953761630</a> |
+| Run | <a href="https://github.com/thorwhalen/yb/actions/runs/35142866668">35142866668</a> |
 | Ref | <code>refs/heads/main</code> |
-| Event commit | <code>86f14ec46d1099c45635a52bcbdeb327dbe7891a</code> (in the history of the built commit) |
+| Event commit | <code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code> (in the history of the built commit) |
 
 ## Tools
 
 | | |
 |---|---|
-| epythet | 0.2.8 |
+| epythet | 0.2.12 |
 | Sphinx | 9.1.0 |
 | docutils | 0.22.4 |
 | Python | 3.12.14 |
@@ -55,14 +55,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/yb/0.1.10/">0.1.10</a>, newer than the documented version (0.1.9).
+Latest release: <a href="https://pypi.org/project/yb/0.1.11/">0.1.11</a>, newer than the documented version (0.1.10).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/thorwhalen/yb && cd yb
-git checkout 86f14ec46d1099c45635a52bcbdeb327dbe7891a
-pip install "epythet==0.2.8"
+git checkout 7419d710b5ddc0efc1b661fcbac309cf91ed72bc
+pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 

@@ -147,8 +147,7 @@ a playlist download is usually an archival operation).
 
 Selecting a subset (yt-dlp `--playlist-items` is **1-based**):
 
-> ### skip the first (“PV”/intro) entry, keep the rest
-
+> # skip the first (“PV”/intro) entry, keep the rest
 > download_youtube_playlist(url, skip_first=True)         # -> playlist_items=”2:”
 > download_youtube_playlist(url, playlist_items=”2:”)     # same, explicit
 > download_youtube_playlist(url, playlist_items=”2”)      # only the 2nd video

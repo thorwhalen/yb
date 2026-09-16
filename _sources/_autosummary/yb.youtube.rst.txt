@@ -8,6 +8,12 @@ yb.youtube
 
    .. autosummary::
    
+      api_available
+      watch_url
+      thumbnail_url
+      rank_by_engagement
+      add_stats
+      search_videos
       get_credentials
       get_service
       default_token_file
@@ -65,4 +71,5 @@ yb.youtube
    metadata
    playlists
    publish
+   search
    stats

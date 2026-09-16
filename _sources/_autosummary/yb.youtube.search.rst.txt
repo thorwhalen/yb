@@ -1,0 +1,24 @@
+yb.youtube.search
+=================
+
+.. automodule:: yb.youtube.search
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      WATCH_URL
+      THUMBNAIL_QUALITIES
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      add_stats
+      api_available
+      rank_by_engagement
+      search_videos
+      thumbnail_url
+      watch_url
+   

@@ -1,36 +1,36 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-15T09:42:15Z",
+  "built_at": "2026-09-16T19:50:54Z",
   "package": {
     "name": "yb",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "display_name": "yb",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "86f14ec46d1099c45635a52bcbdeb327dbe7891a",
-    "short_commit": "86f14ec",
+    "commit": "7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
+    "short_commit": "7419d71",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/thorwhalen/yb",
-    "commit_url": "https://github.com/thorwhalen/yb/commit/86f14ec46d1099c45635a52bcbdeb327dbe7891a",
+    "commit_url": "https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "thorwhalen/yb",
-    "sha": "86f14ec46d1099c45635a52bcbdeb327dbe7891a",
+    "sha": "7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "34953761630",
-    "run_url": "https://github.com/thorwhalen/yb/actions/runs/34953761630",
+    "run_id": "35142866668",
+    "run_url": "https://github.com/thorwhalen/yb/actions/runs/35142866668",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.8",
+    "epythet": "0.2.12",
     "sphinx": "9.1.0",
     "docutils": "0.22.4",
     "python": "3.12.14"
@@ -55,21 +55,21 @@
     "docs_dir": "docsrc"
   },
   "site": {
-    "modules_documented": 20,
-    "objects_documented": 215
+    "modules_documented": 21,
+    "objects_documented": 227
   },
   "pypi": {
     "checked": true,
-    "latest": "0.1.10",
+    "latest": "0.1.11",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/yb && cd yb\ngit checkout 86f14ec46d1099c45635a52bcbdeb327dbe7891a\npip install \"epythet==0.2.8\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/thorwhalen/yb && cd yb\ngit checkout 7419d710b5ddc0efc1b661fcbac309cf91ed72bc\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.1.9) is behind the latest release on PyPI (0.1.10): `pip install yb` gives newer code than these docs describe."
+      "The documented version (0.1.10) is behind the latest release on PyPI (0.1.11): `pip install yb` gives newer code than these docs describe."
     ]
   }
 }

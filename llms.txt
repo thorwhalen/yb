@@ -26,9 +26,10 @@
 - [yb.youtube.metadata](_autosummary/yb.youtube.metadata.html.md): YouTube video metadata ↔ API snippet mapping.
 - [yb.youtube.playlists](_autosummary/yb.youtube.playlists.html.md): YouTube playlist operations: find/create a playlist and add videos to it.
 - [yb.youtube.publish](_autosummary/yb.youtube.publish.html.md): High-level YouTube publishing: prepare → upload → captions → thumbnail.
+- [yb.youtube.search](_autosummary/yb.youtube.search.html.md): Search YouTube for videos, with engagement numbers to rank them by.
 - [yb.youtube.stats](_autosummary/yb.youtube.stats.html.md): Read live video metadata & engagement numbers from the YouTube Data API v3.
 - [For AI agents](ai-agents.html.md): `yb` ships artifacts for coding agents alongside its code. This page lists
-- [About this build](about-this-build.html.md): This documentation was built on **2026-09-15 09:42 UTC** from commit <a href="https://github.com/tho...
+- [About this build](about-this-build.html.md): This documentation was built on **2026-09-16 19:50 UTC** from commit <a href="https://github.com/tho...
 
 ---
 

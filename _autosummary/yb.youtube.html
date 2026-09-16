@@ -224,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.stats.html">yb.youtube.stats</a></li>
 </ul>
 </li>
@@ -291,6 +292,24 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.api_available" title="yb.youtube.api_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_available</span></code></a>(*[, api_key])</p></td>
+<td><p>Whether the Data API can actually be called with the key we have.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">watch_url</span></code>(video_id)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.thumbnail_url" title="yb.youtube.thumbnail_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail_url</span></code></a>(video_id, *[, quality])</p></td>
+<td><p>Thumbnail URL for a video.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.rank_by_engagement" title="yb.youtube.rank_by_engagement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rank_by_engagement</span></code></a>(videos, *[, min_views, ...])</p></td>
+<td><p>Order videos by a like-rate-and-reach score.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.add_stats" title="yb.youtube.add_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stats</span></code></a>(videos, *[, api_key, backend])</p></td>
+<td><p>Fill in engagement numbers on search results, in place-ish (returns them).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.search_videos" title="yb.youtube.search_videos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_videos</span></code></a>(query, *[, max_results, ...])</p></td>
+<td><p>Search YouTube and return a list of video records.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.get_credentials" title="yb.youtube.get_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_credentials</span></code></a>(*[, client_secrets_file, ...])</p></td>
 <td><p>Return OAuth user credentials, running the consent flow if needed.</p></td>
 </tr>
@@ -547,6 +566,17 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.add_stats">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">add_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">videos</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/search.html#add_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.add_stats" title="Link to this definition">¶</a></dt>
+<dd><p>Fill in engagement numbers on search results, in place-ish (returns them).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="yb.youtube.add_to_playlist">
 <span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">add_to_playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">cred_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/playlists.html#add_to_playlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.add_to_playlist" title="Link to this definition">¶</a></dt>
 <dd><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p>
@@ -574,6 +604,20 @@ if the playlist had to be made.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.api_available">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">api_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/search.html#api_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.api_available" title="Link to this definition">¶</a></dt>
+<dd><p>Whether the Data API can actually be called with the key we have.</p>
+<p>A key that exists is not a key that works: the API has to be enabled on its
+Cloud project too, and that failure is a 403 at call time rather than
+anything visible up front.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -840,6 +884,23 @@ is the <a class="reference internal" href="yb.youtube.playlists.html#yb.youtube.
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.rank_by_engagement">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">rank_by_engagement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">videos</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_views</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">like_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/search.html#rank_by_engagement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.rank_by_engagement" title="Link to this definition">¶</a></dt>
+<dd><p>Order videos by a like-rate-and-reach score.</p>
+<p>Raw view count alone rewards age and luck, and like count alone rewards the
+same. The score multiplies <em>reach</em> (log views, so an order of magnitude
+counts for a fixed amount) by <em>approval</em> (likes per thousand views), which
+ranks a well-liked mid-sized video above a big indifferent one. Videos
+missing numbers sort last rather than being dropped, since absent is not the
+same as bad.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="yb.youtube.render_table">
 <span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">render_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/stats.html#render_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.render_table" title="Link to this definition">¶</a></dt>
 <dd><p>Render metadata as an ASCII table.</p>
@@ -861,6 +922,21 @@ field. An unknown <code class="docutils literal notranslate"><span class="pre">g
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.search_videos">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">search_videos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/search.html#search_videos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.search_videos" title="Link to this definition">¶</a></dt>
+<dd><p>Search YouTube and return a list of video records.</p>
+<p><code class="docutils literal notranslate"><span class="pre">language</span></code>/<code class="docutils literal notranslate"><span class="pre">region</span></code> bias results (<code class="docutils literal notranslate"><span class="pre">&quot;en&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;GB&quot;</span></code>) rather than filter
+them — YouTube offers no hard language filter. Check what comes back if the
+language matters; a title can be auto-translated by the interface, which
+makes an English video look like a local one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -896,6 +972,17 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.thumbnail_url">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">thumbnail_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_id</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mqdefault'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/search.html#thumbnail_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.thumbnail_url" title="Link to this definition">¶</a></dt>
+<dd><p>Thumbnail URL for a video. Always available, no API call, no key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1020,7 +1107,10 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.publish.html#module-yb.youtube.publish" title="yb.youtube.publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish</span></code></a></p></td>
 <td><p>High-level YouTube publishing: prepare → upload → captions → thumbnail.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.stats.html#module-yb.youtube.stats" title="yb.youtube.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.search.html#module-yb.youtube.search" title="yb.youtube.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a></p></td>
+<td><p>Search YouTube for videos, with engagement numbers to rank them by.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.stats.html#module-yb.youtube.stats" title="yb.youtube.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stats</span></code></a></p></td>
 <td><p>Read live video metadata &amp; engagement numbers from the YouTube Data API v3.</p></td>
 </tr>
 </tbody>
@@ -1101,8 +1191,10 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <li><a class="reference internal" href="#yb.youtube.VideoMetadata.update_snippet"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.update_snippet()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#yb.youtube.add_stats"><code class="docutils literal notranslate"><span class="pre">add_stats()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.add_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_to_playlist()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.add_video_to_playlist"><code class="docutils literal notranslate"><span class="pre">add_video_to_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.api_available"><code class="docutils literal notranslate"><span class="pre">api_available()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.create_playlist"><code class="docutils literal notranslate"><span class="pre">create_playlist()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.default_client_secrets_file"><code class="docutils literal notranslate"><span class="pre">default_client_secrets_file()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.default_token_file"><code class="docutils literal notranslate"><span class="pre">default_token_file()</span></code></a></li>
@@ -1121,11 +1213,14 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <li><a class="reference internal" href="#yb.youtube.prepare_and_publish"><code class="docutils literal notranslate"><span class="pre">prepare_and_publish()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.publish_content"><code class="docutils literal notranslate"><span class="pre">publish_content()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.publish_video"><code class="docutils literal notranslate"><span class="pre">publish_video()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.rank_by_engagement"><code class="docutils literal notranslate"><span class="pre">rank_by_engagement()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.render_table"><code class="docutils literal notranslate"><span class="pre">render_table()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.resolve_fields"><code class="docutils literal notranslate"><span class="pre">resolve_fields()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.search_videos"><code class="docutils literal notranslate"><span class="pre">search_videos()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.set_thumbnail"><code class="docutils literal notranslate"><span class="pre">set_thumbnail()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.thumbnail_url"><code class="docutils literal notranslate"><span class="pre">thumbnail_url()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.update_video"><code class="docutils literal notranslate"><span class="pre">update_video()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.update_video_fields"><code class="docutils literal notranslate"><span class="pre">update_video_fields()</span></code></a></li>
@@ -1143,7 +1238,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=dba2a9e9"></script>
+</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
