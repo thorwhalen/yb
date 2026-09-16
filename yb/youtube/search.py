@@ -53,7 +53,13 @@ WATCH_URL = "https://www.youtube.com/watch?v={video_id}"
 THUMBNAIL_URL = "https://i.ytimg.com/vi/{video_id}/{quality}.jpg"
 
 #: Thumbnail sizes YouTube serves for every video without an API call.
-THUMBNAIL_QUALITIES = ("default", "mqdefault", "hqdefault", "sddefault", "maxresdefault")
+THUMBNAIL_QUALITIES = (
+    "default",
+    "mqdefault",
+    "hqdefault",
+    "sddefault",
+    "maxresdefault",
+)
 
 DEFAULT_THUMBNAIL_QUALITY = "mqdefault"
 DEFAULT_MAX_RESULTS = 10
@@ -63,7 +69,9 @@ _USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
 def thumbnail_url(video_id: str, *, quality: str = DEFAULT_THUMBNAIL_QUALITY) -> str:
     """Thumbnail URL for a video. Always available, no API call, no key."""
     if quality not in THUMBNAIL_QUALITIES:
-        raise ValueError(f"quality must be one of {THUMBNAIL_QUALITIES}, got {quality!r}")
+        raise ValueError(
+            f"quality must be one of {THUMBNAIL_QUALITIES}, got {quality!r}"
+        )
     return THUMBNAIL_URL.format(video_id=video_id, quality=quality)
 
 
@@ -78,7 +86,11 @@ def _get(url: str, *, timeout: int = 30) -> str:
 
 
 def _api_key(explicit: str = None) -> str | None:
-    return explicit or os.environ.get("GOOGLE_API_KEY") or os.environ.get("YOUTUBE_API_KEY")
+    return (
+        explicit
+        or os.environ.get("GOOGLE_API_KEY")
+        or os.environ.get("YOUTUBE_API_KEY")
+    )
 
 
 def api_available(*, api_key: str = None) -> bool:
@@ -136,7 +148,9 @@ def _search_api(query, *, max_results, api_key, language, region, **params) -> l
         if page_token:
             request_params["pageToken"] = page_token
 
-        url = "https://www.googleapis.com/youtube/v3/search?" + urllib.parse.urlencode(request_params)
+        url = "https://www.googleapis.com/youtube/v3/search?" + urllib.parse.urlencode(
+            request_params
+        )
         payload = json.loads(_get(url))
         for item in payload.get("items", []):
             snippet = item["snippet"]
@@ -264,7 +278,9 @@ def _stats_api(video_ids: Iterable[str], *, api_key: str = None) -> dict:
             out[item["id"]] = {
                 "views": int(stats["viewCount"]) if "viewCount" in stats else None,
                 "likes": int(stats["likeCount"]) if "likeCount" in stats else None,
-                "comments": int(stats["commentCount"]) if "commentCount" in stats else None,
+                "comments": int(stats["commentCount"])
+                if "commentCount" in stats
+                else None,
                 "duration": item.get("contentDetails", {}).get("duration"),
             }
     return out
@@ -333,5 +349,9 @@ def rank_by_engagement(
 
     for video in videos:
         video["engagement_score"] = round(score(video), 3)
-    keep = [v for v in videos if (v.get("views") or 0) >= min_views or v.get("views") is None]
+    keep = [
+        v
+        for v in videos
+        if (v.get("views") or 0) >= min_views or v.get("views") is None
+    ]
     return sorted(keep, key=lambda v: v["engagement_score"], reverse=True)
