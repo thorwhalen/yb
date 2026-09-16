@@ -71,7 +71,22 @@ from yb.youtube.publish import (
     publish_video,
 )
 
+from yb.youtube.search import (
+    search_videos,
+    add_stats,
+    rank_by_engagement,
+    thumbnail_url,
+    watch_url,
+    api_available,
+)
+
 __all__ = [
+    "api_available",
+    "watch_url",
+    "thumbnail_url",
+    "rank_by_engagement",
+    "add_stats",
+    "search_videos",
     "DEFAULT_SCOPES",
     "ConsentRequired",
     "get_credentials",
