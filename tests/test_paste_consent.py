@@ -7,6 +7,7 @@ final token exchange — the one call that would reach Google — is replaced.
 
 import json
 import os
+import pickle
 import stat
 import sys
 import time
@@ -113,6 +114,26 @@ class TestStart:
         assert _start(env, port=9090) != first
         assert _start(env, reuse_pending=False) != first
 
+    def test_a_swapped_client_does_not_inherit_the_old_clients_url(self, env):
+        first = _start(env)
+        other = json.loads(env["secrets"].read_text())
+        other["installed"]["client_id"] = "someone-else.apps.example"
+        env["secrets"].write_text(json.dumps(other))
+        assert _start(env) != first
+        assert "someone-else" in _start(env)
+
+    @pytest.mark.skipif(sys.platform == "win32", reason="POSIX modes")
+    def test_a_looser_preexisting_file_is_tightened(self, env):
+        env["pending"].write_text("{}")
+        env["pending"].chmod(0o644)
+        _start(env)
+        assert stat.S_IMODE(os.stat(env["pending"]).st_mode) == 0o600
+
+    @pytest.mark.parametrize("junk", ["[]", "not json", '{"url": "x"}'])
+    def test_a_damaged_pending_file_is_treated_as_absent(self, env, junk):
+        env["pending"].write_text(junk)
+        assert _start(env).startswith("https://")
+
     def test_an_expired_pending_is_replaced(self, env):
         first = _start(env)
         saved = json.loads(env["pending"].read_text())
@@ -128,6 +149,7 @@ class TestFinish:
             pytest.param("{redirect}?state={state}&code=4%2FABC", id="full-url"),
             pytest.param("state={state}&code=4%2FABC", id="query-string"),
             pytest.param("4/ABC", id="bare-code"),
+            pytest.param("?code=4%2FABC&state={state}", id="query-with-question-mark"),
             pytest.param("  <{redirect}?state={state}&code=4%2FABC>\n", id="messy"),
         ],
     )
@@ -148,6 +170,30 @@ class TestFinish:
         assert flow.code_verifier == saved["code_verifier"]
         assert flow.oauth2session._state == _query(url)["state"]
         assert flow.redirect_uri == REDIRECT
+
+    def test_a_url_from_another_consent_is_rejected_before_any_exchange(self, env):
+        """State is checked for real here (oauthlib, no network involved)."""
+        _start(env)
+        wrong = f"{REDIRECT}?state=someone-elses&code=4%2FABC"
+        with pytest.raises(ConsentRequired, match="different consent request"):
+            _finish(env, wrong)
+        assert env["pending"].exists()
+
+    def test_a_query_without_state_is_refused_but_a_bare_code_is_not(
+        self, env, exchange
+    ):
+        _start(env)
+        with pytest.raises(ConsentRequired, match="no state"):
+            _finish(env, "code=4%2FABC")
+        with pytest.raises(ConsentRequired, match="no state"):
+            _finish(env, f"{REDIRECT}?code=4%2FABC")
+        assert _finish(env, "4/ABC") is exchange.creds  # PKCE still binds it
+
+    def test_granting_fewer_scopes_is_explained_not_a_traceback(self, env, exchange):
+        exchange.side_effect = Warning("Scope has changed")
+        _start(env)
+        with pytest.raises(ConsentRequired, match="every box"):
+            _finish(env, "4/ABC")
 
     def test_success_consumes_the_pending_file(self, env, exchange):
         _start(env)
@@ -177,6 +223,16 @@ class TestFinish:
             _finish(env, "4/stale")
         assert isinstance(excinfo.value.__cause__, InvalidGrantError)
         assert env["pending"].exists()
+
+
+def test_consent_pending_survives_pickling():
+    error = ConsentPending("https://x/auth", redirect_uri=REDIRECT)
+    clone = pickle.loads(pickle.dumps(error))
+    assert (clone.url, clone.redirect_uri, str(clone)) == (
+        error.url,
+        error.redirect_uri,
+        str(error),
+    )
 
 
 class TestGetCredentialsPasteMode:
@@ -260,7 +316,7 @@ class TestCli:
             monkeypatch.setattr(sys, "stdin", mock.Mock(read=lambda: pasted))
             value = "-"
         elif how == "file":
-            value = str(tmp_path / "pasted.txt")
+            value = "@" + str(tmp_path / "pasted.txt")
             (tmp_path / "pasted.txt").write_text(pasted)
         else:
             value = pasted
@@ -271,6 +327,19 @@ class TestCli:
     def test_paste_without_a_pending_consent_exits_nonzero(self, env, capsys):
         assert main(self._argv(env, "--paste", "4/ABC")) == 1
         assert "No consent is pending" in capsys.readouterr().err
+
+    def test_a_path_is_not_read_unless_asked_with_at(self, env, exchange, tmp_path):
+        """Pasted text must never make the command open a file (a token, say)."""
+        main(self._argv(env))
+        secret = tmp_path / "secret.txt"
+        secret.write_text("TOP-SECRET")
+        main(self._argv(env, "--paste", str(secret)))
+        (_, kwargs) = exchange.call_args
+        assert "TOP-SECRET" not in kwargs["authorization_response"]
+
+    def test_paste_and_check_are_mutually_exclusive(self, env):
+        with pytest.raises(SystemExit):
+            main(self._argv(env, "--check", "--paste", "x"))
 
     def test_check_fails_cleanly_without_a_token(self, env, capsys):
         assert main(self._argv(env, "--check")) == 1

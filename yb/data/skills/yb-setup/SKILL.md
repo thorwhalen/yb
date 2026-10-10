@@ -92,9 +92,8 @@ yb auth --check          # verify the cached token (never prompts)
 ```
 
 After approving, the browser tries to load `http://localhost:8080/?state=…&code=…`
-and fails to connect — that is expected. Copy that full address-bar URL (the bare
-`code=…` value also works) into `--paste` (a literal, `-` for stdin, or a file
-path). In Python the same two steps are:
+and fails to connect — that is expected. Copy that full address-bar URL (just the
+code value also works) into `--paste` (a literal, `-` for stdin, or `@path` for a file). In Python the same two steps are:
 
 ```python
 from yb.youtube import ConsentPending, get_credentials

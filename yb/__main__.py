@@ -5,7 +5,7 @@ no browser and no terminal (a session driven from a phone), by pasting the
 browser's redirect back::
 
     yb auth                          # print the consent URL
-    yb auth --paste '<redirected URL>'   # finish; also accepts - (stdin) or a file
+    yb auth --paste '<redirected URL>'   # finish; also - (stdin) or @file
     yb auth --check                  # is a usable token cached? (never prompts)
 """
 
@@ -18,11 +18,16 @@ from typing import Sequence
 
 
 def _read_paste(value: str) -> str:
-    """The pasted redirect: literally, from stdin (``-``), or from a file."""
+    """The pasted redirect: literally, from stdin (``-``), or from ``@file``.
+
+    A file is only read when asked for with ``@``, so no pasted text can make
+    this command open a file (a token, say) and send its contents to Google.
+    """
     if value == "-":
         return sys.stdin.read()
-    path = Path(value)
-    return path.read_text() if len(value) < 256 and path.is_file() else value
+    if value.startswith("@"):
+        return Path(value[1:]).read_text()
+    return value
 
 
 def _auth(args: argparse.Namespace) -> int:
@@ -56,13 +61,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     auth = commands.add_parser(
         "auth", help="YouTube consent by paste-back (no browser or terminal needed)"
     )
-    auth.add_argument(
+    mode = auth.add_mutually_exclusive_group()
+    mode.add_argument(
         "--paste",
         metavar="URL",
-        help="finish consent: the redirected URL (or its code=…); '-' reads stdin, "
-        "a file path reads the file",
+        help="finish consent: the redirected URL (or its bare code); '-' reads "
+        "stdin, '@path' reads a file",
     )
-    auth.add_argument(
+    mode.add_argument(
         "--check", action="store_true", help="only verify the cached token"
     )
     auth.add_argument(

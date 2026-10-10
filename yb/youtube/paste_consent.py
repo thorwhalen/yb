@@ -62,6 +62,9 @@ class ConsentPending(ConsentRequired):
     can catch this and relay ``url``.
     """
 
+    def __reduce__(self):  # keyword-only __init__: default pickling would fail
+        return (_rebuild_pending, (self.url, self.redirect_uri))
+
     def __init__(self, url: str, *, redirect_uri: str):
         self.url = url
         self.redirect_uri = redirect_uri
@@ -70,10 +73,14 @@ class ConsentPending(ConsentRequired):
             f"1. Open this URL in any browser and approve:\n   {url}\n"
             f"2. The browser then tries to load {redirect_uri}... and fails to "
             "connect. That is expected. Copy the full URL from the address bar "
-            "(or just its code=… value).\n"
+            "(or just the code value).\n"
             "3. Finish with: yb auth --paste '<that URL>'   or   "
             "get_credentials(consent='paste', authorization_response='<that URL>')"
         )
+
+
+def _rebuild_pending(url: str, redirect_uri: str) -> ConsentPending:
+    return ConsentPending(url, redirect_uri=redirect_uri)
 
 
 def pending_consent_file() -> Path:
@@ -93,22 +100,34 @@ def _flow(secrets: Path, scopes: Sequence[str], **flow_kwargs):
     )
 
 
+_PENDING_KEYS = frozenset(
+    "url state code_verifier scopes redirect_uri client_id created_at".split()
+)
+
+
 def _load_pending(pending: Path) -> dict | None:
+    """The saved request, or ``None`` if absent, damaged, stale or from an old version."""
     try:
         data = json.loads(pending.read_text())
     except (OSError, ValueError):
         return None
-    fresh = time.time() - data.get("created_at", 0) < PENDING_TTL_S
+    if not isinstance(data, dict) or not _PENDING_KEYS <= data.keys():
+        return None
+    fresh = time.time() - data["created_at"] < PENDING_TTL_S
     return data if fresh else None
 
 
 def _save_pending(pending: Path, data: dict) -> None:
     pending.parent.mkdir(parents=True, exist_ok=True)
-    # The verifier is the proof that whoever finishes consent also started it,
-    # so it is created private rather than tightened afterwards.
-    fd = os.open(pending, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    # The verifier is the proof that whoever finishes consent also started it:
+    # write a private temp file and rename it into place, so the final file is
+    # never group/world-readable (even if an older, looser one existed) and a
+    # concurrent reader never sees half of it.
+    tmp = pending.with_name(f"{pending.name}.{os.getpid()}.tmp")
+    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(fd, "w") as fh:
         json.dump(data, fh)
+    os.replace(tmp, pending)
 
 
 def start_paste_consent(
@@ -121,7 +140,7 @@ def start_paste_consent(
 ) -> str:
     """Begin paste-back consent and return the URL to open.
 
-    A consent already pending for the same ``scopes`` and ``port`` is reused
+    A consent already pending for the same client, ``scopes`` and ``port`` is reused
     (``reuse_pending=True``): re-printing the URL must not invalidate the one the
     user already has open on their phone.
     """
@@ -130,13 +149,19 @@ def start_paste_consent(
     pending = Path(pending_file) if pending_file else pending_consent_file()
     redirect_uri = _redirect_uri(port)
 
-    saved = _load_pending(pending) if reuse_pending else None
-    if saved and saved["scopes"] == scopes and saved["redirect_uri"] == redirect_uri:
-        return saved["url"]
-
     flow = _flow(
         _resolve_client_secrets(client_secrets_file), scopes, redirect_uri=redirect_uri
     )
+    client_id = flow.client_config["client_id"]
+
+    saved = _load_pending(pending) if reuse_pending else None
+    if saved and (saved["scopes"], saved["redirect_uri"], saved["client_id"]) == (
+        scopes,
+        redirect_uri,
+        client_id,
+    ):
+        return saved["url"]
+
     url, state = flow.authorization_url(prompt="consent")
     _save_pending(
         pending,
@@ -146,6 +171,7 @@ def start_paste_consent(
             code_verifier=flow.code_verifier,
             scopes=scopes,
             redirect_uri=redirect_uri,
+            client_id=client_id,
             created_at=time.time(),
         ),
     )
@@ -157,9 +183,16 @@ def _response_url(text: str, saved: dict) -> str:
 
     Accepts the full URL (the documented case), the bare query string, or only
     the ``code`` — typing a long URL on a phone is the weak step, so tolerate the
-    shortest thing that still carries the information.
+    shortest thing that still carries the information. The ``state`` check is
+    only skipped when the user pasted *nothing but* a code (PKCE still binds the
+    code to this request); anything shaped like a URL or query must carry it.
     """
     text = text.strip().strip("<>\"'")
+    if "code=" in text and "state=" not in text:
+        raise ConsentRequired(
+            "The pasted redirect has no state= parameter. Paste the whole "
+            "address-bar URL, or only the bare code (no code= prefix)."
+        )
     if "://" in text:
         return text
     if "code=" in text:
@@ -198,7 +231,7 @@ def finish_paste_consent(
     bare ``code``. The pending file is removed on success and left in place on
     failure, so a mistyped paste can simply be retried.
     """
-    from oauthlib.oauth2.rfc6749.errors import OAuth2Error
+    from oauthlib.oauth2.rfc6749.errors import MismatchingStateError, OAuth2Error
 
     pending = Path(pending_file) if pending_file else pending_consent_file()
     saved = _load_pending(pending)
@@ -215,11 +248,21 @@ def finish_paste_consent(
         state=saved["state"],
         code_verifier=saved["code_verifier"],
     )
+    response = _response_url(authorization_response, saved)
     try:
         with _allow_http_redirect():
-            flow.fetch_token(
-                authorization_response=_response_url(authorization_response, saved)
-            )
+            flow.fetch_token(authorization_response=response)
+    except MismatchingStateError as error:
+        raise ConsentRequired(
+            "The pasted redirect belongs to a different consent request (its "
+            "state does not match). Paste the URL from the browser tab opened "
+            "from the *latest* consent URL."
+        ) from error
+    except Warning as error:  # oauthlib: the user granted fewer scopes than asked
+        raise ConsentRequired(
+            f"Consent was granted for different permissions than requested "
+            f"({error}). Open the consent URL again and leave every box ticked."
+        ) from error
     except OAuth2Error as error:
         raise ConsentRequired(
             f"Google rejected the pasted redirect ({error.error or error}). "
