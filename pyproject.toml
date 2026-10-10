@@ -22,6 +22,9 @@ Homepage = "https://github.com/thorwhalen/yb"
 Repository = "https://github.com/thorwhalen/yb"
 Documentation = "https://thorwhalen.github.io/yb"
 
+[project.scripts]
+yb = "yb.__main__:main"
+
 [project.optional-dependencies]
 # `yb.youtube` — upload/edit via the official YouTube Data API v3.
 youtube = ["google-api-python-client", "google-auth-oauthlib", "google-auth"]

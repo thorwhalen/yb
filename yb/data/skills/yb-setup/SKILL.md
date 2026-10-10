@@ -49,8 +49,14 @@ In **APIs & Services → "Google Auth Platform"** (formerly OAuth consent screen
    `https://www.googleapis.com/auth/youtube.upload` and
    `https://www.googleapis.com/auth/youtube.force-ssl` (force-ssl is needed for
    captions + thumbnails).
-3. **Audience** — add the channel-owner Google account as a **Test user**;
-   keep publishing status **Testing**.
+3. **Audience** — add the channel-owner Google account as a **Test user**
+   (lets you consent while setting up), then **Publish app** so the status is
+   **In production** — *before* the consent in step 5. Do **not** leave it in
+   **Testing**: Google expires every refresh token minted in Testing after
+   7 days, so uploads and edits break weekly (reeleehq/yb#16). If publishing
+   asks for verification, remove the Branding logo and leave the domains blank;
+   a personal-use app needs neither. Consenting still shows an "unverified app"
+   warning — click through it (Advanced → continue); that is the only cost.
 4. **Clients** — Create client → **Desktop app** → **Download JSON**.
 
 ## 4. Point yb at the client JSON
@@ -73,7 +79,38 @@ me = svc.channels().list(part="snippet", mine=True).execute()
 print(me["items"][0]["snippet"]["title"])  # your channel name => success
 ```
 
-### Headless (no browser on the machine running `yb`)
+### Headless, paste-back (no browser *and* no terminal — e.g. a session driven from a phone)
+
+The tunnel recipe below needs a second machine with a shell. When there is none,
+use paste-back consent: two steps that may be separate turns or processes, and
+that need no shared network.
+
+```bash
+yb auth                  # prints a consent URL; open it on any device and approve
+yb auth --paste '<URL>'  # the URL the browser lands on afterwards
+yb auth --check          # verify the cached token (never prompts)
+```
+
+After approving, the browser tries to load `http://localhost:8080/?state=…&code=…`
+and fails to connect — that is expected. Copy that full address-bar URL (just the
+code value also works) into `--paste` (a literal, `-` for stdin, or `@path` for a file). In Python the same two steps are:
+
+```python
+from yb.youtube import ConsentPending, get_credentials
+
+try:
+    get_credentials(consent="paste")  # step 1: raises ConsentPending(url=...)
+except ConsentPending as pending:
+    print(pending.url)
+get_credentials(consent="paste", authorization_response="<pasted URL>")  # step 2
+```
+
+The pending request (PKCE verifier + state) is kept for 24 h in
+`~/.config/yb/youtube_consent_pending.json` (mode 0600) and deleted on success;
+asking for the URL again returns the same one. `interactive=False` still never
+starts consent. Never print or paste the token file.
+
+### Headless with a browser elsewhere (SSH tunnel)
 
 The default `get_service()` tries to *launch* a browser, so on a box without one
 it raises `webbrowser.Error` before printing anything. Ask for the URL instead,
@@ -104,9 +141,10 @@ Pass `timeout_seconds=` if you want the wait bounded rather than indefinite.
   one-time API compliance audit, uploads may be locked to **private** even when
   `unlisted`/`public` is requested. The video still uploads; flip visibility in
   Studio, or complete the audit.
-- **Testing-mode tokens expire in ~7 days.** For uninterrupted use, set the
-  consent screen's publishing status to **In production** (still usable by you
-  with the unverified warning; tokens then don't expire).
+- **Testing-mode tokens expire in ~7 days — publish the app (step 3).** Order
+  matters: a refresh token minted *while in Testing* keeps its 7-day limit even
+  after you publish, so publish first, then (re-)consent once. If consent was
+  already done in Testing, publish and then re-consent.
 - **`youtube-upload` (PyPI) is not a shortcut** — it's abandoned, uses
   deprecated auth, and needs the same OAuth client. Use `yb.youtube`.
 
@@ -114,7 +152,9 @@ Pass `timeout_seconds=` if you want the wait bounded rather than indefinite.
 
 - `accessNotConfigured` / API disabled → finish step 2 (enable the API).
 - `No OAuth client secrets` → set `$YOUTUBE_CLIENT_SECRETS_FILE` (step 4).
-- `invalid_grant` / token errors → delete `~/.config/yb/youtube_token.json` and
+- `invalid_grant` / token errors → the token expired (Testing mode: see the
+  caveat above) or was revoked; delete `~/.config/yb/youtube_token.json` and
   re-run consent.
+- `ConsentRequired` from a session with no terminal → use paste-back above.
 - Wrong channel authorized → delete the cached token and re-consent with the
   correct Google account.

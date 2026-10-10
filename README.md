@@ -261,6 +261,11 @@ YouTube upload needs a Google OAuth *Desktop* client (one-time). `gcloud` is
 full walkthrough (enable the API, create the OAuth client, run consent, test).
 Point `yb` at the client JSON via `$YOUTUBE_CLIENT_SECRETS_FILE`.
 
+Publish the OAuth consent screen (Audience → *Publish app*) before consenting:
+tokens minted while it is in *Testing* expire after 7 days. With no browser or
+terminal on the machine (a phone-driven session), consent by paste-back:
+`yb auth`, open the URL anywhere, then `yb auth --paste '<redirected URL>'`.
+
 > Note: until your Google Cloud project passes YouTube's one-time API
 > compliance audit, uploads may be forced to **private** even when you request
 > `unlisted`/`public`.
