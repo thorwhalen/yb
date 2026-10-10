@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="index.html.md">
-<link rel="describedby" href="llms.txt" type="text/markdown"><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html">
+<link rel="describedby" href="llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.search.html">yb.youtube.search</a></li>
@@ -517,6 +520,10 @@ Ken Burns video), which is exactly what <code class="docutils literal notranslat
 <strong>not required</strong> — the console path works. See the <strong><code class="docutils literal notranslate"><span class="pre">yb-setup</span></code></strong> skill for the
 full walkthrough (enable the API, create the OAuth client, run consent, test).
 Point <code class="docutils literal notranslate"><span class="pre">yb</span></code> at the client JSON via <code class="docutils literal notranslate"><span class="pre">$YOUTUBE_CLIENT_SECRETS_FILE</span></code>.</p>
+<p>Publish the OAuth consent screen (Audience → <em>Publish app</em>) before consenting:
+tokens minted while it is in <em>Testing</em> expire after 7 days. With no browser or
+terminal on the machine (a phone-driven session), consent by paste-back:
+<code class="docutils literal notranslate"><span class="pre">yb</span> <span class="pre">auth</span></code>, open the URL anywhere, then <code class="docutils literal notranslate"><span class="pre">yb</span> <span class="pre">auth</span> <span class="pre">--paste</span> <span class="pre">'&lt;redirected</span> <span class="pre">URL&gt;'</span></code>.</p>
 <blockquote>
 <div><p>Note: until your Google Cloud project passes YouTube’s one-time API
 compliance audit, uploads may be forced to <strong>private</strong> even when you request
@@ -571,7 +578,7 @@ it, and the <code class="docutils literal notranslate"><span class="pre">music</
 </section>
 </section>
 
-<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-16 19:50 UTC from <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc">7419d71</a> (main) · yb 0.1.10 · <a href="about-this-build.html">about this build</a></p>
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-10-10 14:39 UTC from <a href="https://github.com/reeleehq/yb/commit/51176fc3151df90fbb64d5d91020ec81d6be25f1">51176fc</a> (main) · yb 0.1.11 · <a href="about-this-build.html">about this build</a></p>
         </article>
       </div>
       <footer>
@@ -638,7 +645,7 @@ it, and the <code class="docutils literal notranslate"><span class="pre">music</
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="_static/documentation_options.js?v=932d0dab"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

@@ -9,6 +9,7 @@ yb.youtube.auth
    .. autosummary::
    
       DEFAULT_SCOPES
+      CONSENT_MODES
       DEFAULT_CONSENT_TIMEOUT_S
    
    .. rubric:: Functions

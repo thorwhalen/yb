@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.youtube.playlists.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.publish" href="yb.youtube.publish.html"><link rel="prev" title="yb.youtube.metadata" href="yb.youtube.metadata.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.youtube.playlists.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.publish" href="yb.youtube.publish.html"><link rel="prev" title="yb.youtube.paste_consent" href="yb.youtube.paste_consent.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.youtube.playlists - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -314,7 +317,7 @@ re-running is idempotent.</p>
 <dd><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -327,7 +330,7 @@ re-running is idempotent.</p>
 playlist is left alone instead of duplicated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{&quot;playlist_id&quot;,</span> <span class="pre">&quot;playlist_title&quot;,</span> <span class="pre">&quot;added&quot;,</span> <span class="pre">&quot;created&quot;}</span></code> where <code class="docutils literal notranslate"><span class="pre">added</span></code>
@@ -335,7 +338,7 @@ is <code class="docutils literal notranslate"><span class="pre">False</span></co
 if the playlist had to be made.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.15)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -346,7 +349,7 @@ if the playlist had to be made.</p>
 <dd><p>Create a playlist and return its id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -358,7 +361,7 @@ if the playlist had to be made.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> only when the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -371,7 +374,7 @@ if the playlist had to be made.</p>
 titles, so prefer unique playlist names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -382,7 +385,7 @@ titles, so prefer unique playlist names.</p>
 <dd><p>Whether <code class="docutils literal notranslate"><span class="pre">video_id</span></code> is already an item of <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (paginated).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -393,7 +396,7 @@ titles, so prefer unique playlist names.</p>
 <dd><p>Return all playlists owned by the authenticated channel (paginated).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -414,14 +417,14 @@ titles, so prefer unique playlist names.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="yb.youtube.metadata.html">
+          <a class="prev-page" href="yb.youtube.paste_consent.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">yb.youtube.metadata</div>
+                <div class="title">yb.youtube.paste_consent</div>
                 
               </div>
             </a>
@@ -470,7 +473,7 @@ titles, so prefer unique playlist names.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

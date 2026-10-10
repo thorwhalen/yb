@@ -220,6 +220,7 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/yb.youtube.search.html">yb.youtube.search</a></li>
@@ -350,6 +351,10 @@
           <li><a href="_autosummary/yb.html#yb.PublicationContent.chapters">(yb.PublicationContent attribute)</a>
 </li>
         </ul></li>
+        <li><a href="_autosummary/yb.youtube.auth.html#yb.youtube.auth.CONSENT_MODES">CONSENT_MODES (in module yb.youtube.auth)</a>
+</li>
+        <li><a href="_autosummary/yb.youtube.html#yb.youtube.ConsentPending">ConsentPending</a>, <a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.ConsentPending">[1]</a>
+</li>
         <li><a href="_autosummary/yb.youtube.auth.html#yb.youtube.auth.ConsentRequired">ConsentRequired</a>, <a href="_autosummary/yb.youtube.html#yb.youtube.ConsentRequired">[1]</a>
 </li>
         <li><a href="_autosummary/yb.youtube.metadata.html#yb.youtube.metadata.VideoMetadata.contains_synthetic_media">contains_synthetic_media (yb.youtube.metadata.VideoMetadata attribute)</a>
@@ -437,6 +442,8 @@
         <li><a href="_autosummary/yb.download.youtube.html#yb.download.youtube.DEFAULT_OUTTMPL">DEFAULT_OUTTMPL (in module yb.download.youtube)</a>
 </li>
         <li><a href="_autosummary/yb.youtube.stats.html#yb.youtube.stats.DEFAULT_PARTS">DEFAULT_PARTS (in module yb.youtube.stats)</a>
+</li>
+        <li><a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.DEFAULT_PASTE_PORT">DEFAULT_PASTE_PORT (in module yb.youtube.paste_consent)</a>
 </li>
         <li><a href="_autosummary/yb.config.html#yb.config.DEFAULT_PLAYLIST_PRIVACY_STATUS">DEFAULT_PLAYLIST_PRIVACY_STATUS (in module yb.config)</a>
 </li>
@@ -554,20 +561,26 @@
           <li><a href="_autosummary/yb.youtube.playlists.html#yb.youtube.playlists.find_playlist">(in module yb.youtube.playlists)</a>
 </li>
         </ul></li>
+        <li><a href="_autosummary/yb.youtube.html#yb.youtube.finish_paste_consent">finish_paste_consent() (in module yb.youtube)</a>
+
+        <ul>
+          <li><a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.finish_paste_consent">(in module yb.youtube.paste_consent)</a>
+</li>
+        </ul></li>
         <li><a href="_autosummary/yb.youtube.html#yb.youtube.flatten_video">flatten_video() (in module yb.youtube)</a>
 
         <ul>
           <li><a href="_autosummary/yb.youtube.stats.html#yb.youtube.stats.flatten_video">(in module yb.youtube.stats)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="_autosummary/yb.html#yb.format_chapter_lines">format_chapter_lines() (in module yb)</a>
 
         <ul>
           <li><a href="_autosummary/yb.content.html#yb.content.format_chapter_lines">(in module yb.content)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="_autosummary/yb.podcast.html#yb.podcast.format_show_notes">format_show_notes() (in module yb.podcast)</a>
 
         <ul>
@@ -768,6 +781,8 @@
 </li>
           <li><a href="_autosummary/yb.youtube.metadata.html#module-yb.youtube.metadata">yb.youtube.metadata</a>
 </li>
+          <li><a href="_autosummary/yb.youtube.paste_consent.html#module-yb.youtube.paste_consent">yb.youtube.paste_consent</a>
+</li>
           <li><a href="_autosummary/yb.youtube.playlists.html#module-yb.youtube.playlists">yb.youtube.playlists</a>
 </li>
           <li><a href="_autosummary/yb.youtube.publish.html#module-yb.youtube.publish">yb.youtube.publish</a>
@@ -823,6 +838,10 @@
           <li><a href="_autosummary/yb.youtube.html#yb.youtube.CaptionTrack.path">(yb.youtube.CaptionTrack attribute)</a>
 </li>
         </ul></li>
+        <li><a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.pending_consent_file">pending_consent_file() (in module yb.youtube.paste_consent)</a>
+</li>
+        <li><a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.PENDING_TTL_S">PENDING_TTL_S (in module yb.youtube.paste_consent)</a>
+</li>
         <li><a href="_autosummary/yb.config.html#yb.config.YbConfig.playlist">playlist (yb.config.YbConfig attribute)</a>
 
         <ul>
@@ -977,6 +996,12 @@
 
         <ul>
           <li><a href="_autosummary/yb.html#yb.PublicationContent.srt_path">(yb.PublicationContent attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="_autosummary/yb.youtube.html#yb.youtube.start_paste_consent">start_paste_consent() (in module yb.youtube)</a>
+
+        <ul>
+          <li><a href="_autosummary/yb.youtube.paste_consent.html#yb.youtube.paste_consent.start_paste_consent">(in module yb.youtube.paste_consent)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -1213,8 +1238,6 @@
           <li><a href="_autosummary/yb.podcast.shownotes.html#module-yb.podcast.shownotes">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     yb.youtube
 
@@ -1222,6 +1245,8 @@
           <li><a href="_autosummary/yb.youtube.html#module-yb.youtube">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     yb.youtube.api
 
@@ -1248,6 +1273,13 @@
 
         <ul>
           <li><a href="_autosummary/yb.youtube.metadata.html#module-yb.youtube.metadata">module</a>
+</li>
+        </ul></li>
+        <li>
+    yb.youtube.paste_consent
+
+        <ul>
+          <li><a href="_autosummary/yb.youtube.paste_consent.html#module-yb.youtube.paste_consent">module</a>
 </li>
         </ul></li>
         <li>
@@ -1330,7 +1362,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="_static/documentation_options.js?v=932d0dab"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

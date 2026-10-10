@@ -14,6 +14,8 @@ yb.youtube
       rank_by_engagement
       add_stats
       search_videos
+      start_paste_consent
+      finish_paste_consent
       get_credentials
       get_service
       default_token_file
@@ -58,6 +60,7 @@ yb.youtube
    .. autosummary::
    
       ConsentRequired
+      ConsentPending
    
 .. rubric:: Modules
 
@@ -69,6 +72,7 @@ yb.youtube
    auth
    captions
    metadata
+   paste_consent
    playlists
    publish
    search

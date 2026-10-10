@@ -221,6 +221,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.search.html">yb.youtube.search</a></li>
@@ -320,7 +321,13 @@
 <span class="n">THUMBNAIL_URL</span> <span class="o">=</span> <span class="s2">"https://i.ytimg.com/vi/</span><span class="si">{video_id}</span><span class="s2">/</span><span class="si">{quality}</span><span class="s2">.jpg"</span>
 
 <span class="c1">#: Thumbnail sizes YouTube serves for every video without an API call.</span>
-<span class="n">THUMBNAIL_QUALITIES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="s2">"mqdefault"</span><span class="p">,</span> <span class="s2">"hqdefault"</span><span class="p">,</span> <span class="s2">"sddefault"</span><span class="p">,</span> <span class="s2">"maxresdefault"</span><span class="p">)</span>
+<span class="n">THUMBNAIL_QUALITIES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"default"</span><span class="p">,</span>
+    <span class="s2">"mqdefault"</span><span class="p">,</span>
+    <span class="s2">"hqdefault"</span><span class="p">,</span>
+    <span class="s2">"sddefault"</span><span class="p">,</span>
+    <span class="s2">"maxresdefault"</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">DEFAULT_THUMBNAIL_QUALITY</span> <span class="o">=</span> <span class="s2">"mqdefault"</span>
 <span class="n">DEFAULT_MAX_RESULTS</span> <span class="o">=</span> <span class="mi">10</span>
@@ -332,7 +339,9 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">thumbnail_url</span><span class="p">(</span><span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">quality</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_THUMBNAIL_QUALITY</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Thumbnail URL for a video. Always available, no API call, no key."""</span>
     <span class="k">if</span> <span class="n">quality</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">THUMBNAIL_QUALITIES</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"quality must be one of </span><span class="si">{</span><span class="n">THUMBNAIL_QUALITIES</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">quality</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"quality must be one of </span><span class="si">{</span><span class="n">THUMBNAIL_QUALITIES</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">quality</span><span class="si">!r}</span><span class="s2">"</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">THUMBNAIL_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">video_id</span><span class="o">=</span><span class="n">video_id</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">)</span></div>
 
 
@@ -348,7 +357,11 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_api_key</span><span class="p">(</span><span class="n">explicit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">explicit</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"GOOGLE_API_KEY"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"YOUTUBE_API_KEY"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">explicit</span>
+        <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"GOOGLE_API_KEY"</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"YOUTUBE_API_KEY"</span><span class="p">)</span>
+    <span class="p">)</span>
 
 
 <div class="viewcode-block" id="api_available">
@@ -409,7 +422,9 @@
         <span class="k">if</span> <span class="n">page_token</span><span class="p">:</span>
             <span class="n">request_params</span><span class="p">[</span><span class="s2">"pageToken"</span><span class="p">]</span> <span class="o">=</span> <span class="n">page_token</span>
 
-        <span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.googleapis.com/youtube/v3/search?"</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">request_params</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.googleapis.com/youtube/v3/search?"</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span>
+            <span class="n">request_params</span>
+        <span class="p">)</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">_get</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="n">snippet</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">"snippet"</span><span class="p">]</span>
@@ -540,7 +555,9 @@
             <span class="n">out</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">"views"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">"viewCount"</span><span class="p">])</span> <span class="k">if</span> <span class="s2">"viewCount"</span> <span class="ow">in</span> <span class="n">stats</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s2">"likes"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">"likeCount"</span><span class="p">])</span> <span class="k">if</span> <span class="s2">"likeCount"</span> <span class="ow">in</span> <span class="n">stats</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="s2">"comments"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">"commentCount"</span><span class="p">])</span> <span class="k">if</span> <span class="s2">"commentCount"</span> <span class="ow">in</span> <span class="n">stats</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">"comments"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">"commentCount"</span><span class="p">])</span>
+                <span class="k">if</span> <span class="s2">"commentCount"</span> <span class="ow">in</span> <span class="n">stats</span>
+                <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s2">"duration"</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"contentDetails"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"duration"</span><span class="p">),</span>
             <span class="p">}</span>
     <span class="k">return</span> <span class="n">out</span>
@@ -614,7 +631,11 @@
 
     <span class="k">for</span> <span class="n">video</span> <span class="ow">in</span> <span class="n">videos</span><span class="p">:</span>
         <span class="n">video</span><span class="p">[</span><span class="s2">"engagement_score"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">(</span><span class="n">video</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">keep</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">videos</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"views"</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_views</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"views"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">keep</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">v</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">videos</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"views"</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_views</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"views"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">keep</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s2">"engagement_score"</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 </pre></div>
@@ -645,7 +666,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../../../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>

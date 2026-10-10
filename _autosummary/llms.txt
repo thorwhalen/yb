@@ -1,0 +1,33 @@
+# yb
+
+> Streamlining media publishing: prepare, upload, and edit videos (YouTube) and podcasts
+
+
+## Pages in this subsection
+
+- [yb](yb.html.md): yb — streamline media publishing: prepare once, publish to YouTube or podcast.
+- [yb.audio_convert](yb.audio_convert.html.md): Convert audio files between formats with ffmpeg.
+- [yb.config](yb.config.html.md): User configuration for &#96;yb&#96; publishing defaults.
+- [yb.content](yb.content.html.md): Target-agnostic publication content: prepare it once, publish anywhere.
+- [yb.download](yb.download.html.md): Media download (yt-dlp) — fetch videos, audio, and their metadata.
+- [yb.download.youtube](yb.download.youtube.html.md): Download YouTube videos (and their metadata) via yt-dlp.
+- [yb.podcast](yb.podcast.html.md): Podcast publishing: show notes, chapters, cover video, and RSS.
+- [yb.podcast.chapters](yb.podcast.chapters.html.md): Podcast chapter markers: Podlove Simple Chapters (PSC) + MP3 ID3 chapters.
+- [yb.podcast.cover](yb.podcast.cover.html.md): Cover-over-audio video: turn a podcast audio file into a simple video.
+- [yb.podcast.feed](yb.podcast.feed.html.md): Podcast RSS feed generation (iTunes-compatible) via feedgen.
+- [yb.podcast.publish](yb.podcast.publish.html.md): Assemble a publishable podcast episode from a media file.
+- [yb.podcast.shownotes](yb.podcast.shownotes.html.md): Podcast show notes — the human-readable episode description block.
+- [yb.youtube](yb.youtube.html.md): YouTube publishing via the YouTube Data API v3.
+- [yb.youtube.api](yb.youtube.api.html.md): YouTube video operations: get, upload, update metadata, thumbnail, chapters.
+- [yb.youtube.auth](yb.youtube.auth.html.md): OAuth 2.0 plumbing for the YouTube Data API v3.
+- [yb.youtube.captions](yb.youtube.captions.html.md): Caption (subtitle) tracks on YouTube videos: list, insert, update, upsert.
+- [yb.youtube.metadata](yb.youtube.metadata.html.md): YouTube video metadata ↔ API snippet mapping.
+- [yb.youtube.paste_consent](yb.youtube.paste_consent.html.md): Paste-back OAuth consent: consent from a machine nobody is sitting at.
+- [yb.youtube.playlists](yb.youtube.playlists.html.md): YouTube playlist operations: find/create a playlist and add videos to it.
+- [yb.youtube.publish](yb.youtube.publish.html.md): High-level YouTube publishing: prepare → upload → captions → thumbnail.
+- [yb.youtube.search](yb.youtube.search.html.md): Search YouTube for videos, with engagement numbers to rank them by.
+- [yb.youtube.stats](yb.youtube.stats.html.md): Read live video metadata &amp; engagement numbers from the YouTube Data API v3.
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

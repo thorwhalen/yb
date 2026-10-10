@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.youtube.auth.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.captions" href="yb.youtube.captions.html"><link rel="prev" title="yb.youtube.api" href="yb.youtube.api.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.youtube.auth.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.captions" href="yb.youtube.captions.html"><link rel="prev" title="yb.youtube.api" href="yb.youtube.api.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.youtube.auth - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -289,7 +292,10 @@ walks through it).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.auth.DEFAULT_SCOPES" title="yb.youtube.auth.DEFAULT_SCOPES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_SCOPES</span></code></a></p></td>
 <td><p>Upload + force-ssl (the latter is needed for captions.insert and thumbnails.set).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S" title="yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.auth.CONSENT_MODES" title="yb.youtube.auth.CONSENT_MODES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONSENT_MODES</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code> waits for a redirect on this machine's <code class="docutils literal notranslate"><span class="pre">localhost</span></code>; <code class="docutils literal notranslate"><span class="pre">&quot;paste&quot;</span></code> is two-step and needs no shared network (see <a class="reference internal" href="yb.youtube.paste_consent.html#module-yb.youtube.paste_consent" title="yb.youtube.paste_consent"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.youtube.paste_consent</span></code></a>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S" title="yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code></a></p></td>
 <td><p>How long consent may wait for its redirect before giving up.</p></td>
 </tr>
 </tbody>
@@ -324,10 +330,23 @@ walks through it).</p>
 </tbody>
 </table>
 </div>
+<dl class="py data">
+<dt class="sig sig-object py" id="yb.youtube.auth.CONSENT_MODES">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">CONSENT_MODES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('local',</span> <span class="pre">'paste')</span></span><a class="headerlink" href="#yb.youtube.auth.CONSENT_MODES" title="Link to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code> waits for a redirect on this machine’s
+<code class="docutils literal notranslate"><span class="pre">localhost</span></code>; <code class="docutils literal notranslate"><span class="pre">&quot;paste&quot;</span></code> is two-step and needs no shared network (see
+<a class="reference internal" href="yb.youtube.paste_consent.html#module-yb.youtube.paste_consent" title="yb.youtube.paste_consent"><code class="xref py py-mod docutils literal notranslate"><span class="pre">yb.youtube.paste_consent</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Ways to obtain consent</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py exception">
 <dt class="sig sig-object py" id="yb.youtube.auth.ConsentRequired">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">ConsentRequired</span></span><a class="reference internal" href="../_modules/yb/youtube/auth.html#ConsentRequired"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.auth.ConsentRequired" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
 <p>Consent is needed and this process cannot obtain it.</p>
 <p>Raised instead of starting a consent flow that nobody can complete. The
 alternative is worse than an error: <code class="docutils literal notranslate"><span class="pre">run_local_server</span></code> prints a URL to a
@@ -363,7 +382,7 @@ finds out today. Pass <code class="docutils literal notranslate"><span class="pr
 of <code class="docutils literal notranslate"><span class="pre">yb</span></code>’s state can live in one directory next to the token.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -374,14 +393,14 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 <dd><p>Cached OAuth token location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="yb.youtube.auth.get_credentials">
-<span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">get_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.auth.get_credentials" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.auth.</span></span><span class="sig-name descname"><span class="pre">get_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'local'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authorization_response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.auth.get_credentials" title="Link to this definition">¶</a></dt>
 <dd><p>Return OAuth user credentials, running the consent flow if needed.</p>
 <p>First use runs the installed-app consent flow and caches the token to
 <code class="docutils literal notranslate"><span class="pre">token_file</span></code> so later calls are non-interactive. Expired tokens are
@@ -411,6 +430,14 @@ any <code class="docutils literal notranslate"><span class="pre">localhost</span
 <p>The call blocks until the redirect arrives, bounded by <code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code>
 (default <a class="reference internal" href="#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S" title="yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S"><code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code></a>; pass <code class="docutils literal notranslate"><span class="pre">None</span></code> for the library’s
 “wait indefinitely”, which is what this used to do).</p>
+<p>**No shared <code class="docutils literal notranslate"><span class="pre">localhost</span></code>? Use** <code class="docutils literal notranslate"><span class="pre">consent=&quot;paste&quot;</span></code>. Consent then needs no
+running server and no waiting: the first call returns by raising
+<a class="reference internal" href="yb.youtube.paste_consent.html#yb.youtube.paste_consent.ConsentPending" title="yb.youtube.paste_consent.ConsentPending"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentPending</span></code></a> carrying the URL to open
+(anywhere — a phone will do); the browser’s redirect to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> fails
+to load, and the second call passes that address-bar URL (or just its
+<code class="docutils literal notranslate"><span class="pre">code</span></code>) as <code class="docutils literal notranslate"><span class="pre">authorization_response=</span></code> to finish and cache the token. The
+two calls may be separate turns or separate processes; <code class="docutils literal notranslate"><span class="pre">yb</span> <span class="pre">auth</span></code> is the
+command-line form. <code class="docutils literal notranslate"><span class="pre">port</span></code> only names the (unreachable) redirect.</p>
 <p>These keywords ride <code class="docutils literal notranslate"><span class="pre">**cred_kwargs</span></code> through <a class="reference internal" href="#yb.youtube.auth.get_service" title="yb.youtube.auth.get_service"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_service()</span></code></a> and the
 publishing helpers. The few entry points that take none (notably
 <code class="xref py py-func docutils literal notranslate"><span class="pre">yb.music.publish.publish_folder()</span></code>) still work headlessly: call this
@@ -481,6 +508,7 @@ once to mint the token, after which nothing prompts again.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">yb.youtube.auth</a><ul>
+<li><a class="reference internal" href="#yb.youtube.auth.CONSENT_MODES"><code class="docutils literal notranslate"><span class="pre">CONSENT_MODES</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.auth.ConsentRequired"><code class="docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S"><code class="docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.auth.DEFAULT_SCOPES"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SCOPES</span></code></a></li>
@@ -499,7 +527,7 @@ once to mint the token, after which nothing prompts again.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

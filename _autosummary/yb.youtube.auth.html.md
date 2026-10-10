@@ -14,9 +14,10 @@ walks through it).
 
 ### Module Attributes
 
-| [`DEFAULT_SCOPES`](#yb.youtube.auth.DEFAULT_SCOPES)            | Upload + force-ssl (the latter is needed for captions.insert and thumbnails.set).   |
-|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| [`DEFAULT_CONSENT_TIMEOUT_S`](#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S) | How long consent may wait for its redirect before giving up.                        |
+| [`DEFAULT_SCOPES`](#yb.youtube.auth.DEFAULT_SCOPES)            | Upload + force-ssl (the latter is needed for captions.insert and thumbnails.set).                                                                                                                                                |
+|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`CONSENT_MODES`](#yb.youtube.auth.CONSENT_MODES)             | `"local"` waits for a redirect on this machine's `localhost`; `"paste"` is two-step and needs no shared network (see [`yb.youtube.paste_consent`](yb.youtube.paste_consent.html.md#module-yb.youtube.paste_consent)). |
+| [`DEFAULT_CONSENT_TIMEOUT_S`](#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S) | How long consent may wait for its redirect before giving up.                                                                                                                                                                     |
 
 ### Functions
 
@@ -30,6 +31,15 @@ walks through it).
 
 | [`ConsentRequired`](#yb.youtube.auth.ConsentRequired)   | Consent is needed and this process cannot obtain it.   |
 |--------------------------------------------------------------------|--------------------------------------------------------|
+
+### yb.youtube.auth.CONSENT_MODES *= ('local', 'paste')*
+
+`"local"` waits for a redirect on this machine’s
+`localhost`; `"paste"` is two-step and needs no shared network (see
+[`yb.youtube.paste_consent`](yb.youtube.paste_consent.html.md#module-yb.youtube.paste_consent)).
+
+* **Type:**
+  Ways to obtain consent
 
 ### *exception* yb.youtube.auth.ConsentRequired
 
@@ -76,7 +86,7 @@ Cached OAuth token location (`$XDG_CONFIG_HOME` or `~/.config`).
 * **Return type:**
   [`Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path)
 
-### yb.youtube.auth.get_credentials(, client_secrets_file=None, token_file=None, scopes=['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.force-ssl'], open_browser=True, port=0, timeout_seconds=300.0, interactive=True)
+### yb.youtube.auth.get_credentials(, client_secrets_file=None, token_file=None, scopes=['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.force-ssl'], open_browser=True, port=0, timeout_seconds=300.0, interactive=True, consent='local', authorization_response=None)
 
 Return OAuth user credentials, running the consent flow if needed.
 
@@ -113,6 +123,15 @@ any `localhost` port, which is also why the `port=0` default works.
 The call blocks until the redirect arrives, bounded by `timeout_seconds`
 (default [`DEFAULT_CONSENT_TIMEOUT_S`](#yb.youtube.auth.DEFAULT_CONSENT_TIMEOUT_S); pass `None` for the library’s
 “wait indefinitely”, which is what this used to do).
+
+\*\*No shared `localhost`? Use\*\* `consent="paste"`. Consent then needs no
+running server and no waiting: the first call returns by raising
+[`ConsentPending`](yb.youtube.paste_consent.html.md#yb.youtube.paste_consent.ConsentPending) carrying the URL to open
+(anywhere — a phone will do); the browser’s redirect to `localhost` fails
+to load, and the second call passes that address-bar URL (or just its
+`code`) as `authorization_response=` to finish and cache the token. The
+two calls may be separate turns or separate processes; `yb auth` is the
+command-line form. `port` only names the (unreachable) redirect.
 
 These keywords ride `**cred_kwargs` through [`get_service()`](#yb.youtube.auth.get_service) and the
 publishing helpers. The few entry points that take none (notably

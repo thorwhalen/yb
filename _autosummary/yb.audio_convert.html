@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.audio_convert.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.config" href="yb.config.html"><link rel="prev" title="yb" href="yb.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.audio_convert.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.config" href="yb.config.html"><link rel="prev" title="yb" href="yb.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.audio_convert - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -331,7 +334,7 @@ raised (see also the <code class="docutils literal notranslate"><span class="pre
 <dl class="py exception">
 <dt class="sig sig-object py" id="yb.audio_convert.AudioConversionError">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.audio_convert.</span></span><span class="sig-name descname"><span class="pre">AudioConversionError</span></span><a class="reference internal" href="../_modules/yb/audio_convert.html#AudioConversionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.audio_convert.AudioConversionError" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
 <p>Raised when audio could not be converted to the requested format.</p>
 </dd></dl>
 
@@ -354,17 +357,17 @@ raised (see also the <code class="docutils literal notranslate"><span class="pre
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>src</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – The audio file to convert.</p></li>
-<li><p><strong>audio_format</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target format as an extension (<code class="docutils literal notranslate"><span class="pre">&quot;mp3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;.wav&quot;</span></code>, …).</p></li>
-<li><p><strong>output</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Destination path. Defaults to <code class="docutils literal notranslate"><span class="pre">src</span></code> with the new extension.</p></li>
-<li><p><strong>bitrate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Target bitrate for lossy formats (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;320k&quot;</span></code>). Defaults to
+<li><p><strong>src</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – The audio file to convert.</p></li>
+<li><p><strong>audio_format</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target format as an extension (<code class="docutils literal notranslate"><span class="pre">&quot;mp3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;.wav&quot;</span></code>, …).</p></li>
+<li><p><strong>output</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Destination path. Defaults to <code class="docutils literal notranslate"><span class="pre">src</span></code> with the new extension.</p></li>
+<li><p><strong>bitrate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Target bitrate for lossy formats (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;320k&quot;</span></code>). Defaults to
 <a class="reference internal" href="#yb.audio_convert.DEFAULT_LOSSY_BITRATE" title="yb.audio_convert.DEFAULT_LOSSY_BITRATE"><code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_LOSSY_BITRATE</span></code></a>; ignored for <a class="reference internal" href="#yb.audio_convert.LOSSLESS_FORMATS" title="yb.audio_convert.LOSSLESS_FORMATS"><code class="xref py py-data docutils literal notranslate"><span class="pre">LOSSLESS_FORMATS</span></code></a>.</p></li>
-<li><p><strong>overwrite</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Overwrite <code class="docutils literal notranslate"><span class="pre">output</span></code> if it already exists.</p></li>
-<li><p><strong>extra_ffmpeg_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Raw ffmpeg arguments, appended last so they win.</p></li>
+<li><p><strong>overwrite</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Overwrite <code class="docutils literal notranslate"><span class="pre">output</span></code> if it already exists.</p></li>
+<li><p><strong>extra_ffmpeg_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Raw ffmpeg arguments, appended last so they win.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The converted file’s path — or <code class="docutils literal notranslate"><span class="pre">src</span></code> unchanged when it is already in
@@ -372,7 +375,7 @@ the target format (no pointless re-encode, no generation loss).</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><strong>FileNotFoundError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">src</span></code> does not exist.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.15)"><strong>FileNotFoundError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">src</span></code> does not exist.</p></li>
 <li><p><a class="reference internal" href="#yb.audio_convert.AudioConversionError" title="yb.audio_convert.AudioConversionError"><strong>AudioConversionError</strong></a> – If ffmpeg is missing, or the conversion fails.</p></li>
 </ul>
 </dd>
@@ -386,7 +389,7 @@ the target format (no pointless re-encode, no generation loss).</p>
 <p>Accepts it with or without the leading dot, in any case:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_format</span><span class="p">(</span><span class="s2">"mp3"</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">".MP3"</span><span class="p">),</span> <span class="n">normalize_format</span><span class="p">(</span><span class="s2">" .Wav "</span><span class="p">)</span>
@@ -465,7 +468,7 @@ the target format (no pointless re-encode, no generation loss).</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

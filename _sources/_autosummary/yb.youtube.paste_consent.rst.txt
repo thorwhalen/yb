@@ -1,0 +1,27 @@
+yb.youtube.paste\_consent
+=========================
+
+.. automodule:: yb.youtube.paste_consent
+
+   
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+   
+      DEFAULT_PASTE_PORT
+      PENDING_TTL_S
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      finish_paste_consent
+      pending_consent_file
+      start_paste_consent
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      ConsentPending
+   

@@ -221,6 +221,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/yb.youtube.search.html">yb.youtube.search</a></li>
@@ -310,6 +311,11 @@
 
 
 
+<span class="c1">#: Ways to obtain consent: ``"local"`` waits for a redirect on this machine's</span>
+<span class="c1">#: ``localhost``; ``"paste"`` is two-step and needs no shared network (see</span>
+<span class="c1">#: :mod:`yb.youtube.paste_consent`).</span>
+<span class="n">CONSENT_MODES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"local"</span><span class="p">,</span> <span class="s2">"paste"</span><span class="p">)</span>
+
 <span class="c1">#: How long consent may wait for its redirect before giving up.</span>
 <span class="c1">#:</span>
 <span class="c1">#: The library's own default is "wait indefinitely", which is not a good default</span>
@@ -387,9 +393,11 @@
         <span class="s2">"To re-consent now, from a shell you are watching:</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s2">"    python -c 'from yb.youtube import get_credentials; "</span>
         <span class="s2">"get_credentials(interactive=True)'</span><span class="se">\n</span><span class="s2">"</span>
-        <span class="s2">"or, with no browser on this machine, print the URL and open it "</span>
-        <span class="s2">"elsewhere:</span><span class="se">\n</span><span class="s2">"</span>
-        <span class="s2">"    get_credentials(interactive=True, open_browser=False, port=8080)</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"or, with no browser or terminal here (e.g. a phone-driven session), "</span>
+        <span class="s2">"paste-back consent -- print a URL, open it anywhere, paste the "</span>
+        <span class="s2">"redirect back:</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"    yb auth            # then: yb auth --paste '&lt;redirected URL&gt;'</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"    get_credentials(consent='paste')</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s1">'To stop this recurring: an OAuth client in "Testing" rotates refresh '</span>
         <span class="s2">"tokens out after ~7 days. Publishing the consent screen (Google Cloud "</span>
@@ -397,8 +405,29 @@
         <span class="s2">"Publish app) removes that expiry; the unverified-app warning at "</span>
         <span class="s2">"consent time is the only cost.</span><span class="se">\n</span><span class="s2">"</span>
         <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
-        <span class="s2">"Pass interactive=True to run the flow here anyway."</span>
+        <span class="s2">"Pass interactive=True to run the flow here anyway (consent='paste' "</span>
+        <span class="s2">"for the two-step form)."</span>
     <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_paste_consent</span><span class="p">(</span><span class="n">authorization_response</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">scopes</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Paste-back consent: finish if given the redirect, else start and raise."""</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">yb.youtube.paste_consent</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">DEFAULT_PASTE_PORT</span><span class="p">,</span>
+        <span class="n">ConsentPending</span><span class="p">,</span>
+        <span class="n">_redirect_uri</span><span class="p">,</span>
+        <span class="n">finish_paste_consent</span><span class="p">,</span>
+        <span class="n">start_paste_consent</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">authorization_response</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">finish_paste_consent</span><span class="p">(</span>
+            <span class="n">authorization_response</span><span class="p">,</span> <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span>
+        <span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">start_paste_consent</span><span class="p">(</span>
+        <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span> <span class="n">scopes</span><span class="o">=</span><span class="n">scopes</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span>
+    <span class="p">)</span>
+    <span class="k">raise</span> <span class="n">ConsentPending</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="o">=</span><span class="n">_redirect_uri</span><span class="p">(</span><span class="n">port</span> <span class="ow">or</span> <span class="n">DEFAULT_PASTE_PORT</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="get_credentials">
@@ -412,6 +441,8 @@
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">DEFAULT_CONSENT_TIMEOUT_S</span><span class="p">,</span>
     <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">consent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"local"</span><span class="p">,</span>
+    <span class="n">authorization_response</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Return OAuth user credentials, running the consent flow if needed.</span>
 
@@ -449,11 +480,22 @@
 <span class="sd">    (default :data:`DEFAULT_CONSENT_TIMEOUT_S`; pass ``None`` for the library's</span>
 <span class="sd">    "wait indefinitely", which is what this used to do).</span>
 
+<span class="sd">    **No shared ``localhost``? Use** ``consent="paste"``. Consent then needs no</span>
+<span class="sd">    running server and no waiting: the first call returns by raising</span>
+<span class="sd">    :class:`~yb.youtube.paste_consent.ConsentPending` carrying the URL to open</span>
+<span class="sd">    (anywhere — a phone will do); the browser's redirect to ``localhost`` fails</span>
+<span class="sd">    to load, and the second call passes that address-bar URL (or just its</span>
+<span class="sd">    ``code``) as ``authorization_response=`` to finish and cache the token. The</span>
+<span class="sd">    two calls may be separate turns or separate processes; ``yb auth`` is the</span>
+<span class="sd">    command-line form. ``port`` only names the (unreachable) redirect.</span>
+
 <span class="sd">    These keywords ride ``**cred_kwargs`` through :func:`get_service` and the</span>
 <span class="sd">    publishing helpers. The few entry points that take none (notably</span>
 <span class="sd">    :func:`yb.music.publish.publish_folder`) still work headlessly: call this</span>
 <span class="sd">    once to mint the token, after which nothing prompts again.</span>
 <span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">consent</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CONSENT_MODES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"consent must be one of </span><span class="si">{</span><span class="n">CONSENT_MODES</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">consent</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.oauth2.credentials</span><span class="w"> </span><span class="kn">import</span> <span class="n">Credentials</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.auth.transport.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.auth.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RefreshError</span>
@@ -491,20 +533,30 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">refreshed</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ConsentRequired</span><span class="p">(</span><span class="n">_consent_required_message</span><span class="p">(</span><span class="n">refresh_error</span><span class="p">,</span> <span class="n">token_path</span><span class="p">))</span>
-        <span class="n">secrets</span> <span class="o">=</span> <span class="n">_resolve_client_secrets</span><span class="p">(</span><span class="n">client_secrets_file</span><span class="p">)</span>
-        <span class="n">flow</span> <span class="o">=</span> <span class="n">InstalledAppFlow</span><span class="o">.</span><span class="n">from_client_secrets_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="p">),</span> <span class="n">scopes</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">creds</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_local_server</span><span class="p">(</span>
-                <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="n">open_browser</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span>
+        <span class="k">if</span> <span class="n">consent</span> <span class="o">==</span> <span class="s2">"paste"</span><span class="p">:</span>
+            <span class="n">creds</span> <span class="o">=</span> <span class="n">_paste_consent</span><span class="p">(</span>
+                <span class="n">authorization_response</span><span class="p">,</span>
+                <span class="n">client_secrets_file</span><span class="o">=</span><span class="n">client_secrets_file</span><span class="p">,</span>
+                <span class="n">scopes</span><span class="o">=</span><span class="n">scopes</span><span class="p">,</span>
+                <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">except</span> <span class="n">_WSGITimeoutError</span> <span class="k">as</span> <span class="n">timed_out</span><span class="p">:</span>
-            <span class="c1"># Nobody answered. Whatever the caller thought it was doing, the</span>
-            <span class="c1"># actionable facts are the same ones `interactive=False` reports —</span>
-            <span class="c1"># so report them, rather than a bare timeout from a library the</span>
-            <span class="c1"># caller never named.</span>
-            <span class="k">raise</span> <span class="n">ConsentRequired</span><span class="p">(</span>
-                <span class="n">_consent_required_message</span><span class="p">(</span><span class="n">refresh_error</span><span class="p">,</span> <span class="n">token_path</span><span class="p">)</span>
-            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">timed_out</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">secrets</span> <span class="o">=</span> <span class="n">_resolve_client_secrets</span><span class="p">(</span><span class="n">client_secrets_file</span><span class="p">)</span>
+            <span class="n">flow</span> <span class="o">=</span> <span class="n">InstalledAppFlow</span><span class="o">.</span><span class="n">from_client_secrets_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="p">),</span> <span class="n">scopes</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">creds</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_local_server</span><span class="p">(</span>
+                    <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+                    <span class="n">open_browser</span><span class="o">=</span><span class="n">open_browser</span><span class="p">,</span>
+                    <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">_WSGITimeoutError</span> <span class="k">as</span> <span class="n">timed_out</span><span class="p">:</span>
+                <span class="c1"># Nobody answered. Whatever the caller thought it was doing, the</span>
+                <span class="c1"># actionable facts are the same ones `interactive=False` reports</span>
+                <span class="c1"># — so report them, rather than a bare timeout from a library</span>
+                <span class="c1"># the caller never named.</span>
+                <span class="k">raise</span> <span class="n">ConsentRequired</span><span class="p">(</span>
+                    <span class="n">_consent_required_message</span><span class="p">(</span><span class="n">refresh_error</span><span class="p">,</span> <span class="n">token_path</span><span class="p">)</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">timed_out</span>
 
     <span class="n">token_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">token_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">creds</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
@@ -553,7 +605,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../../../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>

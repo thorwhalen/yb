@@ -1,39 +1,39 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-16T19:50:54Z",
+  "built_at": "2026-10-10T14:39:30Z",
   "package": {
     "name": "yb",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "display_name": "yb",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
-    "short_commit": "7419d71",
+    "commit": "51176fc3151df90fbb64d5d91020ec81d6be25f1",
+    "short_commit": "51176fc",
     "branch": "main",
     "tags": [],
     "dirty": false,
-    "remote_url": "https://github.com/thorwhalen/yb",
-    "commit_url": "https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
+    "remote_url": "https://github.com/reeleehq/yb",
+    "commit_url": "https://github.com/reeleehq/yb/commit/51176fc3151df90fbb64d5d91020ec81d6be25f1",
     "error": null
   },
   "ci": {
     "provider": "github",
-    "repository": "thorwhalen/yb",
-    "sha": "7419d710b5ddc0efc1b661fcbac309cf91ed72bc",
+    "repository": "reeleehq/yb",
+    "sha": "51176fc3151df90fbb64d5d91020ec81d6be25f1",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "35142866668",
-    "run_url": "https://github.com/thorwhalen/yb/actions/runs/35142866668",
+    "run_id": "38060372297",
+    "run_url": "https://github.com/reeleehq/yb/actions/runs/38060372297",
     "server_url": "https://github.com"
   },
   "tools": {
     "epythet": "0.2.12",
     "sphinx": "9.1.0",
     "docutils": "0.22.4",
-    "python": "3.12.14"
+    "python": "3.12.15"
   },
   "config": {
     "theme": "auto",
@@ -55,21 +55,21 @@
     "docs_dir": "docsrc"
   },
   "site": {
-    "modules_documented": 21,
-    "objects_documented": 227
+    "modules_documented": 22,
+    "objects_documented": 237
   },
   "pypi": {
     "checked": true,
-    "latest": "0.1.11",
+    "latest": "0.1.12",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/yb && cd yb\ngit checkout 7419d710b5ddc0efc1b661fcbac309cf91ed72bc\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/reeleehq/yb && cd yb\ngit checkout 51176fc3151df90fbb64d5d91020ec81d6be25f1\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.1.10) is behind the latest release on PyPI (0.1.11): `pip install yb` gives newer code than these docs describe."
+      "The documented version (0.1.11) is behind the latest release on PyPI (0.1.12): `pip install yb` gives newer code than these docs describe."
     ]
   }
 }

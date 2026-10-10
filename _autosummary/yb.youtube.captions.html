@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.youtube.captions.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.metadata" href="yb.youtube.metadata.html"><link rel="prev" title="yb.youtube.auth" href="yb.youtube.auth.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.youtube.captions.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.metadata" href="yb.youtube.metadata.html"><link rel="prev" title="yb.youtube.auth" href="yb.youtube.auth.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.youtube.captions - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -321,7 +324,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dl class="py class">
 <dt class="sig sig-object py" id="yb.youtube.captions.CaptionTrack">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.captions.</span></span><span class="sig-name descname"><span class="pre">CaptionTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#CaptionTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.captions.CaptionTrack" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A caption track to attach to a video.</p>
 <dl class="field-list simple">
 </dl>
@@ -357,7 +360,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dd><p>Delete a caption track (<code class="docutils literal notranslate"><span class="pre">captions.delete</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -368,7 +371,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dd><p>Download a caption track’s content (<code class="docutils literal notranslate"><span class="pre">captions.download</span></code>), default SRT.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -379,7 +382,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dd><p>Insert a new caption track (<code class="docutils literal notranslate"><span class="pre">captions.insert</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,7 +393,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dd><p>List caption tracks on a video (each item’s snippet has language/name/trackKind/status).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -401,7 +404,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dd><p>Replace the content of an existing caption track (<code class="docutils literal notranslate"><span class="pre">captions.update</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -413,14 +416,14 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target video.</p></li>
-<li><p><strong>track</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – A <a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
-<li><p><strong>replace</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When an uploaded track in the same language exists, update it
+<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target video.</p></li>
+<li><p><strong>track</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – A <a class="reference internal" href="#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
+<li><p><strong>replace</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When an uploaded track in the same language exists, update it
 (<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) rather than inserting a duplicate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The inserted/updated caption resource.</p>
@@ -506,7 +509,7 @@ these helpers operate on uploaded <code class="docutils literal notranslate"><sp
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

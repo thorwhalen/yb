@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.config.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.content" href="yb.content.html"><link rel="prev" title="yb.audio_convert" href="yb.audio_convert.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.config.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.content" href="yb.content.html"><link rel="prev" title="yb.audio_convert" href="yb.audio_convert.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.config - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -346,7 +349,7 @@ but shareable by link until you deliberately make one <code class="docutils lite
 <dl class="py class">
 <dt class="sig sig-object py" id="yb.config.YbConfig">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.config.</span></span><span class="sig-name descname"><span class="pre">YbConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unlisted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_playlist_if_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playlist_privacy_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'private'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/config.html#YbConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.config.YbConfig" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Resolved publishing defaults.</p>
 <dl class="field-list simple">
 </dl>
@@ -395,7 +398,7 @@ title exists yet, rather than erroring.</p>
 <dd><p>Config file location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -491,7 +494,7 @@ explicit keyword arguments a caller passed) take precedence when not
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

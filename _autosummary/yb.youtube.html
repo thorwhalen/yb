@@ -5,7 +5,9 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="alternate" type="text/markdown" href="yb.youtube.html.md">
-<link rel="describedby" href="../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.api" href="yb.youtube.api.html"><link rel="prev" title="yb.podcast.shownotes" href="yb.podcast.shownotes.html">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="yb.youtube.html.md">
+<link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="yb.youtube.api" href="yb.youtube.api.html"><link rel="prev" title="yb.podcast.shownotes" href="yb.podcast.shownotes.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>yb.youtube - yb</title>
@@ -222,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.auth.html">yb.youtube.auth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.captions.html">yb.youtube.captions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.metadata.html">yb.youtube.metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="yb.youtube.paste_consent.html">yb.youtube.paste_consent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.playlists.html">yb.youtube.playlists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.publish.html">yb.youtube.publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="yb.youtube.search.html">yb.youtube.search</a></li>
@@ -309,6 +312,12 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.search_videos" title="yb.youtube.search_videos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_videos</span></code></a>(query, *[, max_results, ...])</p></td>
 <td><p>Search YouTube and return a list of video records.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.start_paste_consent" title="yb.youtube.start_paste_consent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_paste_consent</span></code></a>(*[, ...])</p></td>
+<td><p>Begin paste-back consent and return the URL to open.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.finish_paste_consent" title="yb.youtube.finish_paste_consent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">finish_paste_consent</span></code></a>(authorization_response, *)</p></td>
+<td><p>Complete a consent begun by <a class="reference internal" href="#yb.youtube.start_paste_consent" title="yb.youtube.start_paste_consent"><code class="xref py py-func docutils literal notranslate"><span class="pre">start_paste_consent()</span></code></a>; return credentials.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.get_credentials" title="yb.youtube.get_credentials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_credentials</span></code></a>(*[, client_secrets_file, ...])</p></td>
 <td><p>Return OAuth user credentials, running the consent flow if needed.</p></td>
@@ -426,13 +435,16 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 <tr class="row-odd"><td><p><a class="reference internal" href="#yb.youtube.ConsentRequired" title="yb.youtube.ConsentRequired"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></p></td>
 <td><p>Consent is needed and this process cannot obtain it.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#yb.youtube.ConsentPending" title="yb.youtube.ConsentPending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConsentPending</span></code></a>(url, *, redirect_uri)</p></td>
+<td><p>Consent was started, and now waits for the user to paste the redirect back.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="yb.youtube.CaptionTrack">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">CaptionTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_draft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/captions.html#CaptionTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.CaptionTrack" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A caption track to attach to a video.</p>
 <dl class="field-list simple">
 </dl>
@@ -463,9 +475,23 @@ client (see the <code class="docutils literal notranslate"><span class="pre">yb-
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="yb.youtube.ConsentPending">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">ConsentPending</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirect_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/paste_consent.html#ConsentPending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.ConsentPending" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="yb.youtube.auth.html#yb.youtube.auth.ConsentRequired" title="yb.youtube.auth.ConsentRequired"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></p>
+<p>Consent was started, and now waits for the user to paste the redirect back.</p>
+<p>Not a failure: it is the <em>normal</em> result of the first call in paste mode.
+<code class="docutils literal notranslate"><span class="pre">url</span></code> is the address to open; the message says what to do with the result.
+Subclasses <a class="reference internal" href="yb.youtube.auth.html#yb.youtube.auth.ConsentRequired" title="yb.youtube.auth.ConsentRequired"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a> so a caller that only
+handles “no credentials” still stops, while one that knows about paste mode
+can catch this and relay <code class="docutils literal notranslate"><span class="pre">url</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="yb.youtube.ConsentRequired">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">ConsentRequired</span></span><a class="reference internal" href="../_modules/yb/youtube/auth.html#ConsentRequired"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.ConsentRequired" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
 <p>Consent is needed and this process cannot obtain it.</p>
 <p>Raised instead of starting a consent flow that nobody can complete. The
 alternative is worse than an error: <code class="docutils literal notranslate"><span class="pre">run_local_server</span></code> prints a URL to a
@@ -478,7 +504,7 @@ hours, when the underlying cause was one line of <code class="docutils literal n
 <dl class="py class">
 <dt class="sig sig-object py" id="yb.youtube.VideoMetadata">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">VideoMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_audio_language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains_synthetic_media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/metadata.html#VideoMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.VideoMetadata" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>YouTube-specific video metadata.</p>
 <dl class="field-list simple">
 </dl>
@@ -547,7 +573,7 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 <dd><p>Build the <code class="docutils literal notranslate"><span class="pre">videos.insert</span></code> body (snippet + status).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -558,7 +584,7 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 <dd><p>Build the snippet for <code class="docutils literal notranslate"><span class="pre">videos.update</span></code> (categoryId is required).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -571,7 +597,7 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 <dd><p>Fill in engagement numbers on search results, in place-ish (returns them).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -582,7 +608,7 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 <dd><p>Append <code class="docutils literal notranslate"><span class="pre">video_id</span></code> to <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (<code class="docutils literal notranslate"><span class="pre">playlistItems.insert</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -595,7 +621,7 @@ not to stylised artwork or a visualizer. Left unset when <code class="docutils l
 playlist is left alone instead of duplicated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{&quot;playlist_id&quot;,</span> <span class="pre">&quot;playlist_title&quot;,</span> <span class="pre">&quot;added&quot;,</span> <span class="pre">&quot;created&quot;}</span></code> where <code class="docutils literal notranslate"><span class="pre">added</span></code>
@@ -603,7 +629,7 @@ is <code class="docutils literal notranslate"><span class="pre">False</span></co
 if the playlist had to be made.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#KeyError" title="(in Python v3.15)"><strong>KeyError</strong></a> – the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -617,7 +643,7 @@ Cloud project too, and that failure is a 403 at call time rather than
 anything visible up front.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -628,7 +654,7 @@ anything visible up front.</p>
 <dd><p>Create a playlist and return its id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -641,7 +667,7 @@ anything visible up front.</p>
 of <code class="docutils literal notranslate"><span class="pre">yb</span></code>’s state can live in one directory next to the token.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -652,7 +678,7 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 <dd><p>Cached OAuth token location (<code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.config</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -663,7 +689,7 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 <dd><p>Delete a caption track (<code class="docutils literal notranslate"><span class="pre">captions.delete</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -674,7 +700,7 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 <dd><p>Download a caption track’s content (<code class="docutils literal notranslate"><span class="pre">captions.download</span></code>), default SRT.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -686,7 +712,7 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> only when the playlist is absent and <code class="docutils literal notranslate"><span class="pre">create=False</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -699,8 +725,19 @@ of <code class="docutils literal notranslate"><span class="pre">yb</span></code>
 titles, so prefer unique playlist names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.finish_paste_consent">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">finish_paste_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authorization_response</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pending_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/paste_consent.html#finish_paste_consent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.finish_paste_consent" title="Link to this definition">¶</a></dt>
+<dd><p>Complete a consent begun by <a class="reference internal" href="#yb.youtube.start_paste_consent" title="yb.youtube.start_paste_consent"><code class="xref py py-func docutils literal notranslate"><span class="pre">start_paste_consent()</span></code></a>; return credentials.</p>
+<p><code class="docutils literal notranslate"><span class="pre">authorization_response</span></code> is the redirected URL, its query string, or the
+bare <code class="docutils literal notranslate"><span class="pre">code</span></code>. The pending file is removed on success and left in place on
+failure, so a mistyped paste can simply be retried.</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -713,14 +750,14 @@ titles, so prefer unique playlist names.</p>
 <code class="docutils literal notranslate"><span class="pre">None</span></code> rather than raising, so callers never have to guard the shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="yb.youtube.get_credentials">
-<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">get_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.get_credentials" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">get_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'local'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authorization_response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/auth.html#get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.get_credentials" title="Link to this definition">¶</a></dt>
 <dd><p>Return OAuth user credentials, running the consent flow if needed.</p>
 <p>First use runs the installed-app consent flow and caches the token to
 <code class="docutils literal notranslate"><span class="pre">token_file</span></code> so later calls are non-interactive. Expired tokens are
@@ -750,6 +787,14 @@ any <code class="docutils literal notranslate"><span class="pre">localhost</span
 <p>The call blocks until the redirect arrives, bounded by <code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code>
 (default <code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_CONSENT_TIMEOUT_S</span></code>; pass <code class="docutils literal notranslate"><span class="pre">None</span></code> for the library’s
 “wait indefinitely”, which is what this used to do).</p>
+<p>**No shared <code class="docutils literal notranslate"><span class="pre">localhost</span></code>? Use** <code class="docutils literal notranslate"><span class="pre">consent=&quot;paste&quot;</span></code>. Consent then needs no
+running server and no waiting: the first call returns by raising
+<a class="reference internal" href="yb.youtube.paste_consent.html#yb.youtube.paste_consent.ConsentPending" title="yb.youtube.paste_consent.ConsentPending"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsentPending</span></code></a> carrying the URL to open
+(anywhere — a phone will do); the browser’s redirect to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> fails
+to load, and the second call passes that address-bar URL (or just its
+<code class="docutils literal notranslate"><span class="pre">code</span></code>) as <code class="docutils literal notranslate"><span class="pre">authorization_response=</span></code> to finish and cache the token. The
+two calls may be separate turns or separate processes; <code class="docutils literal notranslate"><span class="pre">yb</span> <span class="pre">auth</span></code> is the
+command-line form. <code class="docutils literal notranslate"><span class="pre">port</span></code> only names the (unreachable) redirect.</p>
 <p>These keywords ride <code class="docutils literal notranslate"><span class="pre">**cred_kwargs</span></code> through <a class="reference internal" href="#yb.youtube.get_service" title="yb.youtube.get_service"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_service()</span></code></a> and the
 publishing helpers. The few entry points that take none (notably
 <code class="xref py py-func docutils literal notranslate"><span class="pre">yb.music.publish.publish_folder()</span></code>) still work headlessly: call this
@@ -772,7 +817,7 @@ once to mint the token, after which nothing prompts again.</p>
 <dd><p>Fetch a video resource (raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if not found/visible).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -783,7 +828,7 @@ once to mint the token, after which nothing prompts again.</p>
 <dd><p>Insert a new caption track (<code class="docutils literal notranslate"><span class="pre">captions.insert</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -794,7 +839,7 @@ once to mint the token, after which nothing prompts again.</p>
 <dd><p>Whether <code class="docutils literal notranslate"><span class="pre">video_id</span></code> is already an item of <code class="docutils literal notranslate"><span class="pre">playlist_id</span></code> (paginated).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -805,7 +850,7 @@ once to mint the token, after which nothing prompts again.</p>
 <dd><p>List caption tracks on a video (each item’s snippet has language/name/trackKind/status).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -816,7 +861,7 @@ once to mint the token, after which nothing prompts again.</p>
 <dd><p>Return all playlists owned by the authenticated channel (paginated).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -834,7 +879,7 @@ playlist. <code class="docutils literal notranslate"><span class="pre">privacy_s
 <code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -856,7 +901,7 @@ to override the target.</p>
 <code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{&quot;video_id&quot;,</span> <span class="pre">&quot;url&quot;,</span> <span class="pre">&quot;studio_url&quot;,</span> <span class="pre">&quot;privacy_status&quot;,</span> <span class="pre">&quot;captions&quot;,</span>
@@ -878,7 +923,7 @@ is the <a class="reference internal" href="yb.youtube.playlists.html#yb.youtube.
 <code class="docutils literal notranslate"><span class="pre">open_browser=False,</span> <span class="pre">port=8080</span></code> for headless consent).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -895,7 +940,7 @@ missing numbers sort last rather than being dropped, since absent is not the
 same as bad.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -908,7 +953,7 @@ same as bad.</p>
 of flat dicts renders one row per video with <code class="docutils literal notranslate"><span class="pre">fields</span></code> as columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -921,7 +966,7 @@ of flat dicts renders one row per video with <code class="docutils literal notra
 field. An unknown <code class="docutils literal notranslate"><span class="pre">group</span></code> raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> naming the valid options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -936,7 +981,7 @@ language matters; a title can be auto-translated by the interface, which
 makes an English video look like a local one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -947,7 +992,7 @@ makes an English video look like a local one.</p>
 <dd><p>Return an ordered subset of <code class="docutils literal notranslate"><span class="pre">flat</span></code> per <code class="docutils literal notranslate"><span class="pre">fields</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -960,7 +1005,7 @@ makes an English video look like a local one.</p>
 renders interactive chapters when the first timestamp is <code class="docutils literal notranslate"><span class="pre">0:00</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -971,7 +1016,21 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dd><p>Set a custom thumbnail (<code class="docutils literal notranslate"><span class="pre">thumbnails.set</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yb.youtube.start_paste_consent">
+<span class="sig-prename descclassname"><span class="pre">yb.youtube.</span></span><span class="sig-name descname"><span class="pre">start_paste_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secrets_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['https://www.googleapis.com/auth/youtube.upload',</span> <span class="pre">'https://www.googleapis.com/auth/youtube.force-ssl']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8080</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pending_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reuse_pending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yb/youtube/paste_consent.html#start_paste_consent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yb.youtube.start_paste_consent" title="Link to this definition">¶</a></dt>
+<dd><p>Begin paste-back consent and return the URL to open.</p>
+<p>A consent already pending for the same client, <code class="docutils literal notranslate"><span class="pre">scopes</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code> is reused
+(<code class="docutils literal notranslate"><span class="pre">reuse_pending=True</span></code>): re-printing the URL must not invalidate the one the
+user already has open on their phone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -982,7 +1041,7 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dd><p>Thumbnail URL for a video. Always available, no API call, no key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -993,7 +1052,7 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dd><p>Replace the content of an existing caption track (<code class="docutils literal notranslate"><span class="pre">captions.update</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1004,7 +1063,7 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dd><p>Update a video’s snippet (<code class="docutils literal notranslate"><span class="pre">videos.update</span></code>). <code class="docutils literal notranslate"><span class="pre">categoryId</span></code> is required.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1017,7 +1076,7 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <code class="docutils literal notranslate"><span class="pre">categoryId</span></code> must be present (kept from the existing snippet if not given).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1029,7 +1088,7 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <p>Returns the created video resource (includes <code class="docutils literal notranslate"><span class="pre">id</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1041,14 +1100,14 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target video.</p></li>
-<li><p><strong>track</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="yb.youtube.captions.html#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – A <a class="reference internal" href="#yb.youtube.CaptionTrack" title="yb.youtube.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
-<li><p><strong>replace</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When an uploaded track in the same language exists, update it
+<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Target video.</p></li>
+<li><p><strong>track</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="yb.youtube.captions.html#yb.youtube.captions.CaptionTrack" title="yb.youtube.captions.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – A <a class="reference internal" href="#yb.youtube.CaptionTrack" title="yb.youtube.CaptionTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaptionTrack</span></code></a>, or a path (then <code class="docutils literal notranslate"><span class="pre">language</span></code> required).</p></li>
+<li><p><strong>replace</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When an uploaded track in the same language exists, update it
 (<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) rather than inserting a duplicate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The inserted/updated caption resource.</p>
@@ -1063,20 +1122,20 @@ renders interactive chapters when the first timestamp is <code class="docutils l
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – A single video id or an iterable of ids (batched, ≤50/call).</p></li>
-<li><p><strong>group</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Name of a preset field set from <code class="xref py py-data docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code>
+<li><p><strong>video_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – A single video id or an iterable of ids (batched, ≤50/call).</p></li>
+<li><p><strong>group</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – Name of a preset field set from <code class="xref py py-data docutils literal notranslate"><span class="pre">FIELD_GROUPS</span></code>
 (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;engagement&quot;</span></code>). Ignored if <code class="docutils literal notranslate"><span class="pre">fields</span></code> is given.</p></li>
-<li><p><strong>fields</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – Explicit ordered field names to keep (overrides <code class="docutils literal notranslate"><span class="pre">group</span></code>).
+<li><p><strong>fields</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.15)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – Explicit ordered field names to keep (overrides <code class="docutils literal notranslate"><span class="pre">group</span></code>).
 With neither <code class="docutils literal notranslate"><span class="pre">group</span></code> nor <code class="docutils literal notranslate"><span class="pre">fields</span></code> you get every field.</p></li>
-<li><p><strong>part</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> parts to request (default covers all fields).</p></li>
-<li><p><strong>as_table</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a ready-to-print ASCII table string
+<li><p><strong>part</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – <code class="docutils literal notranslate"><span class="pre">videos.list</span></code> parts to request (default covers all fields).</p></li>
+<li><p><strong>as_table</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a ready-to-print ASCII table string
 instead of the dict/list.</p></li>
 <li><p><strong>service</strong> – An authenticated YouTube service; else built from
 <code class="docutils literal notranslate"><span class="pre">cred_kwargs</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">token_file=...</span></code>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A flat <code class="docutils literal notranslate"><span class="pre">dict</span></code> for one id / <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> for many — or an ASCII
@@ -1101,16 +1160,19 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.metadata.html#module-yb.youtube.metadata" title="yb.youtube.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>YouTube video metadata ↔ API snippet mapping.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.playlists.html#module-yb.youtube.playlists" title="yb.youtube.playlists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">playlists</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.paste_consent.html#module-yb.youtube.paste_consent" title="yb.youtube.paste_consent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paste_consent</span></code></a></p></td>
+<td><p>Paste-back OAuth consent: consent from a machine nobody is sitting at.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.playlists.html#module-yb.youtube.playlists" title="yb.youtube.playlists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">playlists</span></code></a></p></td>
 <td><p>YouTube playlist operations: find/create a playlist and add videos to it.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.publish.html#module-yb.youtube.publish" title="yb.youtube.publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.publish.html#module-yb.youtube.publish" title="yb.youtube.publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish</span></code></a></p></td>
 <td><p>High-level YouTube publishing: prepare → upload → captions → thumbnail.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.search.html#module-yb.youtube.search" title="yb.youtube.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.search.html#module-yb.youtube.search" title="yb.youtube.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a></p></td>
 <td><p>Search YouTube for videos, with engagement numbers to rank them by.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="yb.youtube.stats.html#module-yb.youtube.stats" title="yb.youtube.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stats</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="yb.youtube.stats.html#module-yb.youtube.stats" title="yb.youtube.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stats</span></code></a></p></td>
 <td><p>Read live video metadata &amp; engagement numbers from the YouTube Data API v3.</p></td>
 </tr>
 </tbody>
@@ -1177,6 +1239,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <li><a class="reference internal" href="#yb.youtube.CaptionTrack.is_draft"><code class="docutils literal notranslate"><span class="pre">CaptionTrack.is_draft</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#yb.youtube.ConsentPending"><code class="docutils literal notranslate"><span class="pre">ConsentPending</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.ConsentRequired"><code class="docutils literal notranslate"><span class="pre">ConsentRequired</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.VideoMetadata"><code class="docutils literal notranslate"><span class="pre">VideoMetadata</span></code></a><ul>
 <li><a class="reference internal" href="#yb.youtube.VideoMetadata.title"><code class="docutils literal notranslate"><span class="pre">VideoMetadata.title</span></code></a></li>
@@ -1202,6 +1265,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <li><a class="reference internal" href="#yb.youtube.download_caption"><code class="docutils literal notranslate"><span class="pre">download_caption()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.ensure_playlist"><code class="docutils literal notranslate"><span class="pre">ensure_playlist()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.find_playlist"><code class="docutils literal notranslate"><span class="pre">find_playlist()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.finish_paste_consent"><code class="docutils literal notranslate"><span class="pre">finish_paste_consent()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.flatten_video"><code class="docutils literal notranslate"><span class="pre">flatten_video()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.get_service"><code class="docutils literal notranslate"><span class="pre">get_service()</span></code></a></li>
@@ -1220,6 +1284,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
 <li><a class="reference internal" href="#yb.youtube.select_fields"><code class="docutils literal notranslate"><span class="pre">select_fields()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.set_chapters"><code class="docutils literal notranslate"><span class="pre">set_chapters()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.set_thumbnail"><code class="docutils literal notranslate"><span class="pre">set_thumbnail()</span></code></a></li>
+<li><a class="reference internal" href="#yb.youtube.start_paste_consent"><code class="docutils literal notranslate"><span class="pre">start_paste_consent()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.thumbnail_url"><code class="docutils literal notranslate"><span class="pre">thumbnail_url()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.update_caption"><code class="docutils literal notranslate"><span class="pre">update_caption()</span></code></a></li>
 <li><a class="reference internal" href="#yb.youtube.update_video"><code class="docutils literal notranslate"><span class="pre">update_video()</span></code></a></li>
@@ -1238,7 +1303,7 @@ table <code class="docutils literal notranslate"><span class="pre">str</span></c
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3a6d79cd"></script>
+</div><script src="../_static/documentation_options.js?v=932d0dab"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

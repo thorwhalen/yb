@@ -5,32 +5,32 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-09-16 19:50 UTC** from commit <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d71</code></a> on branch <code>main</code>, for **yb 0.1.10** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-10 14:39 UTC** from commit <a href="https://github.com/reeleehq/yb/commit/51176fc3151df90fbb64d5d91020ec81d6be25f1"><code>51176fc</code></a> on branch <code>main</code>, for **yb 0.1.11** (from <code>pyproject.toml</code>).
 
 :::{warning}
 The documentation and the package may be misaligned:
 
-- The documented version (0.1.10) is behind the latest release on PyPI (0.1.11): `pip install yb` gives newer code than these docs describe.
+- The documented version (0.1.11) is behind the latest release on PyPI (0.1.12): `pip install yb` gives newer code than these docs describe.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/thorwhalen/yb/commit/7419d710b5ddc0efc1b661fcbac309cf91ed72bc"><code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code></a> |
+| Commit | <a href="https://github.com/reeleehq/yb/commit/51176fc3151df90fbb64d5d91020ec81d6be25f1"><code>51176fc3151df90fbb64d5d91020ec81d6be25f1</code></a> |
 | Branch | <code>main</code> |
 | Tags at this commit | none |
 | Working tree | clean |
-| Remote | <code>https://github.com/thorwhalen/yb</code> |
+| Remote | <code>https://github.com/reeleehq/yb</code> |
 
 ## Continuous integration
 
 | | |
 |---|---|
-| Repository | <code>thorwhalen/yb</code> |
-| Run | <a href="https://github.com/thorwhalen/yb/actions/runs/35142866668">35142866668</a> |
+| Repository | <code>reeleehq/yb</code> |
+| Run | <a href="https://github.com/reeleehq/yb/actions/runs/38060372297">38060372297</a> |
 | Ref | <code>refs/heads/main</code> |
-| Event commit | <code>7419d710b5ddc0efc1b661fcbac309cf91ed72bc</code> (in the history of the built commit) |
+| Event commit | <code>51176fc3151df90fbb64d5d91020ec81d6be25f1</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -39,7 +39,7 @@ The documentation and the package may be misaligned:
 | epythet | 0.2.12 |
 | Sphinx | 9.1.0 |
 | docutils | 0.22.4 |
-| Python | 3.12.14 |
+| Python | 3.12.15 |
 
 ## Configuration as resolved
 
@@ -55,13 +55,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/yb/0.1.11/">0.1.11</a>, newer than the documented version (0.1.10).
+Latest release: <a href="https://pypi.org/project/yb/0.1.12/">0.1.12</a>, newer than the documented version (0.1.11).
 
 ## Reproduce
 
 ```bash
-git clone https://github.com/thorwhalen/yb && cd yb
-git checkout 7419d710b5ddc0efc1b661fcbac309cf91ed72bc
+git clone https://github.com/reeleehq/yb && cd yb
+git checkout 51176fc3151df90fbb64d5d91020ec81d6be25f1
 pip install "epythet==0.2.12"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
