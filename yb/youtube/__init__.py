@@ -22,6 +22,11 @@ from yb.youtube.auth import (
     default_token_file,
     default_client_secrets_file,
 )
+from yb.youtube.paste_consent import (
+    ConsentPending,
+    start_paste_consent,
+    finish_paste_consent,
+)
 from yb.youtube.playlists import (
     list_my_playlists,
     find_playlist,
@@ -89,6 +94,9 @@ __all__ = [
     "search_videos",
     "DEFAULT_SCOPES",
     "ConsentRequired",
+    "ConsentPending",
+    "start_paste_consent",
+    "finish_paste_consent",
     "get_credentials",
     "get_service",
     "default_token_file",

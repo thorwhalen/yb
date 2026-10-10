@@ -40,6 +40,11 @@ class ConsentRequired(RuntimeError):
     """
 
 
+#: Ways to obtain consent: ``"local"`` waits for a redirect on this machine's
+#: ``localhost``; ``"paste"`` is two-step and needs no shared network (see
+#: :mod:`yb.youtube.paste_consent`).
+CONSENT_MODES = ("local", "paste")
+
 #: How long consent may wait for its redirect before giving up.
 #:
 #: The library's own default is "wait indefinitely", which is not a good default
@@ -111,9 +116,11 @@ def _consent_required_message(refresh_error, token_path: Path) -> str:
         "To re-consent now, from a shell you are watching:\n"
         "    python -c 'from yb.youtube import get_credentials; "
         "get_credentials(interactive=True)'\n"
-        "or, with no browser on this machine, print the URL and open it "
-        "elsewhere:\n"
-        "    get_credentials(interactive=True, open_browser=False, port=8080)\n"
+        "or, with no browser or terminal here (e.g. a phone-driven session), "
+        "paste-back consent -- print a URL, open it anywhere, paste the "
+        "redirect back:\n"
+        "    yb auth            # then: yb auth --paste '<redirected URL>'\n"
+        "    get_credentials(consent='paste')\n"
         "\n"
         'To stop this recurring: an OAuth client in "Testing" rotates refresh '
         "tokens out after ~7 days. Publishing the consent screen (Google Cloud "
@@ -121,8 +128,29 @@ def _consent_required_message(refresh_error, token_path: Path) -> str:
         "Publish app) removes that expiry; the unverified-app warning at "
         "consent time is the only cost.\n"
         "\n"
-        "Pass interactive=True to run the flow here anyway."
+        "Pass interactive=True to run the flow here anyway (consent='paste' "
+        "for the two-step form)."
     )
+
+
+def _paste_consent(authorization_response, *, client_secrets_file, scopes, port):
+    """Paste-back consent: finish if given the redirect, else start and raise."""
+    from yb.youtube.paste_consent import (
+        DEFAULT_PASTE_PORT,
+        ConsentPending,
+        _redirect_uri,
+        finish_paste_consent,
+        start_paste_consent,
+    )
+
+    if authorization_response:
+        return finish_paste_consent(
+            authorization_response, client_secrets_file=client_secrets_file
+        )
+    url = start_paste_consent(
+        client_secrets_file=client_secrets_file, scopes=scopes, port=port
+    )
+    raise ConsentPending(url, redirect_uri=_redirect_uri(port or DEFAULT_PASTE_PORT))
 
 
 def get_credentials(
@@ -134,6 +162,8 @@ def get_credentials(
     port: int = 0,
     timeout_seconds: float | None = DEFAULT_CONSENT_TIMEOUT_S,
     interactive: bool = True,
+    consent: str = "local",
+    authorization_response: str | None = None,
 ):
     """Return OAuth user credentials, running the consent flow if needed.
 
@@ -171,11 +201,22 @@ def get_credentials(
     (default :data:`DEFAULT_CONSENT_TIMEOUT_S`; pass ``None`` for the library's
     "wait indefinitely", which is what this used to do).
 
+    **No shared ``localhost``? Use** ``consent="paste"``. Consent then needs no
+    running server and no waiting: the first call returns by raising
+    :class:`~yb.youtube.paste_consent.ConsentPending` carrying the URL to open
+    (anywhere — a phone will do); the browser's redirect to ``localhost`` fails
+    to load, and the second call passes that address-bar URL (or just its
+    ``code``) as ``authorization_response=`` to finish and cache the token. The
+    two calls may be separate turns or separate processes; ``yb auth`` is the
+    command-line form. ``port`` only names the (unreachable) redirect.
+
     These keywords ride ``**cred_kwargs`` through :func:`get_service` and the
     publishing helpers. The few entry points that take none (notably
     :func:`yb.music.publish.publish_folder`) still work headlessly: call this
     once to mint the token, after which nothing prompts again.
     """
+    if consent not in CONSENT_MODES:
+        raise ValueError(f"consent must be one of {CONSENT_MODES}, got {consent!r}")
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
     from google.auth.exceptions import RefreshError
@@ -213,20 +254,30 @@ def get_credentials(
     if not refreshed:
         if not interactive:
             raise ConsentRequired(_consent_required_message(refresh_error, token_path))
-        secrets = _resolve_client_secrets(client_secrets_file)
-        flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
-        try:
-            creds = flow.run_local_server(
-                port=port, open_browser=open_browser, timeout_seconds=timeout_seconds
+        if consent == "paste":
+            creds = _paste_consent(
+                authorization_response,
+                client_secrets_file=client_secrets_file,
+                scopes=scopes,
+                port=port,
             )
-        except _WSGITimeoutError as timed_out:
-            # Nobody answered. Whatever the caller thought it was doing, the
-            # actionable facts are the same ones `interactive=False` reports —
-            # so report them, rather than a bare timeout from a library the
-            # caller never named.
-            raise ConsentRequired(
-                _consent_required_message(refresh_error, token_path)
-            ) from timed_out
+        else:
+            secrets = _resolve_client_secrets(client_secrets_file)
+            flow = InstalledAppFlow.from_client_secrets_file(str(secrets), scopes)
+            try:
+                creds = flow.run_local_server(
+                    port=port,
+                    open_browser=open_browser,
+                    timeout_seconds=timeout_seconds,
+                )
+            except _WSGITimeoutError as timed_out:
+                # Nobody answered. Whatever the caller thought it was doing, the
+                # actionable facts are the same ones `interactive=False` reports
+                # — so report them, rather than a bare timeout from a library
+                # the caller never named.
+                raise ConsentRequired(
+                    _consent_required_message(refresh_error, token_path)
+                ) from timed_out
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(creds.to_json())
